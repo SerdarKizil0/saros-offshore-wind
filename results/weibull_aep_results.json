@@ -1,0 +1,68 @@
+{
+  "site": "Saros Bay Offshore Wind YEKA Candidate Zone",
+  "turbine": "Vestas V164-9.5 MW",
+  "hub_height_m": 105.0,
+  "weibull": {
+    "k_mle": 2.0352197647756207,
+    "c_mle": 8.080019925561134,
+    "k_mom": 2.075709104537964,
+    "c_mom": 8.096445083618164,
+    "ks_statistic": 0.02237382483728001,
+    "ks_pvalue": 2.2953268845640504e-42,
+    "r2_cdf": 0.9979256807600622,
+    "weibull_mean_ms": 7.158721843629054,
+    "empirical_mean_ms": 7.171635150909424,
+    "empirical_power_density_wm2": 416.83856201171875,
+    "weibull_power_density_wm2": 421.8176482624961,
+    "n_hours": 96432,
+    "n_hours_positive": 96432
+  },
+  "aep": {
+    "gross_aep_per_turbine_gwh": 30.411791370569144,
+    "net_aep_per_turbine_gwh": 25.782508488141108,
+    "cf_gross_pct": 36.51656417571155,
+    "cf_net_pct": 30.95801277688474,
+    "net_aep_per_mw_gwh": 2.7139482619095907,
+    "net_full_load_hours": 2713.94826190959,
+    "loss_assumptions": {
+      "wake": 0.08,
+      "availability": 0.95,
+      "electrical": 0.03,
+      "net_factor": 0.84778
+    }
+  },
+  "scenarios": [
+    {
+      "name": "S1_pilot",
+      "description": "Pilot first-phase commissioning (~250 MW)",
+      "n_turbines": 26,
+      "installed_mw": 247.0,
+      "farm_net_aep_gwh": 670.3452206916688,
+      "farm_net_aep_twh": 0.6703452206916688
+    },
+    {
+      "name": "S2_phase1",
+      "description": "Reasonable first allocation (~500 MW)",
+      "n_turbines": 53,
+      "installed_mw": 503.5,
+      "farm_net_aep_gwh": 1366.4729498714787,
+      "farm_net_aep_twh": 1.3664729498714787
+    },
+    {
+      "name": "S3_phase2",
+      "description": "Full Phase-2 deployment (~1 GW, illustrative total)",
+      "n_turbines": 105,
+      "installed_mw": 997.5,
+      "farm_net_aep_gwh": 2707.1633912548164,
+      "farm_net_aep_twh": 2.7071633912548165
+    },
+    {
+      "name": "S4_max",
+      "description": "Theoretical maximum (7D\u00d75D layout, ~1.74 GW)",
+      "n_turbines": 183,
+      "installed_mw": 1738.5,
+      "farm_net_aep_gwh": 4718.199053329823,
+      "farm_net_aep_twh": 4.7181990533298235
+    }
+  ]
+}

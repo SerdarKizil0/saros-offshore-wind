@@ -1,0 +1,23 @@
+# Large data — regenerable from CDS
+data/era5/*.nc
+data/processed/*.parquet
+data/_cds_test.nc
+
+# CDS credentials — NEVER commit
+.cdsapirc
+
+# Build artifacts
+manuscript/*.docx
+manuscript/*.pdf
+*.pdf
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
