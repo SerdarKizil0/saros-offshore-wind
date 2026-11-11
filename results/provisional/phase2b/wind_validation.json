@@ -1,0 +1,391 @@
+{
+  "status": "PROVISIONAL — Phase 2B review analysis; baseline data and results unchanged",
+  "era5_point": {
+    "location": {
+      "lat": 40.5,
+      "lon": 26.25,
+      "basis": "0.25 deg ERA5 node nearest the polygon centroid (40.5571, 26.1978); coordinates are not stored in the parquet, selection reproduced from scripts/03 logic"
+    },
+    "period": "2014-01-01 to 2024-12-31 (hourly, instantaneous at the top of each hour, UTC)",
+    "mean_U100_2014_2024": 7.1196,
+    "mean_U100_2015_2024": 7.1809,
+    "mean_U100_2014_2017_overlap_with_GWA_period": 6.9746,
+    "weibull_k_U100": 2.0352,
+    "weibull_c_U100": 8.0214,
+    "power_density_U100_Wm2_rho1225": 407.8
+  },
+  "gwa4": {
+    "dataset": "Global Wind Atlas 4.0 (DTU / World Bank ESMAP), country raster TUR, 100 m a.g.l., 0.0025 deg grid; WRF 3 km forced by ERA5 2008-2017, generalised and WAsP/PyWAsP microscale (DTU Wind Energy Report E-0256)",
+    "node_pixel": {
+      "region": "GWA pixel containing the ERA5 node",
+      "pixel_centre": [
+        40.5,
+        26.25
+      ],
+      "ws": 8.1854,
+      "k": 2.1245,
+      "A": 9.2423,
+      "pd_Wm2": 593.8,
+      "A_gamma_mean": 8.1854
+    },
+    "regions": [
+      {
+        "region": "official polygon",
+        "n_pixels": 2935,
+        "mean_ws": 7.8416,
+        "min_ws": 7.2279,
+        "max_ws": 8.1604,
+        "std_ws": 0.1975,
+        "mean_k": 2.0792,
+        "mean_pd_Wm2": 533.8
+      },
+      {
+        "region": "0.25 deg box centred on ERA5 node, all pixels",
+        "n_pixels": 10000,
+        "mean_ws": 7.9877,
+        "min_ws": 5.032,
+        "max_ws": 9.4561,
+        "std_ws": 0.2704,
+        "mean_k": 2.1181,
+        "mean_pd_Wm2": 554.8
+      },
+      {
+        "region": "0.25 deg box centred on ERA5 node, sea pixels",
+        "n_pixels": 8680,
+        "mean_ws": 8.0613,
+        "min_ws": 6.9077,
+        "max_ws": 8.3514,
+        "std_ws": 0.1745,
+        "mean_k": 2.1297,
+        "mean_pd_Wm2": 566.7
+      },
+      {
+        "region": "0.25 deg box centred on ERA5 node, land pixels",
+        "n_pixels": 1320,
+        "mean_ws": 7.5038,
+        "min_ws": 5.032,
+        "max_ws": 9.4561,
+        "std_ws": 0.2895,
+        "mean_k": 2.0418,
+        "mean_pd_Wm2": 476.7
+      }
+    ],
+    "ratio_GWA_mean_to_ERA5_U100_mean_2014_2024": {
+      "node_pixel": 1.1497,
+      "official polygon": 1.1014,
+      "0.25 deg box centred on ERA5 node, all pixels": 1.1219,
+      "0.25 deg box centred on ERA5 node, sea pixels": 1.1323,
+      "0.25 deg box centred on ERA5 node, land pixels": 1.054
+    },
+    "polygon_gwa_ws_by_latitude_band": {
+      "40.50-40.53": 7.9698,
+      "40.53-40.56": 7.9061,
+      "40.56-40.58": 7.8217,
+      "40.58-40.60": 7.5976
+    }
+  },
+  "geometry_and_land_sea": {
+    "era5_node_inside_polygon": false,
+    "era5_node_to_polygon_boundary_min_km": 3.68,
+    "era5_node_to_centroid_km": 7.73,
+    "polygon_share_in_0p25deg_box_of_node_pct": 62.6,
+    "polygon_share_by_nearest_0p25deg_node_pct": {
+      "40.50N 26.25E": 62.6,
+      "40.50N 26.00E": 27.7,
+      "40.50N 26.50E": 9.7
+    },
+    "depth_at_node_m": 172.0,
+    "land_fraction_0p25deg_box_pct": 12.8,
+    "land_fraction_0p5deg_box_pct": 41.7,
+    "node_to_northern_coast_km": 10.6,
+    "node_to_southern_coast_km": 15.3,
+    "note": "Land fraction is the geometric share of EMODnet DTM cells >= 0 m inside the box. It approximates, but is not, the ERA5 land-sea mask, which was not available."
+  },
+  "series_checks": {
+    "n_hours": 96432,
+    "expected_hours": 96432,
+    "index_equals_full_hourly_range": true,
+    "duplicates": 0,
+    "nan_values": 0,
+    "min_max": {
+      "U10": [
+        0.0157,
+        17.4099
+      ],
+      "U100": [
+        0.0233,
+        25.2892
+      ],
+      "U_hub": [
+        0.0235,
+        25.474
+      ],
+      "wdir": [
+        0.0014,
+        359.9975
+      ]
+    },
+    "U_hub_over_U100_min_max": [
+      1.0073074102401733,
+      1.007307529449463
+    ],
+    "longest_run_identical_U100_hours": 1,
+    "by_year": {
+      "2014": {
+        "hours": 8760,
+        "mean_U10": 4.5968,
+        "mean_U100": 6.5063,
+        "mean_U_hub": 6.5538,
+        "alpha_trimmed_mean": 0.1528,
+        "share_U10_gt_U100_pct": 1.94,
+        "share_NE_quadrant_pct": 55.14,
+        "share_hours_lt_3ms_pct": 15.17
+      },
+      "2015": {
+        "hours": 8760,
+        "mean_U10": 5.0774,
+        "mean_U100": 7.1145,
+        "mean_U_hub": 7.1665,
+        "alpha_trimmed_mean": 0.1479,
+        "share_U10_gt_U100_pct": 1.7,
+        "share_NE_quadrant_pct": 66.67,
+        "share_hours_lt_3ms_pct": 13.95
+      },
+      "2016": {
+        "hours": 8784,
+        "mean_U10": 5.2345,
+        "mean_U100": 7.3575,
+        "mean_U_hub": 7.4113,
+        "alpha_trimmed_mean": 0.1496,
+        "share_U10_gt_U100_pct": 1.39,
+        "share_NE_quadrant_pct": 58.91,
+        "share_hours_lt_3ms_pct": 11.29
+      },
+      "2017": {
+        "hours": 8760,
+        "mean_U10": 4.9094,
+        "mean_U100": 6.9189,
+        "mean_U_hub": 6.9695,
+        "alpha_trimmed_mean": 0.1503,
+        "share_U10_gt_U100_pct": 2.19,
+        "share_NE_quadrant_pct": 60.94,
+        "share_hours_lt_3ms_pct": 15.63
+      },
+      "2018": {
+        "hours": 8760,
+        "mean_U10": 5.2301,
+        "mean_U100": 7.312,
+        "mean_U_hub": 7.3655,
+        "alpha_trimmed_mean": 0.1465,
+        "share_U10_gt_U100_pct": 1.67,
+        "share_NE_quadrant_pct": 67.19,
+        "share_hours_lt_3ms_pct": 12.8
+      },
+      "2019": {
+        "hours": 8760,
+        "mean_U10": 5.0625,
+        "mean_U100": 7.1354,
+        "mean_U_hub": 7.1876,
+        "alpha_trimmed_mean": 0.1509,
+        "share_U10_gt_U100_pct": 1.07,
+        "share_NE_quadrant_pct": 61.53,
+        "share_hours_lt_3ms_pct": 12.53
+      },
+      "2020": {
+        "hours": 8784,
+        "mean_U10": 5.2505,
+        "mean_U100": 7.3392,
+        "mean_U_hub": 7.3928,
+        "alpha_trimmed_mean": 0.147,
+        "share_U10_gt_U100_pct": 1.61,
+        "share_NE_quadrant_pct": 61.83,
+        "share_hours_lt_3ms_pct": 13.7
+      },
+      "2021": {
+        "hours": 8760,
+        "mean_U10": 5.1347,
+        "mean_U100": 7.2077,
+        "mean_U_hub": 7.2604,
+        "alpha_trimmed_mean": 0.1482,
+        "share_U10_gt_U100_pct": 1.43,
+        "share_NE_quadrant_pct": 58.17,
+        "share_hours_lt_3ms_pct": 12.47
+      },
+      "2022": {
+        "hours": 8760,
+        "mean_U10": 5.061,
+        "mean_U100": 7.1175,
+        "mean_U_hub": 7.1696,
+        "alpha_trimmed_mean": 0.1498,
+        "share_U10_gt_U100_pct": 1.95,
+        "share_NE_quadrant_pct": 64.47,
+        "share_hours_lt_3ms_pct": 14.3
+      },
+      "2023": {
+        "hours": 8760,
+        "mean_U10": 5.0848,
+        "mean_U100": 7.1756,
+        "mean_U_hub": 7.228,
+        "alpha_trimmed_mean": 0.1506,
+        "share_U10_gt_U100_pct": 1.72,
+        "share_NE_quadrant_pct": 60.56,
+        "share_hours_lt_3ms_pct": 13.36
+      },
+      "2024": {
+        "hours": 8784,
+        "mean_U10": 5.0865,
+        "mean_U100": 7.1297,
+        "mean_U_hub": 7.1818,
+        "alpha_trimmed_mean": 0.1478,
+        "share_U10_gt_U100_pct": 1.56,
+        "share_NE_quadrant_pct": 65.1,
+        "share_hours_lt_3ms_pct": 11.76
+      }
+    }
+  },
+  "anomaly_2014": {
+    "ERA5_U10_2014_vs_2015_2024_pct": -10.1,
+    "ERA5_U10_2014_z_vs_2015_2024": -4.97,
+    "ERA5_U100_2014_vs_2015_2024_pct": -9.39,
+    "ERA5_U100_2014_z_vs_2015_2024": -5.12,
+    "ERA5_U_hub_2014_vs_2015_2024_pct": -9.39,
+    "ERA5_U_hub_2014_z_vs_2015_2024": -5.12,
+    "ERA5_U100_2014_monthly_anomaly_pct": {
+      "1": -13.8,
+      "2": -9.8,
+      "3": -4.2,
+      "4": -4.3,
+      "5": -4.5,
+      "6": -13.2,
+      "7": -14.6,
+      "8": -20.9,
+      "9": -15.5,
+      "10": 17.2,
+      "11": -19.9,
+      "12": -6.6
+    },
+    "GSOD_stations": {
+      "16627099999": {
+        "name": "DIMOKRITOS",
+        "lat": 40.8559,
+        "lon": 25.9563,
+        "distance_to_ERA5_point_km": 46.7,
+        "days_per_year": {
+          "2014": 249,
+          "2015": 365,
+          "2016": 365,
+          "2017": 361,
+          "2018": 365,
+          "2019": 365,
+          "2020": 366,
+          "2021": 361,
+          "2022": 365,
+          "2023": 365,
+          "2024": 355
+        },
+        "annual_mean_ms": {
+          "2014": 3.303,
+          "2015": 3.698,
+          "2016": 3.87,
+          "2017": 3.627,
+          "2018": 4.052,
+          "2019": 3.663,
+          "2020": 4.302,
+          "2021": 3.805,
+          "2022": 3.373,
+          "2023": 3.436,
+          "2024": 3.208
+        },
+        "monthly_anomaly_corr_with_ERA5_U10": 0.788,
+        "n_months_compared": 127,
+        "2014_monthly_anomaly_pct": {
+          "1": -13.3,
+          "2": -13.2,
+          "3": -6.1,
+          "4": -3.8,
+          "5": -15.1,
+          "6": -7.8,
+          "7": -17.9,
+          "12": -4.4
+        },
+        "2014_ERA5_U10_monthly_anomaly_pct_same_months": {
+          "1": -14.9,
+          "2": -10.2,
+          "3": -7.2,
+          "4": -6.6,
+          "5": -5.2,
+          "6": -14.0,
+          "7": -14.9,
+          "12": -8.1
+        },
+        "2014_monthly_anomaly_corr": 0.441
+      },
+      "17112099999": {
+        "name": "CANAKKALE",
+        "lat": 40.1377,
+        "lon": 26.4268,
+        "distance_to_ERA5_point_km": 43.0,
+        "days_per_year": {
+          "2014": 365,
+          "2015": 365,
+          "2016": 366,
+          "2017": 365,
+          "2018": 364,
+          "2019": 365,
+          "2020": 366,
+          "2021": 362,
+          "2022": 365,
+          "2023": 365,
+          "2024": 355
+        },
+        "annual_mean_ms": {
+          "2014": 3.759,
+          "2015": 4.501,
+          "2016": 4.749,
+          "2017": 4.579,
+          "2018": 4.764,
+          "2019": 4.667,
+          "2020": 4.75,
+          "2021": 4.495,
+          "2022": 4.632,
+          "2023": 4.634,
+          "2024": 4.376
+        },
+        "2014_vs_2015_2024_pct": -18.54,
+        "2014_z": -6.68,
+        "monthly_anomaly_corr_with_ERA5_U10": 0.914,
+        "n_months_compared": 132,
+        "2014_monthly_anomaly_pct": {
+          "1": -24.2,
+          "2": -26.5,
+          "3": -15.6,
+          "4": -14.4,
+          "5": -6.4,
+          "6": -23.2,
+          "7": -24.1,
+          "8": -23.2,
+          "9": -28.2,
+          "10": 11.2,
+          "11": -27.1,
+          "12": -15.2
+        },
+        "2014_ERA5_U10_monthly_anomaly_pct_same_months": {
+          "1": -14.9,
+          "2": -10.8,
+          "3": -7.2,
+          "4": -6.6,
+          "5": -5.2,
+          "6": -14.0,
+          "7": -14.9,
+          "8": -20.0,
+          "9": -14.7,
+          "10": 17.9,
+          "11": -20.0,
+          "12": -8.1
+        },
+        "2014_monthly_anomaly_corr": 0.94
+      }
+    }
+  },
+  "neighbouring_era5_cells": "NOT AVAILABLE — no neighbouring-cell series in the repository; CDS credentials absent; Open-Meteo archive API timed out from this environment (11.11.2026). No substitute generated."
+}

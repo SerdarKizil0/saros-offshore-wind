@@ -1,0 +1,47 @@
+{
+  "retrieved_utc": "2026-11-11T18:34:34+00:00",
+  "files": {
+    "gwa4_wind-speed_100m_saros.tif": {
+      "url": "https://globalwindatlas.info/api/gis/country/TUR/wind-speed/100",
+      "source_file_sha256": "e7eb69918b087634bceaeb7ce92d2f62a94620df33859783633f5d2cc0d9b9a8",
+      "source_bytes": 62361787,
+      "sha256": "960ecf52bf23bb570781a9a4d8d08c41217e51b967fe2c9099d739d93be62eed",
+      "note": "crop of the GWA 4.0 country raster, native grid unchanged"
+    },
+    "gwa4_power-density_100m_saros.tif": {
+      "url": "https://globalwindatlas.info/api/gis/country/TUR/power-density/100",
+      "source_file_sha256": "098d30c9f40c199ed96828c0bcafc91d78442408d78bdab69f470d7c36cc7093",
+      "source_bytes": 66364579,
+      "sha256": "15e7c7ce98f268ff850c9dc288327da090d40ff1c12eb1b3c3788ddc37d71cf3",
+      "note": "crop of the GWA 4.0 country raster, native grid unchanged"
+    },
+    "gwa4_combined-Weibull-A_100m_saros.tif": {
+      "url": "https://globalwindatlas.info/api/gis/country/TUR/combined-Weibull-A/100",
+      "source_file_sha256": "5868ec5208845d24b47f193ab98e0daaf4daab4d93b76662069022f91b7c4060",
+      "source_bytes": 62803120,
+      "sha256": "607aa406c28ec7a322b170c71e5503f58ae815e2ff27e1591ca15f69d019f7d0",
+      "note": "crop of the GWA 4.0 country raster, native grid unchanged"
+    },
+    "gwa4_combined-Weibull-k_100m_saros.tif": {
+      "url": "https://globalwindatlas.info/api/gis/country/TUR/combined-Weibull-k/100",
+      "source_file_sha256": "716a245f08d9ad6be7f80353ecdd792c91c3e15324164d05eb42dbb03b2694a0",
+      "source_bytes": 54512008,
+      "sha256": "8b22ec001ac82a1af2dd6ec1cff877df0f874adc2e05bba86806ea48de46002f",
+      "note": "crop of the GWA 4.0 country raster, native grid unchanged"
+    },
+    "emodnet_dtm2024_era5cell_x0.25.tif": {
+      "url": "https://ows.emodnet-bathymetry.eu/wcs?service=WCS&version=2.0.1&request=GetCoverage&coverageId=emodnet__mean&format=image/tiff&subset=Lat(40.125,40.875)&subset=Long(25.875,26.625)&scalefactor=0.25",
+      "sha256": "5a0095a3cd87e525f96b055bc87cd5f26e025f7917371f6d1d0cf3033b7ad42b",
+      "note": "EMODnet DTM 2024 (doi:10.12770/cf51df64-56f9-4a99-b1aa-36b8d7b743a1), server-side scalefactor 0.25"
+    },
+    "gsod_monthly_2014_2024.csv": {
+      "url_pattern": "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/{year}/{sid}.csv",
+      "stations": {
+        "17112099999": "CANAKKALE",
+        "16627099999": "DIMOKRITOS"
+      },
+      "sha256": "efff4c99c25b661f5c66a27002f0cb3b6a6643d64e251616a26d95b9f057148e",
+      "note": "monthly means of GSOD daily mean wind speed (WDSP, knots -> m/s); missing (999.9) excluded"
+    }
+  }
+}

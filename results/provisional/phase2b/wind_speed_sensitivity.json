@@ -1,0 +1,79 @@
+{
+  "status": "PROVISIONAL SENSITIVITY EXPERIMENT — not a bias correction, forecast, uncertainty percentile or replacement for the baseline",
+  "method": "empirical hourly AEP (scripts/04 method), all hourly U_hub values multiplied by the factor; turbine curve and nominal losses fixed",
+  "power_curve": "OEDB_V164_9500",
+  "net_factor": 0.84778,
+  "gwa_scaling_basis": {
+    "gwa_polygon_mean_100m": 7.8416,
+    "era5_U100_mean_2014_2024": 7.1196,
+    "caveat": "different periods (GWA 2008-2017 vs ERA5 2014-2024), different spatial support (polygon mean of 250 m pixels vs one 0.25 deg node), uniform scaling keeps the ERA5 shape"
+  },
+  "cases": [
+    {
+      "case": "-10%",
+      "speed_factor": 0.9,
+      "mean_U_hub": 6.4545,
+      "gross_aep_gwh_per_turbine": 21.6398,
+      "gross_cf_pct": 25.9837,
+      "net_aep_gwh_per_turbine": 18.3458,
+      "net_cf_pct": 22.0284,
+      "net_aep_gwh_per_mw": 1.9311,
+      "aep_change_vs_baseline_pct": -20.45
+    },
+    {
+      "case": "-5%",
+      "speed_factor": 0.95,
+      "mean_U_hub": 6.8131,
+      "gross_aep_gwh_per_turbine": 24.4271,
+      "gross_cf_pct": 29.3305,
+      "net_aep_gwh_per_turbine": 20.7088,
+      "net_cf_pct": 24.8658,
+      "net_aep_gwh_per_mw": 2.1799,
+      "aep_change_vs_baseline_pct": -10.2
+    },
+    {
+      "case": "baseline ERA5",
+      "speed_factor": 1.0,
+      "mean_U_hub": 7.1716,
+      "gross_aep_gwh_per_turbine": 27.2021,
+      "gross_cf_pct": 32.6626,
+      "net_aep_gwh_per_turbine": 23.0614,
+      "net_cf_pct": 27.6907,
+      "net_aep_gwh_per_mw": 2.4275,
+      "aep_change_vs_baseline_pct": 0.0
+    },
+    {
+      "case": "+5%",
+      "speed_factor": 1.05,
+      "mean_U_hub": 7.5302,
+      "gross_aep_gwh_per_turbine": 29.9224,
+      "gross_cf_pct": 35.9289,
+      "net_aep_gwh_per_turbine": 25.3676,
+      "net_cf_pct": 30.4598,
+      "net_aep_gwh_per_mw": 2.6703,
+      "aep_change_vs_baseline_pct": 10.0
+    },
+    {
+      "case": "+10%",
+      "speed_factor": 1.1,
+      "mean_U_hub": 7.8888,
+      "gross_aep_gwh_per_turbine": 32.5597,
+      "gross_cf_pct": 39.0956,
+      "net_aep_gwh_per_turbine": 27.6035,
+      "net_cf_pct": 33.1445,
+      "net_aep_gwh_per_mw": 2.9056,
+      "aep_change_vs_baseline_pct": 19.7
+    },
+    {
+      "case": "scaled to GWA 4.0 polygon mean at 100 m (illustrative)",
+      "speed_factor": 1.10141,
+      "mean_U_hub": 7.8989,
+      "gross_aep_gwh_per_turbine": 32.6328,
+      "gross_cf_pct": 39.1834,
+      "net_aep_gwh_per_turbine": 27.6654,
+      "net_cf_pct": 33.2189,
+      "net_aep_gwh_per_mw": 2.9121,
+      "aep_change_vs_baseline_pct": 19.96
+    }
+  ]
+}
