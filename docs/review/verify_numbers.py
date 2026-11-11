@@ -3,7 +3,7 @@ Independent numerical check of the manuscript's headline numbers.
 =================================================================
 Run from the repository root:  python docs/review/verify_numbers.py
 
-Needs only the committed files (config/, results/*.json, results/*.npz) plus
+Needs only the committed files (config/, results/archive/baseline_original_curve/*) plus
 numpy and scipy. It does NOT need the ERA5 parquet. It reproduces the Monte
 Carlo bit-for-bit, decomposes the deterministic-vs-MC gap, and quantifies the
 sensitivities quoted in docs/PRE_SUBMISSION_REVIEW.md.
@@ -22,8 +22,8 @@ from config.turbine import POWER_CURVE_ORIGINAL_MS_KW as POWER_CURVE_MS_KW  # re
 from config.emissions import GRID_CO2, OFFSHORE_WIND_CO2
 
 tz = np.trapezoid
-W = json.load(open('results/weibull_aep_results.json'))
-MC = json.load(open('results/monte_carlo_results.json'))
+W = json.load(open('results/archive/baseline_original_curve/weibull_aep_results.json'))
+MC = json.load(open('results/archive/baseline_original_curve/monte_carlo_results.json'))
 k0, c0, sc = MC['base_weibull']['k'], MC['base_weibull']['c'], MC['base_weibull']['sigma_c_interannual']
 
 print("== SITE ==")
@@ -70,7 +70,7 @@ grid=rng.triangular(434,624.2,713.4,N); lca=rng.triangular(8,11,14,N)
 gcf=np.array([cf(k_s[i],c_s[i]) for i in range(N)])
 aep=gcf*8766/1000*(1-wake)*av*(1-el)
 avd=aep*(grid-lca)
-S=np.load('results/monte_carlo_samples.npz')
+S=np.load('results/archive/baseline_original_curve/monte_carlo_samples.npz')
 print("max abs diff aep vs npz:", np.abs(aep-S['aep_per_mw']).max(), " avoided:", np.abs(avd-S['avoided_per_mw']).max())
 pc=lambda a: np.percentile(a,[10,50,90]).round(3)
 print("AEP/MW P10/50/90", pc(aep), " avoided", pc(avd).round(0))

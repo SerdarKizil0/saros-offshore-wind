@@ -1,0 +1,41 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "estimator": "empirical hourly power conversion (primary)",
+  "power_curve": "OEDB_V164_9500",
+  "turbine": "Vestas V164-9.5 MW",
+  "hours_per_average_year": 8766.0,
+  "net_factor_nominal": 0.84778,
+  "losses_nominal": {
+    "wake": 0.08,
+    "availability": 0.95,
+    "electrical": 0.03
+  },
+  "gross_cf": 0.32662601674044345,
+  "net_cf": 0.2769070044722131,
+  "gross": {
+    "gwh_per_turbine": 27.20043479609391,
+    "gwh_per_mw": 2.863203662746727
+  },
+  "net": {
+    "gwh_per_turbine": 23.059984611432494,
+    "gwh_per_mw": 2.42736680120342
+  },
+  "net_mwh_per_mw_yr": 2427.36680120342,
+  "net_full_load_hours": 2427.36680120342,
+  "units": {
+    "cf": "fraction",
+    "gwh_per_turbine": "GWh per 9.5 MW turbine per year",
+    "gwh_per_mw": "GWh per MW installed per year"
+  },
+  "normalisation_check": {
+    "n_hours": 96432,
+    "n_years": 11,
+    "leap_years": [
+      2016,
+      2020,
+      2024
+    ],
+    "sum_over_n_years_gross_gwh_per_turbine": 27.202127312726105,
+    "relative_difference_vs_8766h": 6.222388152554714e-05
+  }
+}

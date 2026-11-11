@@ -10,3 +10,5 @@ matplotlib>=3.8
 plotly>=5.20
 windrose>=1.9
 cartopy>=0.22
+rasterio>=1.3      # geometry/screening and GWA comparison
+pytest>=8          # tests

@@ -1,5 +1,10 @@
 # Decision Log — Saros OWF
 
+> **Superseded in part (Phase 4B, 11.11.2026).** The current methodology and values are in
+> `docs/review/PHASE4B_INTEGRATION.md` and `results/revised/`. In particular the Weibull-based
+> Monte Carlo, the triangular grid-factor mixture, life-cycle subtraction, the fuel-resolved
+> scenario, S4 and the "measured shear" wording below are retired. Kept as a historical record.
+
 Rationale behind the main scientific choices, for reviewers and reuse.
 
 ## Wind resource

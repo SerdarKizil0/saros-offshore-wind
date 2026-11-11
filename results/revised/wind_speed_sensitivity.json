@@ -1,0 +1,71 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "label": "SENSITIVITY EXPERIMENTS — all hourly speeds scaled; curve and nominal losses fixed; not bias corrections, forecasts or confidence intervals",
+  "gwa_reference": {
+    "gwa4_polygon_mean_100m_ms": 7.841599560921196,
+    "era5_U100_mean_ms": 7.1196088790893555,
+    "note": "GWA 4.0 is ERA5-driven WRF/WAsP for 2008-2017; the difference is inter-model disagreement, not a demonstrated ERA5 bias"
+  },
+  "cases": [
+    {
+      "case": "-10%",
+      "speed_factor": 0.9,
+      "gross_cf": 0.2598368496267957,
+      "net_cf": 0.22028448437660486,
+      "gross_gwh_per_turbine": 21.638433326370667,
+      "net_gwh_per_turbine": 18.344631005430525,
+      "net_gwh_per_mw": 1.9310137900453184,
+      "aep_change_vs_baseline_pct": -20.448207947477247
+    },
+    {
+      "case": "-5%",
+      "speed_factor": 0.95,
+      "gross_cf": 0.2933051159947009,
+      "net_cf": 0.2486582112379875,
+      "gross_gwh_per_turbine": 24.425570144690703,
+      "net_gwh_per_turbine": 20.707509857265887,
+      "net_gwh_per_mw": 2.179737879712199,
+      "aep_change_vs_baseline_pct": -10.201545203982121
+    },
+    {
+      "case": "baseline ERA5",
+      "speed_factor": 1.0,
+      "gross_cf": 0.32662601674044345,
+      "net_cf": 0.2769070044722131,
+      "gross_gwh_per_turbine": 27.20043479609391,
+      "net_gwh_per_turbine": 23.059984611432494,
+      "net_gwh_per_mw": 2.42736680120342,
+      "aep_change_vs_baseline_pct": 0.0
+    },
+    {
+      "case": "+5%",
+      "speed_factor": 1.05,
+      "gross_cf": 0.3592887411420002,
+      "net_cf": 0.3045978089653649,
+      "gross_gwh_per_turbine": 29.920488496082353,
+      "net_gwh_per_turbine": 25.365991737208695,
+      "net_gwh_per_mw": 2.670104393390389,
+      "aep_change_vs_baseline_pct": 10.000037574322352
+    },
+    {
+      "case": "+10%",
+      "speed_factor": 1.1,
+      "gross_cf": 0.3909564413300672,
+      "net_cf": 0.33144505183080436,
+      "gross_gwh_per_turbine": 32.557679564644005,
+      "net_gwh_per_turbine": 27.601749581313893,
+      "net_gwh_per_mw": 2.905447324348831,
+      "aep_change_vs_baseline_pct": 19.695437991011143
+    },
+    {
+      "case": "scaled to GWA 4.0 polygon mean at 100 m (illustrative)",
+      "speed_factor": 1.101408756308561,
+      "gross_cf": 0.3918338599403603,
+      "net_cf": 0.33218890978023863,
+      "gross_gwh_per_turbine": 32.630748354253384,
+      "net_gwh_per_turbine": 27.663695839768934,
+      "net_gwh_per_mw": 2.911967983133572,
+      "aep_change_vs_baseline_pct": 19.964068952821634
+    }
+  ]
+}

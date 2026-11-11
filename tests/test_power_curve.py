@@ -44,7 +44,7 @@ def s04():
 
 @pytest.fixture(scope="module")
 def s06():
-    return _load("s06", "scripts/06_run_monte_carlo.py")
+    return _load("s06", "scripts/legacy/06_run_monte_carlo.py")   # retired; grid convention kept
 
 
 @pytest.fixture(scope="module")
@@ -151,13 +151,14 @@ def test_production_scripts_use_active_curve(s04, s06, p2a):
 
 
 # ------------------------------------------------------------ reproducibility
-def test_baseline_archive_intact_and_matches_published_results():
+def test_baseline_archive_intact_and_root_copies_retired():
     for line in (BASELINE / "SHA256SUMS").read_text().split("\n"):
         if not line.strip():
             continue
         digest, name = line.split()
         assert hashlib.sha256((BASELINE / name).read_bytes()).hexdigest() == digest
-        assert (ROOT / "results" / name).read_bytes() == (BASELINE / name).read_bytes()
+        # Phase 4B: the pre-2A outputs no longer sit in the active results/ root
+        assert not (ROOT / "results" / name).exists()
 
 
 def _base_params():

@@ -1,8 +1,8 @@
 """
 Turbine configuration — Vestas V164-9.5 MW + capacity scenarios
 ================================================================
-Reference machine for most peer-reviewed Aegean/Mediterranean offshore
-wind studies. Capacity is reported per-MW (primary) plus scenarios.
+Reference machine (2017 product; used here as a documented reference
+turbine). Results are reported per MW (primary) plus illustrative scenarios.
 """
 from dataclasses import dataclass, field
 import numpy as np
@@ -89,6 +89,14 @@ class CapacityScenario:
         return self.n_turbines * 9.5
 
 
+# --------------------------------------------------------------------
+# Deployment scenarios
+# --------------------------------------------------------------------
+# HISTORICAL list (names, labels and S4 as originally published). Kept so that
+# archived and Phase 2A-3B review outputs remain reproducible. Do NOT use for
+# publication results: S4 is retired, and the "pilot"/"first allocation"/
+# "Phase-2"/"theoretical maximum" labels have no official basis
+# (docs/review/PHASE4A_SITE_SCENARIO_AUDIT.md).
 SCENARIOS: list[CapacityScenario] = [
     CapacityScenario("S1_pilot",   26, "Pilot first-phase commissioning (~250 MW)"),
     CapacityScenario("S2_phase1",  53, "Reasonable first allocation (~500 MW)"),
@@ -97,8 +105,35 @@ SCENARIOS: list[CapacityScenario] = [
 ]
 DEFAULT_SCENARIO = SCENARIOS[2]
 
+# ACTIVE scenarios for publication-facing results (Phase 4B). Same turbine
+# counts as historical S1-S3; neutral labels. All are illustrative
+# capacities, not layouts or project proposals. S4 is retired.
+ACTIVE_SCENARIOS: list[CapacityScenario] = [
+    CapacityScenario("S1", 26, "Illustrative capacity, 26 x 9.5 MW (247 MW)"),
+    CapacityScenario("S2", 53, "Illustrative capacity, 53 x 9.5 MW (503.5 MW)"),
+    CapacityScenario("S3", 105, "Illustrative ~1 GW (105 x 9.5 MW = 997.5 MW), comparable to the "
+                                "1 000 MWe connection capacity of the DRAFT YEKA DÜRES-2026 tender, "
+                                "conditional on that capacity being allocated to Saros (the draft "
+                                "allows any of the four candidate areas)"),
+]
+RETIRED_SCENARIOS = {"S4_max": "retired in Phase 4B: geometric 7D x 5D packing limit "
+                               "(10.1 MW/km2), not a feasible capacity"}
+TURBINE_SPACING_ASSUMPTION = "7D x 5D (assumption, no project-specific source)"
+
+# --------------------------------------------------------------------
+# Losses: nominal baseline + labelled scenarios (assumptions, not probabilities)
+# --------------------------------------------------------------------
 WAKE_LOSS_DEFAULT = 0.08
 AVAILABILITY_DEFAULT = 0.95
 ELECTRICAL_LOSS_DEFAULT = 0.03
+
+LOSS_SCENARIOS: dict[str, tuple[float, float, float]] = {
+    # (wake loss, availability, electrical loss). Bounds are the endpoints the
+    # retired Monte Carlo used; no site-specific evidence. One wake value for
+    # all scenarios is a simplification (wake depends on layout and density).
+    "low_loss": (0.05, 0.97, 0.02),
+    "nominal": (WAKE_LOSS_DEFAULT, AVAILABILITY_DEFAULT, ELECTRICAL_LOSS_DEFAULT),
+    "high_loss": (0.12, 0.92, 0.04),
+}
 
 TURBINE = Turbine()

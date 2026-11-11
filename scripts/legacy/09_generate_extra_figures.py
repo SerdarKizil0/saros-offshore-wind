@@ -1,4 +1,7 @@
 """
+LEGACY — retired in Phase 4B (see docs/review/PHASE4B_INTEGRATION.md). Kept unchanged except
+for this note, the import path and a run guard, to document the historical method.
+
 09 — Additional figures: workflow, wind rose, comparison, equivalents
 ======================================================================
 Generates the remaining publication figures:
@@ -27,7 +30,7 @@ import sys
 import json
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 import numpy as np
 import pandas as pd
@@ -210,4 +213,9 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    import os as _os
+    if _os.environ.get("SAROS_ALLOW_LEGACY") != "1":
+        sys.exit("LEGACY script (pre-Phase-4B methodology, retired). Its outputs are archived in "
+                 "results/archive/baseline_original_curve/. Set SAROS_ALLOW_LEGACY=1 to run it anyway; "
+                 "it reads/writes results/*.json, which are no longer part of the active pipeline.")
     sys.exit(main())

@@ -1,0 +1,94 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "energy_input": {
+    "net_mwh_per_mw_yr": 2427.36680120342,
+    "net_mwh_per_mw_yr_ci90_sampling": [
+      2334.301715754294,
+      2520.2959736314406
+    ],
+    "net_cf": 0.2769070044722131,
+    "power_curve": "OEDB_V164_9500",
+    "estimator": "empirical hourly power conversion (primary)",
+    "source": "results/revised/energy_yield.json; interannual_and_sampling.json (t-interval)"
+  },
+  "primary_avoided_operational_co2": {
+    "factor": "combined_margin_wind_solar",
+    "factor_value": 0.6242,
+    "factor_unit": "tCO2/MWh",
+    "source": "ETKB-EVÇED-FRM-039 Rev.03, period 2023, publ. 26.12.2025, UNFCCC CDM Tool 07 v07.0",
+    "t_co2_per_mw_yr": 1515.1623573111747,
+    "ci90_t_co2_per_mw_yr": [
+      1457.0711309738303,
+      1573.168746740745
+    ],
+    "ci_label": "energy SAMPLING uncertainty of the 2014-2024 mean only, through a fixed 2023 factor; not total carbon uncertainty",
+    "unit": "tCO2 per MW installed per year (MWh x tCO2/MWh)",
+    "note": "static 2023 factor; not a forecast of future grid displacement"
+  },
+  "context_grid_methods": {
+    "operating_margin": {
+      "factor_value": 0.7134,
+      "factor_unit": "tCO2/MWh",
+      "role": "context: short-run displacement of existing generation",
+      "source": "ETKB-EVÇED-FRM-039 Rev.03 (2023)",
+      "result_per_mw_yr": 1731.68347597852,
+      "result_unit": "tCO2/MW/yr",
+      "rel_to_primary_pct": 14.290291573213732
+    },
+    "build_margin": {
+      "factor_value": 0.3567,
+      "factor_unit": "tCO2/MWh",
+      "role": "context: recent capacity additions",
+      "source": "ETKB-EVÇED-FRM-039 Rev.03 (2023)",
+      "result_per_mw_yr": 865.84173798926,
+      "result_unit": "tCO2/MW/yr",
+      "rel_to_primary_pct": -42.85485421339313
+    },
+    "generation_average_co2": {
+      "factor_value": 0.43,
+      "factor_unit": "tCO2/MWh",
+      "role": "context: attributional average of all generation",
+      "source": "ETKB-EVÇED-FRM-042 Rev.01, period 2023, publ. 26.12.2025 (IEA method)",
+      "result_per_mw_yr": 1043.7677245174705,
+      "result_unit": "tCO2/MW/yr",
+      "rel_to_primary_pct": -31.111823133611015
+    },
+    "generation_average_co2eq": {
+      "factor_value": 0.434,
+      "factor_unit": "tCO2-eq/MWh",
+      "role": "context, different unit: average incl. CH4 and N2O",
+      "source": "ETKB-EVÇED-FRM-042 Rev.01 (2023)",
+      "result_per_mw_yr": 1053.4771917222843,
+      "result_unit": "tCO2-eq/MW/yr",
+      "rel_to_primary_pct": -30.471002883691124
+    }
+  },
+  "secondary_lifecycle_ghg": {
+    "unit": "tCO2-eq per MW installed per year (MWh x gCO2-eq/kWh / 1000)",
+    "reference_case": "ipcc_ar5_median",
+    "cases": {
+      "ipcc_ar5_min": {
+        "g_co2eq_per_kwh": 8.0,
+        "t_co2eq_per_mw_yr": 19.41893440962736
+      },
+      "ipcc_ar5_median": {
+        "g_co2eq_per_kwh": 12.0,
+        "t_co2eq_per_mw_yr": 29.128401614441042
+      },
+      "ipcc_ar5_max": {
+        "g_co2eq_per_kwh": 35.0,
+        "t_co2eq_per_mw_yr": 84.95783804211969
+      },
+      "bonou2016_6MW": {
+        "g_co2eq_per_kwh": 7.8,
+        "t_co2eq_per_mw_yr": 18.933461049386676
+      },
+      "bonou2016_4MW": {
+        "g_co2eq_per_kwh": 10.9,
+        "t_co2eq_per_mw_yr": 26.458298133117278
+      }
+    },
+    "not_subtracted_from_primary": "different gases (CO2-eq vs CO2) and system boundaries (cradle-to-grave wind vs combustion-only grid factor)",
+    "note": "literature intensities for other (windier) sites; not Saros-specific"
+  }
+}

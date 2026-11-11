@@ -1,5 +1,5 @@
 """
-Site configuration — Saros DÜRES (Bakanlık YEKA İlanı, 14 May 2026)
+Site configuration — Saros offshore-wind candidate YEKA (MENR notice, 13 May 2026)
 ====================================================================
 Single source of truth for the study site geometry.
 
@@ -19,7 +19,7 @@ from pathlib import Path
 
 # --------------------------------------------------------------------
 # The ONE source of truth: 27 polygon vertices, (longitude, latitude)
-# WGS84.  Source: SAROS_DÜRES.kml (MENR, 14 May 2026).
+# WGS84.  Source: SAROS DÜRES.kml (MENR candidate-YEKA notice, 13 May 2026).
 # --------------------------------------------------------------------
 SAROS_POLYGON_LONLAT: list[tuple[float, float]] = [
     (26.4609, 40.5938), (26.4495, 40.5727), (26.4223, 40.5721),
@@ -97,10 +97,10 @@ class SarosSite:
 
     name: str = "Saros DÜRES"
     full_name: str = "Saros Bay Offshore Wind YEKA Candidate Zone"
-    source: str = "MENR YEKA İlanı, 14 May 2026 (KML)"
+    source: str = "MENR Aday YEKA İlanı, 13 May 2026 (KML 'SAROS DÜRES'); candidate status"
     country: str = "Türkiye"
     region: str = "North Aegean Sea"
-    nearest_landfall: str = "Gelibolu Peninsula"
+    nearest_landfall: str = "Thrace coast (northern shore of the gulf; min. 0.25 km)"
 
     # Derived geometry
     n_vertices: int = len(SAROS_POLYGON_LONLAT)

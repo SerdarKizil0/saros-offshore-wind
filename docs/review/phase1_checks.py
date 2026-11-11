@@ -13,7 +13,7 @@ docs/review/PHASE1_TECHNICAL_VALIDATION.md):
   oedb_V164_power_curves.csv      OEDB turbine library rows (windpowerlib)
   LEANWIND_Reference_8MW_164.csv  NREL turbine-models (physical reference only)
 
-Needs numpy, scipy, rasterio. Reads results/*.json; writes nothing.
+Needs numpy, scipy, rasterio. Reads results/archive/baseline_original_curve/*.json; writes nothing.
 The production model (config/, scripts/, results/) is NOT modified.
 """
 from __future__ import annotations
@@ -110,8 +110,8 @@ def part_a() -> None:
           f"{dict(repo)[12.5]:.0f} kW at 12.5 m/s and 9500 kW at 13 m/s")
 
     # --- AEP effect on the Weibull basis used by the Monte Carlo ---
-    mc = json.loads((ROOT / "results" / "monte_carlo_results.json").read_text())
-    det = json.loads((ROOT / "results" / "weibull_aep_results.json").read_text())
+    mc = json.loads((ROOT / "results/archive/baseline_original_curve/monte_carlo_results.json").read_text())
+    det = json.loads((ROOT / "results/archive/baseline_original_curve/weibull_aep_results.json").read_text())
     k0, c0 = mc["base_weibull"]["k"], mc["base_weibull"]["c"]
     sig_c = mc["base_weibull"]["sigma_c_interannual"]
     v = np.arange(0, 30, 0.1)                         # same grid as scripts/06

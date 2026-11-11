@@ -1,120 +1,103 @@
 """
-Emission factors — CO2 only (per user decision, focused scope)
-===============================================================
-Two datasets, both now verified against authoritative sources:
+Emission factors — authoritative values for the revised pipeline (Phase 4B)
+============================================================================
+All grid factors are static 2023 historical values published by the
+Republic of Türkiye Ministry of Energy and Natural Resources (ETKB),
+Energy Efficiency and Environment Department (EVÇED). They are not
+forecasts. Verified against the PDFs in docs/review/PHASE3B_CARBON_ACCOUNTING.md.
 
-  (1) Türkiye national grid CO2 emission factor.
-      OFFICIAL — Republic of Türkiye Ministry of Energy and Natural
-      Resources (ETKB), Energy Efficiency and Environment Dept (EVÇED),
-      "Türkiye Ulusal Elektrik Şebekesi Emisyon Faktörü", 2023 form,
-      computed per IPCC Tool07 methodology.
-
-  (2) Offshore wind life-cycle CO2 (per kWh, cradle-to-grave).
-      Bonou et al. (2016, Applied Energy) + IPCC AR6/2025 range.
-
-The avoided-emission framing uses the official COMBINED MARGIN factor
-for wind/solar as the primary value, with the generation-average as a
-conservative lower bound and the operating margin as an upper bound.
-This bracket is sampled in the Monte Carlo step.
+Accounting structure (do not mix):
+  * PRIMARY   avoided operational grid CO2 = energy x combined margin
+              (wind/solar), tCO2/MWh, CO2 only.
+  * CONTEXT   operating margin, build margin, generation average: different
+              accounting conventions, NOT statistical bounds.
+  * SECONDARY offshore-wind life-cycle GHG, tCO2-eq, reported separately and
+              never subtracted from the CO2-only grid factor (different gases
+              and system boundaries).
 """
+from __future__ import annotations
+
 from dataclasses import dataclass
+
+URL_GRID_2023 = ("https://enerji.gov.tr/Media/Dizin/EVCED/tr/%C3%87evreVe%C4%B0klim/"
+                 "%C4%B0klimDe%C4%9Fi%C5%9Fikli%C4%9Fi/TUESEmisyonFktr/Belgeler/Sebeke_EF_Bilgi_Formu_2023.pdf")
+URL_GEN_2023 = ("https://enerji.gov.tr/Media/Dizin/EVCED/tr/%C3%87evreVe%C4%B0klim/"
+                "%C4%B0klimDe%C4%9Fi%C5%9Fikli%C4%9Fi/EmisyonFaktorleri/"
+                "2023_Turkiye_Elektrik_UretimiveElektrik_Tuketim_Noktasi_Emisyon_Faktorleri.pdf")
 
 
 @dataclass(frozen=True)
+class GridFactor:
+    value: float          # t per MWh
+    unit: str             # "tCO2/MWh" or "tCO2-eq/MWh"
+    role: str
+    source: str
+
+
+# ---------------------------------------------------------------- grid, 2023
+GRID_EF_2023: dict[str, GridFactor] = {
+    "combined_margin_wind_solar": GridFactor(
+        0.6242, "tCO2/MWh", "PRIMARY: official factor published for GHG-reduction calculations "
+        "of wind/solar generation (may be used; not mandated)",
+        "ETKB-EVÇED-FRM-039 Rev.03, period 2023, publ. 26.12.2025, UNFCCC CDM Tool 07 v07.0"),
+    "operating_margin": GridFactor(
+        0.7134, "tCO2/MWh", "context: short-run displacement of existing generation",
+        "ETKB-EVÇED-FRM-039 Rev.03 (2023)"),
+    "build_margin": GridFactor(
+        0.3567, "tCO2/MWh", "context: recent capacity additions",
+        "ETKB-EVÇED-FRM-039 Rev.03 (2023)"),
+    "generation_average_co2": GridFactor(
+        0.430, "tCO2/MWh", "context: attributional average of all generation",
+        "ETKB-EVÇED-FRM-042 Rev.01, period 2023, publ. 26.12.2025 (IEA method)"),
+    "generation_average_co2eq": GridFactor(
+        0.434, "tCO2-eq/MWh", "context, different unit: average incl. CH4 and N2O",
+        "ETKB-EVÇED-FRM-042 Rev.01 (2023)"),
+}
+PRIMARY_GRID_FACTOR = "combined_margin_wind_solar"
+CM_TOOL07_WEIGHTS_WIND_SOLAR = (0.75, 0.25)     # OM, BM
+
+# Fuel-specific generation factors 2023 (FRM-042), both columns. Not used in
+# the revised pipeline; the former fuel-mix scenario is retired.
+FUEL_EF_2023 = {
+    "lignite":       {"tCO2/MWh": 1.122, "tCO2-eq/MWh": 1.133},
+    "hard_coal":     {"tCO2/MWh": 1.045, "tCO2-eq/MWh": 1.050},
+    "imported_coal": {"tCO2/MWh": 0.800, "tCO2-eq/MWh": 0.803},
+    "natural_gas":   {"tCO2/MWh": 0.400, "tCO2-eq/MWh": 0.405},
+}
+
+# ------------------------------------------- offshore wind life-cycle, gCO2-eq/kWh
+# = kgCO2-eq/MWh. Literature values for other sites; not Saros-specific.
+LIFECYCLE_GHG_G_PER_KWH = {
+    "ipcc_ar5_min": 8.0,       # IPCC AR5 WGIII Annex III (Schlömer et al. 2014), Table A.III.2
+    "ipcc_ar5_median": 12.0,   # reference value used for the secondary metric
+    "ipcc_ar5_max": 35.0,
+    "bonou2016_6MW": 7.8,      # Bonou et al. 2016, Table 4 (10 m/s site, EoL recycling credited)
+    "bonou2016_4MW": 10.9,     # Bonou et al. 2016, Table 4 (9.5 m/s site, EoL recycling credited)
+}
+LIFECYCLE_REFERENCE = "ipcc_ar5_median"
+
+# --------------------------------------------------------- context references
+TR_OFFSHORE_TARGET_2035_GW = 5.0           # national 2035 offshore wind target (ETKB; World Bank 2024)
+TR_TOTAL_CONSUMPTION_TWH_2024 = 347.9      # value used in the manuscript (TEİAŞ 2024); the
+                                           # primary TEİAŞ document was NOT verified in the review
+
+
+# ============================================================================
+# LEGACY — retained only so archived results and the Phase 2A rerun stay
+# reproducible. Do not use in the active pipeline. These objects mix
+# accounting methods and units (434 is CO2-eq; 624.2 and 713.4 are CO2) and
+# the "8-14" life-cycle range is not the IPCC AR5 range (8-35).
+# ============================================================================
+@dataclass(frozen=True)
 class Factor:
-    best: float      # deterministic / median (mode for triangular)
-    low:  float      # conservative bound (≈ P5)
-    high: float      # upper bound (≈ P95)
+    best: float
+    low: float
+    high: float
     unit: str
     source: str
 
 
-# ====================================================================
-# (1) Türkiye grid CO2 — OFFICIAL (ETKB/EVÇED 2023)
-# ====================================================================
-# Three official figures, all in tCO2/MWh → ×1000 = gCO2/kWh:
-#   • Generation average        : 0.434  →  434  (attributional, conservative)
-#   • Combined margin wind/solar : 0.6242 →  624  (PRIMARY — official avoided-EF)
-#   • Operating (activity) margin: 0.7134 →  713  (consequential, upper bound)
-# Source: "2023 Türkiye Ulusal Elektrik Şebekesi Emisyon Faktörü Bilgi
-#          Formu", ETKB EVÇED; IPCC Grid EF Tool07.V07.
-GRID_CO2 = Factor(
-    best=624.2,   # combined margin for wind/solar (official, primary)
-    low=434.0,    # generation average (conservative)
-    high=713.4,   # operating/activity margin (upper)
-    unit="gCO2-eq / kWh",
-    source="ETKB/EVÇED 2023, Türkiye Ulusal Elektrik Şebekesi Emisyon "
-           "Faktörü (IPCC Tool07): combined margin 0.6242, generation "
-           "average 0.434, operating margin 0.7134 tCO2/MWh",
-)
-
-# Fuel-specific official CO2 factors (gCO2-eq/kWh), 2023 — for the
-# conventional-mix narrative / breakdown if needed.
-GRID_CO2_BY_FUEL = {
-    "natural_gas":  405.0,   # 0.405 tCO2/MWh
-    "imported_coal": 803.0,  # 0.803
-    "lignite":      1133.0,  # 1.133
-}
-
-# Türkiye 2023 generation mix (% of total), for reporting context.
-# Source: EPDK 2023/2024 sector report; Ember Climate verified.
-TR_GENERATION_MIX_PCT = {
-    "natural_gas":  21.0,
-    "coal_lignite": 36.0,
-    "hydro":        19.0,
-    "wind":         10.5,
-    "solar":         7.0,
-    "geothermal":    3.3,
-    "biomass":       2.3,
-    "other":         0.9,
-}
-
-
-# ====================================================================
-# (2) Offshore wind life-cycle CO2 (per kWh delivered)
-# ====================================================================
-# Fixed-bottom monopile, ~9.5 MW class, 25-yr lifetime, no recycling
-# credit (conservative).
-#   • Bonou et al. 2016 (Applied Energy 180:327): ~11 gCO2-eq/kWh
-#   • IPCC 2025: offshore range 8–14 gCO2-eq/kWh
-#   • Garrett & Rønde / others cluster around 11–12
-OFFSHORE_WIND_CO2 = Factor(
-    best=11.0,
-    low=8.0,
-    high=14.0,
-    unit="gCO2-eq / kWh",
-    source="Bonou et al. 2016 (Applied Energy); IPCC 2025 range 8–14 "
-           "gCO2-eq/kWh for offshore wind",
-)
-
-
-def avoided_co2_per_kwh(grid: float = None, wind_lca: float = None) -> float:
-    """Net avoided CO2 per kWh of wind generation (gCO2-eq/kWh)."""
-    g = GRID_CO2.best if grid is None else grid
-    w = OFFSHORE_WIND_CO2.best if wind_lca is None else wind_lca
-    return g - w
-
-
-# ====================================================================
-# Context references (energy basis, not emissions)
-# ====================================================================
-# Türkiye 2024 total electricity consumption (TEİAŞ/TEDAŞ).
-TR_TOTAL_CONSUMPTION_TWH_2024 = 347.9
-
-# Türkiye 2035 offshore wind target.
-# Source: T.C. ETKB 2035 Renewable Energy Roadmap (Oct 2024);
-# World Bank Offshore Wind Roadmap for Türkiye (Nov 2024).
-TR_OFFSHORE_TARGET_2035_GW = 5.0
-
-
-if __name__ == "__main__":
-    print("Türkiye grid CO2 (official ETKB/EVÇED 2023):")
-    print(f"  PRIMARY (combined margin wind): {GRID_CO2.best} {GRID_CO2.unit}")
-    print(f"  range: [{GRID_CO2.low} (gen avg), {GRID_CO2.high} (op margin)]")
-    print(f"\nOffshore wind LCA CO2:")
-    print(f"  {OFFSHORE_WIND_CO2.best} {OFFSHORE_WIND_CO2.unit} "
-          f"[{OFFSHORE_WIND_CO2.low}, {OFFSHORE_WIND_CO2.high}]")
-    print(f"\nNet avoided per kWh (best): "
-          f"{avoided_co2_per_kwh():.1f} gCO2-eq/kWh")
-    print(f"  = {avoided_co2_per_kwh()/1000:.4f} kg/kWh "
-          f"= {avoided_co2_per_kwh():.0f} tCO2/GWh")
+GRID_CO2 = Factor(best=624.2, low=434.0, high=713.4, unit="g/kWh (mixed CO2 / CO2-eq — LEGACY)",
+                  source="LEGACY triangular mixture used by the retired Monte Carlo")
+OFFSHORE_WIND_CO2 = Factor(best=11.0, low=8.0, high=14.0, unit="gCO2-eq/kWh (LEGACY range)",
+                           source="LEGACY; see LIFECYCLE_GHG_G_PER_KWH for verified values")

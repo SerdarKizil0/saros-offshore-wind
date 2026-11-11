@@ -129,7 +129,7 @@ def best_fit(thetas, setback, n_off=8):
     return best
 
 
-def main() -> int:
+def compute(scenarios=SCENARIOS) -> dict:
     # ---------- polygon area and principal axis ----------
     gx, gy = np.meshgrid(np.arange(-20, 20, 0.05), np.arange(-7, 7, 0.05))
     m = inside(gx, gy, PXY)
@@ -202,7 +202,7 @@ def main() -> int:
     ock_overlap = float((m & inside(gx, gy, ock_xy)).sum() * 0.05 * 0.05)
 
     scen = []
-    for s in SCENARIOS:
+    for s in scenarios:
         scen.append({"name": s.name, "n_turbines": s.n_turbines, "installed_mw": s.installed_mw,
                      "density_mw_per_km2_full_polygon": s.installed_mw / area,
                      "density_mw_per_km2_outside_ock": s.installed_mw / (area - ock_overlap),
@@ -224,18 +224,24 @@ def main() -> int:
         "ock_overlap_km2": ock_overlap, "ock_overlap_share_pct": ock_overlap / area * 100,
         "scenarios": scen,
     }
+    return out
+
+
+def main() -> int:
+    out = compute()
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "site_checks.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
     print(json.dumps({k: out[k] for k in ("polygon", "spacing")}, indent=1))
-    print("prevailing axis", round(prev_axis, 1), "| within 30° of polygon axis: hours",
-          round(share_along_hours, 1), "% energy", round(share_along_energy, 1), "%")
-    print("energy by sector", out["wind_direction"]["sector_share_energy_pct"])
-    for k, v in fits.items():
+    wd = out["wind_direction"]
+    print("prevailing axis", round(wd["energy_weighted_prevailing_axis_deg"], 1),
+          "| within 30° of polygon axis: hours", round(wd["share_hours_within_30deg_of_polygon_axis_pct"], 1),
+          "% energy", round(wd["share_energy_within_30deg_of_polygon_axis_pct"], 1), "%")
+    for k, v in out["grid_fits"].items():
         print(f"{k:<48s} {v['max_positions']:4d} positions = {v['capacity_mw']:7.1f} MW  {v['theta_offx_offy']}")
-    print(json.dumps(screening, indent=1))
-    print("ÖÇK overlap", round(ock_overlap, 2), "km2")
-    for s in scen:
-        print(s)
+    print(json.dumps(out["screening_of_best_prevailing_axis_layout"], indent=1))
+    print("ÖÇK overlap", round(out["ock_overlap_km2"], 2), "km2")
+    for sc in out["scenarios"]:
+        print(sc)
     return 0
 
 
