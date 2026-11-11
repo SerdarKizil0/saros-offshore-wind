@@ -1,0 +1,233 @@
+{
+  "status": "PROVISIONAL — Phase 3B accounting; static 2023 factors; energy from Phase 3A",
+  "energy": {
+    "net_mwh_per_mw_yr": 2427.36680120342,
+    "net_mwh_per_mw_yr_ci90_sampling": [
+      2334.301715754294,
+      2520.295973631441
+    ],
+    "net_cf": 0.2769070044722131,
+    "source": "results/provisional/phase3a/energy_uncertainty.json (central_estimate; t-interval)"
+  },
+  "primary_avoided_co2": {
+    "quantity": "avoided operational grid CO2 (combined margin, wind/solar, 2023)",
+    "unit": "tCO2 per MW per year",
+    "value": 1515.1623573111747,
+    "ci90_energy_sampling_only": [
+      1457.0711309738303,
+      1573.1687467407455
+    ],
+    "ci_label": "propagates only the Phase 3A sampling uncertainty of the 2014-2024 mean energy through a fixed 2023 factor; not total carbon uncertainty",
+    "factor_t_per_mwh": 0.6242
+  },
+  "secondary_lifecycle_ghg": {
+    "unit": "tCO2-eq per MW per year (g CO2-eq/kWh x MWh / 1000)",
+    "reference_case": "ipcc_ar5_median",
+    "cases": {
+      "bonou2016_G4_4MW": {
+        "g_co2eq_per_kwh": 10.9,
+        "note": "Bonou et al. 2016, Table 4; 4.0 MW-130 m, 9.5 m/s, 20 y, ~58.6 % CF to grid, EoL recycling credited",
+        "t_co2eq_per_mw_yr": 26.458298133117278,
+        "share_of_primary_pct_indicative": 1.7462351810317207
+      },
+      "bonou2016_D6_6MW": {
+        "g_co2eq_per_kwh": 7.8,
+        "note": "Bonou et al. 2016, Table 4; 6.0 MW-154 m, 10 m/s, 25 y, ~59.1 % CF to grid, EoL recycling credited",
+        "t_co2eq_per_mw_yr": 18.933461049386676,
+        "share_of_primary_pct_indicative": 1.2495994873438
+      },
+      "bonou2016_headline": {
+        "g_co2eq_per_kwh": 11.0,
+        "note": "Bonou et al. 2016 abstract: offshore < 11 g CO2-eq/kWh",
+        "t_co2eq_per_mw_yr": 26.70103481323762,
+        "share_of_primary_pct_indicative": 1.762255687279718
+      },
+      "ipcc_ar5_min": {
+        "g_co2eq_per_kwh": 8.0,
+        "note": "IPCC AR5 WGIII Annex III (Schlömer et al. 2014), Table A.III.2",
+        "t_co2eq_per_mw_yr": 19.41893440962736,
+        "share_of_primary_pct_indicative": 1.281640499839795
+      },
+      "ipcc_ar5_median": {
+        "g_co2eq_per_kwh": 12.0,
+        "note": "IPCC AR5 WGIII Annex III, Table A.III.2 (reference value)",
+        "t_co2eq_per_mw_yr": 29.12840161444104,
+        "share_of_primary_pct_indicative": 1.9224607497596926
+      },
+      "ipcc_ar5_max": {
+        "g_co2eq_per_kwh": 35.0,
+        "note": "IPCC AR5 WGIII Annex III, Table A.III.2",
+        "t_co2eq_per_mw_yr": 84.9578380421197,
+        "share_of_primary_pct_indicative": 5.607177186799103
+      }
+    },
+    "illustrative_cf_adjusted_intensity": {
+      "bonou2016_G4_4MW": {
+        "g_co2eq_per_kwh_scaled": 23.0450544072149,
+        "energy_ratio": 2.1142251749738437
+      },
+      "bonou2016_D6_6MW": {
+        "g_co2eq_per_kwh_scaled": 16.62645298600582,
+        "energy_ratio": 2.131596536667413
+      }
+    },
+    "not_subtracted_from_primary": "different gases (CO2-eq vs CO2) and boundaries (cradle-to-grave wind vs combustion-only grid factor)"
+  },
+  "context_grid_methods": {
+    "combined_margin_wind_solar": {
+      "factor": 0.6242,
+      "unit_factor": "tCO2/MWh",
+      "gas": "CO2",
+      "role": "PRIMARY (official factor published for GHG-reduction calculations of wind/solar generation)",
+      "per_mw_yr": 1515.1623573111747,
+      "unit_result": "tCO2/MW/yr",
+      "rel_to_primary_pct": 0.0
+    },
+    "operating_margin": {
+      "factor": 0.7134,
+      "unit_factor": "tCO2/MWh",
+      "gas": "CO2",
+      "role": "context: short-run displacement of existing generation",
+      "per_mw_yr": 1731.68347597852,
+      "unit_result": "tCO2/MW/yr",
+      "rel_to_primary_pct": 14.290291573213732
+    },
+    "build_margin": {
+      "factor": 0.3567,
+      "unit_factor": "tCO2/MWh",
+      "gas": "CO2",
+      "role": "context: recent capacity additions (component of the combined margin)",
+      "per_mw_yr": 865.84173798926,
+      "unit_result": "tCO2/MW/yr",
+      "rel_to_primary_pct": -42.85485421339313
+    },
+    "generation_average_co2": {
+      "factor": 0.43,
+      "unit_factor": "tCO2/MWh",
+      "gas": "CO2",
+      "role": "context: attributional average of all generation (IEA method)",
+      "per_mw_yr": 1043.7677245174705,
+      "unit_result": "tCO2/MW/yr",
+      "rel_to_primary_pct": -31.111823133611015
+    },
+    "generation_average_co2eq": {
+      "factor": 0.434,
+      "unit_factor": "tCO2-eq/MWh",
+      "gas": "CO2-eq (CO2+CH4+N2O)",
+      "role": "context, different unit: same average including other GHGs",
+      "per_mw_yr": 1053.4771917222843,
+      "unit_result": "tCO2-eq/MW/yr",
+      "rel_to_primary_pct": -30.471002883691124
+    }
+  },
+  "scenarios": [
+    {
+      "name": "S1_pilot",
+      "installed_mw": 247.0,
+      "n_turbines": 26,
+      "net_energy_gwh_yr": 599.5595998972448,
+      "net_energy_gwh_yr_ci90_sampling": [
+        576.5725237913106,
+        622.513105486966
+      ],
+      "avoided_co2_cm_kt_yr": 374.2451022558601,
+      "avoided_co2_cm_kt_yr_ci90_sampling": [
+        359.8965693505361,
+        388.57268044496413
+      ],
+      "context_operating_margin_kt_co2_yr": 427.7258185666944,
+      "context_generation_average_kt_co2_yr": 257.8106279558152,
+      "lifecycle_ghg_kt_co2eq_yr_ipcc_median": 7.194715198766937,
+      "lifecycle_ghg_kt_co2eq_yr_ipcc_range": [
+        4.796476799177958,
+        20.984585996403567
+      ]
+    },
+    {
+      "name": "S2_phase1",
+      "installed_mw": 503.5,
+      "n_turbines": 53,
+      "net_energy_gwh_yr": 1222.179184405922,
+      "net_energy_gwh_yr_ci90_sampling": [
+        1175.320913882287,
+        1268.9690227234305
+      ],
+      "avoided_co2_cm_kt_yr": 762.8842469061765,
+      "avoided_co2_cm_kt_yr_ci90_sampling": [
+        733.6353144453235,
+        792.0904639839654
+      ],
+      "context_operating_margin_kt_co2_yr": 871.9026301551847,
+      "context_generation_average_kt_co2_yr": 525.5370492945465,
+      "lifecycle_ghg_kt_co2eq_yr_ipcc_median": 14.666150212871063,
+      "lifecycle_ghg_kt_co2eq_yr_ipcc_range": [
+        9.777433475247376,
+        42.77627145420727
+      ]
+    },
+    {
+      "name": "S3_phase2",
+      "installed_mw": 997.5,
+      "n_turbines": 105,
+      "net_energy_gwh_yr": 2421.2983842004114,
+      "net_energy_gwh_yr_ci90_sampling": [
+        2328.4659614649086,
+        2513.9952336973624
+      ],
+      "avoided_co2_cm_kt_yr": 1511.3744514178966,
+      "avoided_co2_cm_kt_yr_ci90_sampling": [
+        1453.4284531463957,
+        1569.2358248738935
+      ],
+      "context_operating_margin_kt_co2_yr": 1727.3542672885735,
+      "context_generation_average_kt_co2_yr": 1041.158305206177,
+      "lifecycle_ghg_kt_co2eq_yr_ipcc_median": 29.055580610404938,
+      "lifecycle_ghg_kt_co2eq_yr_ipcc_range": [
+        19.37038707360329,
+        84.74544344701441
+      ]
+    },
+    {
+      "name": "S4_max",
+      "installed_mw": 1738.5,
+      "n_turbines": 183,
+      "net_energy_gwh_yr": 4219.977183892146,
+      "net_energy_gwh_yr_ci90_sampling": [
+        4058.18353283884,
+        4381.534550158261
+      ],
+      "avoided_co2_cm_kt_yr": 2634.1097581854774,
+      "avoided_co2_cm_kt_yr_ci90_sampling": [
+        2533.1181611980037,
+        2734.953866208786
+      ],
+      "context_operating_margin_kt_co2_yr": 3010.531722988657,
+      "context_generation_average_kt_co2_yr": 1814.5901890736227,
+      "lifecycle_ghg_kt_co2eq_yr_ipcc_median": 50.63972620670575,
+      "lifecycle_ghg_kt_co2eq_yr_ipcc_range": [
+        33.75981747113717,
+        147.6992014362251
+      ]
+    }
+  ],
+  "legacy_comparison": {
+    "original_reported_p50_t_per_mw": 1524.8074922967082,
+    "original_reported_p10_p90": [
+      1277.1928197646962,
+      1754.2315176464535
+    ],
+    "original_energy_p50_gwh_per_mw": 2.62184747615247,
+    "original_effective_factor_g_per_kwh": 581.5774968475073,
+    "original_grid_sampling": "Triangular(434 [gen. avg, CO2-eq], 624.2 [CM, CO2], 713.4 [OM, CO2]) minus Triangular(8, 11, 14) lifecycle CO2-eq",
+    "phase2a_provisional_p50_t_per_mw": 1374.655352931039,
+    "new_primary_t_per_mw": 1515.1623573111747,
+    "new_vs_original_pct": -0.6325477172863136,
+    "energy_change_pct": -7.417695984148098,
+    "factor_change_pct": 7.328774476923838,
+    "interpretation": "near-equality is coincidental: energy fell ~7.4 % (power curve, estimator) while the effective factor rose ~7.3 % (mixed-method median -> official CM)"
+  },
+  "consistency_checks": {
+    "cm_from_om_bm_tool07_weights": 0.624225,
+    "cm_published": 0.6242
+  }
+}
