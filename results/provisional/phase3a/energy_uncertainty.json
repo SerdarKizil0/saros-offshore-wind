@@ -1,0 +1,403 @@
+{
+  "status": "PROVISIONAL \u2014 Phase 3A energy uncertainty framework; not a bankable P50/P90; no avoided-emission quantities",
+  "power_curve": "OEDB_V164_9500",
+  "hours_per_average_year": 8766.0,
+  "central_estimate": {
+    "gross_cf": 0.32662601674044345,
+    "net_cf": 0.2769070044722131,
+    "gross": {
+      "gwh_per_turbine": 27.20043479609391,
+      "gwh_per_mw": 2.863203662746727
+    },
+    "net": {
+      "gwh_per_turbine": 23.059984611432494,
+      "gwh_per_mw": 2.42736680120342
+    },
+    "net_full_load_hours": 2427.36680120342
+  },
+  "normalisation_checks": {
+    "hours_total": 96432,
+    "years": 11,
+    "leap_years": [
+      2016,
+      2020,
+      2024
+    ],
+    "mean_hours_per_calendar_year_in_sample": 8766.545454545454,
+    "phase2a_sum_over_11_gross_gwh": 27.202127312726105,
+    "cf_x_8766h_gross_gwh": 27.20043479609391,
+    "relative_difference": 6.222388152554714e-05,
+    "pooled_cf_minus_mean_of_annual_cf": 9.144215181000614e-06
+  },
+  "interannual_variability": {
+    "annual_net_cf_mean": 0.2768992521894669,
+    "annual_net_cf_sd_ddof1": 0.019413136914050316,
+    "annual_cov_pct": 7.010902615499652,
+    "min_year": 2014,
+    "min_net_cf": 0.2272434598095769,
+    "max_year": 2020,
+    "max_net_cf": 0.30208455309298793,
+    "min_rel_to_pooled_pct": -17.93509873731629,
+    "max_rel_to_pooled_pct": 9.092420276173009,
+    "cov_without_2014_pct": 3.8437797610945936,
+    "lag1_autocorr_annual_cf": 0.02901539986442977,
+    "speed_cov_pct": 3.3520634174346924,
+    "energy_to_speed_variability_ratio": 2.091518424404592
+  },
+  "sampling_uncertainty_of_mean": {
+    "method": "year-block bootstrap: 11 calendar years resampled with replacement, B=20000, seed=2026; statistic = time-weighted gross CF",
+    "bootstrap_gross_cf_ci90": [
+      0.31491690585980997,
+      0.3364578228948126
+    ],
+    "bootstrap_gross_cf_ci95": [
+      0.3122394872003858,
+      0.33801182858262796
+    ],
+    "bootstrap_se": 0.00659507377352389,
+    "classical_se_sd_over_sqrt_n": 0.0069042452209624305,
+    "jackknife_se": 0.006902953652158646,
+    "t_interval_90_gross_cf": [
+      0.31410319647990975,
+      0.33913054857061514
+    ],
+    "jackknife_leave_one_year_out_gross_cf": {
+      "2014": 0.3324792757030821,
+      "2015": 0.3271855095050916,
+      "2016": 0.32528225870274674,
+      "2017": 0.32773056841659537,
+      "2018": 0.3246308739015801,
+      "2019": 0.3268270063636247,
+      "2020": 0.3236496900910865,
+      "2021": 0.32575599895686236,
+      "2022": 0.3258391234256777,
+      "2023": 0.3262382153094961,
+      "2024": 0.32726665652980697
+    },
+    "net_gwh_per_mw_ci90": [
+      2.340348910507207,
+      2.500433239979937
+    ],
+    "ci90_half_width_rel_pct": 3.297489472818129,
+    "interpretation": "uncertainty of the 2014-2024 mean due to the finite number of years, assuming years are exchangeable and ERA5 is correct; not year-to-year production variability and not long-term climate representativeness"
+  },
+  "loss_scenarios": {
+    "low_loss": {
+      "wake": 0.05,
+      "availability": 0.97,
+      "electrical": 0.02,
+      "net_factor": 0.9030699999999999,
+      "net_cf": 0.29496615693779227,
+      "net_gwh_per_mw": 2.5856733317166873,
+      "rel_to_nominal_pct": 6.521739130434767
+    },
+    "nominal": {
+      "wake": 0.08,
+      "availability": 0.95,
+      "electrical": 0.03,
+      "net_factor": 0.84778,
+      "net_cf": 0.2769070044722131,
+      "net_gwh_per_mw": 2.42736680120342,
+      "rel_to_nominal_pct": 0.0
+    },
+    "high_loss": {
+      "wake": 0.12,
+      "availability": 0.92,
+      "electrical": 0.04,
+      "net_factor": 0.7772159999999999,
+      "net_cf": 0.2538589662269405,
+      "net_gwh_per_mw": 2.2253276979453602,
+      "rel_to_nominal_pct": -8.323385784047755
+    }
+  },
+  "weibull_cross_check": {
+    "weibull_k_c_archived": [
+      2.0352197647756207,
+      8.080019925561134
+    ],
+    "gross_cf_weibull": 0.320590972606982,
+    "gross_cf_empirical": 0.32662601674044345,
+    "relative_difference_weibull_vs_empirical_pct": -1.8476924139993578,
+    "net_gwh_per_mw_weibull_nominal": 2.382516528957646,
+    "bin_decomposition": [
+      {
+        "bin_ms": "0-1",
+        "hours_share_emp_pct": 1.9392,
+        "prob_weibull_pct": 1.413,
+        "gross_cf_contrib_emp_pct": 0.0,
+        "gross_cf_contrib_weibull_pct": 0.0,
+        "diff_weibull_minus_emp_pctpts": 0.0
+      },
+      {
+        "bin_ms": "1-2",
+        "hours_share_emp_pct": 4.9745,
+        "prob_weibull_pct": 4.253,
+        "gross_cf_contrib_emp_pct": 0.0,
+        "gross_cf_contrib_weibull_pct": 0.0,
+        "diff_weibull_minus_emp_pctpts": 0.0
+      },
+      {
+        "bin_ms": "2-3",
+        "hours_share_emp_pct": 6.445,
+        "prob_weibull_pct": 6.7986,
+        "gross_cf_contrib_emp_pct": 0.0,
+        "gross_cf_contrib_weibull_pct": 0.0,
+        "diff_weibull_minus_emp_pctpts": 0.0
+      },
+      {
+        "bin_ms": "3-4",
+        "hours_share_emp_pct": 8.1819,
+        "prob_weibull_pct": 8.8002,
+        "gross_cf_contrib_emp_pct": 0.0829,
+        "gross_cf_contrib_weibull_pct": 0.1146,
+        "diff_weibull_minus_emp_pctpts": 0.0318
+      },
+      {
+        "bin_ms": "4-5",
+        "hours_share_emp_pct": 9.1619,
+        "prob_weibull_pct": 10.1099,
+        "gross_cf_contrib_emp_pct": 0.4168,
+        "gross_cf_contrib_weibull_pct": 0.4612,
+        "diff_weibull_minus_emp_pctpts": 0.0444
+      },
+      {
+        "bin_ms": "5-6",
+        "hours_share_emp_pct": 9.7613,
+        "prob_weibull_pct": 10.6797,
+        "gross_cf_contrib_emp_pct": 0.9378,
+        "gross_cf_contrib_weibull_pct": 1.0238,
+        "diff_weibull_minus_emp_pctpts": 0.086
+      },
+      {
+        "bin_ms": "6-7",
+        "hours_share_emp_pct": 9.9396,
+        "prob_weibull_pct": 10.5554,
+        "gross_cf_contrib_emp_pct": 1.6911,
+        "gross_cf_contrib_weibull_pct": 1.79,
+        "diff_weibull_minus_emp_pctpts": 0.099
+      },
+      {
+        "bin_ms": "7-8",
+        "hours_share_emp_pct": 10.0039,
+        "prob_weibull_pct": 9.8572,
+        "gross_cf_contrib_emp_pct": 2.7015,
+        "gross_cf_contrib_weibull_pct": 2.6608,
+        "diff_weibull_minus_emp_pctpts": -0.0407
+      },
+      {
+        "bin_ms": "8-9",
+        "hours_share_emp_pct": 9.1775,
+        "prob_weibull_pct": 8.7506,
+        "gross_cf_contrib_emp_pct": 3.643,
+        "gross_cf_contrib_weibull_pct": 3.4704,
+        "diff_weibull_minus_emp_pctpts": -0.1726
+      },
+      {
+        "bin_ms": "9-10",
+        "hours_share_emp_pct": 8.6175,
+        "prob_weibull_pct": 7.414,
+        "gross_cf_contrib_emp_pct": 4.6841,
+        "gross_cf_contrib_weibull_pct": 4.0173,
+        "diff_weibull_minus_emp_pctpts": -0.6668
+      },
+      {
+        "bin_ms": "10-11",
+        "hours_share_emp_pct": 7.2497,
+        "prob_weibull_pct": 6.0117,
+        "gross_cf_contrib_emp_pct": 5.0107,
+        "gross_cf_contrib_weibull_pct": 4.1591,
+        "diff_weibull_minus_emp_pctpts": -0.8517
+      },
+      {
+        "bin_ms": "11-12",
+        "hours_share_emp_pct": 5.0844,
+        "prob_weibull_pct": 4.6747,
+        "gross_cf_contrib_emp_pct": 4.2383,
+        "gross_cf_contrib_weibull_pct": 3.8997,
+        "diff_weibull_minus_emp_pctpts": -0.3386
+      },
+      {
+        "bin_ms": "12-13",
+        "hours_share_emp_pct": 3.2531,
+        "prob_weibull_pct": 3.4909,
+        "gross_cf_contrib_emp_pct": 3.0725,
+        "gross_cf_contrib_weibull_pct": 3.3038,
+        "diff_weibull_minus_emp_pctpts": 0.2313
+      },
+      {
+        "bin_ms": "13-14",
+        "hours_share_emp_pct": 2.1518,
+        "prob_weibull_pct": 2.5064,
+        "gross_cf_contrib_emp_pct": 2.1272,
+        "gross_cf_contrib_weibull_pct": 2.4778,
+        "diff_weibull_minus_emp_pctpts": 0.3507
+      },
+      {
+        "bin_ms": "14-15",
+        "hours_share_emp_pct": 1.4985,
+        "prob_weibull_pct": 1.7316,
+        "gross_cf_contrib_emp_pct": 1.4985,
+        "gross_cf_contrib_weibull_pct": 1.7318,
+        "diff_weibull_minus_emp_pctpts": 0.2333
+      },
+      {
+        "bin_ms": "15-16",
+        "hours_share_emp_pct": 0.925,
+        "prob_weibull_pct": 1.152,
+        "gross_cf_contrib_emp_pct": 0.925,
+        "gross_cf_contrib_weibull_pct": 1.1521,
+        "diff_weibull_minus_emp_pctpts": 0.2271
+      },
+      {
+        "bin_ms": "16-17",
+        "hours_share_emp_pct": 0.6025,
+        "prob_weibull_pct": 0.7384,
+        "gross_cf_contrib_emp_pct": 0.6025,
+        "gross_cf_contrib_weibull_pct": 0.7385,
+        "diff_weibull_minus_emp_pctpts": 0.136
+      },
+      {
+        "bin_ms": "17-18",
+        "hours_share_emp_pct": 0.4304,
+        "prob_weibull_pct": 0.4561,
+        "gross_cf_contrib_emp_pct": 0.4304,
+        "gross_cf_contrib_weibull_pct": 0.4562,
+        "diff_weibull_minus_emp_pctpts": 0.0259
+      },
+      {
+        "bin_ms": "18-19",
+        "hours_share_emp_pct": 0.2883,
+        "prob_weibull_pct": 0.2717,
+        "gross_cf_contrib_emp_pct": 0.2883,
+        "gross_cf_contrib_weibull_pct": 0.2718,
+        "diff_weibull_minus_emp_pctpts": -0.0165
+      },
+      {
+        "bin_ms": "19-20",
+        "hours_share_emp_pct": 0.1545,
+        "prob_weibull_pct": 0.1561,
+        "gross_cf_contrib_emp_pct": 0.1545,
+        "gross_cf_contrib_weibull_pct": 0.1561,
+        "diff_weibull_minus_emp_pctpts": 0.0016
+      },
+      {
+        "bin_ms": "20-21",
+        "hours_share_emp_pct": 0.0944,
+        "prob_weibull_pct": 0.0865,
+        "gross_cf_contrib_emp_pct": 0.0944,
+        "gross_cf_contrib_weibull_pct": 0.0865,
+        "diff_weibull_minus_emp_pctpts": -0.0078
+      },
+      {
+        "bin_ms": "21-22",
+        "hours_share_emp_pct": 0.0239,
+        "prob_weibull_pct": 0.0463,
+        "gross_cf_contrib_emp_pct": 0.0239,
+        "gross_cf_contrib_weibull_pct": 0.0463,
+        "diff_weibull_minus_emp_pctpts": 0.0224
+      },
+      {
+        "bin_ms": "22-23",
+        "hours_share_emp_pct": 0.0218,
+        "prob_weibull_pct": 0.0239,
+        "gross_cf_contrib_emp_pct": 0.0218,
+        "gross_cf_contrib_weibull_pct": 0.0239,
+        "diff_weibull_minus_emp_pctpts": 0.0021
+      },
+      {
+        "bin_ms": "23-24",
+        "hours_share_emp_pct": 0.0093,
+        "prob_weibull_pct": 0.0119,
+        "gross_cf_contrib_emp_pct": 0.0093,
+        "gross_cf_contrib_weibull_pct": 0.0119,
+        "diff_weibull_minus_emp_pctpts": 0.0026
+      },
+      {
+        "bin_ms": "24-25",
+        "hours_share_emp_pct": 0.0083,
+        "prob_weibull_pct": 0.0057,
+        "gross_cf_contrib_emp_pct": 0.0083,
+        "gross_cf_contrib_weibull_pct": 0.0055,
+        "diff_weibull_minus_emp_pctpts": -0.0028
+      },
+      {
+        "bin_ms": "25-26",
+        "hours_share_emp_pct": 0.0021,
+        "prob_weibull_pct": 0.0027,
+        "gross_cf_contrib_emp_pct": 0.0,
+        "gross_cf_contrib_weibull_pct": 0.0,
+        "diff_weibull_minus_emp_pctpts": 0.0
+      }
+    ],
+    "mc_phase2a_p50_net_gwh_per_mw": 2.3655247629180334,
+    "mc_phase2a_cov_pct": 6.6159487721263215,
+    "triangular_mean_to_mode_loss_ratio": 0.992880752606153,
+    "weibull_nominal_x_loss_ratio": 2.365554804368067
+  },
+  "structural_sensitivities": {
+    "wind_speed_level_phase2b": {
+      "-10%": -20.45,
+      "-5%": -10.2,
+      "baseline ERA5": 0.0,
+      "+5%": 10.0,
+      "+10%": 19.7,
+      "scaled to GWA 4.0 polygon mean at 100 m (illustrative)": 19.96
+    },
+    "power_curve_choice_original_vs_oedb_pct": 11.799312682216012,
+    "not_quantified": [
+      "air density at site",
+      "hub-height extrapolation (alpha)",
+      "hourly instantaneous ERA5 vs 10-min power-curve basis",
+      "layout- and capacity-density-dependent wakes (S1-S4)",
+      "curtailment, degradation, icing/temperature derating",
+      "representativeness of 2014-2024 for the long-term climate"
+    ]
+  },
+  "comparison": [
+    {
+      "estimate": "Original deterministic (retired curve, sum/11)",
+      "net_gwh_per_mw": 2.7139482619095907,
+      "net_cf_pct": 30.95801277688474
+    },
+    {
+      "estimate": "Original MC P50 (retired curve, Weibull MC)",
+      "net_gwh_per_mw": 2.62184747615247
+    },
+    {
+      "estimate": "Phase 2A empirical (OEDB, sum/11)",
+      "net_gwh_per_mw": 2.427517841387678,
+      "net_cf_pct": 27.69070044722131
+    },
+    {
+      "estimate": "Phase 2A Weibull, nominal losses (OEDB)",
+      "net_gwh_per_mw": 2.382516528957646,
+      "net_cf_pct": 27.17906147567472
+    },
+    {
+      "estimate": "Phase 2A MC P50 (OEDB, Weibull MC)",
+      "net_gwh_per_mw": 2.3655247629180334
+    },
+    {
+      "estimate": "Phase 3A central (OEDB, empirical, CF x 8766 h)",
+      "net_gwh_per_mw": 2.42736680120342,
+      "net_cf_pct": 27.69070044722131
+    }
+  ],
+  "relative_magnitudes": {
+    "interannual_single_year_cov_pct": 7.010902615499652,
+    "sampling_of_mean_bootstrap_se_rel_pct": 2.0191513950233575,
+    "sampling_of_mean_ci90_half_width_rel_pct": 3.297489472818129,
+    "loss_scenarios_rel_pct": [
+      -8.323385784047755,
+      6.521739130434767
+    ],
+    "wind_speed_pm5_pct": [
+      -10.2,
+      10.0
+    ],
+    "wind_speed_pm10_pct": [
+      -20.45,
+      19.7
+    ]
+  }
+}

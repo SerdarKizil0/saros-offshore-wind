@@ -80,9 +80,11 @@ two curves differ most.
 | Net CF (nominal losses) | 30.13% | **27.18%** | |
 | Net yield (GWh yr⁻¹ MW⁻¹) | 2.641 | **2.383** | |
 
-The gap between the empirical and Weibull methods widens from −2.7% to
-−3.4%. This is the Weibull-fit issue K4 from the review, which is not
-addressed here.
+The gap between the empirical and Weibull methods narrows from −2.7% to
+−1.8% (32.06% against 32.66% gross CF). *[Erratum, Phase 3A: an earlier
+version of this sentence wrongly said "widens to −3.4%"; see
+PHASE3A_ENERGY_UNCERTAINTY.md §1.]* This is the Weibull-fit issue K4 from
+the review.
 
 ### 4c. Monte Carlo (N = 10 000, seed 2026, only the curve changed)
 
