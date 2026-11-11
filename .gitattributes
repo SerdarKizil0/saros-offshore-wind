@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Binary data: no EOL normalisation or text diffs
+*.parquet binary

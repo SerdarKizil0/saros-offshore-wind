@@ -66,12 +66,14 @@ python scripts/07_compare_with_grid.py
 
 ## Data availability
 
-The raw ERA5 NetCDF files (~80 MB) are **not** committed — they are freely
+The raw ERA5 NetCDF files are **not** committed — they are freely
 re-downloadable from the [Copernicus Climate Data Store](https://cds.climate.copernicus.eu/)
 via `02_download_era5_saros.py`. The processed hourly series
-(`data/processed/wind_hub_105m.parquet`) and all analysis outputs in
+(`data/processed/wind_hub_105m.parquet`, SHA-256 in
+`data/processed/wind_hub_105m.parquet.sha256`) and all analysis outputs in
 `results/` are included so the figures and tables can be reproduced without
-re-downloading.
+re-downloading. Source, licence, columns and reproduction steps:
+`data/README.md`.
 
 ## Key methodological choices
 
@@ -91,5 +93,6 @@ If you use this code or its results, please cite the associated manuscript
 
 ## License
 
-Code released under the MIT License (see `LICENSE`). ERA5 data © ECMWF/Copernicus,
-used under the Copernicus licence.
+Code released under the MIT License (see `LICENSE`). ERA5 data: contains modified
+Copernicus Climate Change Service information [2026], distributed under
+CC BY 4.0 (see `data/README.md`).

@@ -1,6 +1,8 @@
 # Large data — regenerable from CDS
 data/era5/*.nc
 data/processed/*.parquet
+# Exception: the processed hourly hub-height series is versioned (3.2 MB; see data/README.md)
+!data/processed/wind_hub_105m.parquet
 data/_cds_test.nc
 
 # CDS credentials — NEVER commit

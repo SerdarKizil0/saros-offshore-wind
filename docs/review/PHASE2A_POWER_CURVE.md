@@ -51,9 +51,8 @@ unchanged, converted from W to kW.
   archived values (an optimiser-version difference). The MC therefore uses
   the archived k0, c0 and σ_c, so that only the curve changes. Using refitted
   parameters instead changes the samples by at most 2×10⁻⁷ relative.
-- **Not committed:** the file is excluded by `.gitignore`
-  (`data/processed/*.parquet`). This contradicts `README.md` and
-  `data/README.md`. Whether to commit it is your decision.
+- **Now committed** (follow-up to Phase 2A), through a narrow `.gitignore`
+  exception. Provenance, licence and checksum are in `data/README.md`.
 
 ## 4. Old versus corrected results
 
