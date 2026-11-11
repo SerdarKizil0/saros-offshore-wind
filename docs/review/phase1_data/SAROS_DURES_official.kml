@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>SAROS DÜRESS.kml</name>
+	<Style id="default">
+		<LineStyle>
+			<color>ff0000ff</color>
+			<width>2</width>
+		</LineStyle>
+		<PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<StyleMap id="default0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#default</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#hl</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="hl">
+		<IconStyle>
+			<scale>1.2</scale>
+		</IconStyle>
+		<LineStyle>
+			<color>ff0000ff</color>
+			<width>2</width>
+		</LineStyle>
+		<PolyStyle>
+			<fill>0</fill>
+		</PolyStyle>
+	</Style>
+	<Placemark id="okgenler.1">
+		<name>SAROS DÜRES</name>
+		<styleUrl>#default0</styleUrl>
+		<Polygon>
+			<tessellate>1</tessellate>
+			<outerBoundaryIs>
+				<LinearRing>
+					<coordinates>
+						26.4609070579107,40.5937963066896,0 26.4495075018978,40.5726705171038,0 26.422260823844,40.5721413194871,0 26.3786528457971,40.570669756372,0 26.3184019196098,40.5709150364523,0 26.3167853099058,40.5586101566971,0 26.2929977489215,40.5553534808539,0 26.2602801406141,40.5563621306899,0 26.24375125735151,40.5519595111651,0 26.2267977697627,40.5405310522219,0 26.2109531214822,40.5146179942503,0 26.2041995892776,40.5100087278481,0 26.1793853234105,40.5070901181586,0 26.1545394570477,40.5047830183361,0 26.1359056711173,40.5040489991618,0 26.1164007144832,40.5065242936592,0 26.1008717756093,40.5157592541203,0 26.0950204512548,40.5186579503412,0 26.0814755516209,40.5152489459278,0 26.0692330282107,40.5226776760634,0 26.0490212908001,40.5339231468184,0 26.0384891281083,40.5337470411469,0 26.0824775889924,40.5986433245905,0 26.1374440803428,40.5825882376024,0 26.22418921585979,40.5891685149937,0 26.3021975310211,40.5808903251438,0 26.3843293253884,40.5941549694672,0 26.4609070579107,40.5937963066896,0 
+					</coordinates>
+				</LinearRing>
+			</outerBoundaryIs>
+		</Polygon>
+		<atom:link rel="app" href="https://www.google.com/earth/about/versions/#earth-pro" title="Google Earth Pro 7.3.7.1155"></atom:link>
+	</Placemark>
+</Document>
+</kml>
