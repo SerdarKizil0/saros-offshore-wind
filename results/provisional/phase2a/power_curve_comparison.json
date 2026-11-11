@@ -1,0 +1,127 @@
+{
+  "status": "PROVISIONAL \u2014 Phase 2A power-curve correction only; avoided-CO2 values use the existing, unvalidated emissions sampling",
+  "inputs_unchanged": [
+    "Weibull k0, c0, sigma_c",
+    "loss factors",
+    "emission factors",
+    "MC distributions and seed",
+    "capacity scenarios"
+  ],
+  "weibull_integrated_nominal_losses": {
+    "original": {
+      "gross_cf_pct": 35.536125780521004,
+      "gross_aep_per_turbine_gwh": 29.593419466244473,
+      "net_cf_pct": 30.126816714210097,
+      "net_aep_per_turbine_gwh": 25.088709155092744,
+      "net_aep_per_mw_gwh": 2.640916753167657,
+      "net_full_load_hours": 2640.916753167657
+    },
+    "oedb_v164_9500": {
+      "gross_cf_pct": 32.0590972606982,
+      "gross_aep_per_turbine_gwh": 26.69785442579164,
+      "net_cf_pct": 27.17906147567472,
+      "net_aep_per_turbine_gwh": 22.63390702509764,
+      "net_aep_per_mw_gwh": 2.382516528957646,
+      "net_full_load_hours": 2382.516528957646
+    }
+  },
+  "weibull_relative_change": -0.09784489567877208,
+  "boundary_convention_sensitivity_weibull": {
+    "zero_below_cut_in_as_script04_rel_change": -0.0006401617612267207,
+    "zero_24p5_to_25_instead_of_plateau_rel_change": -5.79921708434572e-05
+  },
+  "empirical_hourly": {
+    "status": "computed",
+    "n_hours": 96432,
+    "original": {
+      "gross_aep_per_turbine_gwh": 30.411791370569144,
+      "gross_cf_pct": 36.51656417571155,
+      "net_aep_per_turbine_gwh": 25.782508488141108,
+      "net_cf_pct": 30.95801277688474,
+      "net_aep_per_mw_gwh": 2.7139482619095907
+    },
+    "oedb_v164_9500": {
+      "gross_aep_per_turbine_gwh": 27.202127312726105,
+      "gross_cf_pct": 32.662601674044346,
+      "net_aep_per_turbine_gwh": 23.06141949318294,
+      "net_cf_pct": 27.69070044722131,
+      "net_aep_per_mw_gwh": 2.427517841387678
+    }
+  },
+  "monte_carlo": {
+    "original": {
+      "net_aep_gwh_per_mw": {
+        "p10": 2.4095524336185217,
+        "p50": 2.62184747615247,
+        "p90": 2.8333546015791256,
+        "mean": 2.621305639333484,
+        "std": 0.16590030158611563
+      },
+      "net_cf_pct": {
+        "p10": 27.48747927924391,
+        "p50": 29.909279901351475,
+        "p90": 32.322092192324035,
+        "mean": 29.903098783179146,
+        "std": 1.8925427970124988
+      },
+      "avoided_co2_t_per_mw_PROVISIONAL": {
+        "p10": 1277.1928197646962,
+        "p50": 1524.8074922967082,
+        "p90": 1754.2315176464535,
+        "mean": 1519.3810091878568,
+        "std": 182.29685255910186
+      },
+      "S3_farm_aep_twh": {
+        "p10": 2.403528552534475,
+        "p50": 2.6152928574620886,
+        "p90": 2.826271215075178,
+        "mean": 2.6147523752351503,
+        "std": 0.16548555083215036
+      },
+      "S3_avoided_co2_mt_PROVISIONAL": {
+        "p10": 1.2739998377152846,
+        "p50": 1.5209954735659665,
+        "p90": 1.7498459388523373,
+        "mean": 1.5155825566648868,
+        "std": 0.18184111042770412
+      }
+    },
+    "oedb_v164_9500": {
+      "net_aep_gwh_per_mw": {
+        "p10": 2.165939765858479,
+        "p50": 2.3655247629180334,
+        "p90": 2.5652245713066337,
+        "mean": 2.365446291050224,
+        "std": 0.1564967148480449
+      },
+      "net_cf_pct": {
+        "p10": 24.708416220151488,
+        "p50": 26.985224308898403,
+        "p90": 29.263342132176973,
+        "mean": 26.984329124460697,
+        "std": 1.785269391376282
+      },
+      "avoided_co2_t_per_mw_PROVISIONAL": {
+        "p10": 1150.028563434516,
+        "p50": 1374.655352931039,
+        "p90": 1586.0795558091806,
+        "mean": 1371.0817823912935,
+        "std": 166.66182788882298
+      },
+      "S3_farm_aep_twh": {
+        "p10": 2.1605249164438334,
+        "p50": 2.3596109510107386,
+        "p90": 2.5588115098783675,
+        "mean": 2.3595326753225985,
+        "std": 0.15610547306092476
+      },
+      "S3_avoided_co2_mt_PROVISIONAL": {
+        "p10": 1.1471534920259299,
+        "p50": 1.3712187145487114,
+        "p90": 1.5821143569196578,
+        "mean": 1.3676540779353155,
+        "std": 0.1662451733191009
+      }
+    }
+  }
+}

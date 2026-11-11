@@ -17,7 +17,8 @@ import numpy as np
 from scipy import stats
 from scipy.special import gamma
 from config.site import SITE
-from config.turbine import TURBINE, POWER_CURVE_MS_KW, SCENARIOS
+from config.turbine import TURBINE, SCENARIOS
+from config.turbine import POWER_CURVE_ORIGINAL_MS_KW as POWER_CURVE_MS_KW  # review targets the pre-2A curve
 from config.emissions import GRID_CO2, OFFSHORE_WIND_CO2
 
 tz = np.trapezoid

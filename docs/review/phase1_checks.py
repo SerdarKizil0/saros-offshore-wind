@@ -33,7 +33,7 @@ DATA = Path(__file__).resolve().parent / "phase1_data"
 sys.path.insert(0, str(ROOT))
 
 from config.site import SAROS_POLYGON_LONLAT, SITE           # noqa: E402
-from config.turbine import POWER_CURVE_MS_KW, TURBINE         # noqa: E402
+from config.turbine import POWER_CURVE_ORIGINAL_MS_KW as POWER_CURVE_MS_KW, TURBINE  # noqa: E402  (Phase 1 compared the pre-2A curve)
 
 RHO = 1.225                      # kg/m3, IEC 61400-12-1 standard density
 D_ROTOR = 164.0                  # m
