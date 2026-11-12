@@ -14,15 +14,17 @@ verified data only (no network access, no hand-drawn geometry):
   ERA5 node        results/revised/site_screening.json
 
 What is drawn
-  * water depth = -elevation, on a square-root colour scale, with the 10 m
-    and 50 m isobaths (the depth screening classes of Phase 4A) set apart
-    from the deeper reference isobaths;
+  * water depth = -elevation, on a piecewise-linear colour scale (0-60 m, the
+    depth range of the candidate zone, over 60% of the ramp; 60-700 m over
+    the rest), with the 10 m and 50 m isobaths (the depth screening classes
+    of Phase 4A) set apart from the deeper reference isobaths;
   * land = cells with elevation >= 0 (the Phase 4A rule), coastline = 0 m
     isoline. Display generalisation only: land islets and enclosed water
     pockets smaller than MIN_FEATURE_CELLS cells are not drawn;
-  * the candidate-zone outline, the reconstructed ÖÇK boundary (dashed, only
-    where it really runs: the map frame is never drawn as an ÖÇK edge), and
-    the part of the zone inside the ÖÇK (hatched);
+  * the candidate-zone outline, the reconstructed ÖÇK boundary (dashed, with
+    a narrow tint on its protected side, only where it really runs: the map
+    frame is never drawn as an ÖÇK edge), and the part of the zone inside
+    the ÖÇK (hatched);
   * the ERA5 grid node used by the energy model and the zone centroid as
     separate symbols, with the node's distance to the zone boundary.
 No turbine positions, layout, cable route or project footprint are drawn.
@@ -57,11 +59,12 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import rasterio
-from matplotlib.colors import LinearSegmentedColormap, PowerNorm, to_hex, to_rgb
+from matplotlib.colors import FuncNorm, LinearSegmentedColormap, to_hex, to_rgb
 from matplotlib.legend_handler import HandlerTuple
 from matplotlib.lines import Line2D
-from matplotlib.patches import FancyArrow, Patch
+from matplotlib.patches import FancyArrow, Patch, PathPatch, Rectangle
 from matplotlib.path import Path as MplPath
+from matplotlib.ticker import FixedLocator
 from pyproj import Geod, Transformer
 from scipy import ndimage
 from shapely.geometry import LineString, Point, Polygon
@@ -90,15 +93,21 @@ CRS_LABEL = "WGS 84 / UTM zone 35N (EPSG:32635)"
 W_MM = fs.FULL_WIDTH_MM
 LEFT_MM, RIGHT_MM, TOP_MM = 15.0, 3.0, 3.0
 TICKS_MM = 7.5                         # longitude labels under the frame
-KEY_MM, BOTTOM_MM = 27.0, 2.0          # legend + colour bar band
+KEY_MM, BOTTOM_MM = 15.5, 2.0          # legend + colour bar band
+CBAR_W_MM, LEGEND_X_MM = 48.0, 54.0    # colour bar width; legend offset from the left margin
 INSET_KM = 0.15                        # map frame inset from the DTM footprint
 
 # ---- cartographic choices --------------------------------------------------
 SCREEN_ISOBATHS = (10, 50)             # Phase 4A depth screening classes (not exclusions)
 REF_ISOBATHS = (100, 200, 400)
 DEPTH_MAX = 700.0                      # colour-scale ceiling, m (DTM minimum is -662 m)
-DEPTH_GAMMA = 0.5                      # square-root scale: shelf detail without losing the trough
-CBAR_TICKS = (0, 10, 50, 100, 200, 400, 600)
+# Piecewise-linear depth scale: the candidate zone spans 1-62 m, so 0-60 m gets 60% of
+# the colour ramp and 60-700 m the remaining 40%. Monotonic and linear in each segment,
+# so equal colour steps mean equal depth steps within a segment; the colour bar is drawn
+# in the same normalised space and shows the break.
+DEPTH_KNEE, KNEE_FRAC = 60.0, 0.60
+CBAR_TICKS = (0, 20, 40, 60, 300, 600)
+CBAR_MINOR = (10, 30, 50, 100, 200, 400, 500)
 MIN_FEATURE_CELLS = 10                 # ≈0.1 km²; smaller islets/pockets are not drawn
 SCALE_KM = (0, 5, 10)
 
@@ -124,6 +133,13 @@ ZONE = INK
 OCK = VERMILLION
 LW_ZONE = 1.0
 HATCH_SPACING_MM, LW_HATCH = 1.1, 0.6   # ÖÇK overlap hatch, drawn as real 45° vector lines
+OCK_TINT_MM, OCK_TINT_ALPHA = 0.9, 0.22  # tint along the inside of the ÖÇK boundary
+
+
+def depth_norm() -> FuncNorm:
+    knots = ([0.0, DEPTH_KNEE, DEPTH_MAX], [0.0, KNEE_FRAC, 1.0])
+    return FuncNorm((lambda v: np.interp(v, *knots), lambda u: np.interp(u, knots[1], knots[0])),
+                    vmin=0.0, vmax=DEPTH_MAX)
 
 
 # ---- data ------------------------------------------------------------------
@@ -320,6 +336,38 @@ def hatch_lines(geom, spacing_m: float, angle_deg: float = 45.0) -> list[np.ndar
     return segs
 
 
+def ock_tint(ock: Polygon, width_m: float):
+    """Narrow strip just inside the ÖÇK boundary: shows which side is protected."""
+    return ock.intersection(ock.exterior.buffer(width_m, cap_style="flat", join_style="mitre"))
+
+
+def _poly_path(geom) -> MplPath:
+    verts, codes = [], []
+    for poly in getattr(geom, "geoms", [geom]):
+        for ring in (poly.exterior, *poly.interiors):
+            xy = np.asarray(ring.coords)
+            verts += xy.tolist()
+            codes += [MplPath.MOVETO] + [MplPath.LINETO] * (len(xy) - 2) + [MplPath.CLOSEPOLY]
+    return MplPath(verts, codes)
+
+
+class OckKey:
+    """Legend key for the ÖÇK boundary: dashed line with its tint on the protected side."""
+
+
+class OckKeyHandler:
+    def legend_artist(self, legend, orig_handle, fontsize, handlebox):
+        x0, y0 = -handlebox.xdescent, -handlebox.ydescent
+        w, h = handlebox.width, handlebox.height
+        tr = handlebox.get_transform()
+        handlebox.add_artist(Rectangle((x0, y0), w, h * 0.5, facecolor=OCK, alpha=OCK_TINT_ALPHA,
+                                       edgecolor="none", linewidth=0, transform=tr))
+        ln = Line2D([x0, x0 + w], [y0 + h * 0.5] * 2, color=OCK, linewidth=fs.LW_DATA,
+                    linestyle=(0, (3.2, 1.8)), dash_capstyle="butt", transform=tr)
+        handlebox.add_artist(ln)
+        return ln
+
+
 class HatchKey:
     """Legend key for the ÖÇK overlap hatch."""
 
@@ -380,7 +428,7 @@ def build_figure(d: MapData):
             side.set_linewidth(fs.LW_AXIS)
 
         # bathymetry: depth = -elevation, sea only
-        norm = PowerNorm(DEPTH_GAMMA, vmin=0, vmax=DEPTH_MAX)
+        norm = depth_norm()
         mesh = ax.pcolormesh(d.x, d.y, np.clip(d.depth, 0, None), shading="gouraud",
                              cmap=DEPTH_CMAP, norm=norm, rasterized=True, zorder=0, gid="bathymetry")
         iso_ref = ax.contour(d.x, d.y, d.depth, levels=REF_ISOBATHS, colors=ISO_REF,
@@ -409,6 +457,9 @@ def build_figure(d: MapData):
         for seg in hatch_lines(d.overlap, HATCH_SPACING_MM * m_per_mm):
             ax.plot(seg[:, 0], seg[:, 1], color=OCK, linewidth=LW_HATCH, solid_capstyle="butt",
                     zorder=3, gid="ock_overlap_hatch")
+        ax.add_patch(PathPatch(_poly_path(ock_tint(d.ock, OCK_TINT_MM * m_per_mm)), facecolor=OCK,
+                               alpha=OCK_TINT_ALPHA, edgecolor="none", linewidth=0, zorder=3.5,
+                               gid="ock_tint"))
         ock_xy = np.asarray(d.ock.exterior.coords)
         ax.plot(ock_xy[:, 0], ock_xy[:, 1], color=OCK, linewidth=fs.LW_DATA,
                 linestyle=(0, (3.2, 1.8)), dash_capstyle="butt", zorder=4, gid="ock_boundary")
@@ -434,18 +485,17 @@ def build_figure(d: MapData):
                     ha="right", va="top", fontsize=FS_NOTE, color=INK, bbox=PLATE, zorder=7)
         ax.annotate("ERA5 node", (d.era5.x, d.era5.y), xytext=(5, -0.5), textcoords="offset points",
                     ha="left", va="center", fontsize=FS_NOTE, color=INK, bbox=PLATE, zorder=7)
-        ax.annotate("Centroid", (c.x, c.y), xytext=(0, 5.5), textcoords="offset points",
-                    ha="center", va="bottom", fontsize=FS_NOTE, color=INK, bbox=PLATE, zorder=7)
+        ax.annotate("centroid", (c.x, c.y), xytext=(0, -4.5), textcoords="offset points",
+                    ha="center", va="top", fontsize=FS_NOTE, color=MUTED, zorder=7,
+                    gid="centroid_label")
 
         # place names and the ÖÇK pointer
         def lbl(lon, lat, s, **kw):
             ax.text(*t.transform(lon, lat), s, fontsize=FS_NOTE, zorder=7, **kw)
         lbl(26.225, 40.633, "Thrace", color=MUTED, ha="center", va="center", style="italic")
         lbl(26.265, 40.461, "Gulf of Saros", color=SURFACE, ha="center", va="center", style="italic")
-        lbl(26.488, 40.4597, "Gelibolu Peninsula", color=INK, ha="right", va="center",
-            style="italic", bbox=PLATE)
-        lbl(26.343, 40.5445, "Saros ÖÇK (approximate)\nextends east and south\nbeyond the map",
-            color=INK, ha="left", va="center", linespacing=1.25, bbox=PLATE)
+        lbl(26.343, 40.544, "Saros ÖÇK (approximate)\ncontinues beyond the map →",
+            color=INK, ha="left", va="center", linespacing=1.3, bbox=PLATE)
 
         # scale bar (UTM metres; point scale factor here 0.9997) and true-north arrow, on land
         sx, sy = t.transform(26.372, 40.644)
@@ -489,7 +539,7 @@ def build_figure(d: MapData):
 
         # ---- key: colour bar (left) and legend (right) ----------------------
         key_top = BOTTOM_MM + KEY_MM
-        cax = fig.add_axes([LEFT_MM / W_MM, (key_top - 11.5) / h_mm, 58 / W_MM, 2.6 / h_mm],
+        cax = fig.add_axes([LEFT_MM / W_MM, (key_top - 8.6) / h_mm, CBAR_W_MM / W_MM, 2.6 / h_mm],
                            label="colorbar")
         cb = fig.colorbar(mesh, cax=cax, orientation="horizontal", ticks=CBAR_TICKS)
         cb.outline.set_linewidth(fs.LW_MIN)
@@ -497,43 +547,46 @@ def build_figure(d: MapData):
         cax.tick_params(length=fs.TICK_MAJOR - 0.8, width=fs.LW_MIN, color=AXIS, labelsize=FS_NOTE,
                         pad=1.8)
         cb.set_ticklabels([f"{v:g}" for v in CBAR_TICKS])
+        cax.xaxis.set_minor_locator(FixedLocator(CBAR_MINOR))
+        cax.tick_params(which="minor", length=fs.TICK_MINOR, width=fs.LW_MIN, color=AXIS)
         for lv in SCREEN_ISOBATHS:
             cax.axvline(lv, color=ISO_SCREEN, linewidth=fs.LW_DATA)
         for lv in REF_ISOBATHS:
             cax.axvline(lv, color=ISO_REF, linewidth=fs.LW_DATA)
-        fig.text(LEFT_MM, key_top - 7.6, "Water depth below LAT (m)", transform=fs.mm_transform(fig),
+        cax.axvline(DEPTH_KNEE, ymin=-0.35, ymax=1.35, color=INK, linewidth=fs.LW_MIN, clip_on=False,
+                    gid="cbar_knee")                                       # scale changes here
+        fig.text(LEFT_MM, key_top - 3.4, "Water depth below LAT (m)", transform=fs.mm_transform(fig),
                  fontsize=FS_AXIS, color=INK, ha="left", va="baseline")
-        fig.text(LEFT_MM, key_top - 22.2, "EMODnet DTM 2024; depth = −elevation.\n" + CRS_LABEL + ".",
-                 transform=fs.mm_transform(fig), fontsize=FS_NOTE, color=MUTED, ha="left",
-                 va="baseline", linespacing=1.35)
 
+        # concise key; methods, sources and legal status are in the caption
         handles = [
             Line2D([], [], color=ZONE, linewidth=LW_ZONE),
-            Line2D([], [], color=OCK, linewidth=fs.LW_DATA, linestyle=(0, (3.2, 1.8))),
-            HatchKey(),
-            Line2D([], [], linestyle="none", marker="s", markersize=fs.MS_POINT - 0.4, color=INK,
-                   markeredgecolor=SURFACE, markeredgewidth=fs.MEW),
             (Line2D([], [], linestyle="none", marker="o", markersize=fs.MS_POINT, markerfacecolor=SURFACE,
                     markeredgecolor=INK, markeredgewidth=fs.LW_DATA),
              Line2D([], [], linestyle="none", marker="o", markersize=1.4, color=INK, markeredgewidth=0)),
+            Line2D([], [], linestyle="none", marker="s", markersize=fs.MS_POINT - 0.4, color=INK,
+                   markeredgecolor=SURFACE, markeredgewidth=fs.MEW),
             Line2D([], [], color=ISO_SCREEN, linewidth=fs.LW_MIN),
+            OckKey(),
+            HatchKey(),
             (Patch(facecolor=DEPTH_CMAP(norm(250.0)), edgecolor="none", linewidth=0),   # shown on water
              Line2D([], [], color=ISO_REF, linewidth=fs.LW_DATA)),
         ]
         labels = [
-            "Candidate zone (MENR notice, 13 May 2026); not an approved project",
-            "Saros ÖÇK boundary, Decision 2010/1089 (approximate reconstruction)",
-            f"Zone inside the ÖÇK, ≈{d.overlap_km2:.0f} km² (≈{d.overlap_pct:.0f}%); permit needed, not excluded",
-            f"ERA5 grid node used, {d.era5_ll[1]:.2f}° N, {d.era5_ll[0]:.2f}° E (outside the zone)",
-            "Zone centroid (geometric)",
-            "10 m and 50 m isobaths: depth screening classes, not exclusions",
-            "100, 200 and 400 m isobaths",
+            "Candidate zone (13 May 2026)",
+            "Zone centroid",
+            f"ERA5 node ({d.era5_ll[1]:.2f}° N, {d.era5_ll[0]:.2f}° E)",
+            "10 m, 50 m isobaths (screening)",
+            "Saros ÖÇK boundary (approximate)",
+            "Part of zone inside the ÖÇK",
+            "100, 200, 400 m isobaths",
         ]
-        fig.legend(handles, labels, loc="upper left", frameon=False, fontsize=FS_NOTE,
-                   bbox_to_anchor=((LEFT_MM + 66) / W_MM, (key_top - 2.4) / h_mm),
+        fig.legend(handles, labels, loc="upper left", frameon=False, fontsize=FS_NOTE, ncols=2,
+                   bbox_to_anchor=((LEFT_MM + LEGEND_X_MM) / W_MM, (key_top - 0.6) / h_mm),
                    borderaxespad=0, borderpad=0, handlelength=2.2, handletextpad=0.7,
-                   labelspacing=0.42, handler_map={tuple: HandlerTuple(ndivide=1, pad=0),
-                                                   HatchKey: HatchKeyHandler()})
+                   labelspacing=0.5, columnspacing=1.8,
+                   handler_map={tuple: HandlerTuple(ndivide=1, pad=0),
+                                HatchKey: HatchKeyHandler(), OckKey: OckKeyHandler()})
     return fig
 
 
@@ -586,34 +639,38 @@ def caption(d: MapData) -> str:
     lon_c, lat_c = d.centroid_ll
     return (
         f"**Figure 2.** Saros offshore-wind candidate zone and the environmental and bathymetric "
-        f"context used for screening. The candidate-zone boundary (black) is the official polygon "
-        f"published by the Ministry of Energy and Natural Resources in the candidate-YEKA notice of "
-        f"13 May 2026 (file 'SAROS DÜRES'); it is a candidate area, not an approved project, and no "
-        f"turbine layout, cable route or installation footprint is implied. The zone covers "
-        f"{d.area_km2:.1f} km² (WGS 84 / UTM zone 35N); its geometric centroid (open circle) lies at "
-        f"{lat_c:.3f}° N, {lon_c:.3f}° E. The energy model uses the ERA5 reanalysis grid node at "
+        f"context used for screening ({CRS_LABEL}). The black outline is the official candidate-zone "
+        f"polygon published by the Ministry of Energy and Natural Resources in the candidate-YEKA "
+        f"notice of 13 May 2026 (file 'SAROS DÜRES'). It is a candidate area, not an approved "
+        f"project; no turbine layout, cable route or installation footprint is implied. The zone "
+        f"covers {d.area_km2:.1f} km²; its geometric centroid (open circle) lies at {lat_c:.3f}° N, "
+        f"{lon_c:.3f}° E. The energy model uses the ERA5 reanalysis grid node at "
         f"{d.era5_ll[1]:.2f}° N, {d.era5_ll[0]:.2f}° E (black square), which lies outside the zone, "
         f"{d.era5_distance_km:.1f} km from its nearest boundary (dotted line). "
         f"The dashed vermillion line is the boundary of the Saros Körfezi Special Environmental "
-        f"Protection Area (ÖÇK) reconstructed from the coordinates in the annex to Council of "
-        f"Ministers Decision 2010/1089 (Official Gazette 27793, 22 December 2010). The annex does not "
-        f"state a geodetic datum; the coordinates were read as WGS 84, so the overlay is an "
-        f"approximate GIS reconstruction, not a legally certified boundary. The ÖÇK continues east and "
-        f"south of the map. About {d.overlap_km2:.0f} km² (≈{d.overlap_pct:.0f}%) of the zone, its "
-        f"eastern arm, falls inside the ÖÇK (hatched; {ref['overlap_km2']:.1f} km² or "
-        f"{ref['overlap_share_pct']:.1f}% in the raster screening, {d.overlap_km2:.1f} km² or "
-        f"{d.overlap_pct:.1f}% by exact polygon intersection). ÖÇK status requires permission from the "
-        f"environment ministry for activities; it is not an automatic prohibition of construction. "
+        f"Protection Area (ÖÇK), reconstructed from the coordinates in the annex to Council of "
+        f"Ministers Decision 2010/1089 (Official Gazette 27793, 22 December 2010); the narrow tint "
+        f"marks its protected side. The annex does not state a geodetic datum; the coordinates were "
+        f"read as WGS 84, so the overlay is an approximate GIS reconstruction, not a legally certified "
+        f"boundary. The ÖÇK continues east and south beyond the map edge, which is not part of its "
+        f"boundary. The hatched eastern arm of the zone, about {ref['overlap_km2']:.1f} km² "
+        f"({ref['overlap_share_pct']:.1f}%) in the raster screening ({d.overlap_km2:.1f} km², "
+        f"{d.overlap_pct:.1f}%, by exact polygon intersection), lies inside the ÖÇK. ÖÇK status means "
+        f"that activities require permission from the environment ministry; it is not an automatic "
+        f"prohibition of construction. "
         f"Shading shows water depth below lowest astronomical tide (depth = −elevation) from the "
-        f"EMODnet Digital Bathymetry DTM 2024 (1/16 arc-minute grid) on a square-root colour scale. "
-        f"Depth inside the zone ranges from {rng['min']:.0f} to {rng['max']:.0f} m (median "
-        f"{rng['median']:.0f} m). The 10 m and 50 m isobaths mark the depth screening classes used in "
-        f"the site checks (shallower than 10 m; 50 m and deeper); they are screening thresholds, not "
-        f"legal or technical exclusion zones. Land is shown where the DTM elevation is 0 m or higher; "
-        f"islets and enclosed water bodies smaller than about 0.1 km² are omitted for legibility. "
-        f"The map extent is that of the bathymetry grid; only the tip of the Gelibolu Peninsula "
-        f"appears, in the south-eastern corner. The arrow points to true north; the scale bar is exact to within 0.1% "
-        f"across the map.\n"
+        f"EMODnet Digital Bathymetry DTM 2024 (1/16 arc-minute grid). The colour scale is piecewise "
+        f"linear: 0–{DEPTH_KNEE:g} m, the depth range of the zone, spans {KNEE_FRAC:.0%} of the colour "
+        f"ramp and {DEPTH_KNEE:g}–{DEPTH_MAX:g} m the remaining {1 - KNEE_FRAC:.0%} (break marked on "
+        f"the colour bar), so shelf depths are resolved without losing the deep basin. Depth inside "
+        f"the zone ranges from {rng['min']:.0f} to {rng['max']:.0f} m (median {rng['median']:.0f} m). "
+        f"The 10 m and 50 m isobaths mark the depth screening classes used in the site checks "
+        f"(shallower than 10 m; 50 m and deeper); they are screening thresholds, not legal or "
+        f"technical exclusion zones. Land is shown where the DTM elevation is 0 m or higher; islets "
+        f"and enclosed water bodies smaller than about 0.1 km² are omitted for legibility. The map "
+        f"extent is that of the bathymetry grid: the land in the south-eastern corner belongs to the "
+        f"southern shore of the gulf (Gelibolu Peninsula), most of which lies south of the grid. The "
+        f"arrow points to true north; the scale bar is exact to within 0.1% across the map.\n"
     )
 
 

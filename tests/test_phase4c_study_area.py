@@ -315,7 +315,53 @@ def test_caption_states_sources_and_limits(m, data):
                   "approximate GIS reconstruction", "not a legally certified boundary",
                   "not an automatic prohibition", "EMODnet", "depth = −elevation",
                   "not legal or technical exclusion zones", f"{data.era5_distance_km:.1f} km",
-                  "outside the zone", "UTM zone 35N"):
+                  "outside the zone", "UTM zone 35N", "24.7 km²", "beyond the map edge",
+                  "piecewise linear", "Gelibolu Peninsula"):
         assert token in c, token
     committed = ROOT / "figures" / "revised" / "saros_study_area_caption.md"
     assert committed.read_text(encoding="utf-8") == c
+
+
+# ---- refinement: key, ÖÇK presentation, labels, depth scale ----------------------
+def test_depth_scale_resolves_the_zone_and_keeps_the_basin(fig, m, data):
+    (mesh,) = [c for c in _ax(fig).collections if c.get_gid() == "bathymetry"]
+    n = mesh.norm
+    assert float(n(0)) == pytest.approx(0) and float(n(m.DEPTH_MAX)) == pytest.approx(1)
+    assert float(n(m.DEPTH_KNEE)) == pytest.approx(m.KNEE_FRAC)
+    v = np.linspace(0, m.DEPTH_MAX, 500)
+    assert np.all(np.diff(np.asarray(n(v))) > 0)                      # strictly monotonic
+    zone = data.depth[m._zone_mask(data)]
+    assert zone.max() <= m.DEPTH_KNEE + 2                            # zone sits in the expanded segment
+    assert m.KNEE_FRAC >= 0.5
+    assert np.asarray(mesh.get_array()).max() > 600                  # deep basin still shown, unaltered
+
+
+def test_ock_tint_lies_inside_the_ock_along_its_boundary(fig, m, data):
+    (tint,) = [p for p in _ax(fig).patches if p.get_gid() == "ock_tint"]
+    width = m.OCK_TINT_MM * (data.extent[1] - data.extent[0]) / (m.W_MM - m.LEFT_MM - m.RIGHT_MM)
+    band = m.ock_tint(data.ock, width)
+    assert band.within(data.ock.buffer(0.5))
+    assert band.area == pytest.approx(data.ock.exterior.length * width, rel=0.05)
+    drawn = tint.get_path().vertices
+    assert all(data.ock.buffer(1.0).contains(Point(v)) for v in drawn[::25])
+    # the tint follows the annex boundary only: nothing runs along the map frame
+    x0, x1, y0, y1 = data.extent
+    frame_edges = LineString([(x1, y0), (x1, y1)]).union(LineString([(x0, y0), (x1, y0)]))
+    assert band.intersection(frame_edges.buffer(width * 0.25)).area < 0.05 * band.area
+
+
+def test_no_label_on_unmapped_land_and_quiet_centroid(fig):
+    texts = {t.get_text(): t for t in _ax(fig).texts}
+    assert not [k for k in texts if "Gelibolu" in k]                  # only its tip is in the grid
+    (c,) = [t for t in _ax(fig).texts if t.get_gid() == "centroid_label"]
+    assert c.get_bbox_patch() is None and c.get_fontweight() in ("normal", 400)
+    from matplotlib.colors import to_hex
+    from config.figure_style import MUTED
+    assert to_hex(c.get_color()) == to_hex(MUTED)
+
+
+def test_legend_is_concise(fig):
+    (leg,) = fig.legends
+    labels = [t.get_text() for t in leg.get_texts()]
+    assert len(labels) == 7 and all(len(t) <= 36 for t in labels)
+    assert not [t for t in labels if re.search(r"Decision|permit|exclu|approved project", t)]
