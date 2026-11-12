@@ -63,9 +63,10 @@ PNG_DPI = 600
 FS_HEAD, FS_AXIS, FS_NOTE = 8.5, 8.0, 7.0
 INK, MUTED = "#1F2328", "#555B63"
 GRID, AXIS = "#E3E5E8", "#8A9099"
+GUIDE = "#C9CED4"                      # dotted row guides in (a)
 BAND = "#D9DEE5"
 # White plate behind in-plot labels so guide lines never strike through digits.
-PLATE = dict(boxstyle="square,pad=0.18", facecolor="white", edgecolor="none")
+PLATE = dict(boxstyle="square,pad=0.3", facecolor="white", edgecolor="none")
 # Okabe-Ito blue / vermillion: separable under protan, deutan and tritan vision.
 C_YEAR, C_LOW = "#0072B2", "#D55E00"
 
@@ -198,7 +199,10 @@ def build_figure(d: FigureData):
         ax_a.tick_params(axis="x", which="both", length=0, labelbottom=False)
         ax_a.tick_params(axis="y", length=0, pad=5, labelsize=FS_AXIS, labelcolor=INK)
         ax_a.set_yticks(rows, [str(y) for y in d.years])
-        ax_a.grid(axis="y", color=GRID, linewidth=0.6, zorder=0)   # full-width row guides
+        # Row guides: thin, pale and dotted, so a guide interrupted by a label can
+        # never read as a solid whisker or interval.
+        ax_a.grid(axis="y", color=GUIDE, linewidth=0.5, linestyle=(0, (1.0, 2.0)),
+                  dash_capstyle="butt", zorder=0)
         i_low = d.years.index(d.low_year)
         ax_a.get_yticklabels()[i_low].set_fontweight("bold")
 
@@ -210,20 +214,27 @@ def build_figure(d: FigureData):
                   color=C_LOW, markeredgecolor="white", markeredgewidth=0.6, zorder=3,
                   gid="low_year_point", clip_on=False)
 
-        for i, v in enumerate(d.values):           # value label on the side away from the mean
-            below = v < d.mean
-            ax_a.annotate(f"{v:.3f}", (v, i), xytext=(-6 if below else 6, 0),
-                          textcoords="offset points", ha="right" if below else "left",
-                          va="center_baseline", fontsize=FS_NOTE, color=MUTED, bbox=PLATE)
+        # Precise values only for the two extreme years, both to the right of the
+        # point, so a row guide is never interrupted on both sides of a marker.
+        renderer = fig.canvas.get_renderer()
+        i_high = d.years.index(d.high_year)
+        value_low = ax_a.annotate(f"{d.values[i_low]:.3f}", (d.values[i_low], i_low),
+                                  xytext=(6.5, 0), textcoords="offset points", ha="left",
+                                  va="center_baseline", fontsize=FS_NOTE, color=MUTED, bbox=PLATE)
+        value_w = value_low.get_window_extent(renderer).width * 72 / fig.dpi
         ax_a.annotate(f"Low-wind year ({d.low_pct_below_mean:.1f}% below mean)",
-                      (d.values[i_low], i_low), xytext=(7, 0), textcoords="offset points",
-                      ha="left", va="center_baseline", fontsize=FS_NOTE, color=INK, bbox=PLATE)
-        ax_a.annotate(f"{d.n}-year mean, {d.mean:.3f}", (d.mean, -1.0), xytext=(4, 0),
+                      (d.values[i_low], i_low), xytext=(6.5 + value_w + 3.5, 0),
                       textcoords="offset points", ha="left", va="center_baseline",
                       fontsize=FS_NOTE, color=INK, bbox=PLATE)
+        ax_a.annotate(f"{d.values[i_high]:.3f}", (d.values[i_high], i_high), xytext=(6, 0),
+                      textcoords="offset points", ha="left", va="center_baseline",
+                      fontsize=FS_NOTE, color=MUTED, bbox=PLATE)
+        ax_a.annotate(f"{d.n}-year mean, {d.mean:.3f}", (d.mean, -1.0), xytext=(4, 0),
+                      textcoords="offset points", ha="left", va="center_baseline",
+                      fontsize=FS_NOTE, color=INK)          # headroom row: nothing to mask
 
         # ---- (b) sampling confidence interval of the mean -------------------
-        y0, half = 0.62, 0.17
+        y0, half = 0.62, 0.14
         ax_b.set_ylim(0, 1)
         ax_b.set_yticks([])
         ax_b.spines["bottom"].set_color(AXIS)
@@ -237,12 +248,12 @@ def build_figure(d: FigureData):
 
         ax_b.add_patch(Rectangle((d.ci_lo, y0 - half), d.ci_hi - d.ci_lo, 2 * half,
                                  facecolor=BAND, edgecolor="none", zorder=1))
-        ax_b.plot([d.ci_lo, d.ci_hi], [y0, y0], color=INK, linewidth=1.3, zorder=2,
+        ax_b.plot([d.ci_lo, d.ci_hi], [y0, y0], color=INK, linewidth=0.8, zorder=2,
                   solid_capstyle="butt", gid="ci_interval")
         for x in (d.ci_lo, d.ci_hi):
-            ax_b.plot([x, x], [y0 - half, y0 + half], color=INK, linewidth=1.3, zorder=2,
+            ax_b.plot([x, x], [y0 - half, y0 + half], color=INK, linewidth=0.8, zorder=2,
                       solid_capstyle="butt")
-        ax_b.plot([d.mean], [y0], linestyle="none", marker="D", markersize=5.6, color=INK,
+        ax_b.plot([d.mean], [y0], linestyle="none", marker="D", markersize=5.0, color=INK,
                   markeredgecolor="white", markeredgewidth=0.6, zorder=4, gid="mean_marker")
         for x, dx, ha in ((d.ci_lo, -5, "right"), (d.ci_hi, 5, "left")):
             ax_b.annotate(f"{x:.3f}", (x, y0), xytext=(dx, 0), textcoords="offset points",

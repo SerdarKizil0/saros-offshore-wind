@@ -127,15 +127,35 @@ def test_every_year_is_plotted_at_its_own_value(fig, data):
             plotted[int(labels[int(y)])] = float(x)
     assert plotted == _csv_values()
     assert int(labels[int(_gid(ax, "low_year_point").get_ydata()[0])]) == data.low_year
-    # value labels printed beside the markers agree with the CSV too
+    # precise values are printed for the two extreme years only, and agree with the CSV
     printed = sorted(t.get_text() for t in ax.texts if re.fullmatch(r"\d\.\d{3}", t.get_text()))
-    assert printed == sorted(f"{v:.3f}" for v in _csv_values().values())
+    assert printed == sorted(f"{data.value(y):.3f}" for y in (data.low_year, data.high_year))
+    assert any(t.get_text() == f"{data.n}-year mean, {data.mean:.3f}" for t in ax.texts)
 
 
 def test_panel_a_draws_point_estimates_only(fig):
     ax = _axes(fig)["panel_a"]
     assert ax.lines and all(ln.get_linestyle() == "None" for ln in ax.lines)   # markers, no segments
     assert not ax.patches and not ax.collections and not ax.containers
+
+
+def test_row_guides_cannot_read_as_intervals(fig):
+    ax = _axes(fig)["panel_a"]
+    guides = [ln for ln in ax.yaxis.get_gridlines() if ln.get_visible()]
+    columns = [ln for ln in ax.xaxis.get_gridlines() if ln.get_visible()]
+    assert guides and columns
+    for g in guides:                                # dotted, and lighter than the x grid
+        assert g.get_linestyle() not in ("-", "solid")
+        assert g.get_linewidth() < columns[0].get_linewidth()
+    # labels sit only to the right of their markers, so no guide is cut on both sides
+    for t in ax.texts:
+        assert t.get_horizontalalignment() == "left"
+
+
+def test_ci_is_drawn_with_light_strokes(fig):
+    ax = _axes(fig)["panel_b"]
+    ci = [ln for ln in ax.lines if ln.get_linestyle() != "None"]
+    assert ci and all(ln.get_linewidth() <= 0.8 for ln in ci)
 
 
 def test_panel_b_shows_the_authoritative_interval(fig, data):
@@ -161,6 +181,14 @@ def test_layout_is_clean_and_fonts_are_bundled(m, fig):
     assert used == {"DejaVu Sans"}
     sizes = {t.get_fontsize() for t in fig.findobj(Text) if t.get_visible() and t.get_text().strip()}
     assert min(sizes) >= 7.0 and len(sizes) <= 3
+
+
+def test_strokes_survive_print_at_actual_size(fig):
+    # 0.5 pt (0.18 mm) is the thinnest stroke drawn; nothing finer that a press could drop
+    from matplotlib.lines import Line2D
+    widths = [ln.get_linewidth() for ln in fig.findobj(Line2D)
+              if ln.get_visible() and ln.get_linestyle() != "None"]
+    assert widths and min(widths) >= 0.5
 
 
 def test_exact_180_by_125_mm_outputs(outputs):
@@ -190,9 +218,11 @@ def test_pdf_text_has_no_orphaned_unit_symbols(outputs, data):
     assert "Estimated net annual energy yield (GWh MW−1 yr−1)" in lines
     assert text.count("GWh") == 1
     assert not [ln for ln in lines if re.fullmatch(r"(yr|MW|GWh|[−-]1\)?|\))", ln)]
-    for year, value in zip(data.years, data.values):                 # each year shares a line with its value
+    for year, value in zip(data.years, data.values):                 # only extreme years carry values
         (row,) = [ln for ln in lines if ln.startswith(str(year))]
-        assert f"{value:.3f}" in row
+        labelled = year in (data.low_year, data.high_year)
+        assert (f"{value:.3f}" in row) is labelled
+        assert bool(re.search(r"\d\.\d{3}", row)) is labelled
 
 
 def test_committed_caption_matches_the_data(m, data):
