@@ -88,6 +88,13 @@ def test_no_data_literals_in_the_generator():
     assert not re.findall(r"(?<![\w.])[12]\.\d{3,}", SCRIPT.read_text(encoding="utf-8"))
 
 
+def test_generator_takes_style_from_the_shared_module():
+    src = SCRIPT.read_text(encoding="utf-8")
+    assert "from config import figure_style" in src
+    assert not re.findall(r"#[0-9A-Fa-f]{6}\b", src)           # no local colour definitions
+    assert "rc_context(" not in src and "savefig(" not in src   # style and export are shared
+
+
 def test_figure_follows_the_data_files(m, tmp_path):
     work = tmp_path / "revised"
     shutil.copytree(RESULTS, work)
