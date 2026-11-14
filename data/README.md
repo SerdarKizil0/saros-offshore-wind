@@ -6,6 +6,7 @@
 | `processed/wind_hub_105m.parquet.sha256` | yes | Checksum of the file above |
 | `processed/wind_processing_summary.json` | no | Diagnostics written by `scripts/03`; regenerable |
 | `era5/era5_saros_YYYY_MM.nc` | no | Raw ERA5 NetCDF downloads (gitignored); regenerable with `scripts/02` |
+| `external/phase5pre/` | yes | Review input (Phase 5-PRE only): Open-Meteo ERA5 1979–2024 at 40.50° N × 26.00/26.25/26.50° E and the ERA5 land–sea mask; see its `README.md` |
 
 ## `processed/wind_hub_105m.parquet`
 

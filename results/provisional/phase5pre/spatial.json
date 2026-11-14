@@ -1,0 +1,106 @@
+{
+  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast; results/revised/ unchanged",
+  "label": "OBSERVED model output at three ERA5 nodes, 2014-2024, identical assumptions (each node with its own alpha by the documented method)",
+  "baseline_90pct_sampling_ci_half_width_rel_pct": 3.8311939049536363,
+  "nodes": {
+    "W": {
+      "lon": 26.0,
+      "alpha_node_2014_2024": 0.10027250644094005,
+      "mean_U10_ms": 5.776531027044964,
+      "mean_U100_ms": 7.3239995022399205,
+      "mean_U_hub_ms": 7.3599185853045,
+      "p10_U_hub_ms": 2.34142701655221,
+      "median_U_hub_ms": 7.064477221614608,
+      "p90_U_hub_ms": 12.56130373686808,
+      "power_density_U_hub_wm2_rho1225": 481.4876754911931,
+      "gross_cf": 0.34804472596622354,
+      "net_cf": 0.295065357779645,
+      "net_gwh_per_mw": 2.5865429262963677,
+      "net_gwh_per_mw_with_baseline_alpha": 2.5979105495252406,
+      "annual_net_cov_pct": 6.837305583568912,
+      "ratio_1994_2024_to_2014_2024_energy": 0.9710929887829066,
+      "energy_rel_to_node_C_pct": 6.561379591324723,
+      "abs_diff_over_baseline_ci_half_width": 1.712620074604166,
+      "U100_rel_to_node_C_pct": 2.87206267839748,
+      "anchored_net_gwh_per_mw": 2.586651738680178,
+      "paired_annual_rel_diff_vs_C_pct": {
+        "mean": 6.58247534507318,
+        "sd": 1.2385004836998343,
+        "min": 5.006507627276324,
+        "max": 8.532281123581754
+      },
+      "annual_correlation_with_C": 0.9857305985729039
+    },
+    "C": {
+      "lon": 26.25,
+      "alpha_node_2014_2024": 0.14929390375275445,
+      "mean_U10_ms": 5.066209868093579,
+      "mean_U100_ms": 7.119522357723578,
+      "mean_U_hub_ms": 7.171570818235809,
+      "p10_U_hub_ms": 2.518276668678401,
+      "median_U_hub_ms": 6.9605167122271,
+      "p90_U_hub_ms": 11.866119662812624,
+      "power_density_U_hub_wm2_rho1225": 416.8429249250746,
+      "gross_cf": 0.32661432059252193,
+      "net_cf": 0.27689708871192825,
+      "net_gwh_per_mw": 2.4272798796487627,
+      "net_gwh_per_mw_with_baseline_alpha": 2.4272646894409164,
+      "annual_net_cov_pct": 7.010787693793273,
+      "ratio_1994_2024_to_2014_2024_energy": 0.9697725926574539,
+      "energy_rel_to_node_C_pct": 0.0,
+      "abs_diff_over_baseline_ci_half_width": 0.0,
+      "U100_rel_to_node_C_pct": 0.0,
+      "anchored_net_gwh_per_mw": 2.427381992050298,
+      "paired_annual_rel_diff_vs_C_pct": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "annual_correlation_with_C": 1.0
+    },
+    "E": {
+      "lon": 26.5,
+      "alpha_node_2014_2024": 0.1399609493331671,
+      "mean_U10_ms": 4.968532541065207,
+      "mean_U100_ms": 6.854401650904263,
+      "mean_U_hub_ms": 6.901368604270053,
+      "p10_U_hub_ms": 2.5372672581079594,
+      "median_U_hub_ms": 6.685497854697163,
+      "p90_U_hub_ms": 11.316010600744278,
+      "power_density_U_hub_wm2_rho1225": 363.0521960272321,
+      "gross_cf": 0.2982082671969191,
+      "net_cf": 0.2528150047642041,
+      "net_gwh_per_mw": 2.216176331763013,
+      "net_gwh_per_mw_with_baseline_alpha": 2.2182639015561265,
+      "annual_net_cov_pct": 7.581057998808818,
+      "ratio_1994_2024_to_2014_2024_energy": 0.971930297994788,
+      "energy_rel_to_node_C_pct": -8.697124285325408,
+      "abs_diff_over_baseline_ci_half_width": 2.2700819903895355,
+      "U100_rel_to_node_C_pct": -3.7238552461556607,
+      "anchored_net_gwh_per_mw": 2.2162695633220766,
+      "paired_annual_rel_diff_vs_C_pct": {
+        "mean": -8.728267729365488,
+        "sd": 1.1959449243585445,
+        "min": -10.344373967895681,
+        "max": -7.2185279979227746
+      },
+      "annual_correlation_with_C": 0.9868121998353874
+    }
+  },
+  "node_spread_energy_pct": {
+    "min": -8.697124285325408,
+    "max": 6.561379591324723
+  },
+  "interpolation_polygon_share_weighted": {
+    "label": "INTERPOLATION of model output (not validation, not adopted): nearest-node polygon shares as weights; mixes cells with ERA5 land fraction 0.12-0.46",
+    "weights": {
+      "W": 0.2771682340647858,
+      "C": 0.6266980146290491,
+      "E": 0.0961337513061651
+    },
+    "net_gwh_per_mw_openmeteo": 2.451128361067559,
+    "rel_to_node_C_pct": 0.9825188112319028,
+    "anchored_net_gwh_per_mw": 2.4512314767426484
+  }
+}

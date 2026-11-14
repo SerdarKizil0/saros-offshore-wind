@@ -1,0 +1,66 @@
+{
+  "label": "CALIBRATION of the Open-Meteo ERA5 series against the committed CDS-derived baseline, node 40.50 N 26.25 E, 2014-2024 (same model, different distribution and storage)",
+  "n_hours_matched": 96432,
+  "n_hours_baseline": 96432,
+  "U10": {
+    "mean_cds_ms": 5.066298484802246,
+    "mean_openmeteo_ms": 5.066209868093579,
+    "mean_diff_ms": -8.849714646171274e-05,
+    "rmse_ms": 0.03509032807869056,
+    "max_abs_diff_ms": 1.7537118911743166,
+    "share_abs_diff_gt_0p1_ms_pct": 0.17732702837232453,
+    "pearson_r": 0.9999120740059176
+  },
+  "U100": {
+    "mean_cds_ms": 7.1196088790893555,
+    "mean_openmeteo_ms": 7.119522357723578,
+    "mean_diff_ms": -8.629282299269703e-05,
+    "rmse_ms": 0.04064735137516498,
+    "max_abs_diff_ms": 2.576099166870117,
+    "share_abs_diff_gt_0p1_ms_pct": 0.21258503401360546,
+    "pearson_r": 0.9999374524781877
+  },
+  "energy": {
+    "gross_cf_cds": 0.32662601674044345,
+    "gross_cf_openmeteo": 0.3266122766010329,
+    "pooled_gross_cf_rel_diff_pct": -0.0042066885998948145,
+    "net_gwh_per_mw_cds": 2.42736680120342,
+    "net_gwh_per_mw_openmeteo": 2.4272646894409164,
+    "rounding_only_rel_diff_pct": 0.0002939658305889381,
+    "rounding_note": "CDS U100 rounded to 0.01 m/s; isolates the effect of two-decimal storage",
+    "annual_net_yield_rel_diff_pct": {
+      "2014": -0.006755582590456388,
+      "2015": -0.01790368813944232,
+      "2016": -0.0032203201568492545,
+      "2017": -0.003372752409747104,
+      "2018": -0.014248025758578642,
+      "2019": -0.0010345579363191248,
+      "2020": -0.006537024931252411,
+      "2021": 0.0005988531178724443,
+      "2022": -0.0019738403061353438,
+      "2023": 0.006791457899790743,
+      "2024": 0.0013075878845247857
+    },
+    "annual_net_yield_max_abs_rel_diff_pct": 0.01790368813944232,
+    "annual_net_yield_pearson_r": 0.9999994915002763
+  },
+  "criteria": {
+    "hourly_U100_correlation_min": 0.99,
+    "pooled_gross_cf_abs_rel_diff_max_pct": 1.0,
+    "annual_net_yield_abs_rel_diff_max_pct": 1.0
+  },
+  "fit_for_ratio_analysis": true,
+  "anchor": {
+    "cds_gross_cf_2014_2024": 0.32662601674044345,
+    "openmeteo_gross_cf_2014_2024": 0.3266122766010329,
+    "cds_U100_mean_2014_2024": 7.1196088790893555,
+    "openmeteo_U100_mean_2014_2024": 7.119522357723578,
+    "rule": "anchored = CDS value * (Open-Meteo X / Open-Meteo node C 2014-2024)"
+  },
+  "baseline_check": {
+    "net_gwh_per_mw_recomputed": 2.42736680120342,
+    "net_gwh_per_mw_results_revised": 2.42736680120342,
+    "alpha_baseline": 0.1492303349474573
+  },
+  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast; results/revised/ unchanged"
+}

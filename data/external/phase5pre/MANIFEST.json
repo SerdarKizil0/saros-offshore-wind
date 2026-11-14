@@ -1,0 +1,126 @@
+{
+ "retrieved_utc": "2026-11-14T12:54:26+00:00",
+ "description": "Phase 5-PRE inputs; see scripts/phase5pre_fetch_inputs.py docstring",
+ "licences": {
+  "ERA5": "Copernicus Climate Change Service licence; contains modified Copernicus Climate Change Service information",
+  "Open-Meteo": "data served under CC BY 4.0 (open-meteo.com); Zippenfenig, P. (2023) Open-Meteo.com Weather API, doi:10.5281/zenodo.7970649",
+  "ARCO-ERA5": "Google Cloud public dataset; Carver & Merose (2023), ARCO-ERA5"
+ },
+ "openmeteo_requests": [
+  {
+   "node": "W",
+   "years": [
+    1979,
+    2001
+   ],
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.50&longitude=26.00&start_date=1979-01-01&end_date=2001-12-31&hourly=wind_speed_10m,wind_speed_100m&models=era5&wind_speed_unit=ms&timezone=GMT&cell_selection=nearest",
+   "sha256": "b6c06f60e86549f32c23e07ca180f2004e825291606df0148de83f21f5a95867",
+   "grid_lat": 40.5,
+   "grid_lon": 26.0,
+   "rows": 201624
+  },
+  {
+   "node": "W",
+   "years": [
+    2002,
+    2024
+   ],
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.50&longitude=26.00&start_date=2002-01-01&end_date=2024-12-31&hourly=wind_speed_10m,wind_speed_100m&models=era5&wind_speed_unit=ms&timezone=GMT&cell_selection=nearest",
+   "sha256": "495e574ca7f0b61b62753dfd862a3a8ea67c5f04a423e69501bd2d258a6fa8ff",
+   "grid_lat": 40.5,
+   "grid_lon": 26.0,
+   "rows": 201624
+  },
+  {
+   "node": "C",
+   "years": [
+    1979,
+    2001
+   ],
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.50&longitude=26.25&start_date=1979-01-01&end_date=2001-12-31&hourly=wind_speed_10m,wind_speed_100m&models=era5&wind_speed_unit=ms&timezone=GMT&cell_selection=nearest",
+   "sha256": "7612865f7541f20d2db9a71c708787f2b5e65a232962be94b0fc105972d2b97a",
+   "grid_lat": 40.5,
+   "grid_lon": 26.25,
+   "rows": 201624
+  },
+  {
+   "node": "C",
+   "years": [
+    2002,
+    2024
+   ],
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.50&longitude=26.25&start_date=2002-01-01&end_date=2024-12-31&hourly=wind_speed_10m,wind_speed_100m&models=era5&wind_speed_unit=ms&timezone=GMT&cell_selection=nearest",
+   "sha256": "1e545199eaa30a1c6ebc1520e288e7674e24c6163f3e6963f8f37f6810c6b090",
+   "grid_lat": 40.5,
+   "grid_lon": 26.25,
+   "rows": 201624
+  },
+  {
+   "node": "E",
+   "years": [
+    1979,
+    2001
+   ],
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.50&longitude=26.50&start_date=1979-01-01&end_date=2001-12-31&hourly=wind_speed_10m,wind_speed_100m&models=era5&wind_speed_unit=ms&timezone=GMT&cell_selection=nearest",
+   "sha256": "51a2301c8f5d73caa1c9005935c831f260fb93cfa3c2c81f313dbb0bdc3efd41",
+   "grid_lat": 40.5,
+   "grid_lon": 26.5,
+   "rows": 201624
+  },
+  {
+   "node": "E",
+   "years": [
+    2002,
+    2024
+   ],
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.50&longitude=26.50&start_date=2002-01-01&end_date=2024-12-31&hourly=wind_speed_10m,wind_speed_100m&models=era5&wind_speed_unit=ms&timezone=GMT&cell_selection=nearest",
+   "sha256": "e0f2a4b984dfff233340af4f9f0fc5c055d6a821d70d3802e83ca668b7c0e778",
+   "grid_lat": 40.5,
+   "grid_lon": 26.5,
+   "rows": 201624
+  }
+ ],
+ "files": {
+  "era5_land_sea_mask_saros.json": "1d7f1090d7e8afbbb252af7d72814cd76faa34e54e405d5950fe7cd6c3300fe0",
+  "era5_openmeteo_40.50N_26.00E_1979_2024.parquet": "9135bd806f3e5828a4d0f29d3af5174dd19c2b29864191b41a4ca0489e1cc0ae",
+  "era5_openmeteo_40.50N_26.25E_1979_2024.parquet": "c3ce1d44c9679f6ba75ca2c82b467e18f683a122e6f1a3a7d83a85442aac0fb2",
+  "era5_openmeteo_40.50N_26.50E_1979_2024.parquet": "0df4cb82a0c8e788a2146f2263871da4c56240f45ea4a5fdb4ca7f7e42e707af"
+ },
+ "land_sea_mask": {
+  "url": "https://storage.googleapis.com/gcp-public-data-arco-era5/ar/full_37-1h-0p25deg-chunk-1.zarr-v3/land_sea_mask/999312.0.0",
+  "chunk_sha256": "03111ffe4a9da8dd3f2bf5201dc37cd5542e8c4c55cf3b220a863a7c201f98a3",
+  "time_index_hours_since_1900": 999312
+ },
+ "nodes": {
+  "W": {
+   "lat": 40.5,
+   "lon": 26.0,
+   "file": "era5_openmeteo_40.50N_26.00E_1979_2024.parquet",
+   "rows": 403248,
+   "start": "1979-01-01 00:00:00",
+   "end": "2024-12-31 23:00:00",
+   "storage": "int16 centi-m/s (divide by 100); API values have two decimals",
+   "time_axis": "row i = 1979-01-01 00:00 UTC + i hours (verified complete and regular before the timestamp column was dropped)"
+  },
+  "C": {
+   "lat": 40.5,
+   "lon": 26.25,
+   "file": "era5_openmeteo_40.50N_26.25E_1979_2024.parquet",
+   "rows": 403248,
+   "start": "1979-01-01 00:00:00",
+   "end": "2024-12-31 23:00:00",
+   "storage": "int16 centi-m/s (divide by 100); API values have two decimals",
+   "time_axis": "row i = 1979-01-01 00:00 UTC + i hours (verified complete and regular before the timestamp column was dropped)"
+  },
+  "E": {
+   "lat": 40.5,
+   "lon": 26.5,
+   "file": "era5_openmeteo_40.50N_26.50E_1979_2024.parquet",
+   "rows": 403248,
+   "start": "1979-01-01 00:00:00",
+   "end": "2024-12-31 23:00:00",
+   "storage": "int16 centi-m/s (divide by 100); API values have two decimals",
+   "time_axis": "row i = 1979-01-01 00:00 UTC + i hours (verified complete and regular before the timestamp column was dropped)"
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast; results/revised/ unchanged",
+  "label": "MODEL DISAGREEMENT decomposition (GWA 4.0 is ERA5-driven WRF/WAsP, 2008-2017; neither is validated offshore here; GWA is not ground truth)",
+  "gwa4_polygon_mean_100m_ms": 7.841599560921196,
+  "era5_U100_2014_2024_cds_ms": 7.1196088790893555,
+  "ratio_gwa_to_era5_2014_2024": 1.101408756308561,
+  "era5_period_ratio_2008_2017_over_2014_2024": 0.9816600444550924,
+  "era5_U100_2008_2017_anchored_ms": 6.989035568749727,
+  "ratio_gwa_to_era5_period_matched": 1.1219859283566338,
+  "share_of_log_disagreement_explained_by_period_pct": -19.163690112173875,
+  "aep_change_if_scaled_to_gwa_unmatched_pct": 19.964068952821634,
+  "aep_change_if_scaled_to_gwa_period_matched_pct": 23.83077781249976,
+  "per_node_gwa_box_vs_era5": {
+    "W": {
+      "era5_lsm": 0.120001,
+      "era5_U100_2014_2024_openmeteo_ms": 7.3239995022399205,
+      "era5_U100_2008_2017_openmeteo_ms": 7.208021831371475,
+      "era5_period_ratio_2008_2017_over_2014_2024": 0.9841647079805268,
+      "gwa4_node_pixel_ms": 7.582877159118652,
+      "gwa4_0p25deg_box_mean_ms": 7.6807791813133734,
+      "gwa4_0p25deg_box_sea_only_mean_ms": 7.68933176774833,
+      "ratio_gwa_box_to_era5_2014_2024": 1.0487137770782669,
+      "ratio_gwa_box_to_era5_period_matched": 1.0655876689890582,
+      "ratio_gwa_box_sea_only_to_era5_period_matched": 1.0667742062436671
+    },
+    "C": {
+      "era5_lsm": 0.438466,
+      "era5_U100_2014_2024_openmeteo_ms": 7.119522357723578,
+      "era5_U100_2008_2017_openmeteo_ms": 6.988950634181951,
+      "era5_period_ratio_2008_2017_over_2014_2024": 0.9816600444550924,
+      "gwa4_node_pixel_ms": 8.185370445251465,
+      "gwa4_0p25deg_box_mean_ms": 7.987700263881683,
+      "gwa4_0p25deg_box_sea_only_mean_ms": 8.061285875634663,
+      "ratio_gwa_box_to_era5_2014_2024": 1.1219432796943558,
+      "ratio_gwa_box_to_era5_period_matched": 1.1429040898951255,
+      "ratio_gwa_box_sea_only_to_era5_period_matched": 1.1534329397331946
+    },
+    "E": {
+      "era5_lsm": 0.45516,
+      "era5_U100_2014_2024_openmeteo_ms": 6.854401650904263,
+      "era5_U100_2008_2017_openmeteo_ms": 6.70833424582535,
+      "era5_period_ratio_2008_2017_over_2014_2024": 0.9786899845503446,
+      "gwa4_node_pixel_ms": 7.541550636291504,
+      "gwa4_0p25deg_box_mean_ms": 7.28900462808609,
+      "gwa4_0p25deg_box_sea_only_mean_ms": 7.3945559569408195,
+      "ratio_gwa_box_to_era5_2014_2024": 1.0634049475528609,
+      "ratio_gwa_box_to_era5_period_matched": 1.0865595483144115,
+      "ratio_gwa_box_sea_only_to_era5_period_matched": 1.1022939057549959
+    }
+  },
+  "note": "Positive share means ERA5 2008-2017 was windier than 2014-2024 and so explains part of the gap; a negative share means the period mismatch widens it. Per-node ratios use each node's own Open-Meteo ERA5 means (calibrated at node C to -0.001 % in mean U100). A GWA/ERA5 ratio is inter-model disagreement, not a bias estimate."
+}

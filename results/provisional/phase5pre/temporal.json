@@ -1,0 +1,184 @@
+{
+  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast; results/revised/ unchanged",
+  "label": "OBSERVED model years (ERA5 via Open-Meteo, node 40.50 N 26.25 E, baseline alpha); additional years are further reanalysis years, not independent observations",
+  "alpha_used": 0.1492303349474573,
+  "alpha_recomputed_1994_2024": 0.14913887708563256,
+  "periods": {
+    "2014-2024": {
+      "years": 11,
+      "mean_U100_ms_openmeteo": 7.119522357723578,
+      "mean_U_hub_ms_openmeteo": 7.1715485754107196,
+      "gross_cf_openmeteo": 0.3266122766010329,
+      "net_cf_openmeteo": 0.2768953558568237,
+      "net_gwh_per_mw_openmeteo": 2.4272646894409164,
+      "ratio_energy_vs_2014_2024": 1.0,
+      "ratio_U100_vs_2014_2024": 1.0,
+      "energy_change_vs_2014_2024_pct": 0.0,
+      "U100_change_vs_2014_2024_pct": 0.0,
+      "anchored_net_gwh_per_mw": 2.42736680120342,
+      "anchored_U100_ms": 7.1196088790893555,
+      "anchored_inside_baseline_90pct_sampling_ci": true
+    },
+    "2015-2024": {
+      "years": 10,
+      "mean_U100_ms_openmeteo": 7.18082033032211,
+      "mean_U_hub_ms_openmeteo": 7.233294485596347,
+      "gross_cf_openmeteo": 0.332465971993306,
+      "net_cf_openmeteo": 0.28185800173648495,
+      "net_gwh_per_mw_openmeteo": 2.470767243222027,
+      "ratio_energy_vs_2014_2024": 1.0179224597837868,
+      "ratio_U100_vs_2014_2024": 1.00860984340221,
+      "energy_change_vs_2014_2024_pct": 1.7922459783786815,
+      "U100_change_vs_2014_2024_pct": 0.8609843402209938,
+      "anchored_net_gwh_per_mw": 2.470871185078488,
+      "anchored_U100_ms": 7.180907596623298,
+      "anchored_inside_baseline_90pct_sampling_ci": true
+    },
+    "2008-2017": {
+      "years": 10,
+      "mean_U100_ms_openmeteo": 6.988950634181951,
+      "mean_U_hub_ms_openmeteo": 7.040022693349541,
+      "gross_cf_openmeteo": 0.3135251014072726,
+      "net_cf_openmeteo": 0.26580031047105757,
+      "net_gwh_per_mw_openmeteo": 2.3300055215892903,
+      "ratio_energy_vs_2014_2024": 0.959930547222673,
+      "ratio_U100_vs_2014_2024": 0.9816600444550924,
+      "energy_change_vs_2014_2024_pct": -4.006945277732699,
+      "U100_change_vs_2014_2024_pct": -1.8339955544907638,
+      "anchored_net_gwh_per_mw": 2.3301035417893488,
+      "anchored_U100_ms": 6.989035568749727,
+      "anchored_inside_baseline_90pct_sampling_ci": false
+    },
+    "1994-2024": {
+      "years": 31,
+      "mean_U100_ms_openmeteo": 7.007152808442992,
+      "mean_U_hub_ms_openmeteo": 7.058357880786592,
+      "gross_cf_openmeteo": 0.31673964904806096,
+      "net_cf_openmeteo": 0.2685255396699651,
+      "net_gwh_per_mw_openmeteo": 2.353894880746914,
+      "ratio_energy_vs_2014_2024": 0.9697726378943444,
+      "ratio_U100_vs_2014_2024": 0.9842167011163773,
+      "energy_change_vs_2014_2024_pct": -3.0227362105655575,
+      "U100_change_vs_2014_2024_pct": -1.5783298883622732,
+      "anchored_net_gwh_per_mw": 2.3539939059401975,
+      "anchored_U100_ms": 7.007237964216194,
+      "anchored_inside_baseline_90pct_sampling_ci": true
+    },
+    "1979-2024": {
+      "years": 46,
+      "mean_U100_ms_openmeteo": 6.991484247906995,
+      "mean_U_hub_ms_openmeteo": 7.042574821566508,
+      "gross_cf_openmeteo": 0.3162323491915038,
+      "net_cf_openmeteo": 0.2680954609975731,
+      "net_gwh_per_mw_openmeteo": 2.3501248111047253,
+      "ratio_energy_vs_2014_2024": 0.9682194205387799,
+      "ratio_U100_vs_2014_2024": 0.9820159129526883,
+      "energy_change_vs_2014_2024_pct": -3.178057946122015,
+      "U100_change_vs_2014_2024_pct": -1.7984087047311692,
+      "anchored_net_gwh_per_mw": 2.3502236776962473,
+      "anchored_U100_ms": 6.991569213265,
+      "anchored_inside_baseline_90pct_sampling_ci": true
+    }
+  },
+  "baseline_90pct_sampling_ci_net_gwh_per_mw": [
+    2.334301715754294,
+    2.5202959736314408
+  ],
+  "rolling_11yr": {
+    "within_1994_2024": {
+      "n_windows": 21,
+      "reference_mean": "1994-2024",
+      "min_net_gwh_per_mw_openmeteo": 2.273990506781291,
+      "max_net_gwh_per_mw_openmeteo": 2.4272646894409164,
+      "min_window": "1999-2009",
+      "max_window": "2014-2024",
+      "window_rel_pct_min": -3.3945599958256634,
+      "window_rel_pct_max": 3.1169534924482933,
+      "window_2014_2024_rel_pct": 3.1169534924482933,
+      "window_2014_2024_rank_from_lowest": 21,
+      "share_windows_ci_contains_reference_mean_pct": 100.0,
+      "t90_half_width_rel_pct_min": 2.546689493403234,
+      "t90_half_width_rel_pct_max": 4.984859244065465,
+      "note": "overlapping windows share years; they are not independent samples"
+    },
+    "within_1979_2024": {
+      "n_windows": 36,
+      "reference_mean": "1979-2024",
+      "min_net_gwh_per_mw_openmeteo": 2.273990506781291,
+      "max_net_gwh_per_mw_openmeteo": 2.4272646894409164,
+      "min_window": "1999-2009",
+      "max_window": "2014-2024",
+      "window_rel_pct_min": -3.239585572803927,
+      "window_rel_pct_max": 3.2823736838015094,
+      "window_2014_2024_rel_pct": 3.2823736838015094,
+      "window_2014_2024_rank_from_lowest": 36,
+      "share_windows_ci_contains_reference_mean_pct": 100.0,
+      "t90_half_width_rel_pct_min": 2.3902616692272094,
+      "t90_half_width_rel_pct_max": 4.984859244065465,
+      "note": "overlapping windows share years; they are not independent samples"
+    }
+  },
+  "year_2014": {
+    "1994-2024": {
+      "n_years": 31,
+      "rank_of_2014_from_lowest": 2,
+      "years_at_or_below_2014": [
+        2002,
+        2014
+      ],
+      "empirical_return_period_yr_weibull_plotting": 16.0,
+      "net_2014_rel_to_period_mean_pct": -15.377802474052416,
+      "z_2014_vs_other_years": -2.275239098941088,
+      "five_lowest_years": {
+        "2002": 1.9439290901283088,
+        "2014": 1.9918815963932597,
+        "1999": 2.0368193355840907,
+        "2000": 2.18001205629863,
+        "2009": 2.194315384062917
+      },
+      "annual_net_cov_pct": 7.436157676705946,
+      "lag1_autocorrelation": -0.0840019633524629,
+      "linear_trend_pct_per_decade": 2.745299630563515,
+      "linear_trend_p_value": 0.06488110819319852,
+      "trend_note": "descriptive only: reanalysis trends are affected by changes in the assimilated observing system and are not evidence of a climatic trend",
+      "t90_of_period_mean": {
+        "net_gwh_per_mw": [
+          2.3004948519480024,
+          2.4072098747757193
+        ],
+        "half_width_rel_pct": 2.26677545587455
+      }
+    },
+    "1979-2024": {
+      "n_years": 46,
+      "rank_of_2014_from_lowest": 2,
+      "years_at_or_below_2014": [
+        2002,
+        2014
+      ],
+      "empirical_return_period_yr_weibull_plotting": 23.5,
+      "net_2014_rel_to_period_mean_pct": -15.243805258771104,
+      "z_2014_vs_other_years": -2.351473764151584,
+      "five_lowest_years": {
+        "2002": 1.9439290901283088,
+        "2014": 1.9918815963932597,
+        "1999": 2.0368193355840907,
+        "1984": 2.1048656211249703,
+        "1988": 2.1506841997610615
+      },
+      "annual_net_cov_pct": 6.943786057028664,
+      "lag1_autocorrelation": -0.06453551925724058,
+      "linear_trend_pct_per_decade": 0.9959181946634859,
+      "linear_trend_p_value": 0.19991423635150668,
+      "trend_note": "descriptive only: reanalysis trends are affected by changes in the assimilated observing system and are not evidence of a climatic trend",
+      "t90_of_period_mean": {
+        "net_gwh_per_mw": [
+          2.309722674675907,
+          2.3905393002150603
+        ],
+        "half_width_rel_pct": 1.7194113512031761
+      }
+    }
+  },
+  "alpha_sensitivity_1994_2024_energy_pct": -0.0008936606844534012
+}
