@@ -14,7 +14,8 @@ config.emissions and config.turbine.ACTIVE_SCENARIOS.
              labelled accounting conventions, not statistical bounds.
   SECONDARY  life-cycle GHG of the wind generation, tCO2-eq, reported
              separately (never subtracted from the CO2-only grid factor).
-  Intervals  only the energy sampling CI (t-interval) propagated through a
+  Intervals  only the energy sampling CI of the period mean (t-interval from
+             the annual values of the primary period) propagated through a
              fixed 2023 factor; not total carbon uncertainty.
 
 Outputs: results/revised/emissions.json, results/revised/scenarios.json
@@ -35,22 +36,29 @@ from config.emissions import (GRID_EF_2023, PRIMARY_GRID_FACTOR, LIFECYCLE_GHG_G
 
 REV = RESULTS_DIR / "revised"
 STATUS = "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast"
-CI_LABEL = ("energy SAMPLING uncertainty of the 2014-2024 mean only, through a fixed 2023 factor; "
+
+
+def ci_label(period: str) -> str:
+    return (f"energy SAMPLING uncertainty of the {period} mean only, through a fixed 2023 factor; "
             "not total carbon uncertainty")
 
 
-def load_energy() -> dict:
-    ey = json.loads((REV / "energy_yield.json").read_text())
-    ci = json.loads((REV / "interannual_and_sampling.json").read_text())
-    lo, hi = ci["sampling_ci_of_11yr_mean"]["primary_t_interval_90"]["net_gwh_per_mw"]
+def load_energy(rev: Path = REV) -> dict:
+    ey = json.loads((rev / "energy_yield.json").read_text())
+    s = json.loads((rev / "interannual_and_sampling.json").read_text())["sampling_ci_of_period_mean"]
+    if ey.get("period") != s["period"]:
+        raise ValueError(f"period mismatch: energy {ey.get('period')} vs sampling CI {s['period']}")
+    lo, hi = s["primary_t_interval_90"]["net_gwh_per_mw"]
     return {"net_mwh_per_mw_yr": ey["net_mwh_per_mw_yr"],
             "net_mwh_per_mw_yr_ci90_sampling": [lo * 1000.0, hi * 1000.0],
             "net_cf": ey["net_cf"], "power_curve": ey["power_curve"], "estimator": ey["estimator"],
+            "period": ey["period"], "input_series": ey["input"]["series_key"],
             "source": "results/revised/energy_yield.json; interannual_and_sampling.json (t-interval)"}
 
 
-def compute() -> tuple[dict, dict]:
-    e = load_energy()
+def compute(rev: Path = REV) -> tuple[dict, dict]:
+    e = load_energy(rev)
+    CI_LABEL = ci_label(e["period"])
     E = e["net_mwh_per_mw_yr"]
     lo, hi = e["net_mwh_per_mw_yr_ci90_sampling"]
     pf = GRID_EF_2023[PRIMARY_GRID_FACTOR]

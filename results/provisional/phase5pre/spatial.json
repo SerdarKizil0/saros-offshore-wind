@@ -1,5 +1,5 @@
 {
-  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast; results/revised/ unchanged",
+  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast",
   "label": "OBSERVED model output at three ERA5 nodes, 2014-2024, identical assumptions (each node with its own alpha by the documented method)",
   "baseline_90pct_sampling_ci_half_width_rel_pct": 3.8311939049536363,
   "nodes": {

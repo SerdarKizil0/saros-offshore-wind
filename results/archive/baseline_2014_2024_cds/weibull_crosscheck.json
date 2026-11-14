@@ -1,0 +1,53 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "role": "descriptive fit and AEP cross-check only; not the energy estimator",
+  "weibull_fit_U_hub": {
+    "k_mle": 2.0352202772963572,
+    "c_mle_ms": 8.08002182568104,
+    "k_justus_empirical": 2.0757091326234667,
+    "c_justus_empirical_ms": 8.09644539695545,
+    "ks_statistic": 0.02237365577206285,
+    "ks_pvalue": 2.2986701604504536e-42,
+    "ks_note": "hourly data are autocorrelated; the KS p-value is not a valid test here",
+    "r2_cdf": 0.9979257100503963,
+    "weibull_mean_ms": 7.1587235019641975,
+    "weibull_power_density_wm2": 421.8178377556721,
+    "n_hours": 96432
+  },
+  "gross_cf_weibull": 0.320591109337978,
+  "gross_cf_empirical": 0.32662601674044345,
+  "relative_difference_pct": -1.8476505523628006,
+  "net_gwh_per_mw_weibull_nominal_losses": 2.382517545093114,
+  "bin_contributions": [
+    {
+      "bin_ms": "0-3",
+      "gross_cf_contrib_empirical_pctpt": 0.0,
+      "gross_cf_contrib_weibull_pctpt": 0.0
+    },
+    {
+      "bin_ms": "3-7",
+      "gross_cf_contrib_empirical_pctpt": 3.1285438797864975,
+      "gross_cf_contrib_weibull_pctpt": 3.3896416108898166
+    },
+    {
+      "bin_ms": "7-8",
+      "gross_cf_contrib_empirical_pctpt": 2.7015207303160285,
+      "gross_cf_contrib_weibull_pctpt": 2.6607781535246526
+    },
+    {
+      "bin_ms": "8-12",
+      "gross_cf_contrib_empirical_pctpt": 17.576112348059198,
+      "gross_cf_contrib_weibull_pctpt": 15.546433463527334
+    },
+    {
+      "bin_ms": "12-17",
+      "gross_cf_contrib_empirical_pctpt": 8.225646550958112,
+      "gross_cf_contrib_weibull_pctpt": 9.403988455404116
+    },
+    {
+      "bin_ms": "17-30",
+      "gross_cf_contrib_empirical_pctpt": 1.0307781649245065,
+      "gross_cf_contrib_weibull_pctpt": 1.0582692504518758
+    }
+  ]
+}

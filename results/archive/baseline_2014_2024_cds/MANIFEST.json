@@ -1,0 +1,52 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATES — not validated project forecasts",
+  "generated_by": "scripts/run_revised_pipeline.py",
+  "code_commit_at_generation": "47252d3",
+  "inputs": {
+    "wind_series": "data/processed/wind_hub_105m.parquet",
+    "wind_series_sha256": "0cfc4742010acbc8cbdac4090527589393ab8b2858aaaa5d92cfc9fbfc1916a5"
+  },
+  "files": {
+    "wind_resource.json": {
+      "description": "1. Wind resource statistics (ERA5 node, hub height 105 m)",
+      "sha256": "7a77d6b77483505201f16bb92f4fe82585f54fbc4afe8e8ccb97faaf525f58af"
+    },
+    "energy_yield.json": {
+      "description": "2. Empirical AEP and capacity factor (primary estimator)",
+      "sha256": "c6cdbacb809c022e481086bb7f36a7ad597cf22dd05de79fc3fb63fa5b95dff8"
+    },
+    "weibull_crosscheck.json": {
+      "description": "3. Weibull fit (descriptive) and AEP cross-check",
+      "sha256": "4cd55981049a2ed9f5714bbe8afc739b6f3b143b2383da754d9c4869cad547c2"
+    },
+    "interannual_and_sampling.json": {
+      "description": "4. Observed interannual variability and sampling CI of the 11-year mean",
+      "sha256": "ff360bf4db4b00c167cb64772f365091b038740fd1cf18739568ff792eb93c31"
+    },
+    "annual_energy.csv": {
+      "description": "4. Annual energy table (calendar years)",
+      "sha256": "27e6640aeff75f24fd3fa417f845683185df9bee749a5844cff0748a23147c5d"
+    },
+    "wind_speed_sensitivity.json": {
+      "description": "5. Wind-speed sensitivity experiments (not probabilities)",
+      "sha256": "f0e13c049008be4c77dc0f8d0d49dc8361bde25eb559800f24822a8b6086c40d"
+    },
+    "loss_scenarios.json": {
+      "description": "6. Loss scenarios (labelled assumptions)",
+      "sha256": "f36c3f6e9f10ac2b24c504aacf2d5198739c5f55e5515aa5a81f4254969081b3"
+    },
+    "emissions.json": {
+      "description": "7. Avoided operational CO2 (primary) and life-cycle GHG (secondary)",
+      "sha256": "cbf47d23305b90f3fbf55d666eba8b7703716aba5068e6710a9af30a00520c57"
+    },
+    "scenarios.json": {
+      "description": "8. Active deployment scenarios S1-S3 (illustrative)",
+      "sha256": "1595d05faa176812bba5bc514bfa353bbe3d781376cb7ad0cade709d94071463"
+    },
+    "site_screening.json": {
+      "description": "9. Geographic and environmental screening",
+      "sha256": "16ba9fef3ec76fc0435eee2e2166fc67e1bff72c2f56d9682eb9480f5ab0bd1e"
+    }
+  },
+  "documentation": "docs/review/PHASE4B_INTEGRATION.md"
+}

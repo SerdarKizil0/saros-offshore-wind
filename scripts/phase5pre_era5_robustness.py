@@ -6,7 +6,9 @@ CDS-derived, node 40.50 N 26.25 E) and the Phase 5-PRE inputs fetched by
 scripts/phase5pre_fetch_inputs.py (data/external/phase5pre/: Open-Meteo ERA5
 at 40.50 N x 26.00/26.25/26.50 E, 1979-2024; ERA5 land-sea mask).
 
-Writes results/provisional/phase5pre/ only. results/revised/ is not touched.
+Writes results/provisional/phase5pre/ only. The 2014-2024 reference results are
+read from results/archive/baseline_2014_2024_cds/ (byte-identical copy of the
+former results/revised/, archived in Phase 5-PRE-B).
 
 Method (identical to the production estimator, scripts/04):
   * hub height: U_hub = U100 * (105/100)**alpha, alpha = trimmed mean of the
@@ -45,14 +47,15 @@ sys.path.insert(0, str(ROOT))
 
 IN_DIR = ROOT / "data" / "external" / "phase5pre"
 BASE_PARQUET = ROOT / "data" / "processed" / "wind_hub_105m.parquet"
-REVISED = ROOT / "results" / "revised"
+# 2014-2024 CDS reference results (results/revised/ until Phase 5-PRE-B, now archived byte-identically)
+HIST_RESULTS = ROOT / "results" / "archive" / "baseline_2014_2024_cds"
 OUT = ROOT / "results" / "provisional" / "phase5pre"
 KML = ROOT / "docs/review/phase1_data/SAROS_DURES_official.kml"
 GWA_TIF = ROOT / "docs/review/phase2b_data/gwa4_wind-speed_100m_saros.tif"
 DTM_FINE = ROOT / "docs/review/phase1_data/emodnet_dtm2024_saros_crop.tif"
 DTM_BOX = ROOT / "docs/review/phase2b_data/emodnet_dtm2024_era5cell_x0.25.tif"
 
-STATUS = "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) — not a validated project forecast; results/revised/ unchanged"
+STATUS = "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) — not a validated project forecast"
 NODES = {"W": 26.00, "C": 26.25, "E": 26.50}
 LAT = 40.50
 BASE_YEARS = list(range(2014, 2025))
@@ -435,7 +438,7 @@ def spatial(nodes: dict[str, pd.DataFrame], alpha_base: float, cal: dict, geo: d
 
 # --------------------------------------------------------------- GWA period
 def gwa_period(base: pd.DataFrame, temp: dict, sp: dict, geo: dict, nodes: dict[str, pd.DataFrame]) -> dict:
-    sens = json.loads((REVISED / "wind_speed_sensitivity.json").read_text())
+    sens = json.loads((HIST_RESULTS / "wind_speed_sensitivity.json").read_text())
     gwa = sens["gwa_reference"]["gwa4_polygon_mean_100m_ms"]
     u_base = float(base["U100"].mean())
     r_total = gwa / u_base
@@ -493,9 +496,9 @@ def compute() -> dict:
     geo = geography()
     sp = spatial(nodes, alpha_base, cal, geo, base_tab)
     gp = gwa_period(base, temp, sp, geo, nodes)
-    rev = json.loads((REVISED / "energy_yield.json").read_text())
+    rev = json.loads((HIST_RESULTS / "energy_yield.json").read_text())
     cal["baseline_check"] = {"net_gwh_per_mw_recomputed": S04.pooled_cf(base_tab) * TO_NET_GWH,
-                             "net_gwh_per_mw_results_revised": rev["net"]["gwh_per_mw"],
+                             "net_gwh_per_mw_archived_2014_2024_baseline": rev["net"]["gwh_per_mw"],
                              "alpha_baseline": alpha_base}
     cal["status"] = STATUS
     tab_c = tab_c.copy()

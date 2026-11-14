@@ -129,7 +129,8 @@ def best_fit(thetas, setback, n_off=8):
     return best
 
 
-def compute(scenarios=SCENARIOS) -> dict:
+def compute(scenarios=SCENARIOS, wind: pd.DataFrame | None = None) -> dict:
+    """Screening geometry. `wind` (columns wdir, U_hub) defaults to the Phase 4A series (PARQUET)."""
     # ---------- polygon area and principal axis ----------
     gx, gy = np.meshgrid(np.arange(-20, 20, 0.05), np.arange(-7, 7, 0.05))
     m = inside(gx, gy, PXY)
@@ -141,7 +142,7 @@ def compute(scenarios=SCENARIOS) -> dict:
     proj_major = pts @ major; proj_minor = pts @ vec[:, np.argmin(w)]
 
     # ---------- prevailing wind ----------
-    df = pd.read_parquet(PARQUET)
+    df = pd.read_parquet(PARQUET) if wind is None else wind
     wd = df["wdir"].to_numpy(); u = df["U_hub"].to_numpy().astype(float)
     p = np.interp(u, [q[0] for q in POWER_CURVE_MS_KW], [q[1] for q in POWER_CURVE_MS_KW], left=0, right=0)
     p[(u < TURBINE.cut_in_ms) | (u >= TURBINE.cut_out_ms)] = 0

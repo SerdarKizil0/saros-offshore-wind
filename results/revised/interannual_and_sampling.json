@@ -2,51 +2,76 @@
   "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
   "observed_interannual_variability": {
     "label": "OBSERVED year-to-year variability of single calendar years (ERA5); not an uncertainty interval",
-    "annual_net_cf_cov_pct": 7.010902615499652,
-    "annual_net_cf_cov_pct_excluding_2014": 3.8437797610945936,
-    "min_year": 2014,
-    "min_net_gwh_per_mw": 1.992016168690751,
-    "max_year": 2020,
-    "max_net_gwh_per_mw": 2.648073192413132,
-    "lag1_autocorrelation": 0.02901539986442977
+    "period": "1994-2024",
+    "n_years": 31,
+    "annual_net_cf_cov_pct": 7.436193068625023,
+    "annual_net_cf_cov_pct_excluding_min_year": 6.772221972823708,
+    "min_year": 2002,
+    "min_net_gwh_per_mw": 1.9439088991899167,
+    "max_year": 2001,
+    "max_net_gwh_per_mw": 2.673865526182887,
+    "lag1_autocorrelation": -0.08400445207743486
   },
-  "sampling_ci_of_11yr_mean": {
-    "label": "SAMPLING confidence interval of the 2014-2024 mean only (finite number of years); assumes ERA5 is correct; not a P90 and not total uncertainty",
+  "sampling_ci_of_period_mean": {
+    "label": "SAMPLING confidence interval of the 1994-2024 mean only (31 annual values; finite number of years); assumes ERA5 is correct; not a P90 and not total uncertainty; excludes node sensitivity and ERA5-GWA disagreement",
+    "period": "1994-2024",
+    "n_years": 31,
+    "t_quantile_df": 30,
     "primary_t_interval_90": {
       "gross_cf": [
-        0.31410319647990975,
-        0.33913054857061514
+        0.3095513507782938,
+        0.323910844043611
       ],
       "net_gwh_per_mw": [
-        2.334301715754294,
-        2.5202959736314408
+        2.300474039531297,
+        2.407188616594622
       ],
-      "half_width_rel_pct": 3.831193904953631
+      "half_width_rel_pct": 2.2667862445965645
     },
     "check_bootstrap_90": {
       "method": "year-block bootstrap, B=20000, seed=2026",
       "net_gwh_per_mw": [
-        2.340348910507207,
-        2.500433239979937
+        2.302088754164604,
+        2.403162792176416
       ]
     },
     "se_rel_pct": {
-      "classical": 2.113807494535549,
-      "bootstrap": 2.0191513950233575,
-      "jackknife": 2.113412067123895
+      "classical": 1.3355555781088697,
+      "bootstrap": 1.3107797721551586,
+      "jackknife": 1.3353087154385739
     },
     "jackknife_mean_change_pct": {
-      "2014": 1.7920369666357683,
-      "2015": 0.1712946109534208,
-      "2016": -0.41140569606387123,
-      "2017": 0.3381701455305919,
-      "2018": -0.6108340231968823,
-      "2019": 0.06153509300546034,
-      "2020": -0.9112337954762739,
-      "2021": -0.26636512065493223,
-      "2022": -0.24091568780053585,
-      "2023": -0.11872949828596324,
-      "2024": 0.19613862844019003
+      "1994": 0.1711715426594207,
+      "1995": -0.08554395044562124,
+      "1996": 0.07843793972495128,
+      "1997": 0.04186308002871453,
+      "1998": -0.21829993426192296,
+      "1999": 0.44868190803746266,
+      "2000": 0.24675421950739462,
+      "2001": -0.45281110931181257,
+      "2002": 0.5801297118599447,
+      "2003": -0.1225970214425276,
+      "2004": -0.05263414156775337,
+      "2005": 0.03964031147181135,
+      "2006": 0.13996200748433996,
+      "2007": 0.2245055399957563,
+      "2008": -0.03273860661572314,
+      "2009": 0.2258154079739283,
+      "2010": 0.09460990179301909,
+      "2011": -0.13260395748277976,
+      "2012": -0.2228529452266037,
+      "2013": 0.17141101685524962,
+      "2014": 0.5122726311724612,
+      "2015": -0.04447572671570921,
+      "2016": -0.24554987354244995,
+      "2017": 0.012396609654508062,
+      "2018": -0.3134331719700567,
+      "2019": -0.08277707028520043,
+      "2020": -0.41721475324469903,
+      "2021": -0.195557073826913,
+      "2022": -0.18671621517275527,
+      "2023": -0.14501933683332968,
+      "2024": -0.036889240637849596
     }
   }
 }

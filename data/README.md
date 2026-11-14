@@ -2,7 +2,8 @@
 
 | Path | In Git | Content |
 |---|---|---|
-| `processed/wind_hub_105m.parquet` | **yes** | Hourly 10 m, 100 m and 105 m wind speed and 100 m direction at the ERA5 grid cell nearest the Saros zone centroid, 2014–2024 |
+| `external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet` | **yes** | **Primary production input since Phase 5-PRE-B:** hourly ERA5 10 m and 100 m speed and 100 m direction, 1994–2024, node 40.50° N 26.25° E, via Open-Meteo (calibrated against the CDS series; not bit-identical to CDS). Pinned in `config/wind_data.py`; see its `README.md` |
+| `processed/wind_hub_105m.parquet` | **yes** | **Historical input** (CDS, 2014–2024, same node): hourly 10 m, 100 m and 105 m wind speed and 100 m direction. Reproduces `results/archive/baseline_2014_2024_cds/`; used by the pipeline only for the input calibration check |
 | `processed/wind_hub_105m.parquet.sha256` | yes | Checksum of the file above |
 | `processed/wind_processing_summary.json` | no | Diagnostics written by `scripts/03`; regenerable |
 | `era5/era5_saros_YYYY_MM.nc` | no | Raw ERA5 NetCDF downloads (gitignored); regenerable with `scripts/02` |

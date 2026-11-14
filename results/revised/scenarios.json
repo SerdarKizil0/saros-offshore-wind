@@ -15,75 +15,75 @@
       "description": "Illustrative capacity, 26 x 9.5 MW (247 MW)",
       "n_turbines": 26,
       "installed_mw": 247.0,
-      "net_energy_gwh_yr": 599.5595998972448,
+      "net_energy_gwh_yr": 581.4068396937115,
       "net_energy_gwh_yr_ci90_sampling": [
-        576.5725237913106,
-        622.5131054869659
+        568.2170877642303,
+        594.5755882988716
       ],
-      "avoided_co2_cm_kt_yr": 374.2451022558601,
+      "avoided_co2_cm_kt_yr": 362.9141493368147,
       "avoided_co2_cm_kt_yr_ci90_sampling": [
-        359.8965693505361,
-        388.5726804449641
+        354.6811061824326,
+        371.13408221615566
       ],
-      "context_operating_margin_kt_co2_yr": 427.7258185666944,
-      "context_generation_average_kt_co2_yr": 257.8106279558152,
-      "lifecycle_ghg_kt_co2eq_yr_reference": 7.194715198766937,
+      "context_operating_margin_kt_co2_yr": 414.7756394374938,
+      "context_generation_average_kt_co2_yr": 250.00494106829595,
+      "lifecycle_ghg_kt_co2eq_yr_reference": 6.976882076324538,
       "lifecycle_ghg_kt_co2eq_yr_ipcc_range": [
-        4.796476799177958,
-        20.984585996403563
+        4.651254717549692,
+        20.3492393892799
       ],
       "share_of_2035_offshore_target_capacity_pct": 4.9399999999999995,
-      "share_of_2024_consumption_pct": 0.17233676340823362
+      "share_of_2024_consumption_pct": 0.1671189536342948
     },
     {
       "name": "S2",
       "description": "Illustrative capacity, 53 x 9.5 MW (503.5 MW)",
       "n_turbines": 53,
       "installed_mw": 503.5,
-      "net_energy_gwh_yr": 1222.179184405922,
+      "net_energy_gwh_yr": 1185.1754809141044,
       "net_energy_gwh_yr_ci90_sampling": [
-        1175.320913882287,
-        1268.9690227234303
+        1158.288678904008,
+        1212.0194684553921
       ],
-      "avoided_co2_cm_kt_yr": 762.8842469061765,
+      "avoided_co2_cm_kt_yr": 739.7865351865838,
       "avoided_co2_cm_kt_yr_ci90_sampling": [
-        733.6353144453235,
-        792.0904639839653
+        723.0037933718818,
+        756.5425522098558
       ],
-      "context_operating_margin_kt_co2_yr": 871.9026301551847,
-      "context_generation_average_kt_co2_yr": 525.5370492945465,
-      "lifecycle_ghg_kt_co2eq_yr_reference": 14.666150212871063,
+      "context_operating_margin_kt_co2_yr": 845.504188084122,
+      "context_generation_average_kt_co2_yr": 509.6254567930648,
+      "lifecycle_ghg_kt_co2eq_yr_reference": 14.222105770969252,
       "lifecycle_ghg_kt_co2eq_yr_ipcc_range": [
-        9.777433475247376,
-        42.77627145420727
+        9.481403847312833,
+        41.48114183199365
       ],
       "share_of_2035_offshore_target_capacity_pct": 10.07,
-      "share_of_2024_consumption_pct": 0.35130186387063006
+      "share_of_2024_consumption_pct": 0.34066555933144704
     },
     {
       "name": "S3",
       "description": "Illustrative ~1 GW (105 x 9.5 MW = 997.5 MW), comparable to the 1 000 MWe connection capacity of the DRAFT YEKA DÜRES-2026 tender, conditional on that capacity being allocated to Saros (the draft allows any of the four candidate areas)",
       "n_turbines": 105,
       "installed_mw": 997.5,
-      "net_energy_gwh_yr": 2421.2983842004114,
+      "net_energy_gwh_yr": 2347.9891603015276,
       "net_energy_gwh_yr_ci90_sampling": [
-        2328.4659614649086,
-        2513.995233697362
+        2294.722854432469,
+        2401.1706450531356
       ],
-      "avoided_co2_cm_kt_yr": 1511.3744514178966,
+      "avoided_co2_cm_kt_yr": 1465.6148338602134,
       "avoided_co2_cm_kt_yr_ci90_sampling": [
-        1453.4284531463957,
-        1569.235824873893
+        1432.366005736747,
+        1498.810716642167
       ],
-      "context_operating_margin_kt_co2_yr": 1727.3542672885735,
-      "context_generation_average_kt_co2_yr": 1041.158305206177,
-      "lifecycle_ghg_kt_co2eq_yr_reference": 29.055580610404938,
+      "context_operating_margin_kt_co2_yr": 1675.0554669591097,
+      "context_generation_average_kt_co2_yr": 1009.6353389296568,
+      "lifecycle_ghg_kt_co2eq_yr_reference": 28.175869923618333,
       "lifecycle_ghg_kt_co2eq_yr_ipcc_range": [
-        19.37038707360329,
-        84.7454434470144
+        18.783913282412218,
+        82.17962061055346
       ],
       "share_of_2035_offshore_target_capacity_pct": 19.950000000000003,
-      "share_of_2024_consumption_pct": 0.6959753906870972
+      "share_of_2024_consumption_pct": 0.6749034666000366
     }
   ]
 }

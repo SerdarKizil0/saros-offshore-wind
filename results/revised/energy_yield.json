@@ -10,32 +10,49 @@
     "availability": 0.95,
     "electrical": 0.03
   },
-  "gross_cf": 0.32662601674044345,
-  "net_cf": 0.2769070044722131,
+  "gross_cf": 0.31673681847034535,
+  "net_cf": 0.26852313996278937,
   "gross": {
-    "gwh_per_turbine": 27.20043479609391,
-    "gwh_per_mw": 2.863203662746727
+    "gwh_per_turbine": 26.37689203175495,
+    "gwh_per_mw": 2.7765149507110474
   },
   "net": {
-    "gwh_per_turbine": 23.059984611432494,
-    "gwh_per_mw": 2.42736680120342
+    "gwh_per_turbine": 22.361801526681212,
+    "gwh_per_mw": 2.353873844913812
   },
-  "net_mwh_per_mw_yr": 2427.36680120342,
-  "net_full_load_hours": 2427.36680120342,
+  "net_mwh_per_mw_yr": 2353.873844913812,
+  "net_full_load_hours": 2353.873844913812,
   "units": {
     "cf": "fraction",
     "gwh_per_turbine": "GWh per 9.5 MW turbine per year",
     "gwh_per_mw": "GWh per MW installed per year"
   },
   "normalisation_check": {
-    "n_hours": 96432,
-    "n_years": 11,
+    "n_hours": 271752,
+    "n_years": 31,
     "leap_years": [
+      1996,
+      2000,
+      2004,
+      2008,
+      2012,
       2016,
       2020,
       2024
     ],
-    "sum_over_n_years_gross_gwh_per_turbine": 27.202127312726105,
-    "relative_difference_vs_8766h": 6.222388152554714e-05
+    "sum_over_n_years_gross_gwh_per_turbine": 26.377474418808266,
+    "relative_difference_vs_8766h": 2.207944183174604e-05
+  },
+  "period": "1994-2024",
+  "input": {
+    "series_key": "primary_era5_openmeteo_1994_2024",
+    "file": "data/external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
+    "sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
+    "node_lat_lon": [
+      40.5,
+      26.25
+    ],
+    "alpha_hub_extrapolation": 0.14913887708563256,
+    "provenance": "results/revised/input_provenance.json"
   }
 }

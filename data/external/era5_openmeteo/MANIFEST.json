@@ -1,0 +1,49 @@
+{
+ "retrieved_utc": "2026-11-14T13:38:59+00:00",
+ "file": "era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
+ "sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
+ "rows": 271752,
+ "node": {
+  "lat": 40.5,
+  "lon": 26.25
+ },
+ "period_utc": [
+  "1994-01-01 00:00:00",
+  "2024-12-31 23:00:00"
+ ],
+ "columns": {
+  "U10": "int16 centi-m/s",
+  "U100": "int16 centi-m/s",
+  "wdir100": "int16 degrees (from)"
+ },
+ "time_axis": "row i = 1994-01-01 00:00 UTC + i hours",
+ "data_product": "ECMWF ERA5 hourly single levels (10 m and 100 m wind) via the Open-Meteo historical-weather API (models=era5, nearest 0.25 deg cell); lossy redistribution, calibrated against the CDS series over 2014-2024 (Phase 5-PRE), not bit-identical to CDS",
+ "requests": [
+  {
+   "years": [
+    1994,
+    2008
+   ],
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.50&longitude=26.25&start_date=1994-01-01&end_date=2008-12-31&hourly=wind_speed_10m,wind_speed_100m,wind_direction_100m&models=era5&wind_speed_unit=ms&timezone=GMT&cell_selection=nearest",
+   "sha256": "a7460660fdf4e94938635f55a363ab741f720020b5ccbf0b063de529cd1f18bf",
+   "grid_lat": 40.5,
+   "grid_lon": 26.25,
+   "rows": 131496
+  },
+  {
+   "years": [
+    2009,
+    2024
+   ],
+   "url": "https://archive-api.open-meteo.com/v1/archive?latitude=40.50&longitude=26.25&start_date=2009-01-01&end_date=2024-12-31&hourly=wind_speed_10m,wind_speed_100m,wind_direction_100m&models=era5&wind_speed_unit=ms&timezone=GMT&cell_selection=nearest",
+   "sha256": "d9489aa7c360eec0019da198f7f1db4223990b11c744e1b318e4cfb168d277ef",
+   "grid_lat": 40.5,
+   "grid_lon": 26.25,
+   "rows": 140256
+  }
+ ],
+ "licences": {
+  "ERA5": "Contains modified Copernicus Climate Change Service information; CC BY 4.0",
+  "Open-Meteo": "CC BY 4.0; Zippenfenig, P. (2023) Open-Meteo.com Weather API, doi:10.5281/zenodo.7970649"
+ }
+}

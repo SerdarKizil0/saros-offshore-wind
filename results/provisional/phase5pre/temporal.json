@@ -1,5 +1,5 @@
 {
-  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast; results/revised/ unchanged",
+  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast",
   "label": "OBSERVED model years (ERA5 via Open-Meteo, node 40.50 N 26.25 E, baseline alpha); additional years are further reanalysis years, not independent observations",
   "alpha_used": 0.1492303349474573,
   "alpha_recomputed_1994_2024": 0.14913887708563256,

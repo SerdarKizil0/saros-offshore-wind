@@ -20,7 +20,14 @@ from matplotlib.text import Text
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "phase4c_fig_annual_energy_uncertainty.py"
-RESULTS = ROOT / "results" / "revised"
+# Phase 5-PRE-B (14.11.2026): the publication figures in figures/revised/ have NOT
+# been regenerated from the new 1994-2024 primary results (author instruction: no
+# figure changes before Phase 5C). These tests therefore verify the committed figures
+# against the results they were generated from, the historical 2014-2024 archive.
+# Phase 5C must regenerate the figures from results/revised/ and point
+# FIGURE_RESULTS back to results/revised/.
+FIGURE_RESULTS = ROOT / "results" / "archive" / "baseline_2014_2024_cds"
+RESULTS = FIGURE_RESULTS
 W_PT, H_PT = 180 / 25.4 * 72, 125 / 25.4 * 72
 
 
@@ -30,6 +37,8 @@ def m():
     mod = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = mod               # dataclasses resolve annotations via sys.modules
     spec.loader.exec_module(mod)
+    mod.RESULTS = RESULTS                       # see FIGURE_RESULTS note
+    mod.load_data.__defaults__ = (RESULTS,)
     return mod
 
 
@@ -64,7 +73,7 @@ def _csv_values():
         return {int(r["year"]): float(r["net_gwh_per_mw_8766h"]) for r in csv.DictReader(fh)}
 
 
-def test_data_come_from_results_revised(data):
+def test_data_come_from_the_pinned_results(data):
     assert dict(zip(data.years, data.values)) == _csv_values()
     energy = json.loads((RESULTS / "energy_yield.json").read_text())
     samp = json.loads((RESULTS / "interannual_and_sampling.json").read_text())
@@ -237,3 +246,11 @@ def test_committed_caption_matches_the_data(m, data):
     assert committed.read_text(encoding="utf-8") == m.caption(data)
     for token in (f"{data.mean:.3f}", f"{data.ci_lo:.3f}–{data.ci_hi:.3f}", "sampling uncertainty"):
         assert token in m.caption(data)
+
+
+def test_figure_results_pin_is_the_documented_historical_archive():
+    """The pin is temporary and explicit: the archive differs from the current primary results."""
+    assert FIGURE_RESULTS.name == "baseline_2014_2024_cds"
+    arch = json.loads((FIGURE_RESULTS / "energy_yield.json").read_text())
+    rev = json.loads((ROOT / "results/revised/energy_yield.json").read_text())
+    assert rev["period"] == "1994-2024" and arch["net"]["gwh_per_mw"] != rev["net"]["gwh_per_mw"]

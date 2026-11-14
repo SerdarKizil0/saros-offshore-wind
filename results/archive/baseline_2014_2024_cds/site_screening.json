@@ -1,0 +1,143 @@
+{
+  "status": "PRE-SUBMISSION SCREENING — not a layout design, permit or environmental assessment",
+  "polygon": {
+    "area_km2": 172.29000000000002,
+    "principal_axis_bearing_deg": 81.20225457210688,
+    "length_along_axis_km": 35.85235983747836,
+    "width_across_axis_km": 11.294167732820107,
+    "source": "MENR candidate-YEKA notice 13.05.2026, SAROS DÜRES.kml"
+  },
+  "bathymetry": {
+    "source": "EMODnet DTM 2024 (doi:10.12770/cf51df64-56f9-4a99-b1aa-36b8d7b743a1), LAT datum, cell centres inside the official polygon",
+    "n_cells": 16907,
+    "depth_m": {
+      "min": 0.96875,
+      "p5": 7.1937500000000005,
+      "median": 27.777734756469727,
+      "p95": 54.6577522277832,
+      "max": 61.60581588745117
+    },
+    "share_deeper_than_pct": {
+      "10": 90.86768793990655,
+      "30": 45.32442183710889,
+      "50": 11.409475365233334,
+      "60": 0.165611876737446
+    },
+    "inside_polygon_deeper_than_200m_cells": 0
+  },
+  "era5_node_representativeness": {
+    "node_lon_lat": [
+      26.25,
+      40.5
+    ],
+    "inside_polygon": false,
+    "distance_to_polygon_boundary_km": 3.6778936644552442,
+    "polygon_share_nearest_to_this_node_pct": 62.61290673631515
+  },
+  "protected_area_overlap": {
+    "saros_ock_2010": {
+      "overlap_km2": 24.747500000000002,
+      "overlap_share_pct": 14.36386325381624,
+      "source": "Council of Ministers Decision 2010/1089, Official Gazette 27793 (22.12.2010)",
+      "status": "verified overlap; ÖÇK requires ministry permission, not an automatic prohibition"
+    },
+    "gelibolu_kkha_2019": {
+      "overlap": false,
+      "source": "Presidential Decision 1133, Official Gazette 30791"
+    }
+  },
+  "spacing_and_packing": {
+    "assumption": "7D x 5D (assumption, no project-specific source)",
+    "cell_km2": 0.9413600000000002,
+    "area_division_count": 183.0224356250531,
+    "max_grid_positions_with_tip_setback": 182,
+    "note": "geometric packing limit at minimum spacing; not a feasible capacity"
+  },
+  "screening_classes_best_fit_layout": {
+    "label": "SCREENING classes, not exclusion zones",
+    "n_positions": 182,
+    "depth_lt_10m": 14,
+    "depth_50_to_62m": 19,
+    "within_1km_of_shore": 5,
+    "inside_saros_ock_2010": 25,
+    "outside_all_classes": 123
+  },
+  "wind_direction": {
+    "sector_share_hours_pct": {
+      "N": 1.84,
+      "NNE": 12.04,
+      "NE": 25.76,
+      "ENE": 18.39,
+      "E": 7.16,
+      "ESE": 2.26,
+      "SE": 1.11,
+      "SSE": 1.22,
+      "S": 3.69,
+      "SSW": 8.72,
+      "SW": 7.57,
+      "WSW": 4.44,
+      "W": 2.22,
+      "WNW": 1.44,
+      "NW": 1.05,
+      "NNW": 1.09
+    },
+    "sector_share_energy_pct": {
+      "N": 0.82,
+      "NNE": 17.82,
+      "NE": 32.97,
+      "ENE": 17.29,
+      "E": 3.39,
+      "ESE": 0.35,
+      "SE": 0.19,
+      "SSE": 0.46,
+      "S": 5.04,
+      "SSW": 13.47,
+      "SW": 5.75,
+      "WSW": 1.71,
+      "W": 0.37,
+      "WNW": 0.15,
+      "NW": 0.08,
+      "NNW": 0.14
+    },
+    "energy_weighted_prevailing_axis_deg": 40.97673747794941,
+    "share_hours_within_30deg_of_polygon_axis_pct": 41.77658868425419,
+    "share_energy_within_30deg_of_polygon_axis_pct": 31.139360739710792
+  },
+  "active_scenarios_density": [
+    {
+      "name": "S1",
+      "n_turbines": 26,
+      "installed_mw": 247.0,
+      "density_mw_per_km2_full_polygon": 1.4336293458703346,
+      "density_mw_per_km2_outside_ock": 1.6740939051459747,
+      "share_of_fitted_positions_pct": 14.285714285714285
+    },
+    {
+      "name": "S2",
+      "n_turbines": 53,
+      "installed_mw": 503.5,
+      "density_mw_per_km2_full_polygon": 2.9223982819664513,
+      "density_mw_per_km2_outside_ock": 3.4125760374129483,
+      "share_of_fitted_positions_pct": 29.120879120879124
+    },
+    {
+      "name": "S3",
+      "n_turbines": 105,
+      "installed_mw": 997.5,
+      "density_mw_per_km2_full_polygon": 5.789656973707121,
+      "density_mw_per_km2_outside_ock": 6.760763847704898,
+      "share_of_fitted_positions_pct": 57.692307692307686
+    }
+  ],
+  "retired": {
+    "S4_max": "retired in Phase 4B: geometric 7D x 5D packing limit (10.1 MW/km2), not a feasible capacity"
+  },
+  "not_screened": [
+    "bird migration (Evros delta SPA ~14 km, regional flyway)",
+    "fisheries (current trawl-ban boundary)",
+    "navigation and LNG traffic (Saros FSRU ~16 km east, unverified coordinate)",
+    "military exercise areas",
+    "North Anatolian Fault distance",
+    "grid connection point"
+  ]
+}

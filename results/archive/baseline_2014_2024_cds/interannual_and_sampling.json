@@ -1,0 +1,52 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "observed_interannual_variability": {
+    "label": "OBSERVED year-to-year variability of single calendar years (ERA5); not an uncertainty interval",
+    "annual_net_cf_cov_pct": 7.010902615499652,
+    "annual_net_cf_cov_pct_excluding_2014": 3.8437797610945936,
+    "min_year": 2014,
+    "min_net_gwh_per_mw": 1.992016168690751,
+    "max_year": 2020,
+    "max_net_gwh_per_mw": 2.648073192413132,
+    "lag1_autocorrelation": 0.02901539986442977
+  },
+  "sampling_ci_of_11yr_mean": {
+    "label": "SAMPLING confidence interval of the 2014-2024 mean only (finite number of years); assumes ERA5 is correct; not a P90 and not total uncertainty",
+    "primary_t_interval_90": {
+      "gross_cf": [
+        0.31410319647990975,
+        0.33913054857061514
+      ],
+      "net_gwh_per_mw": [
+        2.334301715754294,
+        2.5202959736314408
+      ],
+      "half_width_rel_pct": 3.831193904953631
+    },
+    "check_bootstrap_90": {
+      "method": "year-block bootstrap, B=20000, seed=2026",
+      "net_gwh_per_mw": [
+        2.340348910507207,
+        2.500433239979937
+      ]
+    },
+    "se_rel_pct": {
+      "classical": 2.113807494535549,
+      "bootstrap": 2.0191513950233575,
+      "jackknife": 2.113412067123895
+    },
+    "jackknife_mean_change_pct": {
+      "2014": 1.7920369666357683,
+      "2015": 0.1712946109534208,
+      "2016": -0.41140569606387123,
+      "2017": 0.3381701455305919,
+      "2018": -0.6108340231968823,
+      "2019": 0.06153509300546034,
+      "2020": -0.9112337954762739,
+      "2021": -0.26636512065493223,
+      "2022": -0.24091568780053585,
+      "2023": -0.11872949828596324,
+      "2024": 0.19613862844019003
+    }
+  }
+}

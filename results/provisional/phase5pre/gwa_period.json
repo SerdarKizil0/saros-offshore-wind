@@ -1,5 +1,5 @@
 {
-  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast; results/revised/ unchanged",
+  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast",
   "label": "MODEL DISAGREEMENT decomposition (GWA 4.0 is ERA5-driven WRF/WAsP, 2008-2017; neither is validated offshore here; GWA is not ground truth)",
   "gwa4_polygon_mean_100m_ms": 7.841599560921196,
   "era5_U100_2014_2024_cds_ms": 7.1196088790893555,

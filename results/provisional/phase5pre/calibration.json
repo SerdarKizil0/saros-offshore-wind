@@ -59,8 +59,8 @@
   },
   "baseline_check": {
     "net_gwh_per_mw_recomputed": 2.42736680120342,
-    "net_gwh_per_mw_results_revised": 2.42736680120342,
+    "net_gwh_per_mw_archived_2014_2024_baseline": 2.42736680120342,
     "alpha_baseline": 0.1492303349474573
   },
-  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast; results/revised/ unchanged"
+  "status": "PROVISIONAL REVIEW ANALYSIS (Phase 5-PRE) \u2014 not a validated project forecast"
 }

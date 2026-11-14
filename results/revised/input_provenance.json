@@ -1,0 +1,55 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "primary_input": {
+    "series_key": "primary_era5_openmeteo_1994_2024",
+    "file": "data/external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
+    "sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
+    "data_product": "ECMWF ERA5 hourly single levels (10 m and 100 m wind) via the Open-Meteo historical-weather API (models=era5, nearest 0.25 deg cell); lossy redistribution, calibrated against the CDS series over 2014-2024 (Phase 5-PRE), not bit-identical to CDS",
+    "node_lat_lon": [
+      40.5,
+      26.25
+    ],
+    "period": "1994-2024",
+    "n_years": 31,
+    "n_hours": 271752,
+    "first_hour_utc": "1994-01-01 00:00:00",
+    "last_hour_utc": "2024-12-31 23:00:00",
+    "alpha_hub_extrapolation": 0.14913887708563256,
+    "alpha_note": "computed from this series (scripts/03 estimate_shear_alpha) and applied to every hour"
+  },
+  "comparison_input_not_used_for_results": {
+    "series_key": "historical_cds_2014_2024",
+    "file": "data/processed/wind_hub_105m.parquet",
+    "sha256": "0cfc4742010acbc8cbdac4090527589393ab8b2858aaaa5d92cfc9fbfc1916a5",
+    "role": "historical baseline (results archive folder baseline_2014_2024_cds) and input QA only"
+  },
+  "calibration_vs_cds": {
+    "label": "INPUT QA (not a result): primary Open-Meteo ERA5 against the CDS-derived series over the common hours; both are ERA5, distributed and stored differently",
+    "common_period": "2014-2024",
+    "n_hours": 96432,
+    "U10": {
+      "mean_diff_ms": -8.849714646171274e-05,
+      "rmse_ms": 0.03509032807869056,
+      "pearson_r": 0.9999120740059176,
+      "share_abs_diff_gt_0p1_ms_pct": 0.17732702837232453
+    },
+    "U100": {
+      "mean_diff_ms": -8.629282299269703e-05,
+      "rmse_ms": 0.04064735137516498,
+      "pearson_r": 0.9999374524781877,
+      "share_abs_diff_gt_0p1_ms_pct": 0.21258503401360546
+    },
+    "direction_100m": {
+      "mean_abs_diff_deg": 0.41771061781969715,
+      "share_abs_diff_gt_2deg_pct": 1.4518002322880372,
+      "max_sector_share_diff_pctpt": 0.564128090260489,
+      "note": "Open-Meteo direction is in whole degrees"
+    },
+    "gross_cf": {
+      "rel_diff_same_alpha_pct": -0.004209456803316858,
+      "rel_diff_own_alpha_pct": -0.005107022619377233,
+      "note": "same alpha isolates the data difference; own alpha includes the series-specific shear exponent"
+    }
+  },
+  "author_decision": "Phase 5-PRE-B: primary period 1994-2024, calibrated Open-Meteo ERA5, same node; neighbouring nodes are sensitivity experiments; GWA scaling is not a correction"
+}

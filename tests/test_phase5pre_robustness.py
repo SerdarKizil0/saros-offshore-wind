@@ -13,6 +13,7 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 IN_DIR = ROOT / "data/external/phase5pre"
 OUT = ROOT / "results/provisional/phase5pre"
+HIST = ROOT / "results/archive/baseline_2014_2024_cds"      # former results/revised/ (Phase 5-PRE-B)
 pytestmark = pytest.mark.skipif(not (IN_DIR / "MANIFEST.json").exists(),
                                 reason="Phase 5-PRE inputs not fetched")
 
@@ -70,7 +71,7 @@ def test_node_series_complete_and_hourly(mod, lon):
 # ------------------------------------------------------------- calibration
 def test_baseline_reproduced_exactly(fresh):
     b = fresh["calibration.json"]["baseline_check"]
-    assert b["net_gwh_per_mw_recomputed"] == pytest.approx(b["net_gwh_per_mw_results_revised"], rel=1e-12)
+    assert b["net_gwh_per_mw_recomputed"] == pytest.approx(b["net_gwh_per_mw_archived_2014_2024_baseline"], rel=1e-12)
 
 
 def test_openmeteo_passes_the_declared_calibration_criteria(fresh):
@@ -82,7 +83,7 @@ def test_openmeteo_passes_the_declared_calibration_criteria(fresh):
 
 def test_anchoring_returns_the_cds_baseline_for_the_baseline_period(fresh):
     p = fresh["temporal.json"]["periods"]["2014-2024"]
-    rev = json.loads((ROOT / "results/revised/energy_yield.json").read_text())
+    rev = json.loads((HIST / "energy_yield.json").read_text())
     assert p["ratio_energy_vs_2014_2024"] == pytest.approx(1.0, rel=1e-12)
     assert p["anchored_net_gwh_per_mw"] == pytest.approx(rev["net"]["gwh_per_mw"], rel=1e-12)
 
@@ -96,9 +97,9 @@ def test_rolling_windows_consistent_with_period_table(fresh):
     assert b.net_gwh_per_mw_openmeteo == pytest.approx(p["net_gwh_per_mw_openmeteo"], rel=1e-12)
 
 
-def test_baseline_sampling_ci_matches_results_revised(fresh):
+def test_baseline_sampling_ci_matches_archived_baseline(fresh):
     ci = fresh["temporal.json"]["baseline_90pct_sampling_ci_net_gwh_per_mw"]
-    rev = json.loads((ROOT / "results/revised/interannual_and_sampling.json").read_text())
+    rev = json.loads((HIST / "interannual_and_sampling.json").read_text())
     assert ci == pytest.approx(rev["sampling_ci_of_11yr_mean"]["primary_t_interval_90"]["net_gwh_per_mw"], rel=1e-12)
 
 
@@ -143,7 +144,7 @@ def test_committed_outputs_equal_fresh_computation(mod, fresh, tmp_path):
         assert (tmp_path / name).read_bytes() == (OUT / name).read_bytes(), name
 
 
-def test_results_revised_untouched():
+def test_results_revised_consistent_with_its_manifest():
     man = json.loads((ROOT / "results/revised/MANIFEST.json").read_text())
     for name, meta in man["files"].items():
         assert hashlib.sha256((ROOT / "results/revised" / name).read_bytes()).hexdigest() == meta["sha256"], name

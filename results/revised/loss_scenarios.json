@@ -7,8 +7,8 @@
       "availability": 0.97,
       "electrical": 0.02,
       "net_factor": 0.9030699999999999,
-      "net_cf": 0.29496615693779227,
-      "net_gwh_per_mw": 2.5856733317166873,
+      "net_cf": 0.28603551865601473,
+      "net_gwh_per_mw": 2.5073873565386253,
       "rel_to_nominal_pct": 6.521739130434767
     },
     "nominal": {
@@ -16,8 +16,8 @@
       "availability": 0.95,
       "electrical": 0.03,
       "net_factor": 0.84778,
-      "net_cf": 0.2769070044722131,
-      "net_gwh_per_mw": 2.42736680120342,
+      "net_cf": 0.26852313996278937,
+      "net_gwh_per_mw": 2.353873844913812,
       "rel_to_nominal_pct": 0.0
     },
     "high_loss": {
@@ -25,8 +25,8 @@
       "availability": 0.92,
       "electrical": 0.04,
       "net_factor": 0.7772159999999999,
-      "net_cf": 0.2538589662269405,
-      "net_gwh_per_mw": 2.2253276979453602,
+      "net_cf": 0.2461729231042479,
+      "net_gwh_per_mw": 2.157951843931837,
       "rel_to_nominal_pct": -8.323385784047755
     }
   }

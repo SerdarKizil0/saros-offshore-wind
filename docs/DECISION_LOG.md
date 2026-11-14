@@ -1,5 +1,10 @@
 # Decision Log — Saros OWF
 
+> **Superseded in part (Phase 5-PRE-B, 14.11.2026).** The primary ERA5 period is now 1994–2024
+> (same node, ERA5 via Open-Meteo, calibrated against the CDS series); the 2014–2024 results are
+> archived in `results/archive/baseline_2014_2024_cds/`. See
+> `docs/review/PHASE5PRE_B_BASELINE_INTEGRATION.md`.
+>
 > **Superseded in part (Phase 4B, 11.11.2026).** The current methodology and values are in
 > `docs/review/PHASE4B_INTEGRATION.md` and `results/revised/`. In particular the Weibull-based
 > Monte Carlo, the triangular grid-factor mixture, life-cycle subtraction, the fuel-resolved

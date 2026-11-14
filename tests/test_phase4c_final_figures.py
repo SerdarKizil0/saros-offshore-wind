@@ -20,7 +20,14 @@ from matplotlib.text import Text
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "scripts"
 FIG_DIR = ROOT / "figures" / "revised"
-RES = ROOT / "results" / "revised"
+# Phase 5-PRE-B (14.11.2026): the publication figures in figures/revised/ have NOT
+# been regenerated from the new 1994-2024 primary results (author instruction: no
+# figure changes before Phase 5C). These tests therefore verify the committed figures
+# against the results they were generated from, the historical 2014-2024 archive.
+# Phase 5C must regenerate the figures from results/revised/ and point
+# FIGURE_RESULTS back to results/revised/.
+FIGURE_RESULTS = ROOT / "results" / "archive" / "baseline_2014_2024_cds"
+RES = FIGURE_RESULTS
 W_PT = 180 / 25.4 * 72
 NEW = ("methodology", "wind_weibull", "power_curve", "energy_sensitivity", "avoided_co2")
 
@@ -30,6 +37,8 @@ def _load(name):
     mod = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = mod
     spec.loader.exec_module(mod)
+    if hasattr(mod, "RESULTS"):
+        mod.RESULTS = RES                       # see FIGURE_RESULTS note
     return mod
 
 
@@ -66,7 +75,7 @@ def _texts(fig):
 
 
 # ---- headline values and model identity ----------------------------------------
-def test_headline_values_are_the_revised_ones():
+def test_headline_values_are_the_archived_ones_the_figures_show():
     ey, em = _json("energy_yield.json"), _json("emissions.json")
     assert ey["net"]["gwh_per_mw"] == pytest.approx(2.4274, abs=5e-5)
     assert em["primary_avoided_operational_co2"]["t_co2_per_mw_yr"] == pytest.approx(1515.2, abs=0.05)

@@ -1,52 +1,67 @@
 {
   "status": "PRE-SUBMISSION MODEL ESTIMATES — not validated project forecasts",
   "generated_by": "scripts/run_revised_pipeline.py",
-  "code_commit_at_generation": "47252d3",
+  "code_commit_at_generation": "2ab13c1+uncommitted-changes",
   "inputs": {
-    "wind_series": "data/processed/wind_hub_105m.parquet",
-    "wind_series_sha256": "0cfc4742010acbc8cbdac4090527589393ab8b2858aaaa5d92cfc9fbfc1916a5"
+    "wind_series": "data/external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
+    "wind_series_sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
+    "wind_series_key": "primary_era5_openmeteo_1994_2024",
+    "period": "1994-2024",
+    "data_product": "ECMWF ERA5 hourly single levels (10 m and 100 m wind) via the Open-Meteo historical-weather API (models=era5, nearest 0.25 deg cell); lossy redistribution, calibrated against the CDS series over 2014-2024 (Phase 5-PRE), not bit-identical to CDS",
+    "comparison_only": {
+      "wind_series": "data/processed/wind_hub_105m.parquet",
+      "sha256": "0cfc4742010acbc8cbdac4090527589393ab8b2858aaaa5d92cfc9fbfc1916a5",
+      "role": "input QA; historical results in the results archive folder baseline_2014_2024_cds"
+    }
   },
   "files": {
     "wind_resource.json": {
       "description": "1. Wind resource statistics (ERA5 node, hub height 105 m)",
-      "sha256": "7a77d6b77483505201f16bb92f4fe82585f54fbc4afe8e8ccb97faaf525f58af"
+      "sha256": "82558d7bfb2acd1f02b914277064791258d7472e0feed5d0800016283c46d704"
     },
     "energy_yield.json": {
       "description": "2. Empirical AEP and capacity factor (primary estimator)",
-      "sha256": "c6cdbacb809c022e481086bb7f36a7ad597cf22dd05de79fc3fb63fa5b95dff8"
+      "sha256": "b047e0371dee1f618a1f9f6c880628eee865caff28ab736d6ce39585fb58f26e"
     },
     "weibull_crosscheck.json": {
       "description": "3. Weibull fit (descriptive) and AEP cross-check",
-      "sha256": "4cd55981049a2ed9f5714bbe8afc739b6f3b143b2383da754d9c4869cad547c2"
+      "sha256": "0ca112e810bcd0a1602df457f668602d07a412fa1eb4f2ff0704326e58078928"
     },
     "interannual_and_sampling.json": {
-      "description": "4. Observed interannual variability and sampling CI of the 11-year mean",
-      "sha256": "ff360bf4db4b00c167cb64772f365091b038740fd1cf18739568ff792eb93c31"
+      "description": "4. Observed interannual variability and sampling CI of the 1994-2024 mean (31 annual values)",
+      "sha256": "a2daaf26eea3a45a2fb55c4d9b343e940d0aba2fcc1094591e2e679329fbf764"
     },
     "annual_energy.csv": {
       "description": "4. Annual energy table (calendar years)",
-      "sha256": "27e6640aeff75f24fd3fa417f845683185df9bee749a5844cff0748a23147c5d"
+      "sha256": "fe438c18f5de622c71825ba8a1e9eb9e6fa046f6b48b6d48265df9ee6e977790"
     },
     "wind_speed_sensitivity.json": {
       "description": "5. Wind-speed sensitivity experiments (not probabilities)",
-      "sha256": "f0e13c049008be4c77dc0f8d0d49dc8361bde25eb559800f24822a8b6086c40d"
+      "sha256": "b042dad665cb8992893ac5272934669ce9bc3eddec8060cb058693a6b74e2df8"
     },
     "loss_scenarios.json": {
       "description": "6. Loss scenarios (labelled assumptions)",
-      "sha256": "f36c3f6e9f10ac2b24c504aacf2d5198739c5f55e5515aa5a81f4254969081b3"
+      "sha256": "c0f7cf2dfb34ad815a544761a1cb98e7b6e78091824a2011ebbc986da0ed0e8d"
     },
     "emissions.json": {
       "description": "7. Avoided operational CO2 (primary) and life-cycle GHG (secondary)",
-      "sha256": "cbf47d23305b90f3fbf55d666eba8b7703716aba5068e6710a9af30a00520c57"
+      "sha256": "238734ce3b5bedb786912a76250425b1009c5cc70a8733d9098c2e07299ad44c"
     },
     "scenarios.json": {
       "description": "8. Active deployment scenarios S1-S3 (illustrative)",
-      "sha256": "1595d05faa176812bba5bc514bfa353bbe3d781376cb7ad0cade709d94071463"
+      "sha256": "cfef42ff49a80f380af60641a3f6f7faac0d4bcefd75ea2a3c62c0411a7e6a24"
     },
     "site_screening.json": {
       "description": "9. Geographic and environmental screening",
-      "sha256": "16ba9fef3ec76fc0435eee2e2166fc67e1bff72c2f56d9682eb9480f5ab0bd1e"
+      "sha256": "b191405ffdff431efc5c7e0834cd316e98ea1992cfeb691c0e7cd1654ba6657b"
+    },
+    "input_provenance.json": {
+      "description": "10. Primary wind input provenance and calibration QA against the CDS series",
+      "sha256": "2384ac9c1ec8f27bab08edfabe5e3b385a04ec2b138b34ea32c12f6e21b5845a"
     }
   },
-  "documentation": "docs/review/PHASE4B_INTEGRATION.md"
+  "documentation": [
+    "docs/review/PHASE4B_INTEGRATION.md",
+    "docs/review/PHASE5PRE_B_BASELINE_INTEGRATION.md"
+  ]
 }

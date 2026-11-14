@@ -4,7 +4,8 @@
 Writes results/revised/site_screening.json from documented inputs:
   * official MENR polygon (docs/review/phase1_data/SAROS_DURES_official.kml)
   * EMODnet DTM 2024 crop (docs/review/phase1_data/emodnet_dtm2024_saros_crop.tif)
-  * ERA5 directions (data/processed/wind_hub_105m.parquet)
+  * ERA5 directions and hub-height speeds of the PRIMARY wind series
+    (config/wind_data.py; loaded and checksum-verified by scripts/04)
   * Saros ÖÇK boundary, Decision 2010/1089 (Official Gazette 27793)
 
 Geometry and grid-fitting are computed by scripts/phase4a_site_checks.py
@@ -26,6 +27,7 @@ import rasterio
 
 from config.site import RESULTS_DIR
 from config.turbine import ACTIVE_SCENARIOS, RETIRED_SCENARIOS, TURBINE_SPACING_ASSUMPTION
+from config.wind_data import PRIMARY, SERIES
 
 REV = RESULTS_DIR / "revised"
 STATUS = "PRE-SUBMISSION SCREENING — not a layout design, permit or environmental assessment"
@@ -69,9 +71,19 @@ def era5_node(p4a) -> dict:
             "polygon_share_nearest_to_this_node_pct": float(nearest.mean() * 100)}
 
 
-def compute() -> dict:
+def _s04():
+    spec = importlib.util.spec_from_file_location("s04_for_07", ROOT / "scripts/04_fit_weibull_aep.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+def compute(series_key: str | None = None) -> dict:
+    s04 = _s04()
+    spec = SERIES[series_key] if series_key else PRIMARY
+    wind, _ = s04.load_series(spec)
     p4a = _p4a()
-    g = p4a.compute(ACTIVE_SCENARIOS)
+    g = p4a.compute(ACTIVE_SCENARIOS, wind=wind)
     scr = g["screening_of_best_prevailing_axis_layout"]
     return {
         "status": STATUS,
@@ -95,7 +107,7 @@ def compute() -> dict:
             "depth_50_to_62m": scr["depth_50_to_62m"], "within_1km_of_shore": scr["within_1km_of_shore"],
             "inside_saros_ock_2010": scr["inside_saros_ock_2010"],
             "outside_all_classes": scr["outside_ock_and_10_50m_and_ge1km"]},
-        "wind_direction": g["wind_direction"],
+        "wind_direction": g["wind_direction"] | {"series": spec.key, "period": spec.period_label},
         "active_scenarios_density": [
             {k: s[k] for k in ("name", "n_turbines", "installed_mw", "density_mw_per_km2_full_polygon",
                                "density_mw_per_km2_outside_ock", "share_of_fitted_positions_pct")}
