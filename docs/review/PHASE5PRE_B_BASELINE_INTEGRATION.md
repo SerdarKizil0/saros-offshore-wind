@@ -237,7 +237,10 @@ an explanatory comment).
 **Full suite:** 177 passed, 5 failed (§6).
 
 **Clean clone.** The clean-checkout test passes. A real `git clone` of the
-pushed branch was also run after the commit (see the commit message).
+pushed branch (`fe9fd15`) followed by `python scripts/run_revised_pipeline.py`
+regenerated all 11 output files byte-identically. `MANIFEST.json` differed
+only in `code_commit_at_generation`, which records the generating commit
+(`fe9fd15` instead of `a456d71`; the code is identical).
 
 ---
 
