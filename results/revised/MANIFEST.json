@@ -1,7 +1,7 @@
 {
   "status": "PRE-SUBMISSION MODEL ESTIMATES — not validated project forecasts",
   "generated_by": "scripts/run_revised_pipeline.py",
-  "code_commit_at_generation": "2ab13c1+uncommitted-changes",
+  "code_commit_at_generation": "a456d71",
   "inputs": {
     "wind_series": "data/external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
     "wind_series_sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
