@@ -1,239 +1,229 @@
+<!-- GENERATED FILE - do not edit. Source: manuscript/src/03_methodology.md. Numbers come from results/revised/. Rebuild with: python scripts/11_build_manuscript_sections.py -->
+
 # 3. Materials and Methods
 
-## 3.1. Study Site
+## 3.1. Scope and kinds of quantity
 
-The study site is the Saros Bay offshore wind candidate zone, one of four
-offshore renewable energy zones (*Deniz Üstü Yenilenebilir Enerji Kaynak
-Alanları*, DÜRES) announced by the Republic of Türkiye Ministry of Energy
-and Natural Resources (MENR) on 14 May 2026. The zone is located in the
-North Aegean Sea, immediately north of the Gelibolu (Gallipoli) Peninsula,
-at the western approach to the Çanakkale Strait. Its boundary, supplied by
-MENR as a georeferenced polygon, comprises 27 vertices enclosing an area of
-172.5 km², with a centroid at 40.557° N, 26.198° E. The zone extends
-approximately 35.7 km east–west and 10.5 km north–south, forming an
-elongated corridor parallel to the peninsular coastline.
+This is a preliminary assessment based on reanalysis data. No offshore wind
+measurements were available for the area, so no result is validated against
+measurements. To keep the status of each number clear, four kinds of quantity
+are distinguished throughout:
 
-The site lies within a region repeatedly identified as having among the
-highest offshore wind potential along the Turkish coastline, and is
-consistent with the exploration areas highlighted in the World Bank's
-*Offshore Wind Roadmap for Türkiye* (World Bank, 2024). Whereas the
-Roadmap provides strategic, country-level policy guidance toward Türkiye's
-2035 offshore wind target of 5 GW, the present study provides a
-quantitative, site-specific resource and environmental assessment for the
-Saros zone under the technical configuration described below.
+- **reanalysis output**: wind statistics of the ERA5 series at a grid node;
+- **model results**: capacity factors and energy yields obtained from that
+  series with a reference power curve and assumed losses;
+- **sensitivity experiments**: recalculations in which one choice is changed
+  (reference period, grid node, wind data product, loss assumptions);
+- **assumptions**: the reference turbine, its power curve, the losses and the
+  emission-factor convention.
 
-## 3.2. Wind Data: ERA5 Reanalysis
+Only one probabilistic interval is reported: the sampling interval of the
+long-term mean (Section 3.6). The sensitivity experiments are reported
+separately. They are not confidence intervals, and they are not combined with
+the sampling interval or with each other.
 
-Hourly wind data were obtained from the ERA5 reanalysis produced by the
-European Centre for Medium-Range Weather Forecasts (ECMWF) and distributed
-through the Copernicus Climate Data Store (Hersbach et al., 2020). ERA5
-provides global coverage at a native horizontal resolution of 0.25° × 0.25°
-(approximately 28 km at this latitude) with hourly temporal resolution.
-The eastward and northward wind components were retrieved at both 10 m
-(*u₁₀*, *v₁₀*) and 100 m (*u₁₀₀*, *v₁₀₀*) above the surface for the
-11-year period 2014–2024, yielding 96 432 hourly records.
+All results are produced by a scripted pipeline from input files that are
+pinned by checksum. A clean checkout of the repository reproduces the result
+files byte for byte, and the numbers and tables in Sections 2 to 4 are
+generated from those result files.
 
-An 11-year analysis window was adopted to capture inter-annual variability,
-which in the Mediterranean and Aegean basins is of the order of 5–8% in
-mean wind speed (Soukissian et al., 2018). At this sample size the standard
-error of the long-term mean falls below 2%, mitigating the sampling bias
-that affects single-year assessments. Data were requested over a bounding
-box (40.45–40.65° N, 25.99–26.51° E) that encloses the candidate-zone
-polygon with an approximately 5 km buffer, ensuring that interior grid
-cells are well inside the requested domain on all sides. The grid cell
-nearest the polygon centroid was selected for the point analysis. No
-missing or invalid records were present in the retrieved series.
+## 3.2. Wind data
 
-The horizontal wind speed at each reference height was computed as the
-magnitude of the vector components,
+The wind data are from the ERA5 reanalysis (Hersbach et al., 2020), which
+provides hourly fields on a 0.25° grid. The variables used are the wind speed
+at 10 m and at 100 m and the wind direction at 100 m, as instantaneous values
+at each hour (UTC). The series was obtained through the Open-Meteo
+historical-weather service (Zippenfenig, 2023), with the ERA5 model selected
+and the nearest grid cell requested. The service returned exactly the node at
+40.50° N, 26.25° E (Section 2.6).
 
-$$ U_h = \sqrt{u_h^2 + v_h^2}, $$
+The reference period is 1 January 1994 to 31 December 2024: 31 calendar years
+and 271 752 hourly values, without gaps. The series was retrieved on 14
+November 2026 and is stored with its checksum. A long reference period was
+used because the result depends on the period chosen (Section 4.3).
 
-and the meteorological wind direction was derived from the 100 m
-components.
+Open-Meteo redistributes ERA5 on its native grid but stores it in compressed
+form, and it returns speeds to two decimals and directions to whole degrees.
+The series is therefore not bit-identical to a download from the Copernicus
+Climate Data Store (CDS). As an input check, it was compared with a series for
+the same node that had been downloaded from the CDS for 2014–2024 (96 432
+common hours). The mean difference in 100 m wind speed is −0.00009 m s⁻¹, the
+root-mean-square difference is 0.041 m s⁻¹ and the correlation is 0.99994.
+With the same shear exponent, the gross capacity factor of the two series
+differs by −0.004 % (Supplementary Table S2). This comparison checks the data
+source. It does not test the accuracy of ERA5 at the site.
 
-## 3.3. Hub-Height Extrapolation
+## 3.3. Wind speed at hub height
 
-The reference turbine (Section 3.5) has a hub height of 105 m, which lies
-above the ERA5 100 m level. Wind speed was extrapolated from 100 m to the
-hub height using the power-law (Hellmann) profile,
+The reference turbine has a hub height of 105 m. The 100 m wind speed was
+extrapolated to 105 m with a power law. For every hour $t$ in which both the
+10 m speed $U_{10,t}$ and the 100 m speed $U_{100,t}$ exceed 1 m s⁻¹, a shear
+exponent was computed from the two reanalysis levels,
 
-$$ U(z) = U(z_\mathrm{ref}) \left( \frac{z}{z_\mathrm{ref}} \right)^{\alpha}, $$
+$$ \alpha_t = \frac{\ln\left(U_{100,t}/U_{10,t}\right)}{\ln\left(100/10\right)} . \qquad (1) $$
 
-where *α* is the wind-shear exponent. Rather than assuming the open-sea
-literature value of *α* = 0.10, the shear exponent was estimated directly
-from the data on an hour-by-hour basis from the ratio of the 10 m and
-100 m wind speeds,
+The values were trimmed at their 1st and 99th percentiles, and their mean
+$\bar{\alpha}$ was applied to all hours:
 
-$$ \alpha = \frac{\ln\!\left(U_{100}/U_{10}\right)}{\ln\!\left(100/10\right)}, $$
+$$ U_{\mathrm{hub},t} = U_{100,t}\left(\frac{105}{100}\right)^{\bar{\alpha}} . \qquad (2) $$
 
-restricted to hours in which both speeds exceeded 1 m s⁻¹ and trimmed at
-the 1st and 99th percentiles to suppress ratio noise. The resulting mean
-shear exponent was *α* = 0.149 (median 0.142, standard deviation 0.054;
-5th–95th percentile range 0.074–0.252). This value exceeds the canonical
-open-sea figure, reflecting the partly coastal character of the site owing
-to the proximity of the Gelibolu Peninsula, and its use in place of an
-assumed constant is a deliberate methodological refinement. The
-extrapolation from 100 m to 105 m is small in magnitude and therefore
-robust to the residual uncertainty in *α*, which is nonetheless propagated
-implicitly through the resource statistics.
+For the primary series $\bar{\alpha}$ = 0.149. This exponent is derived from
+two levels of the reanalysis. It is not a measured shear. Because the
+extrapolation spans only 5 m, its influence is small: compared with an
+exponent of 0.10, it changes the 105 m wind speed by +0.24 %.
 
-## 3.4. Weibull Distribution
+## 3.4. Reference turbine and power curve
 
-The probability distribution of hub-height wind speed was characterised by
-the two-parameter Weibull distribution, which is standard in wind resource
-assessment. Its probability density function is
+The reference turbine is the Vestas V164-9.5 MW: rated power 9.5 MW, rotor
+diameter 164 m, cut-in wind speed 3.5 m s⁻¹, rated wind speed 14 m s⁻¹ and
+cut-out wind speed 25 m s⁻¹. The hub height of 105 m is an assumption. The
+turbine serves as a documented reference machine. It is not a design proposal
+for the area.
 
-$$ f(U) = \frac{k}{c}\left(\frac{U}{c}\right)^{k-1}
-          \exp\!\left[-\left(\frac{U}{c}\right)^{k}\right], $$
+The power curve $P(U)$ is the row "V164/9500" of the Open Energy Database
+turbine library distributed with windpowerlib. It is a third-party
+digitisation of a power-curve graph published by the manufacturer, given at 49
+points from 0 to 24.5 m s⁻¹. It is not a manufacturer-certified power curve,
+and the air density to which it refers is not documented (1.225 kg m⁻³ is
+assumed). The curve was interpolated linearly. Power was set to zero below the
+cut-in speed and at or above the cut-out speed. The curve was applied to the
+hourly reanalysis values without corrections for air density or for
+variability within the hour.
 
-where *k* is the dimensionless shape parameter and *c* (m s⁻¹) is the
-scale parameter. Parameters were estimated by maximum-likelihood
-estimation (MLE) with the location fixed at zero, and cross-checked against
-the method of moments. For the full 11-year hub-height series the MLE
-yielded *k* = 2.04 and *c* = 8.08 m s⁻¹, in close agreement with the
-method-of-moments estimate (*k* = 2.08, *c* = 8.10 m s⁻¹). Goodness of fit
-was excellent, with a coefficient of determination of *R²* = 0.998 on the
-cumulative distribution and a Kolmogorov–Smirnov statistic of 0.022. The
-Weibull-implied mean wind speed (7.16 m s⁻¹) reproduced the empirical mean
-(7.17 m s⁻¹) to within 0.2%, and the mean wind power density agreed to
-within 1% (422 versus 417 W m⁻²).
+## 3.5. Energy yield
 
-## 3.5. Energy Production Model
+Energy was estimated by converting every hourly wind speed to power and
+summing. With $N$ hours and rated power $P_r$, the gross capacity factor is
 
-The reference wind turbine was the Vestas V164-9.5 MW, a fixed-bottom
-offshore machine with a 164 m rotor diameter and a 105 m hub height, widely
-adopted as a reference in peer-reviewed Aegean and Mediterranean offshore
-wind assessments. Its manufacturer power curve defines a cut-in wind speed
-of 3.5 m s⁻¹, rated power of 9.5 MW at 14 m s⁻¹, and cut-out at 25 m s⁻¹.
+$$ \mathrm{CF}_g = \frac{1}{N\,P_r}\sum_{t=1}^{N} P\left(U_{\mathrm{hub},t}\right) . \qquad (3) $$
 
-Gross annual energy production (AEP) per turbine was computed by convolving
-the turbine power curve *P(U)* with the fitted Weibull density,
+The net capacity factor applies three loss assumptions, a wake loss $L_w$, an
+availability $A$ and an electrical loss $L_e$:
 
-$$ \mathrm{AEP}_\mathrm{gross} = 8766 \int_{0}^{\infty} P(U)\, f(U)\, \mathrm{d}U, $$
+$$ \mathrm{CF}_n = \eta\,\mathrm{CF}_g , \qquad \eta = (1-L_w)\,A\,(1-L_e) . \qquad (4) $$
 
-where 8766 is the mean number of hours per year. The integral was evaluated
-numerically on a 0.1 m s⁻¹ wind-speed grid using the interpolated power
-curve. The gross capacity factor was obtained as the ratio of mean power
-output to rated power.
+The nominal values are $L_w$ = 8 %, $A$ = 95 % and $L_e$ = 3 %, which give
+$\eta$ = 0.848. These values are illustrative assumptions. They are not
+derived from a turbine layout or from site data, and no wake model was run.
+The net specific yield per unit of installed capacity is
 
-Net AEP was obtained by applying three multiplicative loss factors: an
-array (wake) loss, turbine availability, and electrical (array plus export
-cable plus transformer) losses,
+$$ Y = \mathrm{CF}_n \times H , \qquad (5) $$
 
-$$ \mathrm{AEP}_\mathrm{net} = \mathrm{AEP}_\mathrm{gross}
-   \,(1 - L_\mathrm{wake})\, A \,(1 - L_\mathrm{elec}), $$
+where $H$ = 8 766 h is the length of an average year. $Y$ is expressed in GWh
+MW⁻¹ yr⁻¹. Results are reported per megawatt because no installed capacity has
+been assigned to the area (Section 2.2).
 
-with default values of *L*~wake~ = 0.08, *A* = 0.95 and *L*~elec~ = 0.03.
-The deterministic net specific yield was 2.71 GWh yr⁻¹ MW⁻¹, corresponding
-to a net capacity factor of 31.0% and 2714 equivalent full-load hours per
-year.
+## 3.6. Sampling interval of the mean and interannual variability
 
-## 3.6. Capacity Scenarios
+The long-term estimate is the mean over 31 calendar years. Its finite-sample
+uncertainty was described by a sampling interval: a two-sided 90 % confidence
+interval of the mean, computed from the $n$ = 31 annual yields $Y_i$ and their
+standard deviation $s_Y$:
 
-Because the installed capacity ultimately allocated to the Saros zone is
-not yet finalised — and because domestic-content requirements may influence
-the turbine specification — all primary results are reported per megawatt
-of installed capacity, a normalisation that is robust to capacity
-uncertainty and consistent with the convention in life-cycle offshore wind
-literature. For context, four illustrative deployment scenarios were also
-evaluated, derived from a regular 7*D* × 5*D* turbine spacing (where *D* is
-the rotor diameter) applied to the zone area: a pilot phase (26 turbines,
-247 MW), a first-allocation phase (53 turbines, 504 MW), a full Phase-2
-deployment (105 turbines, 998 MW), and a theoretical maximum
-(183 turbines, 1739 MW). The model is linear in installed capacity at fixed
-turbine specification, so farm-level quantities scale directly from the
-per-MW results.
+$$ \bar{Y} \pm t_{0.95,\,n-1}\,\frac{s_Y}{\sqrt{n}} . \qquad (6) $$
 
-## 3.7. Avoided-Emissions Model
+This sampling interval was checked with a bootstrap that resamples whole
+calendar years (20 000 resamples) and with a jackknife standard error
+(Supplementary Table S4). The interval has a narrow meaning. It describes how
+well 31 reanalysis years determine their own long-term mean, on the condition
+that ERA5 at this node is correct. It is not an exceedance value such as a P90
+yield, and it does not include any of the sensitivities described in Section
+3.7.
 
-The environmental benefit of the wind farm was quantified as the net carbon
-dioxide emission avoided by displacing conventional grid electricity. The
-net avoided emission per unit of wind generation is
+Interannual variability is reported separately, as the coefficient of
+variation and the range of the annual yields. It describes how much single
+reanalysis years differ from one another. It is not an uncertainty of the
+mean.
 
-$$ E_\mathrm{avoided} = \mathrm{EF}_\mathrm{grid} - \mathrm{EF}_\mathrm{wind}, $$
+## 3.7. Sensitivity experiments
 
-where EF~grid~ is the grid emission factor displaced by wind generation and
-EF~wind~ is the life-cycle emission factor of the offshore wind farm
-itself.
+Each experiment changes one choice and repeats the calculation of Sections 3.3
+to 3.5. Its result is expressed relative to the primary estimate
+$Y_{\mathrm{ref}}$:
 
-For EF~grid~, the official combined-margin emission factor for wind and
-solar plants published by the Turkish Ministry of Energy and Natural
-Resources (ETKB, Energy Efficiency and Environment Directorate) for 2023
-was adopted as the primary value: 624.2 gCO₂-eq kWh⁻¹, computed according
-to the IPCC grid emission-factor methodology (Tool07). This combined-margin
-value is the officially sanctioned factor for crediting avoided emissions
-from new wind and solar generation in Türkiye, and its use removes the
-ambiguity associated with selecting between operating-margin and
-build-margin conventions. The official generation-average factor
-(434 gCO₂-eq kWh⁻¹) and operating-margin factor (713.4 gCO₂-eq kWh⁻¹) for
-the same year were used as the lower and upper bounds, respectively, in the
-uncertainty analysis.
+$$ \Delta = \left(\frac{Y}{Y_{\mathrm{ref}}} - 1\right)\times 100\,\% . \qquad (7) $$
 
-For EF~wind~, the life-cycle emission factor of fixed-bottom offshore wind
-was taken as 11 gCO₂-eq kWh⁻¹ (Bonou et al., 2016), consistent with the
-8–14 gCO₂-eq kWh⁻¹ range reported for offshore wind in the IPCC AR5 inventory (Schlömer et al., 2014). This value
-includes manufacturing, installation, operation and decommissioning without
-recycling credits, and is therefore a conservative (upper) estimate of the
-technology's footprint.
+**Period selection.** The calculation was repeated for other reference periods
+at the primary node, using a longer series from the same source (1979–2024).
+Over 1994–2024 that series is identical to the primary series. The primary
+$\bar{\alpha}$ was kept, so that only the wind changes. The comparison periods
+are 1979–2024, 2014–2024, 2015–2024 and 2008–2017; the last is the reference
+period of the wind atlas used below. In addition, the yield was computed for
+every window of 11 consecutive years: 36 windows in 1979–2024, of which 21 lie
+inside 1994–2024. The window length of eleven years is that of the 2014–2024
+record with which this work began. Overlapping windows share years and are not
+independent samples.
 
-To complement the combined-margin accounting with a more concrete
-comparison, a fuel-resolved conventional scenario was also constructed, in
-which the same annual generation is assumed to be produced by a
-fossil-thermal mix. The fossil component was apportioned among natural gas,
-imported coal and lignite using the official 2023 fuel-specific emission
-factors (405, 803 and 1133 gCO₂-eq kWh⁻¹, respectively) weighted by an
-approximate fossil-thermal generation share. This scenario yields a
-fossil-displacement avoided emission that is reported as an upper bound
-alongside the combined-margin headline value. Finally, to aid
-interpretation, results were converted to tangible equivalents using a mean
-Turkish household consumption of 3036 kWh yr⁻¹ (TEİAŞ) and a mean passenger
-vehicle emission of 2 tCO₂ yr⁻¹.
+**Grid node.** The calculation was repeated for the two neighbouring ERA5
+nodes on the same latitude row, at 26.00° E and 26.50° E, for the same period
+and with the same method. Each node uses its own $\bar{\alpha}$. The land
+fraction of each cell was read from the static ERA5 land–sea mask. The nodes
+were not averaged or interpolated: the three cells differ in their land
+fraction, and there is no measurement that would justify a weighting.
 
-## 3.8. Monte Carlo Uncertainty Quantification
+**Wind data product.** The ERA5 mean wind speed at 100 m was compared with the
+Global Wind Atlas 4.0 (GWA; Davis et al., 2023). GWA is a downscaling product:
+a mesoscale model driven by ERA5, followed by microscale modelling, on a grid
+of about 250 m. The GWA climatology refers to 2008–2017. GWA values were
+averaged over the pixel centres inside the candidate polygon and, for each of
+the three nodes, over the sea pixels of a 0.25° box centred on the node. Each
+GWA value was compared with the ERA5 mean of two periods: the primary period
+and 2008–2017, so that the periods of the two products match. The comparison
+measures the disagreement between two models. GWA is not independent of ERA5
+and is not treated as a reference truth. To show what such a disagreement
+means for energy, every hourly speed of the primary series was multiplied by a
+factor (0.90, 0.95, 1.05, 1.10 and the GWA/ERA5 ratios) and the conversion was
+repeated. These scaled cases are illustrative. None is adopted, and the
+primary estimate is not rescaled.
 
-Uncertainty in the energy and emission estimates was propagated through a
-Monte Carlo simulation of 10 000 iterations. Seven input parameters were
-sampled independently in each iteration: the Weibull shape parameter
-(*k* ~ Normal(2.04, 0.04)); the Weibull scale parameter (*c* ~
-Normal(8.08, 0.26), with the standard deviation set equal to the
-inter-annual standard deviation of the eleven annual scale-parameter fits);
-the array wake loss (Triangular(0.05, 0.08, 0.12)); turbine availability
-(Triangular(0.92, 0.95, 0.97)); electrical loss (Triangular(0.02, 0.03,
-0.04)); the grid emission factor (Triangular(434, 624.2, 713.4) gCO₂-eq
-kWh⁻¹, spanning the official generation-average, combined-margin and
-operating-margin values); and the offshore wind life-cycle emission factor
-(Triangular(8, 11, 14) gCO₂-eq kWh⁻¹).
+**Loss assumptions.** A low-loss case ($L_w$ = 5 %, $A$ = 97 %, $L_e$ = 2 %)
+and a high-loss case ($L_w$ = 12 %, $A$ = 92 %, $L_e$ = 4 %) were computed.
+They are labelled assumptions, not probability bounds.
 
-In each iteration the gross AEP was recomputed analytically from the sampled
-Weibull parameters, net losses were applied, and the wind generation was
-converted to avoided emissions using the sampled net emission factor.
-Results are reported as the 10th, 50th and 90th percentiles (P10, P50, P90)
-of the resulting distributions for specific yield, capacity factor and
-avoided emissions, both per megawatt and aggregated to each deployment
-scenario.
+## 3.8. First-order site screening
 
----
+Two spatial layers were overlaid on the polygon. Water depth was summarised
+from the EMODnet grid cells inside the polygon (Section 2.3). The overlap with
+the Saros Körfezi ÖÇK was computed on a 50 m grid from the boundary
+reconstructed in Section 2.4. Both are first-order screening results. They do
+not constitute a layout, a constraint map or an environmental impact
+assessment, and no permitting judgement is made.
 
-### References cited in this section (to be formatted to journal style)
+## 3.9. Operational grid-CO₂ accounting
 
-- Bonou, A., Laurent, A., Olsen, S.I. (2016). Life cycle assessment of
-  onshore and offshore wind energy — from theory to application. *Applied
-  Energy*, 180, 327–337.
-- Hersbach, H., et al. (2020). The ERA5 global reanalysis. *Quarterly
-  Journal of the Royal Meteorological Society*, 146(730), 1999–2049.
-- IPCC (2025). [Life-cycle emissions of electricity generation
-  technologies — offshore wind range 8–14 gCO₂-eq kWh⁻¹.] *to be cited from
-  the relevant AR6/2025 working-group annex.*
-- Republic of Türkiye Ministry of Energy and Natural Resources, Energy
-  Efficiency and Environment Directorate (EVÇED) (2024). *Türkiye Ulusal
-  Elektrik Şebekesi Emisyon Faktörü Bilgi Formu (2023)*.
-- Soukissian, T., et al. (2017). [Offshore wind climate and variability in
-  the Mediterranean basin.] *to be confirmed.*
-- World Bank (2024). *Offshore Wind Roadmap for Türkiye*. Energy Sector
-  Management Assistance Program (ESMAP), Washington, DC.
+The energy yield was also expressed as an operational grid-CO₂ accounting
+equivalent,
 
-*Note: ERA5 citation (Hersbach et al., 2020) and the offshore-LCA source
-(Bonou et al., 2016) are verified. The IPCC 2025 range and the Soukissian
-inter-annual-variability figure should be located precisely and cited to a
-specific page/table before submission.*
+$$ C = Y \times \mathrm{EF}_{\mathrm{CM}} , \qquad (8) $$
+
+where $\mathrm{EF}_{\mathrm{CM}}$ = 0.6242 tCO₂ MWh⁻¹ is the combined-margin
+emission factor for wind and solar plants that MENR published for 2023 (MENR,
+2025). It follows the grid emission-factor tool of the Clean Development
+Mechanism (UNFCCC, Tool 07), in which the combined margin for wind and solar
+is 0.75 times the operating margin plus 0.25 times the build margin. The
+factor covers CO₂ from combustion only. For context, the same calculation was
+made with the official operating margin (0.7134 tCO₂ MWh⁻¹), build margin
+(0.3567 tCO₂ MWh⁻¹) and generation average (0.430 tCO₂ MWh⁻¹).
+
+$C$ is an accounting quantity under a stated convention. It uses a static 2023
+factor. It is not a forecast of the generation that the plant would physically
+displace, and the alternative conventions are not statistical bounds. Where an
+interval is attached to $C$, it carries only the sampling interval of the mean
+energy through the fixed factor. Life-cycle greenhouse-gas intensities from
+the literature are in a different unit (CO₂-equivalent) and have a different
+system boundary. They are reported separately in Supplementary Table S14 and
+are not subtracted from $C$.
+
+For orientation, the per-megawatt results are also scaled linearly to one
+illustrative capacity of 105 turbines of 9.5 MW (997.5 MW). This size is
+comparable to the 1 000 MWe of the draft tender, but that capacity has not
+been allocated to Saros (Section 2.2), so the case is conditional on a future
+allocation. It involves no layout and uses the same nominal losses as the
+per-megawatt result.
+
+## 3.10. Supplementary descriptive statistics
+
+A two-parameter Weibull distribution was fitted to the hourly 105 m wind speed
+by maximum likelihood. It is reported as a descriptive statistic
+(Supplementary Table S7) and is not used to estimate energy. Monthly means and
+the direction distribution are given in Supplementary Tables S8 and S9.

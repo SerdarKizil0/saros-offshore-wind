@@ -1,111 +1,107 @@
+<!-- GENERATED FILE - do not edit. Source: manuscript/src/02_study_area.md. Numbers come from results/revised/. Rebuild with: python scripts/11_build_manuscript_sections.py -->
+
 # 2. Study Area
 
-## 2.1. Geographic Setting
+## 2.1. Geographic setting
 
-The Gulf of Saros is a roughly triangular embayment at the easternmost end
-of the North Aegean Trough, bounded by the Thrace coast to the north and
-the Gelibolu (Gallipoli) Peninsula to the south, immediately west of the
-Çanakkale Strait (Figure F1). The basin widens and deepens westward toward
-the open North Aegean Sea. The offshore wind candidate zone examined here
-occupies an elongated corridor (approximately 35.7 km × 10.5 km, 172.5 km²)
-in the central-southern part of the gulf, north of the Gelibolu Peninsula,
-with its centroid at 40.557° N, 26.198° E.
+The Gulf of Saros is an embayment of the north-eastern Aegean Sea. It is
+bounded by the coast of Thrace to the north and by the Gelibolu (Gallipoli)
+Peninsula to the south, and it opens westward to the North Aegean. The
+candidate area examined here lies on the northern, Thracian shelf of the gulf
+and runs roughly parallel to the Thracian coast. The Gelibolu Peninsula forms
+the opposite, southern shore.
 
-The North Aegean is widely regarded as one of the most energetic wind
-regions of the Turkish maritime domain. The gulf is funnel-shaped and open
-to the prevailing northerly flow, and the adjacent strait system channels
-air masses moving between the Black Sea–Marmara corridor and the Aegean.
-The region was among the offshore areas highlighted in the World Bank's
-*Offshore Wind Roadmap for Türkiye* (World Bank, 2024).
+The area is defined by the polygon that the Ministry of Energy and Natural
+Resources (MENR) published with its notice of 13 May 2026 (file "SAROS
+DÜRES.kml"; MENR, 2026a). The polygon has 27 vertices and an area of 172.6 km²
+(computed in WGS 84 / UTM zone 35N). Its centroid lies at 40.557° N, 26.198°
+E. It is elongated: 35.9 km along its principal axis, which bears 81°
+(east-north-east to west-south-west), and 11.3 km across it. This study takes
+the published polygon as a fixed geometric object. It implies no turbine
+layout, cable route or installation footprint.
 
-## 2.2. The DÜRES Candidate-Zone Designation
+## 2.2. Official status of the candidate area
 
-On 14 May 2026 the Republic of Türkiye Ministry of Energy and Natural
-Resources announced four offshore renewable energy candidate zones
-(*Deniz Üstü Yenilenebilir Enerji Kaynak Alanları*, DÜRES) — at the Gulf of
-Saros, Gökçeada, Bozcaada, and off Edremit — as the first formal step toward
-realising the country's offshore wind ambitions. The Saros zone, the subject
-of this study, was provided as a georeferenced polygon of 27 vertices. The
-present analysis treats this officially designated boundary as fixed; the
-study therefore constitutes a post-designation resource and environmental
-assessment rather than a site-selection exercise, which removes a common
-source of contestation in offshore wind case studies.
+The notice of 13 May 2026 states that the published areas were determined as
+*candidate* renewable energy resource areas (aday YEKA) under the Renewable
+Energy Resource Areas Regulation (Official Gazette 29852, 9 October 2016), and
+that detailed studies towards their declaration as offshore-wind YEKA have
+started (MENR, 2026a). Four polygons accompany the notice: Saros, Gökçeada,
+Bozcaada and Edremit. The Saros polygon is therefore a candidate YEKA. It is
+not a declared YEKA and not an approved project, and no installed capacity,
+layout or developer is attached to it.
 
-## 2.3. Bathymetry and Seabed
+On 22 June 2026 MENR published a draft tender specification for comment (YEKA
+DÜRES-2026; "DÜRES" abbreviates *Deniz Üstü Rüzgâr Enerjisi Santrali*,
+offshore wind power plant). The draft concerns a competition for a total
+connection capacity of 1 000 MWe and defines the area as any one of the areas
+published with the May notice (MENR, 2026b). The draft therefore does not
+assign that capacity, or any capacity, to Saros. No final specification or
+tender notice had been found among the ministry's announcements by 14 November
+2026. Statements about status in this paper refer to that date.
 
-The Gulf of Saros displays strong bathymetric asymmetry. A broad shelf
-extending to about −125 m occupies the northern and eastern margins, giving
-way to a transitional basin near −200 m in the east and to a deep inner
-basin reaching −550 to −700 m (locally ~−800 m) along the gulf's
-southwestern axis (Yaltırak et al., 1998, 2008). The candidate
-zone lies predominantly over the shallower shelf domain, deepening westward
-toward the inner basin. This configuration implies that the eastern and
-central portions of the zone are plausibly compatible with fixed-bottom
-(monopile) foundations, the technology assumed for the reference turbine,
-whereas the deeper western margin would require either exclusion or
-floating foundations. Detailed geotechnical characterisation and
-foundation-suitability mapping are beyond the scope of the present resource
-assessment and are flagged as necessary site-investigation steps.
+## 2.3. Bathymetry
 
-## 2.4. Seismotectonic Setting
+Water depth inside the polygon was taken from the EMODnet Digital Bathymetry
+DTM 2024 (EMODnet Bathymetry Consortium, 2024), using the 16 907 grid-cell
+centres that fall inside the polygon. Depth below lowest astronomical tide
+ranges from 1.0 m to 61.6 m, with a median of 27.8 m and a 5th–95th percentile
+range of 7.2–54.7 m. About 9 % of the area is shallower than 10 m and about
+11 % is deeper than 50 m. No cell inside the polygon is deeper than 200 m. The
+10 m and 50 m values are screening thresholds chosen for this study. They are
+not technical or legal limits. Seabed conditions, geotechnical suitability and
+foundation design are outside the scope of this study.
 
-The Gulf of Saros is traversed by the offshore continuation of the northern
-strand of the North Anatolian Fault (NAF), known here as the Ganos fault,
-which constitutes the dominant tectonic structure of the basin (Yaltırak,
-2002; Koukouvelas & Aydin, 2002). This dextral strike-slip system
-accommodates a slip rate of approximately 21 mm yr⁻¹ along the Saros basin
-(Müller et al., 2013) and has a shallow locking depth of 5.6–8.9 km,
-indicating an actively deforming, seismogenic structure. The fault hosted
-the 9 August 1912 Mürefte–Şarköy earthquake (Mₛ 7.4) and its 13 September
-1912 aftershock (Mₛ 6.8), whose surface ruptures extended offshore into the
-gulf over a distance of the order of 40 km (Aksoy et al., 2022).
+## 2.4. Protected-area context
 
-The proximity of an active major fault is a material consideration for any
-offshore infrastructure in the gulf and bears directly on foundation design,
-cable routing and risk assessment. While a detailed seismic-hazard and
-geotechnical study lies outside the scope of this energy and environmental
-assessment, the seismotectonic context is noted here as a key constraint to
-be addressed in subsequent site-specific engineering investigations, and is
-revisited among the limitations of the present study.
+The Saros Körfezi Special Environmental Protection Area (*Özel Çevre Koruma
+Bölgesi*, ÖÇK) was declared by Council of Ministers Decision 2010/1089
+(Official Gazette 27793, 22 December 2010) under Article 9 of Environment Law
+No. 2872. The annex to the decision lists 13 boundary points in geographic
+coordinates. It does not state a geodetic datum. For screening, the boundary
+was reconstructed by joining these points with straight segments and reading
+the coordinates as WGS 84.
 
-## 2.5. Wind Climate
+With this reconstruction, about 25 km² of the candidate polygon, or about 14 %
+of its area, lies inside the ÖÇK. The overlap is the eastern arm of the
+polygon. The figure is approximate for two reasons. First, the datum of the
+decree coordinates is not stated. Second, it could not be confirmed that the
+2010 boundary is still the one in force: no later amendment was found in the
+searches made up to 14 November 2026, but the ministry's current boundary data
+could not be consulted, and the absence of a discovered amendment does not
+show that none exists. The polygon does not overlap the Gelibolu Peninsula
+strictly protected sensitive area declared by Presidential Decision 1133
+(Official Gazette 30791, 1 June 2019).
 
-The wind climate of the North Aegean is governed by the seasonal alternation
-of synoptic regimes over the basin, with strong northerly flow being the
-dominant feature. As characterised from the 11-year ERA5 record (Section 4),
-the candidate zone experiences a mean hub-height wind speed of 7.17 m s⁻¹
-with a pronounced winter maximum and low inter-annual variability. The
-detailed statistical structure of the resource — its Weibull parameters,
-seasonal cycle and inter-annual stability — is presented in Section 4.1.
+The overlap is reported as a screening result. This study makes no
+determination on whether, or under what conditions, development inside the ÖÇK
+could be authorised. Several other topics relevant to siting were not
+screened: bird migration, fisheries, navigation and liquefied-natural-gas
+traffic, military exercise areas, the distance to the North Anatolian Fault
+and the grid connection point.
 
----
+## 2.5. Seismotectonic context
 
-### References cited in this section (to be formatted to journal style)
+The gulf lies on the offshore continuation of the northern strand of the North
+Anatolian Fault, known in this sector as the Ganos fault (Yaltırak and Alpar,
+2002; Koukouvelas and Aydin, 2002). The 1912 Mürefte–Şarköy earthquake
+ruptured this fault, and its rupture has been traced offshore into the gulf
+(Aksoy et al., 2022). The distance between the fault and the candidate polygon
+was not computed here, and seismic hazard was not assessed.
 
-- Aksoy, M.E., et al. (2022). Subaqueous fault scarps of the North Anatolian
-  Fault in the Gulf of Saros (NE Aegean): the western limit of the 1912
-  Mürefte–Şarköy earthquake rupture. *Geophysical Journal International*,
-  229(1), 589––[verify pages].
-- Koukouvelas, I.K., Aydin, A. (2002). Fault structure and related basins of
-  the North Aegean Sea and its surroundings. *Tectonics*, 21(5).
-- Kurt, H., et al. (2000). [Tectonic elements controlling the evolution of
-  the Gulf of Saros.] — verify full citation.
-- Müller / Tüysüz et al. (2007). Seismic hazard scenarios from the longest
-  geologically constrained active fault of the Aegean. — verify authorship
-  and full citation (slip rate 21.2 mm yr⁻¹; locking depth 5.6–8.9 km).
-- World Bank (2024). *Offshore Wind Roadmap for Türkiye*. ESMAP, Washington, DC.
-- Yaltırak, C. (2002). Kinematics and evolution of the northern branch of
-  the North Anatolian Fault (Ganos fault) between the Sea of Marmara and the
-  Gulf of Saros. *Marine Geology*. — verify pages.
-- Yaltırak, C., et al. (2008). Faulting, mass-wasting and deposition in an
-  active dextral shear zone, the Gulf of Saros, NE Aegean Sea.
-  *Geo-Marine Letters*, 28. — verify pages.
+## 2.6. The candidate polygon and the reanalysis grid
 
-*Note: the bathymetric ranges (−125 m shelf; −550 to −700 m inner basin),
-the 1912 earthquake magnitudes (Mₛ 7.4 and 6.8), the Saros slip rate
-(~21 mm yr⁻¹) and locking depth (5.6–8.9 km) are all drawn from the
-peer-reviewed sources above and should be quoted to specific pages/figures
-before submission. Author attributions marked "verify" must be confirmed
-against the original articles — several Gulf of Saros tectonic papers share
-overlapping author groups (Yaltırak, Kurt, Aksoy, İmren, Çağatay) and the
-exact lead author/year must be checked.*
+The wind data come from the ERA5 reanalysis on its 0.25° grid (Section 3.2).
+The grid node nearest the polygon centroid is at 40.50° N, 26.25° E. This node
+lies outside the polygon, 3.7 km south of its boundary. It is the nearest node
+for 62.6 % of the polygon area. The remainder is nearest to the neighbouring
+nodes at 26.00° E (27.7 %) and 26.50° E (9.7 %). None of the three nodes lies
+inside the polygon.
+
+A reanalysis value represents a grid cell, not a point. In the static ERA5
+land–sea mask the cell of the primary node has a land fraction of 0.44, so the
+model treats it as a mixed land–sea cell. The eastern neighbour is similar
+(0.46), and only the western neighbour is predominantly marine (0.12). All
+results in this paper are therefore node-level results. They do not resolve
+wind gradients inside the polygon, and the effect of the node choice is
+examined as a separate sensitivity experiment (Sections 3.7 and 4.4).
