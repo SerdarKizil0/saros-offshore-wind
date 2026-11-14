@@ -28,12 +28,18 @@ from config.wind_data import PRIMARY, HISTORICAL_CDS_2014_2024  # noqa: E402
 REV = ROOT / "results" / "revised"
 ARCH = ROOT / "results" / "archive" / "baseline_2014_2024_cds"
 PRODUCTION = ["scripts/04_fit_weibull_aep.py", "scripts/06_emissions_and_scenarios.py",
-              "scripts/07_site_screening.py", "scripts/run_revised_pipeline.py", "config/wind_data.py"]
+              "scripts/07_site_screening.py", "scripts/08_sensitivity_representativeness.py",
+              "scripts/run_revised_pipeline.py", "config/wind_data.py"]
 N_HOURS = 31 * 8760 + 8 * 24                    # 1994-2024, 8 leap years
 LEAP = [1996, 2000, 2004, 2008, 2012, 2016, 2020, 2024]
 OUTPUTS = ["wind_resource.json", "energy_yield.json", "weibull_crosscheck.json", "interannual_and_sampling.json",
            "annual_energy.csv", "wind_speed_sensitivity.json", "loss_scenarios.json", "emissions.json",
-           "scenarios.json", "site_screening.json", "input_provenance.json"]
+           "scenarios.json", "site_screening.json", "input_provenance.json",
+           # Phase 5B-0: sensitivity and representativeness outputs (scripts/08)
+           "period_sensitivity.json", "rolling_11yr_windows.csv", "node_sensitivity.json",
+           "wind_product_discrepancy.json", "sensitivity_index.json"]
+# files that legitimately name other periods, always as labelled comparisons against the 1994-2024 reference
+PERIOD_COMPARISON_FILES = {"period_sensitivity.json", "rolling_11yr_windows.csv", "sensitivity_index.json"}
 
 
 def J(name):
@@ -285,8 +291,8 @@ def _leaves(d, path=()):
 def test_no_stale_2014_2024_values_in_authoritative_outputs():
     text = {f.name: f.read_text() for f in REV.iterdir() if f.is_file()}
     for name, t in text.items():
-        if name in ("input_provenance.json", "MANIFEST.json"):
-            continue                                                 # QA / provenance may name the CDS period
+        if name in ("input_provenance.json", "MANIFEST.json") or name in PERIOD_COMPARISON_FILES:
+            continue                 # QA / provenance / labelled period comparisons may name other periods
         for banned in ("2014-2024", "2014–2024", "11yr", "11-year", "sampling_ci_of_11yr_mean"):
             assert banned not in t, f"{name} contains {banned!r}"
     # every computed (non-input) number of the archive must be absent from results/revised
@@ -301,6 +307,18 @@ def test_no_stale_2014_2024_values_in_authoritative_outputs():
                 continue
             for name, t in text.items():
                 assert not re.search(r"(?<![\d.])" + re.escape(r) + r"(?!\d)", t), f"stale {f.name}:{path} in {name}"
+
+
+def test_other_periods_appear_only_as_labelled_comparisons():
+    per = J("period_sensitivity.json")
+    assert per["reference_baseline"]["period"] == "1994-2024"
+    assert per["periods"]["1994-2024"]["role"].startswith("reference")
+    for k, p in per["periods"].items():
+        if k != "1994-2024":
+            assert "comparison only" in p["role"] or "longest record" in p["role"], k
+    for f in ("node_sensitivity.json", "wind_product_discrepancy.json", "sensitivity_index.json"):
+        assert J(f)["reference_baseline"]["period"] == "1994-2024", f
+        assert J(f)["reference_baseline"]["net_gwh_per_mw"] == J("energy_yield.json")["net"]["gwh_per_mw"], f
 
 
 def test_production_code_reads_no_outdated_results():

@@ -54,10 +54,12 @@ def _leaves(d, path=()):
         yield path, d
 
 
-def assert_reproduces(archived: dict, fresh: dict, name: str):
+def assert_reproduces(archived: dict, fresh: dict, name: str, skip=()):
     """Every archived leaf exists in the fresh output with the same value (labels excepted)."""
     new = dict(_leaves(json.loads(json.dumps(fresh, ensure_ascii=False))))
     for path, v in _leaves(archived):
+        if any(tok in path for tok in skip):
+            continue
         assert path in new, f"{name}: {path} missing"
         if path[-1] == "label" or path[-1] == "status" and isinstance(v, str):
             continue
@@ -149,7 +151,17 @@ def test_annual_table_byte_identical(hist_run):
 def test_script06_reproduces_archive(hist_run):
     _, em, sc, _ = hist_run
     assert_reproduces(A("emissions.json"), em, "emissions.json")
-    assert_reproduces(A("scenarios.json"), sc, "scenarios.json")
+    # Phase 5B-0 replaced the unverified 347.9 TWh denominator by the official 2024 gross consumption
+    # (353 579.8 GWh). Only the optional share metric and its reference block depend on it.
+    assert_reproduces(A("scenarios.json"), sc, "scenarios.json",
+                      skip=("share_of_2024_consumption_pct", "consumption_reference"))
+    arch = A("scenarios.json")
+    assert arch["consumption_reference"]["twh"] == 347.9                    # archive keeps the old value
+    for old, new in zip(arch["scenarios"], sc["scenarios"]):
+        assert old["share_of_2024_consumption_pct"] == pytest.approx(
+            old["net_energy_gwh_yr"] / 347.9e3 * 100, rel=1e-12)
+        assert new["share_of_2024_gross_consumption_pct"] == pytest.approx(
+            old["net_energy_gwh_yr"] / 353579.8 * 100, rel=1e-12)
 
 
 def test_script07_reproduces_archive(hist_run):

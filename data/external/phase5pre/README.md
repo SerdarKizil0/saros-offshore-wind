@@ -3,8 +3,13 @@
 Written by `scripts/phase5pre_fetch_inputs.py` (network, run once on
 14 November 2026). Request URLs, per-response SHA-256, the grid point each
 request returned and the SHA-256 of every file are in `MANIFEST.json`.
-Used only by `scripts/phase5pre_era5_robustness.py`. The production pipeline
-and `results/revised/` do not read these files.
+Used by `scripts/phase5pre_era5_robustness.py` (review analysis) and, since
+Phase 5B-0, by `scripts/08_sensitivity_representativeness.py` in the
+production pipeline. There the files are pinned by SHA-256 in
+`config/wind_data.py` and serve **only** the period-selection and grid-node
+sensitivity experiments. The primary estimate never reads them; on every run
+the 26.25° E file is checked to be identical to the primary series over
+1994–2024.
 
 | File | Content |
 |---|---|

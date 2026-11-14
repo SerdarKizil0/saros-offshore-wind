@@ -1,0 +1,134 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "label": "PERIOD-SELECTION SENSITIVITY — same node, same method, other reference periods; a sensitivity experiment, not an uncertainty interval. Further years are further reanalysis years, not independent observations.",
+  "category": "period_selection_sensitivity",
+  "reference_baseline": {
+    "series_key": "primary_era5_openmeteo_1994_2024",
+    "file": "data/external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
+    "sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
+    "period": "1994-2024",
+    "node_lat_lon": [
+      40.5,
+      26.25
+    ],
+    "net_gwh_per_mw": 2.353873844913812,
+    "net_cf": 0.26852313996278937,
+    "gross_cf": 0.31673681847034535,
+    "source_file": "results/revised/energy_yield.json"
+  },
+  "assumptions": {
+    "node_lat_lon": [
+      40.5,
+      26.25
+    ],
+    "series": {
+      "file": "data/external/phase5pre/era5_openmeteo_40.50N_26.25E_1979_2024.parquet",
+      "sha256": "c3ce1d44c9679f6ba75ca2c82b467e18f683a122e6f1a3a7d83a85442aac0fb2",
+      "data_period": "1979-2024",
+      "data_product": "ECMWF ERA5 hourly 10 m and 100 m wind speed via the Open-Meteo historical-weather API (models=era5, nearest 0.25 deg cell); calibrated at node C against the CDS series, not bit-identical to CDS",
+      "identical_to_primary_series_over_primary_period": true
+    },
+    "alpha": 0.14913887708563256,
+    "alpha_note": "primary-series alpha applied to every year, so only the wind changes",
+    "estimator": "empirical hourly conversion, OEDB V164/9500, nominal losses, CF x 8766 h (scripts/04)",
+    "window_length_years": 11
+  },
+  "periods": {
+    "1994-2024": {
+      "role": "reference: primary period of the authoritative estimate",
+      "n_years": 31,
+      "mean_U100_ms": 7.007152808442992,
+      "mean_U_hub_ms": 7.058326384741105,
+      "gross_cf": 0.31673681847034535,
+      "net_cf": 0.26852313996278937,
+      "net_gwh_per_mw": 2.3538738449138115,
+      "energy_change_vs_reference_pct": 0.0,
+      "U100_change_vs_reference_pct": 0.0,
+      "abs_change_over_reference_ci_half_width": 0.0
+    },
+    "1979-2024": {
+      "role": "longest record retrieved for this node",
+      "n_years": 46,
+      "mean_U100_ms": 6.991484247906995,
+      "mean_U_hub_ms": 7.042543395948726,
+      "gross_cf": 0.316229524237169,
+      "net_cf": 0.2680930660577871,
+      "net_gwh_per_mw": 2.350103817062562,
+      "energy_change_vs_reference_pct": -0.16016269773317937,
+      "U100_change_vs_reference_pct": -0.22360808968112655,
+      "abs_change_over_reference_ci_half_width": 0.07065628623561929
+    },
+    "2014-2024": {
+      "role": "period of the historical baseline (comparison only)",
+      "n_years": 11,
+      "mean_U100_ms": 7.119522357723578,
+      "mean_U_hub_ms": 7.171516574281847,
+      "gross_cf": 0.32660933587588775,
+      "net_cf": 0.2768928627688601,
+      "net_gwh_per_mw": 2.427242835031828,
+      "energy_change_vs_reference_pct": 3.1169465719902423,
+      "U100_change_vs_reference_pct": 1.6036406276910498,
+      "abs_change_over_reference_ci_half_width": 1.3750509468725785
+    },
+    "2015-2024": {
+      "role": "most recent ten years (comparison only)",
+      "n_years": 10,
+      "mean_U100_ms": 7.18082033032211,
+      "mean_U_hub_ms": 7.233262208942769,
+      "gross_cf": 0.3324630007738262,
+      "net_cf": 0.28185548279603434,
+      "net_gwh_per_mw": 2.470745162190037,
+      "energy_change_vs_reference_pct": 4.965062912303386,
+      "U100_change_vs_reference_pct": 2.4784320625898637,
+      "abs_change_over_reference_ci_half_width": 2.1903533798737396
+    },
+    "2008-2017": {
+      "role": "reference period of the Global Wind Atlas 4.0 climatology (comparison only)",
+      "n_years": 10,
+      "mean_U100_ms": 6.988950634181951,
+      "mean_U_hub_ms": 7.039991279119952,
+      "gross_cf": 0.31352226297600094,
+      "net_cf": 0.26579790410579407,
+      "net_gwh_per_mw": 2.3299844273913908,
+      "energy_change_vs_reference_pct": -1.0148979553020854,
+      "U100_change_vs_reference_pct": -0.2597656246215885,
+      "abs_change_over_reference_ci_half_width": 0.447725478183636
+    }
+  },
+  "rolling_windows": {
+    "file": "results/revised/rolling_11yr_windows.csv",
+    "within_primary_period": {
+      "window_start_years": "1994-2014",
+      "n_windows": 21,
+      "lowest_window": "1999-2009",
+      "lowest_window_rel_to_primary_mean_pct": -3.394562313165028,
+      "highest_window": "2014-2024",
+      "highest_window_rel_to_primary_mean_pct": 3.1169465719902423,
+      "window_2014_2024_rank_from_lowest": 21,
+      "window_2014_2024_is_highest": true,
+      "window_2014_2024_rel_to_primary_mean_pct": 3.1169465719902423,
+      "t90_half_width_rel_pct_range": [
+        2.5466950685516765,
+        4.984893706479594
+      ]
+    },
+    "all_windows": {
+      "window_start_years": "1979-2014",
+      "n_windows": 36,
+      "lowest_window": "1999-2009",
+      "lowest_window_rel_to_primary_mean_pct": -3.394562313165028,
+      "highest_window": "2014-2024",
+      "highest_window_rel_to_primary_mean_pct": 3.1169465719902423,
+      "window_2014_2024_rank_from_lowest": 36,
+      "window_2014_2024_is_highest": true,
+      "window_2014_2024_rel_to_primary_mean_pct": 3.1169465719902423,
+      "t90_half_width_rel_pct_range": [
+        2.3902735517809997,
+        4.984893706479594
+      ]
+    },
+    "note": "overlapping windows share years and are not independent samples; t90 half-widths are the sampling intervals of each window's own mean (category 1 applied per window)"
+  },
+  "scale_note": "|change| divided by the half-width of the 90 % sampling interval of the reference mean; given for scale only. It is not a significance test and does not turn this sensitivity into a confidence bound.",
+  "homogeneity_note": "differences between periods may partly reflect changes in the observing system assimilated by ERA5; they are not evidence of a climatic trend"
+}

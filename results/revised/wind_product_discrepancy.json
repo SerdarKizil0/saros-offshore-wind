@@ -1,0 +1,141 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "label": "WIND-PRODUCT DISCREPANCY (ERA5 vs Global Wind Atlas 4.0) — disagreement between two models. Neither is validated against offshore measurements here, GWA is not ground truth, and the ratio is not a bias estimate, a correction or a confidence interval. The primary estimate is not rescaled.",
+  "category": "wind_product_discrepancy",
+  "reference_baseline": {
+    "series_key": "primary_era5_openmeteo_1994_2024",
+    "file": "data/external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
+    "sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
+    "period": "1994-2024",
+    "node_lat_lon": [
+      40.5,
+      26.25
+    ],
+    "net_gwh_per_mw": 2.353873844913812,
+    "net_cf": 0.26852313996278937,
+    "gross_cf": 0.31673681847034535,
+    "source_file": "results/revised/energy_yield.json"
+  },
+  "products": {
+    "era5": {
+      "description": "ERA5 hourly 100 m wind speed, Open-Meteo-delivered (calibrated; not bit-identical to CDS); provenance in results/revised/input_provenance.json",
+      "node_lat_lon": [
+        40.5,
+        26.25
+      ],
+      "height_m": 100,
+      "quantity": "mean of hourly 100 m wind speed",
+      "periods_used": [
+        "1994-2024",
+        "2008-2017"
+      ]
+    },
+    "gwa4": {
+      "description": "Global Wind Atlas 4.0, mean wind speed at 100 m: ERA5-forced WRF (3 km) with WAsP microscale downscaling, about 250 m grid; not independent of ERA5",
+      "period": "2008-2017",
+      "height_m": 100,
+      "file": "docs/review/phase2b_data/gwa4_wind-speed_100m_saros.tif",
+      "sha256": "960ecf52bf23bb570781a9a4d8d08c41217e51b967fe2c9099d739d93be62eed",
+      "polygon_mean_ms": 7.841599560921196,
+      "polygon_mean_definition": "mean of the pixel centres inside the official candidate polygon"
+    }
+  },
+  "polygon_vs_primary_node": {
+    "gwa4_polygon_mean_100m_ms": 7.841599560921196,
+    "era5_node_U100_ms": {
+      "1994-2024": 7.007152808442992,
+      "2008-2017": 6.988950634181951
+    },
+    "ratio_gwa_to_era5": {
+      "era5_1994-2024": 1.1190849943321872,
+      "era5_2008-2017_period_matched": 1.1219995635065816
+    },
+    "era5_period_ratio_gwa_period_over_primary": 0.9974023437537841,
+    "period_matching_effect": "widens the ratio",
+    "note": "the unmatched ratio compares a 2008-2017 climatology with the 1994-2024 ERA5 mean; the period-matched ratio removes the period difference but not the difference in spatial support (polygon mean vs one 0.25 deg cell)"
+  },
+  "per_node_gwa_box_vs_era5": {
+    "W": {
+      "lat": 40.5,
+      "lon": 26.0,
+      "era5_U100_ms": {
+        "1994-2024": 7.218655612470194,
+        "2008-2017": 7.208021831371475
+      },
+      "gwa4_100m_ms": {
+        "node_pixel_ms": 7.582877159118652,
+        "box_0p25deg_mean_ms": 7.6807791813133734,
+        "box_0p25deg_sea_pixels_mean_ms": 7.68933176774833,
+        "box_sea_pixel_share_pct": 98.00999999999999
+      },
+      "ratio_gwa_box_to_era5": {
+        "era5_1994-2024": 1.0640179548176343,
+        "era5_2008-2017_period_matched": 1.0655876689890582
+      },
+      "ratio_gwa_box_sea_pixels_to_era5_period_matched": 1.0667742062436671
+    },
+    "C": {
+      "lat": 40.5,
+      "lon": 26.25,
+      "era5_U100_ms": {
+        "1994-2024": 7.007152808442992,
+        "2008-2017": 6.988950634181951
+      },
+      "gwa4_100m_ms": {
+        "node_pixel_ms": 8.185370445251465,
+        "box_0p25deg_mean_ms": 7.987700263881683,
+        "box_0p25deg_sea_pixels_mean_ms": 8.061285875634663,
+        "box_sea_pixel_share_pct": 86.8
+      },
+      "ratio_gwa_box_to_era5": {
+        "era5_1994-2024": 1.1399352179471838,
+        "era5_2008-2017_period_matched": 1.1429040898951255
+      },
+      "ratio_gwa_box_sea_pixels_to_era5_period_matched": 1.1534329397331946
+    },
+    "E": {
+      "lat": 40.5,
+      "lon": 26.5,
+      "era5_U100_ms": {
+        "1994-2024": 6.747814514704583,
+        "2008-2017": 6.70833424582535
+      },
+      "gwa4_100m_ms": {
+        "node_pixel_ms": 7.541550636291504,
+        "box_0p25deg_mean_ms": 7.28900462808609,
+        "box_0p25deg_sea_pixels_mean_ms": 7.3945559569408195,
+        "box_sea_pixel_share_pct": 60.660000000000004
+      },
+      "ratio_gwa_box_to_era5": {
+        "era5_1994-2024": 1.0802022806350362,
+        "era5_2008-2017_period_matched": 1.0865595483144115
+      },
+      "ratio_gwa_box_sea_pixels_to_era5_period_matched": 1.1022939057549959
+    }
+  },
+  "spatial_pattern": {
+    "era5_order_by_U100": [
+      "W",
+      "C",
+      "E"
+    ],
+    "gwa4_order_by_box_mean": [
+      "C",
+      "W",
+      "E"
+    ],
+    "note": "the two products do not agree on the spatial ordering of the three cells"
+  },
+  "energy_sensitivity_if_primary_hours_were_scaled": {
+    "label": "SENSITIVITY EXPERIMENT, illustrative: every primary hourly speed multiplied by the ratio; power curve and nominal losses fixed. Not adopted and not a correction.",
+    "by_ratio_era5_1994-2024": {
+      "speed_factor": 1.1190849943321872,
+      "aep_change_vs_primary_pct": 23.229589696769494
+    },
+    "by_ratio_era5_2008-2017_period_matched": {
+      "speed_factor": 1.1219995635065816,
+      "aep_change_vs_primary_pct": 23.773175905427202
+    },
+    "generic_speed_factors_file": "results/revised/wind_speed_sensitivity.json"
+  }
+}

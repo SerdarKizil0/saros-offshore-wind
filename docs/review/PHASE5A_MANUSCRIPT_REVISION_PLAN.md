@@ -1,5 +1,13 @@
 # Phase 5A — Manuscript integration audit and revision plan
 
+> **Superseded in part (Phase 5B-0, 14 November 2026).** This plan was written
+> against the 2014–2024 results. The authoritative baseline is now ERA5
+> 1994–2024 (Open-Meteo-delivered, calibrated), and the scope has been narrowed.
+> Every numerical value quoted below as *New* or *remains valid*, the tables of
+> §2 and §4, Appendix A and Appendix B are **superseded** by
+> `PHASE5B0_REVISION_PLAN_ADDENDUM.md`. The issue list, the claims to remove and
+> the workflow findings remain valid unless the addendum says otherwise.
+
 *14 November 2026. Audit only. The manuscript, figures, scientific model and
 `results/revised/` are unchanged. Nothing here starts Phase 5B.*
 

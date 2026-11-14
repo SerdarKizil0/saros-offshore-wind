@@ -77,9 +77,24 @@ LIFECYCLE_GHG_G_PER_KWH = {
 LIFECYCLE_REFERENCE = "ipcc_ar5_median"
 
 # --------------------------------------------------------- context references
-TR_OFFSHORE_TARGET_2035_GW = 5.0           # national 2035 offshore wind target (ETKB; World Bank 2024)
-TR_TOTAL_CONSUMPTION_TWH_2024 = 347.9      # value used in the manuscript (TEİAŞ 2024); the
-                                           # primary TEİAŞ document was NOT verified in the review
+TR_OFFSHORE_TARGET_2035_GW = 5.0           # Türkiye Ulusal Enerji Planı 2022 (MENR): 2035 wind 29.6 GW
+                                           # = 24.6 GW onshore + 5 GW offshore (planning projection)
+
+# National electricity consumption used for the optional share metric (Phase 5B-0).
+# Supersedes the unverified 347.9 TWh used until Phase 5-PRE-B (secondary sources only).
+TR_GROSS_CONSUMPTION_2024 = {
+    "year": 2024,
+    "gwh": 353579.8,
+    "definition": "gross consumption ('Türkiye tüketimi') = gross generation + imports - exports; it includes "
+                  "power-plant internal use and transmission and distribution losses",
+    "components_gwh": {"gross_generation": 354570.2, "imports": 2681.6, "exports": 3671.9},
+    "net_consumption_gwh_not_used": 308673.9,
+    "source": "TEDAŞ, 2025 Yılı Türkiye Elektrik Dağıtımı Sektör Raporu, Table 5 'Türkiye Elektrik Tüketimi "
+              "(2020-2024)' (data: TEİAŞ)",
+    "url": "https://www.tedas.gov.tr/FileUpload/MediaFolder/4f817ff3-1429-4ba2-86c7-d5afd7f9ea5d.pdf",
+    "document_sha256": "72f0219337eadfb6a3a3292e5ffd98df4daae38bd9d145e2280816d11882b949",
+    "verified": "Phase 5-PRE-C (docs/review/PHASE5PRE_C_NOVELTY_SOURCE_AUDIT.md)",
+}
 
 
 # ============================================================================

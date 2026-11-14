@@ -1,13 +1,50 @@
 {
   "status": "PRE-SUBMISSION MODEL ESTIMATES — not validated project forecasts",
   "generated_by": "scripts/run_revised_pipeline.py",
-  "code_commit_at_generation": "a456d71",
+  "code_commit_at_generation": "2646477+uncommitted-changes",
   "inputs": {
     "wind_series": "data/external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
     "wind_series_sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
     "wind_series_key": "primary_era5_openmeteo_1994_2024",
     "period": "1994-2024",
     "data_product": "ECMWF ERA5 hourly single levels (10 m and 100 m wind) via the Open-Meteo historical-weather API (models=era5, nearest 0.25 deg cell); lossy redistribution, calibrated against the CDS series over 2014-2024 (Phase 5-PRE), not bit-identical to CDS",
+    "sensitivity_only": {
+      "role": "period-selection and grid-node sensitivity experiments (scripts/08); never replace the primary series",
+      "node_series": {
+        "W": {
+          "file": "data/external/phase5pre/era5_openmeteo_40.50N_26.00E_1979_2024.parquet",
+          "sha256": "9135bd806f3e5828a4d0f29d3af5174dd19c2b29864191b41a4ca0489e1cc0ae",
+          "period_in_file": "1979-2024",
+          "node_lat_lon": [
+            40.5,
+            26.0
+          ]
+        },
+        "C": {
+          "file": "data/external/phase5pre/era5_openmeteo_40.50N_26.25E_1979_2024.parquet",
+          "sha256": "c3ce1d44c9679f6ba75ca2c82b467e18f683a122e6f1a3a7d83a85442aac0fb2",
+          "period_in_file": "1979-2024",
+          "node_lat_lon": [
+            40.5,
+            26.25
+          ]
+        },
+        "E": {
+          "file": "data/external/phase5pre/era5_openmeteo_40.50N_26.50E_1979_2024.parquet",
+          "sha256": "0df4cb82a0c8e788a2146f2263871da4c56240f45ea4a5fdb4ca7f7e42e707af",
+          "period_in_file": "1979-2024",
+          "node_lat_lon": [
+            40.5,
+            26.5
+          ]
+        }
+      },
+      "static": {
+        "data/external/phase5pre/era5_land_sea_mask_saros.json": "1d7f1090d7e8afbbb252af7d72814cd76faa34e54e405d5950fe7cd6c3300fe0",
+        "docs/review/phase2b_data/gwa4_wind-speed_100m_saros.tif": "960ecf52bf23bb570781a9a4d8d08c41217e51b967fe2c9099d739d93be62eed",
+        "docs/review/phase2b_data/emodnet_dtm2024_era5cell_x0.25.tif": "5a0095a3cd87e525f96b055bc87cd5f26e025f7917371f6d1d0cf3033b7ad42b"
+      }
+    },
     "comparison_only": {
       "wind_series": "data/processed/wind_hub_105m.parquet",
       "sha256": "0cfc4742010acbc8cbdac4090527589393ab8b2858aaaa5d92cfc9fbfc1916a5",
@@ -49,7 +86,7 @@
     },
     "scenarios.json": {
       "description": "8. Active deployment scenarios S1-S3 (illustrative)",
-      "sha256": "cfef42ff49a80f380af60641a3f6f7faac0d4bcefd75ea2a3c62c0411a7e6a24"
+      "sha256": "667bc98e4002bbc37b38a351f51a4e454e4616b70077bdcdb19ba8dca2d5aac7"
     },
     "site_screening.json": {
       "description": "9. Geographic and environmental screening",
@@ -58,10 +95,31 @@
     "input_provenance.json": {
       "description": "10. Primary wind input provenance and calibration QA against the CDS series",
       "sha256": "2384ac9c1ec8f27bab08edfabe5e3b385a04ec2b138b34ea32c12f6e21b5845a"
+    },
+    "period_sensitivity.json": {
+      "description": "11. Period-selection sensitivity at the primary node (sensitivity experiment)",
+      "sha256": "974465f3f026a3c1b5dff90264a903c16bd1885a02b043f7c2600313825b1546"
+    },
+    "rolling_11yr_windows.csv": {
+      "description": "11. All rolling 11-year windows 1979-2024 with ranks",
+      "sha256": "1ba3ab2c7cf294eb2cdaacd44b269d36d67f95046d8d030bdd317028fc04feaf"
+    },
+    "node_sensitivity.json": {
+      "description": "12. Grid-node sensitivity, three ERA5 nodes, 1994-2024 (not averaged, not bounds)",
+      "sha256": "fa420bf8b845a6d80020ce04aee2ea11d0ecfadc7439d080439cba121ea7c1b5"
+    },
+    "wind_product_discrepancy.json": {
+      "description": "13. ERA5 vs Global Wind Atlas 4.0 (inter-model disagreement, not validation)",
+      "sha256": "3d3333e15dc753a392e27ad479cd6401fc494f0662395198ee006ceb31fb4896"
+    },
+    "sensitivity_index.json": {
+      "description": "14. Index of the six separate uncertainty/sensitivity categories (not combinable)",
+      "sha256": "13f95d9f694c2f204daf62deb6664d212acf055fded432c2d9f9abebea3d4a72"
     }
   },
   "documentation": [
     "docs/review/PHASE4B_INTEGRATION.md",
-    "docs/review/PHASE5PRE_B_BASELINE_INTEGRATION.md"
+    "docs/review/PHASE5PRE_B_BASELINE_INTEGRATION.md",
+    "docs/review/PHASE5B0_REVISION_PLAN_ADDENDUM.md"
   ]
 }

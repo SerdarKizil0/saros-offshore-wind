@@ -1,0 +1,146 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "label": "INDEX of uncertainty and sensitivity categories of the primary estimate. The categories are different kinds of quantity. They are NOT components of a single calibrated probabilistic uncertainty interval and must not be added, root-sum-squared or merged.",
+  "combinable_into_one_interval": false,
+  "reference_baseline": {
+    "series_key": "primary_era5_openmeteo_1994_2024",
+    "file": "data/external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
+    "sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
+    "period": "1994-2024",
+    "node_lat_lon": [
+      40.5,
+      26.25
+    ],
+    "net_gwh_per_mw": 2.353873844913812,
+    "net_cf": 0.26852313996278937,
+    "gross_cf": 0.31673681847034535,
+    "source_file": "results/revised/energy_yield.json"
+  },
+  "categories": [
+    {
+      "n": 1,
+      "category": "sampling_uncertainty_of_period_mean",
+      "kind": "probabilistic interval",
+      "is_probabilistic_interval": true,
+      "file": "results/revised/interannual_and_sampling.json",
+      "headline": {
+        "t90_net_gwh_per_mw": [
+          2.300474039531297,
+          2.407188616594622
+        ],
+        "half_width_rel_pct": 2.2667862445965645,
+        "n_annual_values": 31
+      },
+      "meaning": "finite-sample uncertainty of the 1994-2024 mean, conditional on ERA5 at this node being correct"
+    },
+    {
+      "n": 2,
+      "category": "interannual_variability",
+      "kind": "observed spread of single years",
+      "is_probabilistic_interval": false,
+      "file": "results/revised/interannual_and_sampling.json",
+      "headline": {
+        "annual_net_cov_pct": 7.436193068625023,
+        "lowest_year": [
+          2002,
+          1.9439088991899167
+        ],
+        "highest_year": [
+          2001,
+          2.673865526182887
+        ]
+      },
+      "meaning": "year-to-year variation of the model years; not an uncertainty of the mean"
+    },
+    {
+      "n": 3,
+      "category": "period_selection_sensitivity",
+      "kind": "sensitivity experiment",
+      "is_probabilistic_interval": false,
+      "file": "results/revised/period_sensitivity.json",
+      "headline": {
+        "energy_change_vs_reference_pct": {
+          "1979-2024": -0.16016269773317937,
+          "2014-2024": 3.1169465719902423,
+          "2015-2024": 4.965062912303386,
+          "2008-2017": -1.0148979553020854
+        },
+        "rolling_11yr_within_primary_period_rel_pct": [
+          -3.394562313165028,
+          3.1169465719902423
+        ],
+        "window_2014_2024_rank_from_lowest": [
+          21,
+          21
+        ]
+      },
+      "meaning": "effect of choosing another reference period at the same node"
+    },
+    {
+      "n": 4,
+      "category": "grid_node_sensitivity",
+      "kind": "sensitivity experiment",
+      "is_probabilistic_interval": false,
+      "file": "results/revised/node_sensitivity.json",
+      "headline": {
+        "energy_rel_to_primary_node_pct": {
+          "W": 6.704526280029799,
+          "E": -8.509987241140603
+        },
+        "era5_land_sea_mask_fraction": {
+          "W": 0.120001,
+          "C": 0.438466,
+          "E": 0.45516
+        }
+      },
+      "meaning": "effect of using a neighbouring reanalysis cell; not averaged, not a bound"
+    },
+    {
+      "n": 5,
+      "category": "wind_product_discrepancy",
+      "kind": "inter-model disagreement",
+      "is_probabilistic_interval": false,
+      "file": "results/revised/wind_product_discrepancy.json",
+      "supporting_file": "results/revised/wind_speed_sensitivity.json",
+      "headline": {
+        "ratio_gwa_polygon_to_era5_node": {
+          "era5_1994-2024": 1.1190849943321872,
+          "era5_2008-2017_period_matched": 1.1219995635065816
+        },
+        "aep_change_if_scaled_pct_illustrative": {
+          "era5_1994-2024": 23.229589696769494,
+          "era5_2008-2017_period_matched": 23.773175905427202
+        }
+      },
+      "meaning": "disagreement between ERA5 and GWA 4.0; not validation and not a correction"
+    },
+    {
+      "n": 6,
+      "category": "loss_assumption_sensitivity",
+      "kind": "labelled assumption scenarios",
+      "is_probabilistic_interval": false,
+      "file": "results/revised/loss_scenarios.json",
+      "headline": {
+        "rel_to_nominal_pct": {
+          "low_loss": 6.521739130434767,
+          "nominal": 0.0,
+          "high_loss": -8.323385784047755
+        },
+        "net_gwh_per_mw": {
+          "low_loss": 2.5073873565386253,
+          "nominal": 2.353873844913812,
+          "high_loss": 2.157951843931837
+        }
+      },
+      "meaning": "effect of the assumed wake, availability and electrical losses; no site evidence"
+    }
+  ],
+  "not_quantified": [
+    "absolute accuracy of ERA5 at this site (no offshore measurements)",
+    "wind gradient inside the polygon",
+    "power-curve digitisation and air density",
+    "hourly versus 10-minute averaging",
+    "layout-specific wake losses",
+    "representativeness of 1994-2024 for future operation"
+  ]
+}

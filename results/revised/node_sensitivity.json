@@ -1,0 +1,170 @@
+{
+  "status": "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast",
+  "label": "GRID-NODE SENSITIVITY EXPERIMENT — reanalysis output at the primary node and its two neighbours on the 40.50 N row, identical method and period. Model output, not measurements; the nodes are not averaged and their differences are not confidence bounds.",
+  "category": "grid_node_sensitivity",
+  "reference_baseline": {
+    "series_key": "primary_era5_openmeteo_1994_2024",
+    "file": "data/external/era5_openmeteo/era5_openmeteo_40.50N_26.25E_1994_2024.parquet",
+    "sha256": "34032f0761725097363b526be53937bbb4077571577d557881ce550eff0aada6",
+    "period": "1994-2024",
+    "node_lat_lon": [
+      40.5,
+      26.25
+    ],
+    "net_gwh_per_mw": 2.353873844913812,
+    "net_cf": 0.26852313996278937,
+    "gross_cf": 0.31673681847034535,
+    "source_file": "results/revised/energy_yield.json"
+  },
+  "assumptions": {
+    "period": "1994-2024",
+    "alpha": "each node's own trimmed-mean exponent from its 1994-2024 series (documented method); the primary-alpha variant is reported per node",
+    "estimator": "empirical hourly conversion, OEDB V164/9500, nominal losses, CF x 8766 h (scripts/04)",
+    "land_sea_mask": {
+      "file": "data/external/phase5pre/era5_land_sea_mask_saros.json",
+      "sha256": "1d7f1090d7e8afbbb252af7d72814cd76faa34e54e405d5950fe7cd6c3300fe0",
+      "source": "ARCO-ERA5 (Google Cloud public dataset), store full_37-1h-0p25deg-chunk-1.zarr-v3, variable land_sea_mask, time index 2014-01-01T00 (field is static)",
+      "classification_rule": "ERA5 land-sea mask < 0.2 offshore; 0.2-0.5 coastal/mixed; >= 0.5 land"
+    },
+    "polygon_share_note": "share of the official polygon nearest to each node: a geometric descriptor, never used as a weight"
+  },
+  "nodes": {
+    "W": {
+      "lat": 40.5,
+      "lon": 26.0,
+      "is_primary_node": false,
+      "file": "data/external/phase5pre/era5_openmeteo_40.50N_26.00E_1979_2024.parquet",
+      "sha256": "9135bd806f3e5828a4d0f29d3af5174dd19c2b29864191b41a4ca0489e1cc0ae",
+      "data_product": "ECMWF ERA5 hourly 10 m and 100 m wind speed via the Open-Meteo historical-weather API (models=era5, nearest 0.25 deg cell); calibrated at node C against the CDS series, not bit-identical to CDS",
+      "data_period_in_file": "1979-2024",
+      "data_period_used": "1994-01-01 00:00 to 2024-12-31 23:00 UTC",
+      "n_hours_used": 271752,
+      "era5_land_sea_mask_fraction": 0.120001,
+      "classification_from_era5_land_sea_mask": "offshore (predominantly sea in ERA5)",
+      "inside_polygon": false,
+      "distance_to_polygon_boundary_km": 4.965615727626766,
+      "polygon_share_nearest_to_node_pct": 27.696158450321036,
+      "alpha_node": 0.09989692318630129,
+      "mean_U10_ms": 5.696611506079073,
+      "mean_U100_ms": 7.218655612470194,
+      "mean_U_hub_ms": 7.253925129889082,
+      "U_hub_hourly_speed_percentiles_ms": {
+        "10th": 2.25094438123379,
+        "50th": 6.903566026373275,
+        "90th": 12.571122414836925
+      },
+      "power_density_U_hub_wm2_rho1225": 473.757235959417,
+      "gross_cf": 0.3379725217032199,
+      "net_cf": 0.28652634444955577,
+      "net_gwh_per_mw": 2.5116899354448057,
+      "net_gwh_per_mw_with_primary_alpha": 2.522742410886943,
+      "annual_net_cov_pct": 7.157452947466818,
+      "energy_rel_to_primary_node_pct": 6.704526280029799,
+      "U100_rel_to_primary_node_pct": 3.0183843539470123,
+      "abs_diff_over_reference_ci_half_width": 2.957723206593328,
+      "paired_annual_rel_diff_vs_primary_node_pct": {
+        "n_years": 31,
+        "mean": 6.731456187454581,
+        "sd": 1.0287287118205344,
+        "min": 5.004629514283487,
+        "max": 8.558794331495868
+      },
+      "annual_correlation_with_primary_node": 0.9918625297859995
+    },
+    "C": {
+      "lat": 40.5,
+      "lon": 26.25,
+      "is_primary_node": true,
+      "file": "data/external/phase5pre/era5_openmeteo_40.50N_26.25E_1979_2024.parquet",
+      "sha256": "c3ce1d44c9679f6ba75ca2c82b467e18f683a122e6f1a3a7d83a85442aac0fb2",
+      "data_product": "ECMWF ERA5 hourly 10 m and 100 m wind speed via the Open-Meteo historical-weather API (models=era5, nearest 0.25 deg cell); calibrated at node C against the CDS series, not bit-identical to CDS",
+      "data_period_in_file": "1979-2024",
+      "data_period_used": "1994-01-01 00:00 to 2024-12-31 23:00 UTC",
+      "n_hours_used": 271752,
+      "era5_land_sea_mask_fraction": 0.438466,
+      "classification_from_era5_land_sea_mask": "coastal / mixed land-sea in ERA5",
+      "inside_polygon": false,
+      "distance_to_polygon_boundary_km": 3.6778936644552442,
+      "polygon_share_nearest_to_node_pct": 62.61290673631515,
+      "alpha_node": 0.14913887708563256,
+      "mean_U10_ms": 4.986633437840384,
+      "mean_U100_ms": 7.007152808442992,
+      "mean_U_hub_ms": 7.058326384741105,
+      "U_hub_hourly_speed_percentiles_ms": {
+        "10th": 2.3973812552571645,
+        "50th": 6.799295576884816,
+        "90th": 11.886175971443087
+      },
+      "power_density_U_hub_wm2_rho1225": 408.55775122202584,
+      "gross_cf": 0.31673681847034535,
+      "net_cf": 0.26852313996278937,
+      "net_gwh_per_mw": 2.3538738449138115,
+      "net_gwh_per_mw_with_primary_alpha": 2.3538738449138115,
+      "annual_net_cov_pct": 7.436193068625023,
+      "energy_rel_to_primary_node_pct": 0.0,
+      "U100_rel_to_primary_node_pct": 0.0,
+      "abs_diff_over_reference_ci_half_width": 0.0,
+      "paired_annual_rel_diff_vs_primary_node_pct": {
+        "n_years": 31,
+        "mean": 0.0,
+        "sd": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "annual_correlation_with_primary_node": 1.0
+    },
+    "E": {
+      "lat": 40.5,
+      "lon": 26.5,
+      "is_primary_node": false,
+      "file": "data/external/phase5pre/era5_openmeteo_40.50N_26.50E_1979_2024.parquet",
+      "sha256": "0df4cb82a0c8e788a2146f2263871da4c56240f45ea4a5fdb4ca7f7e42e707af",
+      "data_product": "ECMWF ERA5 hourly 10 m and 100 m wind speed via the Open-Meteo historical-weather API (models=era5, nearest 0.25 deg cell); calibrated at node C against the CDS series, not bit-identical to CDS",
+      "data_period_in_file": "1979-2024",
+      "data_period_used": "1994-01-01 00:00 to 2024-12-31 23:00 UTC",
+      "n_hours_used": 271752,
+      "era5_land_sea_mask_fraction": 0.45516,
+      "classification_from_era5_land_sea_mask": "coastal / mixed land-sea in ERA5",
+      "inside_polygon": false,
+      "distance_to_polygon_boundary_km": 9.137684846768293,
+      "polygon_share_nearest_to_node_pct": 9.690934813363805,
+      "alpha_node": 0.13813909176545972,
+      "mean_U10_ms": 4.907365907150638,
+      "mean_U100_ms": 6.747814514704583,
+      "mean_U_hub_ms": 6.793447236053,
+      "U_hub_hourly_speed_percentiles_ms": {
+        "10th": 2.396094970686073,
+        "50th": 6.543956852714065,
+        "90th": 11.336146794086211
+      },
+      "power_density_U_hub_wm2_rho1225": 356.5532793810822,
+      "gross_cf": 0.2897825556305243,
+      "net_cf": 0.24567185501244587,
+      "net_gwh_per_mw": 2.1535594810391006,
+      "net_gwh_per_mw_with_primary_alpha": 2.1560045914994235,
+      "annual_net_cov_pct": 7.91924927246756,
+      "energy_rel_to_primary_node_pct": -8.509987241140603,
+      "U100_rel_to_primary_node_pct": -3.7010509236494737,
+      "abs_diff_over_reference_ci_half_width": 3.754208082666032,
+      "paired_annual_rel_diff_vs_primary_node_pct": {
+        "n_years": 31,
+        "mean": -8.53802766729921,
+        "sd": 1.032117710760645,
+        "min": -10.360350551431663,
+        "max": -6.374402336951423
+      },
+      "annual_correlation_with_primary_node": 0.9907257669374954
+    }
+  },
+  "neighbour_difference_range_pct": {
+    "lowest": -8.509987241140603,
+    "highest": 6.704526280029799
+  },
+  "interpretation_limits": [
+    "no node lies inside the polygon",
+    "the three values are not combined into an average or an interpolated estimate",
+    "the range is the result of two specific neighbouring cells, not a bound on the true resource",
+    "node differences persist every year (see the paired annual statistics), so they are systematic model differences and are not reduced by a longer record"
+  ],
+  "scale_note": "|change| divided by the half-width of the 90 % sampling interval of the reference mean; given for scale only. It is not a significance test and does not turn this sensitivity into a confidence bound."
+}

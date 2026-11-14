@@ -32,7 +32,7 @@ from config.site import RESULTS_DIR
 from config.turbine import ACTIVE_SCENARIOS, RETIRED_SCENARIOS, TURBINE_SPACING_ASSUMPTION
 from config.emissions import (GRID_EF_2023, PRIMARY_GRID_FACTOR, LIFECYCLE_GHG_G_PER_KWH,
                               LIFECYCLE_REFERENCE, TR_OFFSHORE_TARGET_2035_GW,
-                              TR_TOTAL_CONSUMPTION_TWH_2024)
+                              TR_GROSS_CONSUMPTION_2024)
 
 REV = RESULTS_DIR / "revised"
 STATUS = "PRE-SUBMISSION MODEL ESTIMATE — not a validated project forecast"
@@ -107,15 +107,16 @@ def compute(rev: Path = REV) -> tuple[dict, dict]:
             "lifecycle_ghg_kt_co2eq_yr_ipcc_range": [E * mw * LIFECYCLE_GHG_G_PER_KWH["ipcc_ar5_min"] / 1e6,
                                                      E * mw * LIFECYCLE_GHG_G_PER_KWH["ipcc_ar5_max"] / 1e6],
             "share_of_2035_offshore_target_capacity_pct": mw / (TR_OFFSHORE_TARGET_2035_GW * 1000.0) * 100,
-            "share_of_2024_consumption_pct": E * mw / 1e6 / TR_TOTAL_CONSUMPTION_TWH_2024 * 100,
+            "share_of_2024_gross_consumption_pct": E * mw / 1000.0 / TR_GROSS_CONSUMPTION_2024["gwh"] * 100,
         })
     scenarios = {
         "status": STATUS,
         "label": "ILLUSTRATIVE capacities; same per-MW estimator and nominal losses for all; "
                  "one wake value for all densities is a simplification",
         "spacing_assumption": TURBINE_SPACING_ASSUMPTION,
-        "consumption_reference": {"twh": TR_TOTAL_CONSUMPTION_TWH_2024,
-                                  "note": "manuscript value; primary TEİAŞ document not verified in the review"},
+        "consumption_reference": TR_GROSS_CONSUMPTION_2024 | {
+            "note": "optional context metric: net scenario energy divided by national GROSS consumption; "
+                    "supersedes the unverified 347.9 TWh used before Phase 5B-0"},
         "retired": RETIRED_SCENARIOS,
         "scenarios": rows,
     }

@@ -3,8 +3,20 @@
   "label": "ILLUSTRATIVE capacities; same per-MW estimator and nominal losses for all; one wake value for all densities is a simplification",
   "spacing_assumption": "7D x 5D (assumption, no project-specific source)",
   "consumption_reference": {
-    "twh": 347.9,
-    "note": "manuscript value; primary TEİAŞ document not verified in the review"
+    "year": 2024,
+    "gwh": 353579.8,
+    "definition": "gross consumption ('Türkiye tüketimi') = gross generation + imports - exports; it includes power-plant internal use and transmission and distribution losses",
+    "components_gwh": {
+      "gross_generation": 354570.2,
+      "imports": 2681.6,
+      "exports": 3671.9
+    },
+    "net_consumption_gwh_not_used": 308673.9,
+    "source": "TEDAŞ, 2025 Yılı Türkiye Elektrik Dağıtımı Sektör Raporu, Table 5 'Türkiye Elektrik Tüketimi (2020-2024)' (data: TEİAŞ)",
+    "url": "https://www.tedas.gov.tr/FileUpload/MediaFolder/4f817ff3-1429-4ba2-86c7-d5afd7f9ea5d.pdf",
+    "document_sha256": "72f0219337eadfb6a3a3292e5ffd98df4daae38bd9d145e2280816d11882b949",
+    "verified": "Phase 5-PRE-C (docs/review/PHASE5PRE_C_NOVELTY_SOURCE_AUDIT.md)",
+    "note": "optional context metric: net scenario energy divided by national GROSS consumption; supersedes the unverified 347.9 TWh used before Phase 5B-0"
   },
   "retired": {
     "S4_max": "retired in Phase 4B: geometric 7D x 5D packing limit (10.1 MW/km2), not a feasible capacity"
@@ -33,7 +45,7 @@
         20.3492393892799
       ],
       "share_of_2035_offshore_target_capacity_pct": 4.9399999999999995,
-      "share_of_2024_consumption_pct": 0.1671189536342948
+      "share_of_2024_gross_consumption_pct": 0.16443440481999014
     },
     {
       "name": "S2",
@@ -58,7 +70,7 @@
         41.48114183199365
       ],
       "share_of_2035_offshore_target_capacity_pct": 10.07,
-      "share_of_2024_consumption_pct": 0.34066555933144704
+      "share_of_2024_gross_consumption_pct": 0.3351932098253646
     },
     {
       "name": "S3",
@@ -83,7 +95,7 @@
         82.17962061055346
       ],
       "share_of_2035_offshore_target_capacity_pct": 19.950000000000003,
-      "share_of_2024_consumption_pct": 0.6749034666000366
+      "share_of_2024_gross_consumption_pct": 0.6640620194653449
     }
   ]
 }
