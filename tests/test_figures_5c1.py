@@ -277,13 +277,17 @@ def test_fig4_rows_follow_the_index_and_are_never_combined(built):
     assert idx["combinable_into_one_interval"] is False
     assert d.order == tuple(c["category"] for c in idx["categories"])
     a = ax(fig, "categories")
-    # every data mark sits on exactly one row; only the reference and separators span rows
+    # every data mark sits within exactly one row; only the reference and separators span rows.
+    # Rows 2 and 3 stack dots that would overlap (vertical offsets < 0.4 row), x is never moved.
     for ln in a.lines:
         if ln.get_gid() in ("primary_reference", "row_separator"):
             continue
-        ys = set(np.round(np.asarray(ln.get_ydata(), float), 9))
-        assert len(ys) == 1 and float(next(iter(ys))).is_integer(), ln.get_gid()
-    rows = {ln.get_gid(): int(ln.get_ydata()[0]) for ln in a.lines
+        ys = np.asarray(ln.get_ydata(), float)
+        centre = np.round(ys)
+        assert len(set(centre)) == 1 and np.all(np.abs(ys - centre) < 0.4), ln.get_gid()
+        if ln.get_gid() not in ("annual_values", "windows", "window_2014_2024"):
+            assert np.all(ys == centre), ln.get_gid()
+    rows = {ln.get_gid(): int(np.round(ln.get_ydata()[0])) for ln in a.lines
             if ln.get_gid() not in ("primary_reference", "row_separator")}
     assert rows["sampling_interval"] == 0 and rows["annual_values"] == 1 and rows["windows"] == 2
     assert rows["node"] == 3 and rows["product_scaled"] == 4 and rows["loss"] == 5
@@ -292,6 +296,19 @@ def test_fig4_rows_follow_the_index_and_are_never_combined(built):
     assert kinds[0] == "the only probabilistic interval"
     t = " ".join(texts(fig))
     assert not re.search(r"\b(total|sum|combined|envelope|overall|RSS)\b", t, re.I)
+
+
+def test_fig4_stacked_dots_do_not_overlap(built):
+    m, d, fig = built["fig4_sensitivity_categories"]
+    a = ax(fig, "categories")
+    for gids in (("annual_values",), ("windows", "window_2014_2024")):
+        pts = np.concatenate([np.c_[ln.get_xdata(), ln.get_ydata()] for ln in a.lines if ln.get_gid() in gids])
+        for i in range(len(pts)):
+            for j in range(i + 1, len(pts)):
+                dx, dy = abs(pts[i, 0] - pts[j, 0]), abs(pts[i, 1] - pts[j, 1])
+                assert dx >= m.DOT_GAP_PCT - 1e-9 or dy >= m.DODGE_STEP - 1e-9, (gids, pts[i], pts[j])
+    caption = (MAN / "09_figures.md").read_text(encoding="utf-8")
+    assert "vertical position within a row has no meaning" in " ".join(caption.split())
 
 
 def test_fig4_values_come_from_the_results(built):

@@ -2,13 +2,6 @@
 
 # References
 
-*Working reference list for Phase 5C. Every entry has a record in
-`docs/review/phase5b2_reference_register.csv` with its verification status.
-Journal style, complete author lists and final formatting are applied in Phase
-5C.*
-
-## Scientific literature and datasets
-
 - Aksoy, M.E., Meghraoui, M., Polonia, A., Çağatay, M., Yavuzoğlu, A., Önder,
   Ş., Ülgen, U., Gasperini, L. (2022). Subaqueous fault scarps of the North
   Anatolian Fault in the Gulf of Saros (NE Aegean); where is the western limit
@@ -75,42 +68,6 @@ Journal style, complete author lists and final formatting are applied in Phase
 - Koukouvelas, I.K., Aydin, A. (2002). Fault structure and related basins of
   the North Aegean Sea and its surroundings. *Tectonics*, 21(5).
   doi:10.1029/2001TC901037
-- Olauson, J. (2018). ERA5: the new champion of wind power modelling?
-  *Renewable Energy*, 126, 322–331. doi:10.1016/j.renene.2018.03.056
-- Özbek, M., Tunç, K. (2021). Feasibility of offshore wind energy in Turkey; a
-  case study for Gulf of Edremit at the Aegean Sea. *Gazi University Journal
-  of Science*, 34(2), 423–437. doi:10.35378/gujs.734895
-- Ramon, J., Lledó, L., Torralba, V., Soret, A., Doblas-Reyes, F. (2019). What
-  global reanalysis best represents near-surface winds? *Quarterly Journal of
-  the Royal Meteorological Society*, 145(724), 3236–3251. doi:10.1002/qj.3616
-- Rubio, H., Hatfield, D., Hasager, C., Kühn, M., Gottschall, J. (2025).
-  Ship-based lidar measurements for validating ASCAT-derived and ERA5 offshore
-  wind profiles. *Atmospheric Measurement Techniques*, 18(19), 4949–4968.
-  doi:10.5194/amt-18-4949-2025
-- Satir, M., Murphy, F., McDonnell, K. (2018). Feasibility study of an
-  offshore wind farm in the Aegean Sea, Turkey. *Renewable and Sustainable
-  Energy Reviews*, 81, 2552–2562. doi:10.1016/j.rser.2017.06.063
-- Schlömer, S., et al. (2014). Annex III: Technology-specific cost and
-  performance parameters. In: *Climate Change 2014: Mitigation of Climate
-  Change. Contribution of Working Group III to the Fifth Assessment Report of
-  the Intergovernmental Panel on Climate Change*. Cambridge University Press.
-  https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_annex-iii.pdf
-- Tercan, E., Tapkın, S., Latinopoulos, D., Dereli, M.A., Tsiropoulos, A., Ak,
-  M.F. (2020). A GIS-based multi-criteria model for offshore wind energy power
-  plants site selection in both sides of the Aegean Sea. *Environmental
-  Monitoring and Assessment*, 192, 652. doi:10.1007/s10661-020-08603-9
-- Yaltırak, C., Alpar, B. (2002). Kinematics and evolution of the northern
-  branch of the North Anatolian Fault (Ganos Fault) between the Sea of Marmara
-  and the Gulf of Saros. *Marine Geology*, 190(1–2), 351–366.
-  doi:10.1016/S0025-3227(02)00354-7
-- Yildirim, A. (2023). The technical and economical feasibility study of
-  offshore wind farms in Turkey. *Clean Technologies and Environmental
-  Policy*, 25(1), 125–142. doi:10.1007/s10098-022-02392-0
-- Zippenfenig, P. (2023). Open-Meteo.com Weather API. Zenodo.
-  doi:10.5281/zenodo.7970649
-
-## Official and institutional documents
-
 - MENR (2022). *Türkiye Ulusal Enerji Planı* [National Energy Plan of
   Türkiye]. Republic of Türkiye Ministry of Energy and Natural Resources.
   https://enerji.gov.tr/Media/Dizin/EIGM/tr/Raporlar/TUEP/T%C3%BCrkiye_Ulusal_Enerji_Plan%C4%B1.pdf
@@ -134,12 +91,45 @@ Journal style, complete author lists and final formatting are applied in Phase
   Alanları Yönetmeliği* [Renewable Energy Resource Areas Regulation].
 - Official Gazette 30791 (1 June 2019). Presidential Decision 1133.
   https://www.resmigazete.gov.tr/eskiler/2019/06/20190601-15.pdf
+- Olauson, J. (2018). ERA5: the new champion of wind power modelling?
+  *Renewable Energy*, 126, 322–331. doi:10.1016/j.renene.2018.03.056
+- Özbek, M., Tunç, K. (2021). Feasibility of offshore wind energy in Turkey; a
+  case study for Gulf of Edremit at the Aegean Sea. *Gazi University Journal
+  of Science*, 34(2), 423–437. doi:10.35378/gujs.734895
+- Ramon, J., Lledó, L., Torralba, V., Soret, A., Doblas-Reyes, F. (2019). What
+  global reanalysis best represents near-surface winds? *Quarterly Journal of
+  the Royal Meteorological Society*, 145(724), 3236–3251. doi:10.1002/qj.3616
+- Rubio, H., Hatfield, D., Hasager, C., Kühn, M., Gottschall, J. (2025).
+  Ship-based lidar measurements for validating ASCAT-derived and ERA5 offshore
+  wind profiles. *Atmospheric Measurement Techniques*, 18(19), 4949–4968.
+  doi:10.5194/amt-18-4949-2025
+- Satir, M., Murphy, F., McDonnell, K. (2018). Feasibility study of an
+  offshore wind farm in the Aegean Sea, Turkey. *Renewable and Sustainable
+  Energy Reviews*, 81, 2552–2562. doi:10.1016/j.rser.2017.06.063
+- Schlömer, S., et al. (2014). Annex III: Technology-specific cost and
+  performance parameters. In: *Climate Change 2014: Mitigation of Climate
+  Change. Contribution of Working Group III to the Fifth Assessment Report of
+  the Intergovernmental Panel on Climate Change*. Cambridge University Press.
+  https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_annex-iii.pdf
 - TEDAŞ (2025). *2025 Yılı Türkiye Elektrik Dağıtımı Sektör Raporu*
   [Electricity distribution sector report 2025]. Türkiye Elektrik Dağıtım A.Ş.
   https://www.tedas.gov.tr/FileUpload/MediaFolder/4f817ff3-1429-4ba2-86c7-d5afd7f9ea5d.pdf
+- Tercan, E., Tapkın, S., Latinopoulos, D., Dereli, M.A., Tsiropoulos, A., Ak,
+  M.F. (2020). A GIS-based multi-criteria model for offshore wind energy power
+  plants site selection in both sides of the Aegean Sea. *Environmental
+  Monitoring and Assessment*, 192, 652. doi:10.1007/s10661-020-08603-9
 - UNFCCC (2018). *Methodological tool TOOL07: Tool to calculate the emission
   factor for an electricity system*, Version 07.0. Clean Development Mechanism
   Executive Board, EB 100, Annex 4.
   https://cdm.unfccc.int/methodologies/PAmethodologies/tools/am-tool-07-v7.0.pdf
 - World Bank (2024). *Offshore Wind Development Program: Offshore Wind Roadmap
   for Türkiye*. World Bank, Washington, DC. doi:10.1596/42461
+- Yaltırak, C., Alpar, B. (2002). Kinematics and evolution of the northern
+  branch of the North Anatolian Fault (Ganos Fault) between the Sea of Marmara
+  and the Gulf of Saros. *Marine Geology*, 190(1–2), 351–366.
+  doi:10.1016/S0025-3227(02)00354-7
+- Yildirim, A. (2023). The technical and economical feasibility study of
+  offshore wind farms in Turkey. *Clean Technologies and Environmental
+  Policy*, 25(1), 125–142. doi:10.1007/s10098-022-02392-0
+- Zippenfenig, P. (2023). Open-Meteo.com Weather API. Zenodo.
+  doi:10.5281/zenodo.7970649

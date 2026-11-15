@@ -14,6 +14,9 @@ manuscript/*.pdf
 *.pdf
 # Exception: the vector publication figures are versioned (scripts/12_build_figures.py)
 !figures/revised/*.pdf
+# Exception: the master manuscript and supplementary material for review (scripts/10_build_docx.py)
+!manuscript/output/*.pdf
+manuscript/output/*.build.md
 
 # Python
 __pycache__/

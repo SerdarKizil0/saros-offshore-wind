@@ -85,7 +85,7 @@ unverified level by another.
 
 ## 5.5. Why the six categories are not combined
 
-It would be convenient to merge the categories of Table 2 into one uncertainty
+It would be convenient to merge the categories of Table 4 into one uncertainty
 band. There are three reasons not to. First, they are different kinds of
 quantity. Only the sampling interval has a probabilistic meaning. Interannual
 variability describes single years, not the mean. The period, node and product

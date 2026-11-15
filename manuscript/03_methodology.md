@@ -38,9 +38,10 @@ and the nearest grid cell requested. The service returned exactly the node at
 40.50° N, 26.25° E (Section 2.6).
 
 The reference period is 1 January 1994 to 31 December 2024: 31 calendar years
-and 271 752 hourly values, without gaps. The series was retrieved on 14
-November 2026 and is stored with its checksum. A long reference period was
-used because the result depends on the period chosen (Section 4.3).
+and 271 752 hourly values, without gaps (Supplementary Table S1). The series
+was retrieved on 14 November 2026 and is stored with its checksum. A long
+reference period was used because the result depends on the period chosen
+(Section 4.3).
 
 Open-Meteo redistributes ERA5 on its native grid but stores it in compressed
 form, and it returns speeds to two decimals and directions to whole degrees.
@@ -203,23 +204,24 @@ Mechanism (UNFCCC, 2018), in which the combined margin for wind and solar is
 0.75 times the operating margin plus 0.25 times the build margin. The factor
 covers CO₂ from combustion only. For context, the same calculation was made
 with the official operating margin (0.7134 tCO₂ MWh⁻¹), build margin (0.3567
-tCO₂ MWh⁻¹) and generation average (0.430 tCO₂ MWh⁻¹).
+tCO₂ MWh⁻¹) and generation average (0.430 tCO₂ MWh⁻¹; Supplementary Table
+S13).
 
 $C$ is an accounting quantity under a stated convention. It uses a static 2023
 factor. It is not a forecast of the generation that the plant would physically
 displace, and the alternative conventions are not statistical bounds. Where an
 interval is attached to $C$, it carries only the sampling interval of the mean
 energy through the fixed factor. Life-cycle greenhouse-gas intensities from
-the literature are in a different unit (CO₂-equivalent) and have a different
-system boundary. They are reported separately in Supplementary Table S14 and
-are not subtracted from $C$.
+the literature (Schlömer et al., 2014; Bonou et al., 2016) are in a different
+unit (CO₂-equivalent) and have a different system boundary. They are reported
+separately in Supplementary Table S14 and are not subtracted from $C$.
 
 For orientation, the per-megawatt results are also scaled linearly to one
-illustrative capacity of 105 turbines of 9.5 MW (997.5 MW). This size is
-comparable to the 1 000 MWe of the draft tender, but that capacity has not
-been allocated to Saros (Section 2.2), so the case is conditional on a future
-allocation. It involves no layout and uses the same nominal losses as the
-per-megawatt result.
+illustrative capacity of 105 turbines of 9.5 MW (997.5 MW; Supplementary Table
+S12). This size is comparable to the 1 000 MWe of the draft tender, but that
+capacity has not been allocated to Saros (Section 2.2), so the case is
+conditional on a future allocation. It involves no layout and uses the same
+nominal losses as the per-megawatt result.
 
 ## 3.10. Supplementary descriptive statistics
 

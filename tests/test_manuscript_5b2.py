@@ -463,12 +463,29 @@ def _git_show(path: str) -> str | None:
     return r.stdout if r.returncode == 0 else None
 
 
-# Phase 5C-1 added figure call-outs; they are the only permitted change to the text of Sections 2 and 4.
+# Phase 5C-1 added figure call-outs; Phase 5C-2 renumbered the main tables in the order of first
+# citation (5B-1 numbers 1, 3, 4, 2, 5, 6 became 1-6) and cited Supplementary Tables S1, S12 and S13
+# in Methods. These are the only permitted changes to the text of Sections 2 to 4.
 CALLOUT = re.compile(r" \((?:see also )?Fig\. \d[a-z]?\)|; Fig\. \d[a-z]?(?=\))|(?<=\()Fig\. \d[a-z]?; ")
+SUPP_CALLOUT = re.compile(r" \(Supplementary Table S(?:1|12|13)\)|; Supplementary Table S(?:1|12|13)(?=\))")
+TABLE_5B1_NUMBER = {1: 1, 2: 3, 3: 4, 4: 2, 5: 5, 6: 6}        # current number -> Phase 5B-1 number
+
+
+LCA_CITATION = " (Schlömer et al., 2014; Bonou et al., 2016)"   # Phase 5C-2: cited in the main text too
 
 
 def strip_callouts(text: str) -> str:
-    return CALLOUT.sub("", text)
+    text = SUPP_CALLOUT.sub("", CALLOUT.sub("", text)).replace(LCA_CITATION, "")
+    return re.sub(r"\bTable ([1-6])\b", lambda m: f"Table {TABLE_5B1_NUMBER[int(m.group(1))]}", text)
+
+
+def tables_in_5b1_order(text: str, remap: bool = True) -> str:
+    head, *blocks = re.split(r"(?m)^(?=## Table \d\.)", text)
+    if remap:
+        blocks = [re.sub(r"^## Table (\d)\.", lambda m: f"## Table {TABLE_5B1_NUMBER[int(m.group(1))]}.", b)
+                  for b in blocks]
+    blocks = [b if b.endswith("\n") else b + "\n" for b in blocks]
+    return head + "".join(sorted(blocks, key=lambda b: int(b[9])))
 
 
 def test_sections_2_to_4_and_tables_are_scientifically_unchanged():
@@ -480,9 +497,12 @@ def test_sections_2_to_4_and_tables_are_scientifically_unchanged():
     assert CALLOUT.findall((SRC / "02_study_area.md").read_text())         # the call-outs are really there
     assert CALLOUT.findall((SRC / "04_results.md").read_text())
     # one citation was given its year; nothing else changed
-    assert (SRC / "03_methodology.md").read_text() == old["03_methodology.md"].replace("(UNFCCC, Tool 07)",
-                                                                                     "(UNFCCC, 2018)")
-    assert read("tables.md") == _git_show("manuscript/tables.md")
+    assert strip_callouts((SRC / "03_methodology.md").read_text()) == old["03_methodology.md"].replace(
+        "(UNFCCC, Tool 07)", "(UNFCCC, 2018)")
+    assert len(SUPP_CALLOUT.findall((SRC / "03_methodology.md").read_text())) == 3
+    old_tables = _git_show("manuscript/tables.md")
+    assert tables_in_5b1_order(read("tables.md")).rstrip("\n") == tables_in_5b1_order(old_tables, remap=False).rstrip("\n")
+    assert [int(n) for n in re.findall(r"(?m)^## Table (\d)\.", read("tables.md"))] == [1, 2, 3, 4, 5, 6]
     sup_old = _git_show("manuscript/supplementary_tables.md")
     sup_old = sup_old.replace("minus exports).", "minus exports; TEDAŞ, 2025).")
     for k in ("minimum", "median", "maximum"):

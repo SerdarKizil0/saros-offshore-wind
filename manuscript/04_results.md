@@ -67,7 +67,7 @@ assimilates, so they are not evidence of a climatic trend.
 ## 4.4. Grid-node sensitivity
 
 The result also depends on which reanalysis cell is used (sensitivity
-experiment; Table 3; Fig. 3a). With the same period and method, the western
+experiment; Table 2; Fig. 3a). With the same period and method, the western
 neighbour at 26.00° E gives a net yield of 2.512 GWh MW⁻¹ yr⁻¹ (+6.7 %
 relative to the primary node), and the eastern neighbour at 26.50° E gives
 2.154 GWh MW⁻¹ yr⁻¹ (−8.5 %). The corresponding differences in mean 100 m wind
@@ -91,7 +91,7 @@ the sampling interval.
 ## 4.5. Disagreement between ERA5 and the Global Wind Atlas
 
 The two wind products disagree on the mean wind speed (inter-model comparison;
-Table 4; Fig. 3b). The GWA mean at 100 m over the candidate polygon is 7.84 m
+Table 3; Fig. 3b). The GWA mean at 100 m over the candidate polygon is 7.84 m
 s⁻¹ for its reference period 2008–2017. The ERA5 mean at the primary node is
 7.01 m s⁻¹ for 1994–2024 and 6.99 m s⁻¹ for the GWA period, 2008–2017. The
 GWA/ERA5 ratio is 1.119 against the primary period and 1.122 when the periods
@@ -122,7 +122,7 @@ The low-loss case gives 2.507 GWh MW⁻¹ yr⁻¹ (+6.5 %) and the high-loss cas
 the three loss sets, and wake losses in particular depend on a layout that
 does not exist.
 
-Table 2 places the six categories side by side (see also Fig. 4). They are
+Table 4 places the six categories side by side (see also Fig. 4). They are
 different kinds of quantity: one sampling interval, one description of
 year-to-year spread, three sensitivity experiments or comparisons and one set
 of assumption scenarios. They are not combined into a single interval. Read

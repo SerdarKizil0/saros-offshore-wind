@@ -292,8 +292,10 @@ def test_interval_vocabulary_belongs_to_the_sampling_interval_only():
 
 
 def test_table_2_lists_six_separate_categories():
+    # Phase 5C-2 renumbered the main tables in the order of first citation: the category table is now Table 4
     t = read("tables.md")
-    block = t.split("## Table 2.")[1].split("## Table 3.")[0]
+    block = t.split("## Table 4.")[1].split("## Table 5.")[0]
+    assert block.lstrip().startswith("Uncertainty and sensitivity categories")
     rows = [r for r in block.split("\n") if re.match(r"\| \d \|", r)]
     assert [r.split("|")[1].strip() for r in rows] == ["1", "2", "3", "4", "5", "6"]
     idx = J("sensitivity_index.json")

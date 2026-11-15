@@ -50,6 +50,7 @@ MAN = ROOT / "manuscript"
 SRC = MAN / "src"
 SECTIONS = ["00_abstract.md", "01_introduction.md", "02_study_area.md", "03_methodology.md", "04_results.md",
             "05_discussion.md", "06_conclusion.md", "07_declarations.md", "08_references.md", "09_figures.md"]
+TABLE_ORDER = (1, 3, 4, 2, 5, 6)     # construction order of main_tables() -> printed numbers 1..6
 FIGURE_LINK = re.compile(r"!\[Figure (\d+)\]\(([^)]+)\)")
 GENERATED_NOTE = ("<!-- GENERATED FILE - do not edit. Source: manuscript/src/{name}. Numbers come from "
                   "results/revised/. Rebuild with: python scripts/11_build_manuscript_sections.py -->\n\n")
@@ -459,7 +460,13 @@ def main_tables(R: dict, D: dict) -> str:
                    f"({s3['n_turbines']} × {f(TURBINE.rated_power_mw, '.1f')} MW) is conditional on a future "
                    "allocation of the draft tender capacity to Saros, which has not been made. Life-cycle "
                    "greenhouse-gas values are reported separately in the supplementary tables.*\n")
-    return "\n".join(parts)
+    # Number the tables in the order of their first citation in the text (Phase 5C-2): the
+    # category overview is first cited in Section 4.6, after the node and product tables.
+    blocks = parts[2:]
+    assert len(blocks) == 6 and all(b.startswith(f"## Table {i}.") for i, b in enumerate(blocks, 1))
+    renumber = {old: new for new, old in enumerate(TABLE_ORDER, start=1)}
+    return "\n".join(parts[:2] + [re.sub(r"^## Table \d\.", f"## Table {renumber[old]}.", blocks[old - 1])
+                                   for old in TABLE_ORDER])
 
 
 def supplementary_tables(R: dict, D: dict) -> str:

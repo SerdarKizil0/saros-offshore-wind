@@ -16,20 +16,33 @@ python scripts/12_build_figures.py --check              # compare committed figu
 python scripts/11_build_manuscript_sections.py          # write the generated text files
 python scripts/11_build_manuscript_sections.py --check  # verify they are up to date
 python -m pytest -q tests/test_manuscript_5b1.py tests/test_manuscript_5b2.py \
-    tests/test_figures_5c1.py tests/test_fig1_site_map.py
+    tests/test_figures_5c1.py tests/test_fig1_site_map.py tests/test_docx_build_5c2.py
 ```
 
 Open items:
 
 - Author-dependent declarations are marked `[AUTHOR TO CONFIRM: …]` in
   `src/07_declarations.md`.
-- Unresolved source and declaration items are listed in
-  `docs/review/PHASE5B2_UNRESOLVED_REGISTER.md`.
+- Unresolved source, reference and declaration items are listed in
+  `docs/review/PHASE5C2_SUBMISSION_CHECKLIST.md`.
 - The verification status of every reference is in
   `docs/review/phase5b2_reference_register.csv`.
 
-The DOCX build (`scripts/10_build_docx.py`) has not been updated yet
-(Phase 5C-2). It still inserts the old title, the old figures from
-`manuscript/figure*.png`, hard-coded captions and equation images, and must not
-be used until then. Figure call-outs in the text use "Fig. N"; captions use
-"Figure N.".
+Master documents for review (Phase 5C-2):
+
+```bash
+python scripts/10_build_docx.py            # manuscript/output/*.docx and *.pdf
+python scripts/10_build_docx.py --check    # compare with a fresh build
+```
+
+| File | Content |
+|---|---|
+| `output/Saros_Offshore_Wind_Master.docx` / `.pdf` | Title, abstract, keywords, Sections 1–6, Tables 1–6, Figures 1–4, eight numbered native equations, declarations, references |
+| `output/Saros_Supplementary_Material.docx` / `.pdf` | Tables S1–S15 |
+
+The build needs pandoc and LibreOffice with its Math component
+(`apt-get install libreoffice-math`); without it the PDF shows no equations.
+Author-dependent placeholders are shaded yellow in the DOCX. Open items are in
+`docs/review/PHASE5C2_SUBMISSION_CHECKLIST.md`. Figure call-outs in the text use
+"Fig. N"; captions use "Figure N.". Main tables are numbered in the order of
+their first citation.

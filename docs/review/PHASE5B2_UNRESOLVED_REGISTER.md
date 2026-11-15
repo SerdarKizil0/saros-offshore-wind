@@ -3,6 +3,10 @@
 *15 November 2026. Companion to `PHASE5B2_COMPLETE_MANUSCRIPT_REPORT.md`.
 "Blocking" means: must be closed before submission.*
 
+> **Superseded as the working list** by `PHASE5C2_SUBMISSION_CHECKLIST.md` (Phase 5C-2,
+> 15 November 2026), which carries these items forward with their current status and adds
+> the reference details and document-build items. This file is kept as a record.
+
 ## A. Source items
 
 | # | Item | Status | What closes it | Blocking |

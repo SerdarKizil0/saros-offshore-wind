@@ -85,12 +85,13 @@ losses; dashed line). Row 1 is the 90 % sampling interval of the 31-year mean,
 the only probabilistic interval of the study; it is conditional on ERA5 at the
 node. Row 2 shows the 31 single years 1994–2024, an observed year-to-year
 spread. Row 3 shows the 21 rolling 11-year windows inside 1994–2024, with
-2014–2024 in vermillion (sensitivity experiment). Row 4 shows the two
-neighbouring ERA5 nodes (sensitivity experiment). Row 5 is the illustrative
-case in which every primary hourly speed is multiplied by the period-matched
-GWA/ERA5 ratio for 2008–2017; it shows the weight of the inter-model
-disagreement and is not adopted. Row 6 shows the low- and high-loss scenarios,
-which are assumptions without site evidence. The categories are different
-kinds of quantity. They are placed side by side to compare magnitudes only.
-They are not samples of one distribution, and they are not combined into a
-total range or a single interval.
+2014–2024 in vermillion (sensitivity experiment). In rows 2 and 3, dots that
+would overlap are stacked vertically; their vertical position within a row has
+no meaning. Row 4 shows the two neighbouring ERA5 nodes (sensitivity
+experiment). Row 5 is the illustrative case in which every primary hourly
+speed is multiplied by the period-matched GWA/ERA5 ratio for 2008–2017; it
+shows the weight of the inter-model disagreement and is not adopted. Row 6
+shows the low- and high-loss scenarios, which are assumptions without site
+evidence. The categories are different kinds of quantity. They are placed side
+by side to compare magnitudes only. They are not samples of one distribution,
+and they are not combined into a total range or a single interval.

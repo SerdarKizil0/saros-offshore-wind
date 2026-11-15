@@ -22,20 +22,7 @@
 
 *Reference turbine V164-9.5 MW with the third-party digitised OEDB V164/9500 power curve (not manufacturer-certified). Nominal losses: wake 8 %, availability 95 %, electrical 3 % (assumptions, not layout-validated). The sampling interval is conditional on the reanalysis at this node; it is not a P90 value and not a total uncertainty. No value is validated against offshore measurements.*
 
-## Table 2. Uncertainty and sensitivity categories of the primary estimate (2.354 GWh MW⁻¹ yr⁻¹). The categories are different kinds of quantity and are not combined.
-
-| No. | Category | Kind of quantity | Headline result | Condition or meaning |
-|---|---|---|---|---|
-| 1 | Sampling uncertainty of the 1994–2024 mean | Probabilistic interval (the only one) | 2.300–2.407 GWh MW⁻¹ yr⁻¹ (90 %); ±2.3 % | Conditional on ERA5 at the primary node |
-| 2 | Interannual variability | Observed spread of single reanalysis years | CoV 7.4 %; 1.944 (2002) to 2.674 (2001) | Not an uncertainty of the mean |
-| 3 | Period-selection sensitivity | Sensitivity experiment | 2014–2024 comparison period: +3.1 %; rolling 11-year windows within 1994–2024: −3.4 % to +3.1 % | Same node and method; other reference periods |
-| 4 | Grid-node sensitivity | Sensitivity experiment | Western neighbour +6.7 %; eastern neighbour −8.5 % | Same period and method; neighbouring 0.25° cells; not averaged, not a bound |
-| 5 | Wind-product discrepancy (ERA5 vs GWA 4.0) | Inter-model disagreement | GWA/ERA5 mean-speed ratio 1.119 (ERA5 1994–2024) and 1.122 (ERA5 2008–2017, period-matched) | Neither product validated offshore here; not a correction |
-| 6 | Loss-assumption sensitivity | Labelled assumption scenarios | Low losses +6.5 %; high losses −8.3 % | No site or layout evidence |
-
-*Only category 1 is a probabilistic interval. Categories 3 to 6 are sensitivity experiments, an inter-model comparison and assumption scenarios; they are not confidence intervals, and the six categories must not be added or merged into a single interval.*
-
-## Table 3. Grid-node sensitivity experiment: the three ERA5 nodes on the 40.50° N row, 1994–2024, identical method.
+## Table 2. Grid-node sensitivity experiment: the three ERA5 nodes on the 40.50° N row, 1994–2024, identical method.
 
 | Quantity | 40.50° N, 26.00° E | 40.50° N, 26.25° E (primary) | 40.50° N, 26.50° E |
 |---|---|---|---|
@@ -54,7 +41,7 @@
 
 *Reanalysis output at grid nodes, not measurements. The nodes are not averaged and the differences are not confidence bounds. The polygon shares are geometric descriptors and are not used as weights.*
 
-## Table 4. Mean wind speed at 100 m in ERA5 and in the Global Wind Atlas 4.0 (GWA; climatology for 2008–2017), with the reference period of each value.
+## Table 3. Mean wind speed at 100 m in ERA5 and in the Global Wind Atlas 4.0 (GWA; climatology for 2008–2017), with the reference period of each value.
 
 | Comparison | GWA 4.0, 2008–2017 (m s⁻¹) | ERA5 (m s⁻¹; period) | Ratio GWA / ERA5 |
 |---|---|---|---|
@@ -65,6 +52,19 @@
 | 0.25° box around 40.50° N, 26.50° E, sea pixels (GWA) vs that node (ERA5), period-matched | 7.39 | 6.71 (2008–2017) | 1.102 |
 
 *Disagreement between two models. GWA is itself driven by ERA5, neither product is validated against offshore measurements here, and the ratio is not a bias estimate or a correction. The primary estimate is not rescaled.*
+
+## Table 4. Uncertainty and sensitivity categories of the primary estimate (2.354 GWh MW⁻¹ yr⁻¹). The categories are different kinds of quantity and are not combined.
+
+| No. | Category | Kind of quantity | Headline result | Condition or meaning |
+|---|---|---|---|---|
+| 1 | Sampling uncertainty of the 1994–2024 mean | Probabilistic interval (the only one) | 2.300–2.407 GWh MW⁻¹ yr⁻¹ (90 %); ±2.3 % | Conditional on ERA5 at the primary node |
+| 2 | Interannual variability | Observed spread of single reanalysis years | CoV 7.4 %; 1.944 (2002) to 2.674 (2001) | Not an uncertainty of the mean |
+| 3 | Period-selection sensitivity | Sensitivity experiment | 2014–2024 comparison period: +3.1 %; rolling 11-year windows within 1994–2024: −3.4 % to +3.1 % | Same node and method; other reference periods |
+| 4 | Grid-node sensitivity | Sensitivity experiment | Western neighbour +6.7 %; eastern neighbour −8.5 % | Same period and method; neighbouring 0.25° cells; not averaged, not a bound |
+| 5 | Wind-product discrepancy (ERA5 vs GWA 4.0) | Inter-model disagreement | GWA/ERA5 mean-speed ratio 1.119 (ERA5 1994–2024) and 1.122 (ERA5 2008–2017, period-matched) | Neither product validated offshore here; not a correction |
+| 6 | Loss-assumption sensitivity | Labelled assumption scenarios | Low losses +6.5 %; high losses −8.3 % | No site or layout evidence |
+
+*Only category 1 is a probabilistic interval. Categories 3 to 6 are sensitivity experiments, an inter-model comparison and assumption scenarios; they are not confidence intervals, and the six categories must not be added or merged into a single interval.*
 
 ## Table 5. First-order screening of the candidate polygon.
 

@@ -97,7 +97,9 @@ ERA5 at the node. Row 2 shows the {{d:n_years}} single years 1994–2024, an
 observed year-to-year spread. Row 3 shows the
 {{period_sensitivity:rolling_windows.within_primary_period.n_windows}}
 rolling 11-year windows inside 1994–2024, with 2014–2024 in vermillion
-(sensitivity experiment). Row 4 shows the two neighbouring ERA5 nodes
+(sensitivity experiment). In rows 2 and 3, dots that would overlap are
+stacked vertically; their vertical position within a row has no meaning.
+Row 4 shows the two neighbouring ERA5 nodes
 (sensitivity experiment). Row 5 is the illustrative case in which every
 primary hourly speed is multiplied by the period-matched GWA/ERA5 ratio for
 2008–2017; it shows the weight of the inter-model disagreement and is not

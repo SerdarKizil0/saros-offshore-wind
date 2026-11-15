@@ -10,7 +10,8 @@ comparing magnitudes, not a shared probability distribution.
 
   1 sampling uncertainty     the 90 % t-interval of the 31-year mean (the
                              only probabilistic interval), as a bar
-  2 interannual variability  the 31 single years 1994-2024, as dots
+  2 interannual variability  the 31 single years 1994-2024, as dots (dots that would overlap
+                             are stacked vertically; only the horizontal position has meaning)
   3 period selection         the 21 rolling 11-year windows inside
                              1994-2024, as dots; 2014-2024 emphasised
   4 grid node                the two neighbouring nodes, as two squares
@@ -162,6 +163,25 @@ def _minus(s: str) -> str:
     return s.replace("-", "−")
 
 
+DODGE_STEP = 0.12                      # vertical step between stacked dots, in row units (> one dot)
+DOT_GAP_PCT = 0.7                      # dots closer than this along x (in %; about one dot) are stacked
+
+
+def dodge(values: dict, gap: float = DOT_GAP_PCT, step: float = DODGE_STEP) -> dict:
+    """Vertical offsets that keep dots of one row from overlapping (a deterministic beeswarm).
+    Values are never moved along x; offsets alternate above and below the row line."""
+    levels = [0, 1, -1, 2, -2, 3, -3]
+    placed: list[tuple[float, int]] = []
+    out = {}
+    for key, x in sorted(values.items(), key=lambda kv: (kv[1], str(kv[0]))):
+        for lv in levels:
+            if all(abs(x - px) >= gap or plv != lv for px, plv in placed):
+                break
+        placed.append((x, lv))
+        out[key] = lv * step
+    return out
+
+
 def _pct(v: float) -> str:
     return _minus(f"{v:+.1f}") + " %"
 
@@ -210,25 +230,27 @@ def build_figure(d: FigureData):
 
         # 2 interannual: every single year
         r = d.order.index("interannual_variability")
-        ax.plot(list(d.annual.values()), [r] * len(d.annual), linestyle="none", marker="o",
-                markersize=fs.MS_POINT - 1.4, color=PRIMARY, markeredgecolor=SURFACE,
-                markeredgewidth=fs.MEW * 0.85, alpha=1.0, zorder=3, gid="annual_values")
+        off = dodge(d.annual)
+        ax.plot(list(d.annual.values()), [r + off[y] for y in d.annual], linestyle="none", marker="o",
+                markersize=fs.MS_POINT - 1.0, color=PRIMARY, markeredgecolor=SURFACE,
+                markeredgewidth=fs.MEW * 0.85, zorder=3, gid="annual_values")
         lo_y = min(d.annual, key=d.annual.get)
         hi_y = max(d.annual, key=d.annual.get)
-        ax.text(d.annual[lo_y], r + 0.3, f"{lo_y}", ha="center", va="top", fontsize=FS_NOTE, color=MUTED)
-        ax.text(d.annual[hi_y], r + 0.3, f"{hi_y}", ha="center", va="top", fontsize=FS_NOTE, color=MUTED)
+        ax.text(d.annual[lo_y], r + 0.36, f"{lo_y}", ha="center", va="top", fontsize=FS_NOTE, color=MUTED)
+        ax.text(d.annual[hi_y], r + 0.36, f"{hi_y}", ha="center", va="top", fontsize=FS_NOTE, color=MUTED)
 
         # 3 period selection: the 21 windows; 2014-2024 emphasised
         r = d.order.index("period_selection_sensitivity")
         last = "2014–2024"
-        others = [v for k, v in d.windows.items() if k != last]
-        ax.plot(others, [r] * len(others), linestyle="none", marker="o", markersize=fs.MS_POINT - 1.4,
-                color=PRIMARY, markeredgecolor=SURFACE, markeredgewidth=fs.MEW * 0.85, zorder=3,
-                gid="windows")
-        ax.plot([d.windows[last]], [r], linestyle="none", marker="o", markersize=fs.MS_POINT,
+        off = dodge(d.windows)
+        others = [k for k in d.windows if k != last]
+        ax.plot([d.windows[k] for k in others], [r + off[k] for k in others], linestyle="none", marker="o",
+                markersize=fs.MS_POINT - 1.0, color=PRIMARY, markeredgecolor=SURFACE,
+                markeredgewidth=fs.MEW * 0.85, zorder=3, gid="windows")
+        ax.plot([d.windows[last]], [r + off[last]], linestyle="none", marker="o", markersize=fs.MS_POINT,
                 color=EMPHASIS, markeredgecolor=SURFACE, markeredgewidth=fs.MEW, zorder=4,
                 gid="window_2014_2024")
-        ax.text(d.windows[last] + 0.9, r, f"{last}: {_pct(d.windows[last])}", ha="left", va="center",
+        ax.text(d.windows[last] + 0.9, r + off[last], f"{last}: {_pct(d.windows[last])}", ha="left", va="center",
                 fontsize=FS_NOTE, color=INK)
 
         # 4 grid node: two alternatives, not joined

@@ -37,7 +37,7 @@ and the nearest grid cell requested. The service returned exactly the node at
 
 The reference period is 1 January 1994 to 31 December 2024:
 {{d:n_years}} calendar years and
-{{energy_yield:normalisation_check.n_hours|spd}} hourly values, without gaps.
+{{energy_yield:normalisation_check.n_hours|spd}} hourly values, without gaps (Supplementary Table S1).
 The series was retrieved on {{d:retrieval_date}} and is stored with its
 checksum. A long reference period was used because the result depends on the
 period chosen (Section 4.3).
@@ -229,20 +229,20 @@ the same calculation was made with the official operating margin
 build margin
 ({{emissions:context_grid_methods.build_margin.factor_value|.4f}} tCO₂ MWh⁻¹)
 and generation average
-({{emissions:context_grid_methods.generation_average_co2.factor_value|.3f}} tCO₂ MWh⁻¹).
+({{emissions:context_grid_methods.generation_average_co2.factor_value|.3f}} tCO₂ MWh⁻¹; Supplementary Table S13).
 
 $C$ is an accounting quantity under a stated convention. It uses a static
 2023 factor. It is not a forecast of the generation that the plant would
 physically displace, and the alternative conventions are not statistical
 bounds. Where an interval is attached to $C$, it carries only the sampling
 interval of the mean energy through the fixed factor. Life-cycle
-greenhouse-gas intensities from the literature are in a different unit
+greenhouse-gas intensities from the literature (Schlömer et al., 2014; Bonou et al., 2016) are in a different unit
 (CO₂-equivalent) and have a different system boundary. They are reported
 separately in Supplementary Table S14 and are not subtracted from $C$.
 
 For orientation, the per-megawatt results are also scaled linearly to one
 illustrative capacity of {{d:s3.n_turbines}} turbines of 9.5 MW
-({{d:s3.installed_mw|.1f}} MW). This size is comparable to the 1 000 MWe of
+({{d:s3.installed_mw|.1f}} MW; Supplementary Table S12). This size is comparable to the 1 000 MWe of
 the draft tender, but that capacity has not been allocated to Saros
 (Section 2.2), so the case is conditional on a future allocation. It involves
 no layout and uses the same nominal losses as the per-megawatt result.
