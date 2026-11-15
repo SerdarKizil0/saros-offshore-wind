@@ -189,7 +189,7 @@
 | 53 × 9.5 MW | 503.5 | 2.9 | 1 185 (1 158–1 212) | 740 (723–757) | 14.2 (9.5–41.5) | 10.1 | 0.34 |
 | 105 × 9.5 MW | 997.5 | 5.8 | 2 348 (2 295–2 401) | 1 466 (1 432–1 499) | 28.2 (18.8–82.2) | 20.0 | 0.66 |
 
-*Illustrative capacities without an official basis; the spacing used for the density context (7D x 5D) is an assumption. Gross consumption 353 579.8 GWh (2024; gross generation plus imports minus exports). Life-cycle values are literature intensities for other sites, reported separately and not subtracted from the CO₂-only grid factor.*
+*Illustrative capacities without an official basis; the spacing used for the density context (7D x 5D) is an assumption. Gross consumption 353 579.8 GWh (2024; gross generation plus imports minus exports; TEDAŞ, 2025). Life-cycle values are literature intensities for other sites, reported separately and not subtracted from the CO₂-only grid factor.*
 
 ## Table S13. Official 2023 grid emission factors for Türkiye and the corresponding accounting equivalents of the net yield.
 
@@ -207,9 +207,9 @@
 
 | Source | Intensity (g CO₂-eq kWh⁻¹) | Amount (tCO₂-eq MW⁻¹ yr⁻¹) |
 |---|---|---|
-| IPCC AR5 Annex III, minimum | 8.0 | 18.8 |
-| IPCC AR5 Annex III, median | 12.0 | 28.2 |
-| IPCC AR5 Annex III, maximum | 35.0 | 82.4 |
+| IPCC AR5 Annex III (Schlömer et al., 2014), minimum | 8.0 | 18.8 |
+| IPCC AR5 Annex III (Schlömer et al., 2014), median | 12.0 | 28.2 |
+| IPCC AR5 Annex III (Schlömer et al., 2014), maximum | 35.0 | 82.4 |
 | Bonou et al. (2016), 6 MW plant | 7.8 | 18.4 |
 | Bonou et al. (2016), 4 MW plant | 10.9 | 25.7 |
 

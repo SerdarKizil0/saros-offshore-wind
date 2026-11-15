@@ -221,7 +221,7 @@ where $\mathrm{EF}_{\mathrm{CM}}$ =
 {{emissions:primary_avoided_operational_co2.factor_value|.4f}} tCO₂ MWh⁻¹ is
 the combined-margin emission factor for wind and solar plants that MENR
 published for 2023 (MENR, 2025). It follows the grid emission-factor tool of
-the Clean Development Mechanism (UNFCCC, Tool 07), in which the combined
+the Clean Development Mechanism (UNFCCC, 2018), in which the combined
 margin for wind and solar is 0.75 times the operating margin plus 0.25 times
 the build margin. The factor covers CO₂ from combustion only. For context,
 the same calculation was made with the official operating margin

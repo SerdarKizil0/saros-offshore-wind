@@ -1,126 +1,85 @@
+<!-- GENERATED FILE - do not edit. Source: manuscript/src/01_introduction.md. Numbers come from results/revised/. Rebuild with: python scripts/11_build_manuscript_sections.py -->
+
 # 1. Introduction
 
-Türkiye's electricity system remains heavily dependent on fossil fuels.
-National electricity consumption reached 347.9 TWh in 2024, of which a
-majority continues to be supplied by natural gas and coal, much of it
-imported. This dependence exposes the country to fuel-price volatility and
-import-security risks, and it underlies an electricity-sector carbon
-intensity that the national authorities place at 434 gCO₂-eq kWh⁻¹ on a
-generation-average basis and 624 gCO₂-eq kWh⁻¹ on the combined-margin basis
-used for crediting renewable displacement (Republic of Türkiye MENR/EVÇED,
-2024). Reducing this intensity through domestic renewable generation is
-therefore both a decarbonisation and an energy-security objective.
+Offshore wind has a defined place in Türkiye's energy planning. The National
+Energy Plan projects a wind capacity of 29.6 GW in 2035, of which 5 GW would
+be offshore (MENR, 2022). A roadmap prepared by the World Bank in
+collaboration with the government estimates the technical offshore wind
+potential of Turkish waters at 75 GW and places offshore wind in the context
+of the country's pledge to reach net-zero emissions by 2053 (World Bank,
+2024). An earlier tender process was opened in 2018 (Yildirim, 2023). On 13
+May 2026 the Ministry of Energy and Natural Resources (MENR) published four
+candidate areas for offshore wind, in the Gulf of Saros and off Gökçeada,
+Bozcaada and Edremit (MENR, 2026a). A draft specification published in June
+2026 describes a competition for a total of 1 000 MWe in any one of these
+areas (MENR, 2026b); at the time of writing it existed only as a draft. The
+Gulf of Saros area is thus a candidate area defined by a published polygon. It
+is not an approved project, and no capacity has been assigned to it.
 
-Wind energy is central to this transition. Türkiye has expanded onshore
-wind capacity rapidly over the past decade, but offshore wind — despite the
-country being bordered by sea on three sides — has remained undeveloped.
-Globally, offshore wind has matured into a multi-gigawatt industry with
-capacity factors and reliability that substantially exceed onshore
-equivalents, and its life-cycle carbon footprint of roughly 8–14 gCO₂-eq
-kWh⁻¹ is among the lowest of any generation technology (Schlömer et al., 2014; Bonou
-et al., 2016). For a fossil-dependent grid such as Türkiye's, each unit of
-offshore wind generation therefore displaces a disproportionately large
-quantity of carbon emissions.
+A candidate polygon raises a practical question: what can be said about its
+energy yield from public data, before any measurement exists, and how firmly?
+Earlier work on Turkish offshore wind has mostly addressed where to build.
+National and regional site-selection studies have screened coastal waters with
+multi-criteria and GIS methods (Argin et al., 2019; Emeksiz and Demirci, 2019;
+Tercan et al., 2020; Genç et al., 2021), and a recent review covers candidate
+locations, foundations and seismic conditions (Demirci et al., 2026). Other
+studies have estimated energy production and cost for specific sites. Cali et
+al. (2018) analysed Bozcaada, Gökçeada and Bandırma with a wind-farm model
+driven by reanalysis data. Satir et al. (2018) presented a feasibility study
+of an offshore wind farm in the Turkish Aegean. Özbek and Tunç (2021) studied
+the Gulf of Edremit with reanalysis data and a local meteorological mast.
+Duzcan and Kara (2023) assessed 24 regions of the Marmara and Aegean seas by
+transferring ten years of 10 m wind data from onshore stations to hub height
+with computational fluid dynamics, noting that no offshore meteorological mast
+existed in Türkiye. Erkurtulmus and Pesman (2024) selected a site for floating
+turbines north-east of Gökçeada. At the basin scale, Görmüş et al. (2022)
+analysed the offshore wind power potential of the Mediterranean region.
 
-A substantial body of research has assessed where offshore wind farms
-should be sited along the Turkish coast. Argın and Yerci (2015) screened
-more than fifty coastal areas, and Argın et al. (2019) developed a
-multi-criteria site-selection framework that identified the Aegean Sea as
-having the highest potential, with mean wind speeds near 6.9 m s⁻¹ at 50 m.
-Emeksiz and Demirci (2019) introduced a hybrid site-selection method;
-Genç et al. (2021) and Tercan et al. (2020) applied GIS-based
-multi-criteria decision-making across Turkish and Aegean waters; and
-Duzcan and Kara (2022) analysed twenty-four regions in the Marmara and
-Aegean seas using computational fluid dynamics to transfer ten years of
-meteorological-station data to hub height. More recent work has extended
-to investment prioritisation, techno-economic feasibility, and, most
-recently, a comprehensive review of candidate locations, foundation design
-and seismic considerations for Turkish offshore wind (Demirci, 2026).
-Görmüş et al. (2022) further characterised Mediterranean offshore wind
-across multiple turbine classes over a six-decade reanalysis record.
+The Gulf of Saros itself has been examined before. Yildirim (2023) carried out
+a techno-economic analysis of three candidate regions identified in the 2018
+tender process, two in the Aegean Sea and one in the Black Sea, using data
+from the Global Wind Atlas, and reported the best results for a Saros region.
+The published abstract does not define the region that was examined, and the
+full text was not available to us. The spatial relationship between that
+region and the polygon published in 2026 could therefore not be established,
+and the results of the two studies are not compared here.
 
-Two features unite this literature. First, almost all of it addresses the
-*site-selection* question — identifying or ranking candidate areas — rather
-than the detailed assessment of a committed site. Second, the focus is
-overwhelmingly on the wind *resource* and on techno-economic feasibility;
-the *environmental* dimension, in particular the quantification of avoided
-grid emissions with formal uncertainty propagation, is rarely treated as a
-primary outcome.
+These studies share one feature that matters for the present purpose: each
+rests on a single wind data source. In the absence of offshore measurements,
+that source is a model product, and model products differ. The ERA5 reanalysis
+(Hersbach et al., 2020) is widely used for wind energy studies and has been
+evaluated against observations in several regions (Olauson, 2018; Ramon et
+al., 2019; Kalverla et al., 2020; Gualtieri, 2021; Gandoin and Garza, 2024;
+Rubio et al., 2025). Its grid spacing is 0.25°. In a gulf a few tens of
+kilometres wide, one grid cell can contain both land and sea, and a value at a
+grid node then represents neither. The Global Wind Atlas (Davis et al., 2023)
+offers much finer spatial detail, but it is a downscaling of ERA5 for a fixed
+period and not an independent observation. An analyst who uses such products
+therefore makes three choices, often implicitly: the reference period, the
+grid cell or pixels taken to represent the site, and the product itself. Each
+choice can move the estimated yield, and none of them is reflected in a
+confidence interval computed from the interannual scatter of one series.
 
-The policy context changed decisively on 14 May 2026, when the Republic of
-Türkiye Ministry of Energy and Natural Resources formally announced four
-offshore renewable energy candidate zones (DÜRES) — at the Gulf of Saros,
-Gökçeada, Bozcaada, and off Edremit. This announcement, which followed the
-strategic framework of the World Bank's *Offshore Wind Roadmap for Türkiye*
-(World Bank, 2024) and the national 2035 target of 5 GW of offshore wind,
-transforms the research question. The siting decision has now been made by
-the state; the relevant questions are no longer *where* to build, but *how
-much energy* a designated zone can produce and *how much environmental
-burden* it can displace relative to the conventional supply it would
-replace.
+This study examines how much these choices matter for the Gulf of Saros
+candidate area. Its objective is to provide a preliminary, long-term estimate
+of the net specific energy yield at the reanalysis node nearest the candidate
+polygon, and to show how sensitive that estimate is to the reference period,
+the grid node, the wind data product and the loss assumptions. The
+contribution is fourfold. First, a reproducible estimate for 1994–2024 is
+obtained by converting 31 years of hourly ERA5 wind speeds with a reference
+power curve. Second, the sampling uncertainty of the long-term mean is
+reported separately from interannual variability and from four sensitivity
+experiments, and the reasons why these categories cannot be merged into one
+interval are set out. Third, the candidate polygon is screened to first order
+for water depth and for overlap with the Saros Körfezi Special Environmental
+Protection Area. Fourth, the yield is expressed as an operational grid-CO₂
+accounting equivalent under the official 2023 convention. The study uses no
+offshore measurements. It does not establish the accuracy of the reanalysis at
+the site, and it is not an assessment of technical, economic or legal
+viability.
 
-To the best of our knowledge, no peer-reviewed assessment yet exists for
-any of the four officially designated zones. This study addresses that gap
-for the Gulf of Saros zone. Its contributions are threefold. First, it
-provides the first site-specific resource and energy-production assessment
-of an officially designated Turkish offshore wind zone, based on eleven
-years (2014–2024) of hourly ERA5 reanalysis extrapolated to a 105 m hub
-height using a *measured* rather than assumed wind-shear exponent. Second,
-it quantifies the avoided carbon dioxide emissions relative to the official
-Turkish grid emission factor, treating the environmental displacement — not
-merely the resource — as a primary outcome. Third, it propagates the
-combined uncertainty in wind resource, conversion losses and emission
-factors through a 10 000-iteration Monte Carlo simulation, reporting all
-principal results as probability distributions and on a
-capacity-normalised (per-MW) basis that is robust to the as-yet-unfinalised
-installed capacity of the zone.
-
-The remainder of this paper is organised as follows. Section 2 describes
-the study area, including its geographic, bathymetric and seismotectonic
-setting. Section 3 details the data and methods. Section 4 presents the
-wind resource, energy production, uncertainty and avoided-emission results.
-Section 5 discusses these findings in the context of the international
-literature and Turkish energy policy, together with the study's
-limitations, and Section 6 concludes.
-
----
-
-### References cited in this section (to be formatted to journal style)
-
-- Argın, M., Yerci, V. (2015). The assessment of offshore wind power
-  potential of Turkey. *9th Int. Conf. on Electrical and Electronics
-  Engineering (ELECO)*, IEEE, 966–970.
-- Argın, M., Yerci, V., Erdoğan, N., Küçüksarı, S., Çalı, Ü. (2019).
-  Exploring the offshore wind energy potential of Turkey based on
-  multi-criteria site selection. *Energy Strategy Reviews*, 23, 33–46.
-- Bonou, A., Laurent, A., Olsen, S.I. (2016). Life cycle assessment of
-  onshore and offshore wind energy. *Applied Energy*, 180, 327–337.
-- Demirci, A. (2026). A comprehensive review of potential locations,
-  foundation design, and seismic considerations for installation of
-  offshore wind farms in Türkiye. *IET Renewable Power Generation*.
-  [verify author initials and pages]
-- Duzcan / Düzcan, ?, Kara, ? (2022). Offshore wind energy potential
-  analysis of Turkish Marmara and Aegean seas. *International Journal of
-  Environmental Science and Technology*. [verify authors/pages]
-- Emeksiz, C., Demirci, B. (2019). The determination of offshore wind
-  energy potential of Turkey by using a novel hybrid site selection method.
-  *Sustainable Energy Technologies and Assessments*, 36, 100562.
-- Genç, M.S., Karipoğlu, F., Koca, K., Azgın, Ş.T. (2021). Suitable site
-  selection for offshore wind farms in Turkey's seas: GIS-MCDM based
-  approach. *Earth Science Informatics*, 14(3), 1213–1225.
-- Görmüş, T., Aydoğan, B., Ayat, B. (2022). Offshore wind power potential
-  analysis for different wind turbines in the Mediterranean Region,
-  1959–2020. *Energy Conversion and Management*, 274, 116470.
-- IPCC (2025). [Life-cycle emissions of generation technologies.] — verify.
-- Republic of Türkiye MENR / EVÇED (2024). *Türkiye Ulusal Elektrik
-  Şebekesi Emisyon Faktörü Bilgi Formu (2023)*.
-- Tercan, E., et al. (2020). [GIS multi-criteria offshore wind siting,
-  Aegean.] — verify full citation.
-- World Bank (2024). *Offshore Wind Roadmap for Türkiye*. ESMAP.
-
-*Note: the national consumption figure (347.9 TWh, 2024) and grid emission
-factors are verified (TEİAŞ/TEDAŞ; MENR/EVÇED). Several literature citations
-are marked "verify" — author initials, years and page ranges must be
-confirmed against the originals before submission. Demirci (2026) is highly
-relevant (it covers seismic considerations for Turkish OWF, connecting to
-the Ganos-fault discussion in Section 2.4) and should be read in full.*
+Section 2 describes the candidate area and its relation to the reanalysis
+grid. Section 3 sets out the data and methods. Section 4 presents the results,
+Section 5 discusses what they do and do not establish, and Section 6
+concludes.

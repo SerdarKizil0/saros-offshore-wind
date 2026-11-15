@@ -1,37 +1,40 @@
-# 6. Conclusion
+<!-- GENERATED FILE - do not edit. Source: manuscript/src/06_conclusion.md. Numbers come from results/revised/. Rebuild with: python scripts/11_build_manuscript_sections.py -->
 
-This study presented the first peer-reviewed, site-specific assessment of
-energy production and avoided carbon emissions for the Gulf of Saros
-offshore wind candidate zone, one of the four offshore renewable energy
-zones designated by the Republic of Türkiye on 14 May 2026. Eleven years of
-hourly ERA5 reanalysis (2014–2024) were extrapolated to a 105 m hub height
-using a measured wind-shear exponent, fitted to a Weibull distribution,
-converted to energy with the Vestas V164-9.5 MW power curve, and combined
-with the official Turkish grid emission factor in a 10 000-iteration Monte
-Carlo framework.
+# 6. Conclusions
 
-The Saros zone has a mean hub-height wind speed of 7.17 m s⁻¹, a mean wind
-power density of 422 W m⁻², and a Weibull shape and scale of 2.04 and
-8.08 m s⁻¹, respectively. Inter-annual variability is low (3.2%), and the
-regime is unusually winter-dominant for the Aegean, a feature that aligns
-generation with the winter peak in national demand.
+Public reanalysis data allow a reproducible, long-term estimate of the energy
+yield at the grid node nearest the Gulf of Saros candidate area: 2.354 GWh
+MW⁻¹ yr⁻¹ for 1994–2024 with the reference turbine and the assumed losses. The
+more consequential findings concern how far such an estimate can be trusted
+for screening.
 
-The net specific yield is 2.62 GWh yr⁻¹ MW⁻¹ (P10–P90: 2.41–2.83) at a net
-capacity factor of 29.9% (P10–P90: 27.5–32.3%), and each megawatt avoids a
-median of 1525 tCO₂ yr⁻¹ (P10–P90: 1277–1754). At a full Phase-2 deployment
-of approximately 1 GW, the zone would generate 2.62 TWh yr⁻¹ and avoid
-1.52 Mt CO₂ yr⁻¹ — equivalent to 0.8% of Türkiye's 2024 electricity
-consumption and 20% of the national 2035 offshore wind target — while its
-own life-cycle emissions remain below 2% of the displaced total.
+First, the narrow sampling interval of a long-term mean is a poor guide to how
+well the resource is known. In this case it is the smallest of the categories
+examined: a short recent reference period, a neighbouring grid cell, the other
+wind data product and the alternative loss assumptions can each move the
+result by more than the half-width of that interval. Reporting the sampling
+interval alone would overstate the confidence that the data support.
 
-These results provide a quantitative, uncertainty-aware basis for the
-energy and environmental appraisal of Türkiye's first offshore wind
-development zone. They demonstrate that, despite a capacity factor below
-North Sea benchmarks, the Saros zone offers a reliable, low-variability
-resource whose winter-peaking profile is well matched to Turkish demand and
-whose carbon-displacement potential is substantial. The accompanying
-limitations — the aggregate wake treatment, the resolution of the
-reanalysis, the absence of in-situ validation, and the unaddressed seismic
-and geotechnical constraints of an active fault zone — define a concrete
-agenda for the detailed engineering and comparative studies that should
-follow this first assessment.
+Second, coastal reanalysis has specific limitations for an area of this size.
+The candidate polygon is narrower than the reanalysis grid spacing and
+contains no grid node, and the nearest node belongs to a cell that the model
+treats as partly land. Neighbouring cells differ systematically, and a finer
+product driven by the same reanalysis gives a clearly higher wind speed. These
+differences cannot be resolved from model data, and they are not reduced by a
+longer record.
+
+Third, a recent decade is not a neutral choice of reference period at this
+location. The most recent 11-year window is the highest in the record, so an
+estimate based on recent years alone is biased high relative to the long-term
+mean of the same series.
+
+For screening studies of coastal candidate areas, these results support three
+practices: state and test the reference period, report the sensitivity to the
+choice of grid cell and wind product, and keep the sampling interval, the
+sensitivity experiments and the assumptions apart instead of merging them into
+one interval. For the Gulf of Saros candidate area, the screening further
+shows water depths below 62 m throughout and an approximate overlap of about
+14 % with a Special Environmental Protection Area, which requires
+clarification by the competent authorities. The estimates presented here are
+preliminary and model-based. Wind measurements inside the candidate polygon
+are the step that would most improve knowledge of its resource.

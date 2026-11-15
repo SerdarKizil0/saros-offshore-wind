@@ -1,153 +1,168 @@
+<!-- GENERATED FILE - do not edit. Source: manuscript/src/05_discussion.md. Numbers come from results/revised/. Rebuild with: python scripts/11_build_manuscript_sections.py -->
+
 # 5. Discussion
 
-## 5.1. The Saros Resource in Regional Context
+## 5.1. What the long-term estimate establishes
 
-The mean hub-height wind speed of 7.17 m s⁻¹ and mean wind power density of
-422 W m⁻² place the Saros zone above the Mediterranean-basin average. Using
-a 62-year ERA5 climatology, Görmüş et al. (2022) reported a basin-mean wind
-power density of 373 W m⁻², with the most energetic regions — the Gulf of
-Lion and the Aegean Sea — reaching 800–1100 W m⁻². The Saros value
-therefore sits comfortably above the basin mean but below the most
-energetic Aegean hotspots, which is consistent with the zone's position on
-the northern margin of the Aegean rather than in its most exposed interior.
+The primary result, 2.354 GWh MW⁻¹ yr⁻¹ at a net capacity factor of 26.85 %,
+is a statement about a model chain. It says what the ERA5 wind series at one
+grid node yields when it is passed through one reference power curve and one
+set of assumed losses, averaged over 1994–2024. Within that chain the result
+is well determined: it is reproducible from pinned inputs, it barely changes
+when the record is extended to 1979 (−0.2 %), and the sampling interval of the
+mean is narrow (±2.3 %).
 
-The net capacity factor of approximately 31% is lower than that of North
-Sea installations, where 40–50% is typical owing to stronger and steadier
-winds. It is nonetheless a viable value for a basin in which no offshore
-wind farm yet operates, and it is comparable to or better than several
-published Mediterranean assessments. The low inter-annual variability
-(coefficient of variation 3.2%) is a particular strength: it lies at the
-favourable end of the 2–8% range reported for the Aegean (Soukissian et
-al., 2017) and implies that long-term production can be forecast with
-relatively high confidence — an important consideration for project
-financing.
+The result does not establish the wind resource of the candidate area. Nothing
+in this study tests whether the reanalysis is right at this location, and the
+sampling interval is silent on that question by construction. Nor is the
+1994–2024 mean a prediction. It describes 31 past reanalysis years. Whether
+those years represent the conditions under which a plant would operate is an
+assumption that this study cannot test.
 
-## 5.2. A Winter-Dominant Regime in a Summer-Wind Basin
+## 5.2. Why a recent reference period gives a higher estimate
 
-A notable feature of the Saros resource is its winter-dominant seasonality,
-with monthly mean wind speeds peaking in January–February and reaching a
-minimum in June. This contrasts with the wider Aegean, whose wind climate
-is classically governed by the summer-blowing etesian (meltem) winds that
-make most of the basin most energetic in summer (Soukissian et al., 2018;
-Koletsis et al., 2016). The Saros zone's departure from this pattern is
-plausibly explained by its sheltered, northern position at the head of the
-gulf and the western approach to the Çanakkale Strait, where winter
-northerly synoptic systems over Thrace dominate over the summer etesian
-flow that characterises the central and southern Aegean.
+What is demonstrated is the pattern. The 6 most recent 11-year windows, from
+2009–2019 onwards, all lie above the 1994–2024 mean, and all 15 earlier
+windows lie below it. The 2014–2024 comparison period is the highest window
+even though it contains 2014, the second-lowest year of the record: 9 of the
+10 years from 2015 to 2024 are above the long-term mean, against 8 of the 20
+years from 1994 to 2013. An estimate built only on recent years therefore
+inherits a run of above-average years.
 
-This distinction has practical significance. A winter-peaking generation
-profile aligns with the winter maximum in Turkish electricity demand driven
-by heating loads, improving the temporal match between supply and demand
-relative to a summer-peaking resource — a complementarity that is favourable
-for grid integration and that distinguishes the Saros zone from many other
-Aegean candidate areas.
+Why the recent years are higher is not demonstrated. Two explanations are
+possible, and they are not exclusive. The wind climate of the region may vary
+on decadal time scales, so that the recent years are a windier phase of a real
+fluctuation. Alternatively, part of the difference may be an artefact of the
+reanalysis, because the observations it assimilates have changed over the
+decades. This study has no means of separating the two. The practical
+conclusion does not depend on the explanation: a record of about a decade is
+too short to stand for the long-term mean at this node, and the choice of
+period should be stated and tested whenever such a record is used.
 
-## 5.3. Environmental and Energy Significance
+## 5.3. Why the grid cell matters more than the sampling interval
 
-Expressed per unit of capacity, each megawatt of Saros offshore wind avoids
-a median of 1525 tCO₂ yr⁻¹, against which the farm's own life-cycle
-emission (under 2% of the displaced total) is negligible. At the
-full Phase-2 scale of approximately 1 GW, the zone would generate a median
-of 2.62 TWh yr⁻¹ and avoid 1.52 Mt CO₂ yr⁻¹, equivalent to 0.8% of national
-electricity consumption from a single zone and 20% of the national 2035
-offshore wind capacity target. These magnitudes confirm that the Saros zone
-alone can make a quantitatively meaningful contribution to both Türkiye's
-generation mix and its decarbonisation, and they provide the first
-peer-reviewed numerical basis for assessing the energy and emission
-implications of the 14 May 2026 designation.
+The sampling interval and the node experiment answer different questions. The
+interval asks how well 31 years determine their own mean. The node experiment
+asks what happens if a neighbouring cell is taken to represent the same area.
+The second effect is larger: the differences of +6.7 % and −8.5 % are about 3
+and 4 times the half-width of the sampling interval. They are also of a
+different nature. Because they recur in every year with little scatter, more
+years would narrow the sampling interval further and leave the node
+differences unchanged.
 
-The choice of the official combined-margin grid emission factor
-(624 gCO₂-eq kWh⁻¹) as the primary basis for avoided-emission accounting is
-deliberately conservative relative to the operating-margin value
-(713 gCO₂-eq kWh⁻¹) and consistent with the methodology mandated for
-renewable-displacement crediting in Türkiye. Reporting the generation-average
-factor (434 gCO₂-eq kWh⁻¹) as the lower Monte Carlo bound ensures that even
-under the most conservative attributional assumption the avoided emissions
-remain substantial.
+The reason lies in the geometry. The candidate polygon is about 11 km wide,
+less than the spacing of the reanalysis grid, and it lies between grid nodes,
+none of which falls inside it. Any node-based estimate is thus a statement
+about a cell that only partly covers the area. The cells differ in the model's
+own description of them: the primary cell has a land fraction of 0.44 and the
+western cell 0.12. It is a plausible hypothesis that land influence lowers the
+wind speed of the mixed cells, and the lower shear exponent of the western
+cell is consistent with it. The hypothesis is not established here. The
+eastern cell has nearly the same land fraction as the primary cell and a
+clearly lower yield, so land fraction alone does not order the three cells.
+For the same reason the three values were not averaged: an average would have
+no physical meaning, and there is no observation against which a weighting
+could be judged.
 
-The fuel-resolved comparison (Figure F7) underscores the magnitude of this
-displacement. Generating the Phase-2 output conventionally would emit
-roughly 1.98 Mt CO₂ yr⁻¹, dominated by the lignite and imported-coal
-components of the Turkish thermal mix, against a wind life-cycle burden of
-under 0.03 Mt — a roughly seventy-fold difference. The avoided emission lies
-between 1.52 Mt yr⁻¹ (official combined margin) and 1.95 Mt yr⁻¹ (pure
-fossil-thermal displacement), the former being adopted as the headline value.
-Expressed in tangible terms (Figure F8), the Phase-2 deployment supplies the
-equivalent of approximately 0.86 million households and offsets the emissions
-of approximately 0.76 million passenger cars, figures that communicate the
-scale of the single-zone contribution to non-specialist and policy audiences
-without overstating it.
+## 5.4. Why the comparison with the Global Wind Atlas cannot decide which product is right
 
-## 5.4. Limitations
+The two products differ by about 12 % in mean wind speed over the polygon when
+their periods are matched, and by 7 % to 15 % depending on the cell. This
+shows that the model-based estimate of the resource level is not robust. It
+does not show which product is closer to the truth, for three reasons. The
+atlas is driven by ERA5 and is therefore not an independent source. Neither
+product has been compared with offshore measurements in this area. And the two
+products disagree not only on the level but also on the spatial pattern, so
+that the difference cannot be reduced to one constant factor.
 
-Several limitations bound the interpretation of these results and define
-the agenda for further work.
+One observation is suggestive. The disagreement is smallest at the cell that
+ERA5 treats as predominantly marine and largest at the primary cell. This is
+what would be expected if the coarse reanalysis were affected by land in the
+mixed cells. It is equally compatible with errors in the downscaling near the
+coast. The comparison is therefore reported as a discrepancy. The primary
+estimate is not scaled towards the atlas, because doing so would replace one
+unverified level by another.
 
-*Wake modelling.* Array wake losses were represented by a single aggregate
-loss factor (8%, sampled 5–12%) rather than by an explicit wake model
-resolving turbine layout and spacing. A physically resolved wake model
-(e.g. Jensen or Gaussian-deficit) coupled to a specific layout would refine
-the net-yield estimate, particularly for the larger deployment scenarios.
+## 5.5. Why the six categories are not combined
 
-*Spatial resolution.* The ERA5 reanalysis has a native resolution of 0.25°
-(~28 km), comparable to the east–west extent of the zone (~36 km). The
-analysis therefore characterises the zone through its centroid grid cell
-and cannot resolve intra-zone spatial gradients in the wind field.
-Mesoscale dynamical downscaling would be required to capture the funnelling
-and coastal effects expected near the strait and the peninsula.
+It would be convenient to merge the categories of Table 2 into one uncertainty
+band. There are three reasons not to. First, they are different kinds of
+quantity. Only the sampling interval has a probabilistic meaning. Interannual
+variability describes single years, not the mean. The period, node and product
+results are the outcomes of specific alternative choices, and the loss cases
+are assumptions. None of the last four has a probability attached to it, and
+assigning one would be arbitrary. Second, they are not independent. The node
+and product comparisons both reflect how the reanalysis represents a coastal
+area, so that adding them would count the same deficiency twice. Third, the
+alternatives examined are not exhaustive. Two neighbouring cells and one other
+product do not span the possible errors. A combined interval would therefore
+look more rigorous than the evidence allows. The categories are best read side
+by side, as a statement of which choices matter and by how much.
 
-*Measurement validation.* In the absence of an offshore meteorological mast
-in Turkish waters — a gap also noted by previous Turkish studies — the
-resource estimate could not be validated against in-situ offshore
-observations. Cross-validation against a coastal meteorological station or
-future LiDAR campaigns would strengthen confidence in the absolute resource
-level.
+## 5.6. Limits set by the data and the turbine model
 
-*Seismic and geotechnical scope.* The zone is traversed by the offshore
-continuation of the North Anatolian Fault (the Ganos segment), an active
-seismogenic structure (Section 2.4). The present study does not address
-seismic hazard, foundation design or geotechnical suitability, all of which
-are essential for engineering feasibility and are the subject of dedicated
-reviews (Demirci, 2026).
+Three limits apply to every number in this paper. One is the mixed coastal
+cell discussed above: the wind series represents a cell that is partly land
+and lies outside the polygon. Another is the absence of offshore measurements.
+Without them the direction of any error in the resource level is unknown, and
+the sensitivity experiments describe the spread among model-based choices, not
+the error of any of them. The last is the turbine model. The power curve is a
+third-party digitisation that has not been certified by the manufacturer, its
+air-density basis is not documented, and it was applied to hourly values. The
+losses are assumed, and no wake model was run because no layout exists. The
+loss cases alone change the result by +6.5 % and −8.3 %. A different turbine,
+with a different ratio of rotor area to rated power, would give a different
+capacity factor from the same wind series. The capacity factor reported here
+should therefore not be compared with reference values defined for other
+machines or under other conventions.
 
-*Bathymetric constraint.* The assumption of fixed-bottom monopile
-foundations is appropriate for the shallower eastern and central parts of
-the zone but not for its deeper western margin, where floating foundations
-or exclusion would be required. A bathymetry-resolved buildable-area
-analysis would refine the scenario capacities.
+## 5.7. What the screening shows
 
-*Single-zone scope.* This study assesses only the Saros zone. A comparative
-assessment of all four designated zones (Saros, Gökçeada, Bozcaada, Edremit)
-would situate the Saros results within the national offshore programme and
-support prioritisation among the zones.
+The screening establishes two geometric facts. The whole polygon lies in water
+shallower than 62 m, and about 14 % of it lies inside the boundary of the
+Saros Körfezi Special Environmental Protection Area as reconstructed from the
+2010 decree. Neither fact is a conclusion about development. Depth says
+nothing about seabed conditions, foundations or cost. The overlap identifies a
+question for the competent authorities and for a future environmental
+assessment. It does not show that the overlapping part is unavailable, and it
+does not show that the remaining part is available. The boundary itself is
+approximate, and bird migration, fisheries, navigation, military use, seismic
+hazard and grid connection were not examined.
 
-## 5.5. Future Work
+## 5.8. Why the CO₂ values are accounting equivalents
 
-The limitations above define a clear research agenda: explicit wake and
-layout optimisation; mesoscale downscaling to resolve intra-zone gradients
-and validate against the coarse reanalysis; in-situ or LiDAR measurement
-campaigns; integration of seismic-hazard and geotechnical analysis with the
-resource assessment; bathymetry-resolved buildable-area and
-foundation-type mapping; techno-economic and levelised-cost analysis; and
-extension of the present framework to the remaining three designated zones
-for a comparative national assessment.
+The CO₂ figure is the energy yield multiplied by a published factor. It adds
+no information to the yield and inherits all of its sensitivities. Its own
+largest source of spread is the convention: between the build margin and the
+operating margin the result differs by a factor of 2.0. These conventions
+answer different accounting questions. None of them describes which generation
+a plant in the Gulf of Saros would physically displace. That would depend on
+the generation mix, the dispatch and the curtailment in the years in which the
+plant operates, none of which is modelled here, and a factor for 2023 cannot
+stand for them. The value is therefore reported as an accounting equivalent
+under a stated convention and not as a forecast of emissions.
 
----
+## 5.9. Implications for measurement and for further assessment
 
-### References newly cited in this section (to be formatted to journal style)
+The main implication concerns measurement. In this case the sampling interval
+is the smallest of the reported categories, so further years of reanalysis
+data would add little. The choices that move the result, the grid cell and the
+wind product, both concern the level and the spatial pattern of the wind over
+a narrow coastal area, and these can only be settled by observation. A
+measurement campaign inside the candidate polygon would address them directly.
+The draft specification itself lists meteorological and oceanographic
+measurements among the tasks of the developer (MENR, 2026b). The
+period-selection result adds a caution for such a campaign: a measurement
+record of one or a few years would need to be related to a long reference
+record before it is taken as representative, and the choice of that reference
+period is itself consequential.
 
-- Görmüş, T., Aydoğan, B., Ayat, B. (2022). Offshore wind power potential
-  analysis for different wind turbines in the Mediterranean Region,
-  1959–2020. *Energy Conversion and Management*, 274, 116470.
-- Koletsis, I., et al. (2016). [Mediterranean/Aegean offshore wind and
-  etesian characterisation.] — verify full citation.
-- Soukissian, T., et al. (2017). [Aegean offshore wind climate, variability
-  and etesian regime.] — verify full citation.
-- Demirci, A. (2026). A comprehensive review of potential locations,
-  foundation design, and seismic considerations for installation of offshore
-  wind farms in Türkiye. *IET Renewable Power Generation*. — verify.
-
-*Note: benchmark figures (basin-mean WPD 373 W m⁻²; Aegean hotspots
-800–1100 W m⁻²; North Sea CF 40–50%; Aegean IAV 2–8%) are drawn from the
-sources above and should be quoted to specific values/tables before
-submission.*
+Several further steps would improve a desk-based assessment at low cost. The
+1994–2024 series could be retrieved again from the Copernicus Climate Data
+Store to remove the dependence on a redistributed copy. A further
+high-resolution product, such as the New European Wind Atlas (Dörenkämper et
+al., 2020), could be added to the comparison, with the understanding that it
+is also driven by ERA5. A reference turbine with a published tabulated power
+curve would remove the dependence on a digitised curve. A layout-specific wake
+calculation would replace the assumed wake loss once a layout is proposed.
+None of these steps would remove the need for measurements.

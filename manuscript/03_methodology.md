@@ -199,11 +199,11 @@ $$ C = Y \times \mathrm{EF}_{\mathrm{CM}} , \qquad (8) $$
 where $\mathrm{EF}_{\mathrm{CM}}$ = 0.6242 tCO₂ MWh⁻¹ is the combined-margin
 emission factor for wind and solar plants that MENR published for 2023 (MENR,
 2025). It follows the grid emission-factor tool of the Clean Development
-Mechanism (UNFCCC, Tool 07), in which the combined margin for wind and solar
-is 0.75 times the operating margin plus 0.25 times the build margin. The
-factor covers CO₂ from combustion only. For context, the same calculation was
-made with the official operating margin (0.7134 tCO₂ MWh⁻¹), build margin
-(0.3567 tCO₂ MWh⁻¹) and generation average (0.430 tCO₂ MWh⁻¹).
+Mechanism (UNFCCC, 2018), in which the combined margin for wind and solar is
+0.75 times the operating margin plus 0.25 times the build margin. The factor
+covers CO₂ from combustion only. For context, the same calculation was made
+with the official operating margin (0.7134 tCO₂ MWh⁻¹), build margin (0.3567
+tCO₂ MWh⁻¹) and generation average (0.430 tCO₂ MWh⁻¹).
 
 $C$ is an accounting quantity under a stated convention. It uses a static 2023
 factor. It is not a forecast of the generation that the plant would physically

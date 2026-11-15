@@ -1,0 +1,39 @@
+key,in_text_citation,type,identifier,status,verified_how,note
+aksoy2022,Aksoy et al. (2022),article,doi:10.1093/gji/ggab462,V-MD,Crossref 2026-11-15,"Resolves 5A item M27: correct DOI is ggab462; GJI 229(1), 589-604; online 2021, issue 2022. Middle initials beyond Crossref record not verified"
+argin2019,Argin et al. (2019),article,doi:10.1016/j.esr.2018.12.005,V-MD,Crossref 2026-11-14,Cited for scope only (title-level)
+bonou2016,Bonou et al. (2016),article,doi:10.1016/j.apenergy.2016.07.058,V-MD,Crossref 2026-11-15; values per Phase 3B,Supplementary Table S14 only
+cali2018,Cali et al. (2018),article,doi:10.1016/j.esr.2018.10.007,V-FT,"Accepted manuscript, UCC repository (Phase 5-PRE-C)",
+davis2023,Davis et al. (2023),article,doi:10.1175/BAMS-D-21-0075.1,V-MD,Crossref 2026-11-14,Describes the Global Wind Atlas method; the GWA 4.0 period (2008-2017) comes from the Phase 2B review of DTU material and should be cited to a GWA 4.0 source in Phase 5C
+demirci2026,Demirci et al. (2026),article,doi:10.1049/rpg2.70241,V-MD,Crossref 2026-11-14,Full text not read (publisher blocked automated access); cited for scope only
+dorenkamper2020,Dörenkämper et al. (2020),article,doi:10.5194/gmd-13-5079-2020,V-MD,Crossref 2026-11-14; coverage of Türkiye per Phase 5-PRE-C,
+duzcan2023,Duzcan and Kara (2023),article,doi:10.1007/s13762-022-04577-y,V-AB,Publisher abstract; Crossref 2026-11-14,Pages 5571-5584 per Crossref; REFERENCES_VERIFIED.md gives 4361-4374: confirm on publisher page
+emeksiz2019,Emeksiz and Demirci (2019),article,doi:10.1016/j.seta.2019.100562,V-MD,Crossref 2026-11-14,Cited for scope only (title-level)
+emodnet2024,EMODnet Bathymetry Consortium (2024),dataset,doi:10.12770/cf51df64-56f9-4a99-b1aa-36b8d7b743a1,V-MD,DataCite 2026-11-15,
+erkurtulmus2024,Erkurtulmus and Pesman (2024),article,doi:10.21278/brod75204,V-AB,Publisher page (Phase 5-PRE-C),Author diacritics to confirm
+gandoin2024,Gandoin and Garza (2024),article,doi:10.5194/wes-9-1727-2024,V-MD,Crossref 2026-11-14,Author initials to confirm
+genc2021,Genç et al. (2021),article,doi:10.1007/s12145-021-00632-3,V-AB,Publisher abstract,
+gormus2022,Görmüş et al. (2022),article,doi:10.1016/j.enconman.2022.116470,V-MD,Crossref 2026-11-14,Cited for scope only (title-level)
+gualtieri2021,Gualtieri (2021),article,doi:10.3390/en14144169,V-MD,Crossref 2026-11-14,Cited for scope only
+hersbach2020,Hersbach et al. (2020),article,doi:10.1002/qj.3803,V-MD,Crossref 2026-11-14,Dataset doi:10.24381/cds.adbb2d47 resolves at DataCite (publication year 2018 in the DataCite record)
+kalverla2020,Kalverla et al. (2020),article,doi:10.1002/qj.3748,V-MD,Crossref 2026-11-14,Cited for scope only
+koukouvelas2002,Koukouvelas and Aydin (2002),article,doi:10.1029/2001TC901037,V-MD,Crossref 2026-11-15,No page range in the Crossref record
+olauson2018,Olauson (2018),article,doi:10.1016/j.renene.2018.03.056,V-MD,Crossref 2026-11-14,Cited for scope only
+ozbek2021,Özbek and Tunç (2021),article,doi:10.35378/gujs.734895,V-FT,Open-access PDF (Phase 5-PRE-C),
+ramon2019,Ramon et al. (2019),article,doi:10.1002/qj.3616,V-MD,Crossref 2026-11-14,Cited for scope only
+rubio2025,Rubio et al. (2025),article,doi:10.5194/amt-18-4949-2025,V-MD,Crossref 2026-11-14,Cited for scope only
+satir2018,Satir et al. (2018),article,doi:10.1016/j.rser.2017.06.063,V-MD,Crossref 2026-11-14,Study site not verified; cited by title only
+schlomer2014,Schlömer et al. (2014),report chapter,https://www.ipcc.ch/site/assets/uploads/2018/02/ipcc_wg3_ar5_annex-iii.pdf,V-FT,Phase 3B (Table A.III.2),Full author list to be completed in Phase 5C; Supplementary Table S14 only
+tercan2020,Tercan et al. (2020),article,doi:10.1007/s10661-020-08603-9,V-AB,Publisher abstract,
+yaltirak2002,Yaltırak and Alpar (2002),article,doi:10.1016/S0025-3227(02)00354-7,V-MD,Crossref 2026-11-15,
+yildirim2023,Yildirim (2023),article,doi:10.1007/s10098-022-02392-0,V-AB,Publisher abstract and data-availability statement; Crossref,FULL TEXT NOT ACCESSED. Attempt of 2026-11-15: Unpaywall reports closed access with no OA copy; institutional repository unreachable; ResearchGate returned HTTP 403. Only abstract-level statements are made in the manuscript
+zippenfenig2023,Zippenfenig (2023),software,doi:10.5281/zenodo.7970649,V-MD,DataCite 2026-11-15,Year 2023 follows the provider's recommended citation; the DataCite record of this DOI gives 2024. Decide in Phase 5C
+menr2022,MENR (2022),official,https://enerji.gov.tr/Media/Dizin/EIGM/tr/Raporlar/TUEP/T%C3%BCrkiye_Ulusal_Enerji_Plan%C4%B1.pdf,V-FT,Phase 5-PRE-C (sha256 88f00e56...),Document dated 2022; PDF created March 2023
+menr2025,MENR (2025),official,https://enerji.gov.tr/Media/Dizin/EVCED/tr/%C3%87evreVe%C4%B0klim/%C4%B0klimDe%C4%9Fi%C5%9Fikli%C4%9Fi/TUESEmisyonFktr/Belgeler/Sebeke_EF_Bilgi_Formu_2023.pdf,V-FT,Phase 3B,Not re-opened in Phase 5B-2
+menr2026a,MENR (2026a),official,https://enerji.gov.tr/duyuru-detay?id=30615,V-FT,Phase 5-PRE-C,
+menr2026b,MENR (2026b),official,https://enerji.gov.tr/Media/Dizin/ETKB/Duyurular/YEKA_DURES-2026_SARTNAME_TASLAGI.pdf,V-FT,Phase 5-PRE-C (sha256 2bfb054a...),Draft; re-check status in the week of submission
+og27793,Official Gazette 27793,official,https://www.resmigazete.gov.tr/eskiler/2010/12/20101222-2..htm,V-FT,Phase 4A and 5-PRE-C,
+og29852,Official Gazette 29852,official,"Official Gazette 29852, 9 October 2016",V-AB,Named in MENR notice 30615 and in the draft specification,Regulation text itself not opened; URL to add in Phase 5C
+og30791,Official Gazette 30791,official,https://www.resmigazete.gov.tr/eskiler/2019/06/20190601-15.pdf,V-FT,Phase 4A,Not re-opened in Phase 5B-2
+tedas2025,TEDAŞ (2025),official,https://www.tedas.gov.tr/FileUpload/MediaFolder/4f817ff3-1429-4ba2-86c7-d5afd7f9ea5d.pdf,V-FT,Phase 5-PRE-C (sha256 72f02193...),Supplementary Table S12 only
+unfccc2018,UNFCCC (2018),official,https://cdm.unfccc.int/methodologies/PAmethodologies/tools/am-tool-07-v7.0.pdf,V-AB,UNFCCC tool index via web search 2026-11-15 (EB 100 annex 4; valid from 31 August 2018),PDF itself could not be downloaded in this environment
+worldbank2024,World Bank (2024),report,doi:10.1596/42461,V-FT,"English text, Open Knowledge Repository (Phase 5-PRE-C)",

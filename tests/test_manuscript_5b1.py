@@ -44,13 +44,8 @@ RESULTS_SHA256 = {
     "sensitivity_index.json": "13f95d9f694c2f204daf62deb6664d212acf055fded432c2d9f9abebea3d4a72",
 }
 ARCHIVE_SHA256SUMS = "44877f79edd43fa8d6e729c60830c5ac5fa3de430aaf3fabe64dd2f4fbe8ac22"
-# Sections that Phase 5B-1 must leave alone (they are rewritten in Phase 5B-2; update the pins there).
-UNTOUCHED_SHA256 = {
-    "00_abstract.md": "485f4b4ee5a18aa255059d1cbb7a7d7feaae12ba0654539e3d92d60ab3566c96",
-    "01_introduction.md": "d6937dbaa264a7f158c0d68a60cc684326127b0b39250a70c7e5142c185898b4",
-    "05_discussion.md": "1057a773d0c2fbdcf9fa6429d85d7c8b682320695cec16b8dc7354eccef1218e",
-    "06_conclusion.md": "d0ff563db6b9c542e1eda9690b6cfdcc6d6fe11d8340e54be566d9a94729e9cf",
-}
+# (The pins that kept Abstract, Introduction, Discussion and Conclusion untouched during Phase 5B-1 were
+# removed in Phase 5B-2, which rewrote those sections; see tests/test_manuscript_5b2.py.)
 
 
 def sha(p: Path) -> str:
@@ -114,8 +109,9 @@ def offenders(pattern: str, where=ALL_UNITS, flags=re.I):
 # ----------------------------------------------------------------- 1. reproducibility
 def test_generated_sections_and_tables_are_up_to_date(builder):
     out = builder.build()
-    assert set(out) == set(ALL_FILES)
-    for name, text in out.items():
+    assert set(ALL_FILES) <= set(out)           # Phase 5B-2 added the remaining sections to the build
+    for name in ALL_FILES:
+        text = out[name]
         assert read(name) == text, f"{name} is stale; run scripts/11_build_manuscript_sections.py"
 
 
@@ -428,11 +424,6 @@ def test_numerical_results_and_archive_are_unchanged():
     for line in (ARCH / "SHA256SUMS").read_text().splitlines():
         digest, name = line.split()
         assert sha(ARCH / name) == digest, name
-
-
-@pytest.mark.parametrize("name", sorted(UNTOUCHED_SHA256))
-def test_sections_reserved_for_phase_5b2_are_untouched(name):
-    assert sha(MAN / name) == UNTOUCHED_SHA256[name], f"{name} must not be edited in Phase 5B-1"
 
 
 def test_builder_only_reads_results():

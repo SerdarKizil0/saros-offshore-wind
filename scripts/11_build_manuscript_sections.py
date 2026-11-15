@@ -1,12 +1,11 @@
 """
 11 — Build the manuscript sections and tables from results/revised/ (Phase 5B-1)
 ================================================================================
-Single source of truth for every number in the Study Area, Methods and
-Results sections and in the tables.
+Single source of truth for every number in the manuscript text and in the
+tables (Sections 2 to 4 since Phase 5B-1; the whole manuscript since Phase 5B-2).
 
-  manuscript/src/02_study_area.md   ->  manuscript/02_study_area.md
-  manuscript/src/03_methodology.md  ->  manuscript/03_methodology.md
-  manuscript/src/04_results.md      ->  manuscript/04_results.md
+  manuscript/src/00_abstract.md ... 08_references.md  ->  manuscript/<same name>
+      (title, abstract and keywords; Sections 1 to 6; declarations; references)
   (generated)                       ->  manuscript/tables.md
   (generated)                       ->  manuscript/supplementary_tables.md
 
@@ -49,7 +48,8 @@ from config.wind_data import PRIMARY
 REV = ROOT / "results" / "revised"
 MAN = ROOT / "manuscript"
 SRC = MAN / "src"
-SECTIONS = ["02_study_area.md", "03_methodology.md", "04_results.md"]
+SECTIONS = ["00_abstract.md", "01_introduction.md", "02_study_area.md", "03_methodology.md", "04_results.md",
+            "05_discussion.md", "06_conclusion.md", "07_declarations.md", "08_references.md"]
 GENERATED_NOTE = ("<!-- GENERATED FILE - do not edit. Source: manuscript/src/{name}. Numbers come from "
                   "results/revised/. Rebuild with: python scripts/11_build_manuscript_sections.py -->\n\n")
 TOKEN = re.compile(r"\{\{\s*([A-Za-z0-9_]+):([^{}|]+?)\s*(?:\|\s*([^{}]+?)\s*)?\}\}")
@@ -69,6 +69,22 @@ def polygon_area_utm_km2() -> float:
     xs, ys = tr.transform([p[0] for p in SAROS_POLYGON_LONLAT], [p[1] for p in SAROS_POLYGON_LONLAT])
     n = len(xs)
     return abs(sum(xs[i] * ys[(i + 1) % n] - xs[(i + 1) % n] * ys[i] for i in range(n))) / 2.0 / 1e6
+
+
+def _window_facts(mean: float) -> dict:
+    """Counts of rolling 11-year windows inside the primary period relative to the primary mean."""
+    roll = pd.read_csv(REV / "rolling_11yr_windows.csv")
+    p = roll[roll.within_primary_period].sort_values("start_year")
+    above = (p.rel_to_primary_mean_pct > 0).to_numpy()
+    n_recent = 0
+    for flag in above[::-1]:
+        if not flag:
+            break
+        n_recent += 1
+    first_recent = int(p.start_year.iloc[len(p) - n_recent])
+    return {"n": int(len(p)), "n_above": int(above.sum()), "n_below": int((~above).sum()),
+            "n_recent_consecutive_above": n_recent, "first_recent_above_start": first_recent,
+            "first_recent_above_label": f"{first_recent}–{first_recent + 10}"}
 
 
 def derived(R: dict) -> dict:
@@ -115,6 +131,19 @@ def derived(R: dict) -> dict:
         "curve_n_points_oedb": sum(1 for v, _ in POWER_CURVE_MS_KW if v <= 24.5),
         "curve_max_speed_oedb": max(v for v, _ in POWER_CURVE_MS_KW if v <= 24.5),
         "node_share_sum_pct": sum(n["polygon_share_nearest_to_node_pct"] for n in nodes.values()),
+        # facts used in the Discussion, all derived from the result files
+        "windows": _window_facts(mean),
+        "years_above_mean": {"2015_2024": int((y.loc[2015:2024] > mean).sum()), "n_2015_2024": int(len(y.loc[2015:2024])),
+                             "1994_2013": int((y.loc[1994:2013] > mean).sum()), "n_1994_2013": int(len(y.loc[1994:2013]))},
+        "share_outside_ock_pct": 100.0 - ss["protected_area_overlap"]["saros_ock_2010"]["overlap_share_pct"],
+        "co2_convention_ratio_om_to_bm": (R["emissions"]["context_grid_methods"]["operating_margin"]["result_per_mw_yr"]
+                                          / R["emissions"]["context_grid_methods"]["build_margin"]["result_per_mw_yr"]),
+        "gwa_node_excess_min_pct": (min(v["ratio_gwa_box_sea_pixels_to_era5_period_matched"] for v in
+                                        R["wind_product_discrepancy"]["per_node_gwa_box_vs_era5"].values()) - 1) * 100,
+        "gwa_node_excess_max_pct": (max(v["ratio_gwa_box_sea_pixels_to_era5_period_matched"] for v in
+                                        R["wind_product_discrepancy"]["per_node_gwa_box_vs_era5"].values()) - 1) * 100,
+        "gwa_polygon_excess_matched_pct": (R["wind_product_discrepancy"]["polygon_vs_primary_node"]["ratio_gwa_to_era5"]
+                                           ["era5_2008-2017_period_matched"] - 1) * 100,
         "turbine": {"rated_mw": TURBINE.rated_power_mw, "rotor_m": TURBINE.rotor_diameter_m,
                     "hub_m": TURBINE.hub_height_m, "cut_in": TURBINE.cut_in_ms, "rated_ms": TURBINE.rated_ms,
                     "cut_out": TURBINE.cut_out_ms, "curve_id": POWER_CURVE_ID},
@@ -622,7 +651,7 @@ def supplementary_tables(R: dict, D: dict) -> str:
                  + f"\n\n*Illustrative capacities without an official basis; the spacing used for the density "
                    f"context ({R['scenarios']['spacing_assumption'].split(' (')[0]}) is an assumption. Gross "
                    f"consumption {f(cons['gwh'], 'sp.1f')} GWh ({cons['year']}; gross generation plus imports "
-                   "minus exports). Life-cycle values are literature intensities for other sites, reported "
+                   "minus exports; TEDAŞ, 2025). Life-cycle values are literature intensities for other sites, reported "
                    "separately and not subtracted from the CO₂-only grid factor.*\n")
 
     # S13 emission conventions and life cycle
@@ -644,8 +673,10 @@ def supplementary_tables(R: dict, D: dict) -> str:
                  + "\n\n*Alternative accounting conventions, not statistical bounds. The all-gas generation "
                    "average is in a different unit and is not comparable with the CO₂-only rows.*\n")
     lc = em["secondary_lifecycle_ghg"]["cases"]
-    lab = {"ipcc_ar5_min": "IPCC AR5 Annex III, minimum", "ipcc_ar5_median": "IPCC AR5 Annex III, median",
-           "ipcc_ar5_max": "IPCC AR5 Annex III, maximum", "bonou2016_6MW": "Bonou et al. (2016), 6 MW plant",
+    lab = {"ipcc_ar5_min": "IPCC AR5 Annex III (Schlömer et al., 2014), minimum",
+           "ipcc_ar5_median": "IPCC AR5 Annex III (Schlömer et al., 2014), median",
+           "ipcc_ar5_max": "IPCC AR5 Annex III (Schlömer et al., 2014), maximum",
+           "bonou2016_6MW": "Bonou et al. (2016), 6 MW plant",
            "bonou2016_4MW": "Bonou et al. (2016), 4 MW plant"}
     rows = [[lab[k], f(v["g_co2eq_per_kwh"], ".1f"), f(v["t_co2eq_per_mw_yr"], ".1f")] for k, v in lc.items()]
     parts.append("## Table S14. Life-cycle greenhouse-gas intensity of offshore wind from the literature and "
