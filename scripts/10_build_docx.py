@@ -163,7 +163,8 @@ def parse_figures(md: str) -> list[Figure]:
 
 
 def figure_markdown(f: Figure) -> str:
-    return f"![{nonbreaking(f.caption)}]({f.png.as_posix()}){{width={FIGURE_WIDTH_CM}cm}}"
+    # repository-relative path (resolved through --resource-path), so no local path enters the DOCX
+    return f"![{nonbreaking(f.caption)}]({f.png.relative_to(ROOT).as_posix()}){{width={FIGURE_WIDTH_CM}cm}}"
 
 
 # ============================================================ prose transforms
@@ -637,7 +638,8 @@ def pandoc(markdown: str, ref: Path, out: Path, workdir: Path):
     env = {**os.environ, "SOURCE_DATE_EPOCH": SOURCE_DATE_EPOCH}
     r = subprocess.run(["pandoc", str(src), "--from", "markdown+pipe_tables+table_captions+implicit_figures"
                         "+fenced_divs+bracketed_spans+tex_math_dollars", "--to", "docx",
-                        "--reference-doc", str(ref), "--lua-filter", str(FILTER), "-o", str(out)],
+                        "--reference-doc", str(ref), "--lua-filter", str(FILTER), "--resource-path", str(ROOT),
+                        "-o", str(out)],
                        capture_output=True, text=True, env=env, cwd=workdir)
     if r.returncode != 0 or r.stderr.strip():
         raise RuntimeError(f"pandoc failed for {out.name}: {r.stderr}")

@@ -343,6 +343,14 @@ def test_four_current_figures_with_their_captions(master):
     assert caps == want
 
 
+def test_no_local_paths_in_the_documents(master, supp):
+    for doc in (master, supp):
+        for name, data in doc.parts.items():
+            if name.endswith((".xml", ".rels")):
+                text = data.decode("utf-8", "replace")
+                assert str(ROOT) not in text and "/home/" not in text and "/tmp/" not in text, name
+
+
 def test_figure_caption_follows_its_image(master):
     paras = list(master.paragraphs())
     for i, p in enumerate(paras):

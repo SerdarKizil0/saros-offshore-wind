@@ -136,10 +136,10 @@ the same OMML renders with Cambria Math.
 
 ## 6. Document integrity (tests)
 
-`tests/test_docx_build_5c2.py` has 24 tests. They cover:
+`tests/test_docx_build_5c2.py` has 25 tests. They cover:
 
-- all four files exist and are valid; A4 page size; fonts embedded; page setup, footer and
-  line numbers;
+- all four files exist and are valid, with no local file paths embedded; A4 page size;
+  fonts embedded; page setup, footer and line numbers;
 - the title, the section order and every Level 2 heading;
 - every prose paragraph of the generated Markdown occurs in the DOCX;
 - equations (count, structure, numbering, links, PDF rendering);
@@ -155,7 +155,7 @@ the same OMML renders with Cambria Math.
   appears in the PDF;
 - a fresh build reproduces the committed files.
 
-**Full suite: 328 passed, 0 failed.** The automated tests check completeness and
+**Full suite: 329 passed, 0 failed.** The automated tests check completeness and
 consistency, not appearance. Appearance was checked by rendering every page of both PDFs
 at 70 dpi, and the critical regions (equations, Figures 1 and 4, wide supplementary
 tables) at 110–150 dpi.
