@@ -21,13 +21,13 @@ assumption that this study cannot test.
 
 ## 5.2. Why a recent reference period gives a higher estimate
 
-What is demonstrated is the pattern. The 6 most recent 11-year windows, from
-2009–2019 onwards, all lie above the 1994–2024 mean, and all 15 earlier
-windows lie below it. The 2014–2024 comparison period is the highest window
-even though it contains 2014, the second-lowest year of the record: 9 of the
-10 years from 2015 to 2024 are above the long-term mean, against 8 of the 20
-years from 1994 to 2013. An estimate built only on recent years therefore
-inherits a run of above-average years.
+What is demonstrated is the pattern (Fig. 2b). The 6 most recent 11-year
+windows, from 2009–2019 onwards, all lie above the 1994–2024 mean, and all 15
+earlier windows lie below it. The 2014–2024 comparison period is the highest
+window even though it contains 2014, the second-lowest year of the record: 9
+of the 10 years from 2015 to 2024 are above the long-term mean, against 8 of
+the 20 years from 1994 to 2013. An estimate built only on recent years
+therefore inherits a run of above-average years.
 
 Why the recent years are higher is not demonstrated. Two explanations are
 possible, and they are not exclusive. The wind climate of the region may vary
@@ -45,8 +45,8 @@ The sampling interval and the node experiment answer different questions. The
 interval asks how well 31 years determine their own mean. The node experiment
 asks what happens if a neighbouring cell is taken to represent the same area.
 The second effect is larger: the differences of +6.7 % and −8.5 % are about 3
-and 4 times the half-width of the sampling interval. They are also of a
-different nature. Because they recur in every year with little scatter, more
+and 4 times the half-width of the sampling interval (Fig. 4). They are also of
+a different nature. Because they recur in every year with little scatter, more
 years would narrow the sampling interval further and leave the node
 differences unchanged.
 
@@ -67,9 +67,9 @@ could be judged.
 ## 5.4. Why the comparison with the Global Wind Atlas cannot decide which product is right
 
 The two products differ by about 12 % in mean wind speed over the polygon when
-their periods are matched, and by 7 % to 15 % depending on the cell. This
-shows that the model-based estimate of the resource level is not robust. It
-does not show which product is closer to the truth, for three reasons. The
+their periods are matched, and by 7 % to 15 % depending on the cell (Fig. 3b).
+This shows that the model-based estimate of the resource level is not robust.
+It does not show which product is closer to the truth, for three reasons. The
 atlas is driven by ERA5 and is therefore not an independent source. Neither
 product has been compared with offshore measurements in this area. And the two
 products disagree not only on the level but also on the spatial pattern, so
@@ -97,7 +97,7 @@ area, so that adding them would count the same deficiency twice. Third, the
 alternatives examined are not exhaustive. Two neighbouring cells and one other
 product do not span the possible errors. A combined interval would therefore
 look more rigorous than the evidence allows. The categories are best read side
-by side, as a statement of which choices matter and by how much.
+by side (Fig. 4), as a statement of which choices matter and by how much.
 
 ## 5.6. Limits set by the data and the turbine model
 

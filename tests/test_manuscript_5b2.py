@@ -23,7 +23,8 @@ SRC = MAN / "src"
 REV = ROOT / "results" / "revised"
 REGISTER = ROOT / "docs/review/phase5b2_reference_register.csv"
 PROSE = ["00_abstract.md", "01_introduction.md", "02_study_area.md", "03_methodology.md", "04_results.md",
-         "05_discussion.md", "06_conclusion.md", "07_declarations.md"]
+         "05_discussion.md", "06_conclusion.md", "07_declarations.md",
+         "09_figures.md"]                 # figure captions, added in Phase 5C-1
 REFS = "08_references.md"
 TABLES = ["tables.md", "supplementary_tables.md"]
 NARRATIVE = ["00_abstract.md", "01_introduction.md", "05_discussion.md", "06_conclusion.md"]   # written in 5B-2
@@ -110,13 +111,15 @@ DECIMALS_OK = {"40.50", "26.25", "26.00", "26.50", "0.25", "9.5", "3.5", "1.225"
                "1.10", "0.75", "4.0",
                "29.6"}                      # National Energy Plan 2022: wind capacity projected for 2035 (GW)
 INTEGERS_OK = {"1 000", "20 000", "100", "105", "164", "250", "200", "2872", "29852", "27793", "30791", "1133",
-               "1089", "9500", "256"}
+               "1089", "9500", "256",
+               "32635"}                     # EPSG code of WGS 84 / UTM zone 35N (figure caption)
 
 
 @pytest.mark.parametrize("name", PROSE)
 def test_no_result_number_is_typed_by_hand(name):
     t = (SRC / name).read_text(encoding="utf-8")
     t = re.sub(r"\{\{.*?\}\}", " ", t, flags=re.S)
+    t = re.sub(r"<!--.*?-->|!\[[^]]*\]\([^)]*\)", " ", t, flags=re.S)    # comments and image links
     t = strip_math(t)
     t = re.sub(r"doi:\S+", " ", t)
     t = re.sub(r"(?m)^#+ [\d.]+", "#", t)
@@ -460,12 +463,22 @@ def _git_show(path: str) -> str | None:
     return r.stdout if r.returncode == 0 else None
 
 
+# Phase 5C-1 added figure call-outs; they are the only permitted change to the text of Sections 2 and 4.
+CALLOUT = re.compile(r" \((?:see also )?Fig\. \d[a-z]?\)|; Fig\. \d[a-z]?(?=\))|(?<=\()Fig\. \d[a-z]?; ")
+
+
+def strip_callouts(text: str) -> str:
+    return CALLOUT.sub("", text)
+
+
 def test_sections_2_to_4_and_tables_are_scientifically_unchanged():
     old = {n: _git_show(f"manuscript/src/{n}") for n in ("02_study_area.md", "03_methodology.md", "04_results.md")}
     if any(v is None for v in old.values()):
         pytest.skip("git history not available")
-    assert (SRC / "02_study_area.md").read_text() == old["02_study_area.md"]
-    assert (SRC / "04_results.md").read_text() == old["04_results.md"]
+    assert strip_callouts((SRC / "02_study_area.md").read_text()) == old["02_study_area.md"]
+    assert strip_callouts((SRC / "04_results.md").read_text()) == old["04_results.md"]
+    assert CALLOUT.findall((SRC / "02_study_area.md").read_text())         # the call-outs are really there
+    assert CALLOUT.findall((SRC / "04_results.md").read_text())
     # one citation was given its year; nothing else changed
     assert (SRC / "03_methodology.md").read_text() == old["03_methodology.md"].replace("(UNFCCC, Tool 07)",
                                                                                      "(UNFCCC, 2018)")

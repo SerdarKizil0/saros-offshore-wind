@@ -49,7 +49,8 @@ REV = ROOT / "results" / "revised"
 MAN = ROOT / "manuscript"
 SRC = MAN / "src"
 SECTIONS = ["00_abstract.md", "01_introduction.md", "02_study_area.md", "03_methodology.md", "04_results.md",
-            "05_discussion.md", "06_conclusion.md", "07_declarations.md", "08_references.md"]
+            "05_discussion.md", "06_conclusion.md", "07_declarations.md", "08_references.md", "09_figures.md"]
+FIGURE_LINK = re.compile(r"!\[Figure (\d+)\]\(([^)]+)\)")
 GENERATED_NOTE = ("<!-- GENERATED FILE - do not edit. Source: manuscript/src/{name}. Numbers come from "
                   "results/revised/. Rebuild with: python scripts/11_build_manuscript_sections.py -->\n\n")
 TOKEN = re.compile(r"\{\{\s*([A-Za-z0-9_]+):([^{}|]+?)\s*(?:\|\s*([^{}]+?)\s*)?\}\}")
@@ -211,6 +212,7 @@ def reflow(text: str, width: int = 78) -> str:
 
     def wrap(t: str, **kw) -> str:
         t = re.sub(r"(\d) %", r"\1" + keep + "%", " ".join(t.split()))
+        t = re.sub(r"(\d°) ([NE])\b", r"\1" + keep + r"\2", t)          # keep 26.25° E together
         return textwrap.fill(t, width=width, break_long_words=False, break_on_hyphens=False, **kw).replace(keep, " ")
     blocks = []
     for block in text.split("\n\n"):
@@ -711,6 +713,9 @@ def build() -> dict[str, str]:
     out = {}
     for name in SECTIONS:
         out[name] = GENERATED_NOTE.format(name=name) + reflow(render((SRC / name).read_text(encoding="utf-8"), R, D))
+    for num, path in FIGURE_LINK.findall(out["09_figures.md"]):
+        if not (MAN / path).resolve().exists():
+            raise FileNotFoundError(f"Figure {num}: {path} does not exist; run scripts/12_build_figures.py")
     out["tables.md"] = main_tables(R, D)
     out["supplementary_tables.md"] = supplementary_tables(R, D)
     return out

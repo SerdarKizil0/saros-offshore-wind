@@ -34,12 +34,13 @@ S4). This is the only probabilistic interval in the study. It is conditional
 on the reanalysis at this node and says nothing about the accuracy of the
 reanalysis itself.
 
-Single years vary much more than the mean is uncertain. The coefficient of
-variation of the annual net yield is 7.4 %. The lowest year is 2002 (1.944 GWh
-MW⁻¹ yr⁻¹, −17.4 % relative to the mean) and the highest is 2001 (2.674 GWh
-MW⁻¹ yr⁻¹, +13.6 %). The second-lowest year is 2014 (1.992 GWh MW⁻¹ yr⁻¹,
-−15.4 %). The annual values show no appreciable serial correlation (lag-1
-coefficient −0.08). All annual values are listed in Supplementary Table S3.
+Single years vary much more than the mean is uncertain (Fig. 2a). The
+coefficient of variation of the annual net yield is 7.4 %. The lowest year is
+2002 (1.944 GWh MW⁻¹ yr⁻¹, −17.4 % relative to the mean) and the highest is
+2001 (2.674 GWh MW⁻¹ yr⁻¹, +13.6 %). The second-lowest year is 2014 (1.992 GWh
+MW⁻¹ yr⁻¹, −15.4 %). The annual values show no appreciable serial correlation
+(lag-1 coefficient −0.08). All annual values are listed in Supplementary Table
+S3.
 
 ## 4.3. Period-selection sensitivity
 
@@ -56,21 +57,21 @@ The rolling windows show that this is systematic. The 21 windows of 11 years
 that lie inside 1994–2024 range from −3.4 % (window 1999–2009) to +3.1 %
 relative to the primary estimate. The most recent window, the 2014–2024
 comparison period, is the highest of all 21, and also the highest of the 36
-windows in 1979–2024 (Supplementary Table S6). An estimate based only on the
-most recent 11 years would therefore have been higher than the long-term
-estimate by about 3 %. Two cautions apply. Overlapping windows share years and
-are not independent samples. And differences between periods in a reanalysis
-may partly reflect changes in the observations that the reanalysis
+windows in 1979–2024 (Fig. 2b; Supplementary Table S6). An estimate based only
+on the most recent 11 years would therefore have been higher than the
+long-term estimate by about 3 %. Two cautions apply. Overlapping windows share
+years and are not independent samples. And differences between periods in a
+reanalysis may partly reflect changes in the observations that the reanalysis
 assimilates, so they are not evidence of a climatic trend.
 
 ## 4.4. Grid-node sensitivity
 
 The result also depends on which reanalysis cell is used (sensitivity
-experiment; Table 3). With the same period and method, the western neighbour
-at 26.00° E gives a net yield of 2.512 GWh MW⁻¹ yr⁻¹ (+6.7 % relative to the
-primary node), and the eastern neighbour at 26.50° E gives 2.154 GWh MW⁻¹ yr⁻¹
-(−8.5 %). The corresponding differences in mean 100 m wind speed are +3.0 %
-and −3.7 %.
+experiment; Table 3; Fig. 3a). With the same period and method, the western
+neighbour at 26.00° E gives a net yield of 2.512 GWh MW⁻¹ yr⁻¹ (+6.7 %
+relative to the primary node), and the eastern neighbour at 26.50° E gives
+2.154 GWh MW⁻¹ yr⁻¹ (−8.5 %). The corresponding differences in mean 100 m wind
+speed are +3.0 % and −3.7 %.
 
 These differences are persistent. Year by year, the western node is higher
 than the primary node by 5.0 % to 8.6 %, and the eastern node is lower by
@@ -90,11 +91,11 @@ the sampling interval.
 ## 4.5. Disagreement between ERA5 and the Global Wind Atlas
 
 The two wind products disagree on the mean wind speed (inter-model comparison;
-Table 4). The GWA mean at 100 m over the candidate polygon is 7.84 m s⁻¹ for
-its reference period 2008–2017. The ERA5 mean at the primary node is 7.01 m
-s⁻¹ for 1994–2024 and 6.99 m s⁻¹ for the GWA period, 2008–2017. The GWA/ERA5
-ratio is 1.119 against the primary period and 1.122 when the periods are
-matched. Matching the periods therefore does not reduce the disagreement.
+Table 4; Fig. 3b). The GWA mean at 100 m over the candidate polygon is 7.84 m
+s⁻¹ for its reference period 2008–2017. The ERA5 mean at the primary node is
+7.01 m s⁻¹ for 1994–2024 and 6.99 m s⁻¹ for the GWA period, 2008–2017. The
+GWA/ERA5 ratio is 1.119 against the primary period and 1.122 when the periods
+are matched. Matching the periods therefore does not reduce the disagreement.
 
 The size of the disagreement depends on the cell. Comparing the sea pixels of
 GWA around each node with ERA5 at that node, for matched periods, the ratio is
@@ -121,21 +122,21 @@ The low-loss case gives 2.507 GWh MW⁻¹ yr⁻¹ (+6.5 %) and the high-loss cas
 the three loss sets, and wake losses in particular depend on a layout that
 does not exist.
 
-Table 2 places the six categories side by side. They are different kinds of
-quantity: one sampling interval, one description of year-to-year spread, three
-sensitivity experiments or comparisons and one set of assumption scenarios.
-They are not combined into a single interval. Read together, they show that
-the sampling interval is the smallest of them. A short recent reference
-period, a neighbouring grid cell, the other wind product and the alternative
-loss assumptions can each move the result by more than the half-width of that
-interval.
+Table 2 places the six categories side by side (see also Fig. 4). They are
+different kinds of quantity: one sampling interval, one description of
+year-to-year spread, three sensitivity experiments or comparisons and one set
+of assumption scenarios. They are not combined into a single interval. Read
+together, they show that the sampling interval is the smallest of them. A
+short recent reference period, a neighbouring grid cell, the other wind
+product and the alternative loss assumptions can each move the result by more
+than the half-width of that interval.
 
 ## 4.7. Bathymetry and protected-area screening
 
-The whole candidate polygon lies in water shallower than 62 m (Table 5). The
-median depth is 28 m; about 9 % of the area is shallower than 10 m and about
-11 % is deeper than 50 m. These are depth statistics only. They say nothing
-about seabed conditions or foundation suitability.
+The whole candidate polygon lies in water shallower than 62 m (Table 5; Fig.
+1). The median depth is 28 m; about 9 % of the area is shallower than 10 m and
+about 11 % is deeper than 50 m. These are depth statistics only. They say
+nothing about seabed conditions or foundation suitability.
 
 About 25 km² of the polygon, or about 14 % of its area, lies inside the
 reconstructed boundary of the Saros Körfezi Special Environmental Protection

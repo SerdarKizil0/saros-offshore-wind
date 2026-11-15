@@ -1,8 +1,9 @@
 """
-Phase 4C — Figure 2: Saros study area and environmental constraints
-===================================================================
+Figure 1: candidate area, ERA5 grid nodes, bathymetry and protected-area context
+=================================================================================
 One map panel in WGS 84 / UTM zone 35N (EPSG:32635), drawn from local,
-verified data only (no network access, no hand-drawn geometry):
+verified data only (no network access, no hand-drawn geometry). Bathymetry is
+integrated into the map, so no separate depth figure is needed:
 
   candidate zone   docs/review/phase1_data/SAROS_DURES_official.kml
                    (MENR candidate-YEKA notice, 13 May 2026)
@@ -11,7 +12,9 @@ verified data only (no network access, no hand-drawn geometry):
   Saros ÖÇK        boundary points of Decision 2010/1089, as encoded in
                    scripts/phase4a_site_checks.py (datum not stated in the
                    annex: read as WGS 84, so the overlay is approximate)
-  ERA5 node        results/revised/site_screening.json
+  ERA5 nodes       results/revised/site_screening.json (primary node and its
+                   distance to the zone) and results/revised/node_sensitivity.json
+                   (the three nodes on 40.50 N with their ERA5 land fractions)
 
 What is drawn
   * water depth = -elevation, on a piecewise-linear colour scale (0-60 m, the
@@ -25,8 +28,11 @@ What is drawn
     a narrow tint on its protected side, only where it really runs: the map
     frame is never drawn as an ÖÇK edge), and the part of the zone inside
     the ÖÇK (hatched);
-  * the ERA5 grid node used by the energy model and the zone centroid as
-    separate symbols, with the node's distance to the zone boundary.
+  * the primary ERA5 grid node used by the energy model, its two neighbours
+    used in the grid-node sensitivity experiment, the outlines of their
+    0.25 deg cells (the area each node represents, which is also the area
+    nearest to it), each cell's ERA5 land fraction, and the zone centroid;
+  * the primary node's distance to the zone boundary.
 No turbine positions, layout, cable route or project footprint are drawn.
 
 All areas and distances are computed in EPSG:32635 and cross-checked against
@@ -34,13 +40,13 @@ results/revised/site_screening.json (raster-count values) and geodesic
 values on the WGS 84 ellipsoid; the script stops if they disagree.
 
 Writes, at exactly 180 mm wide:
-  figures/revised/saros_study_area.pdf   vector; bathymetry layer embedded as an image
-  figures/revised/saros_study_area.svg   vector; text kept as text
-  figures/revised/saros_study_area.png   600 dpi
-  figures/revised/saros_study_area_caption.md
+  figures/revised/fig1_site_map.pdf   vector; bathymetry layer embedded as an image
+  figures/revised/fig1_site_map.svg   vector; text kept as text
+  figures/revised/fig1_site_map.png   600 dpi
+The caption is part of the manuscript (manuscript/src/09_figures.md).
 
-Style: config/figure_style.py (shared with Figure 1).
-Run from the repository root:  python scripts/phase4c_fig_saros_study_area.py
+Style: config/figure_style.py (shared by all publication figures).
+Run from the repository root:  python scripts/fig1_site_map.py
 """
 from __future__ import annotations
 
@@ -82,18 +88,21 @@ DATA = ROOT / "docs" / "review" / "phase1_data"
 KML = DATA / "SAROS_DURES_official.kml"
 DTM = DATA / "emodnet_dtm2024_saros_crop.tif"
 SCREENING = ROOT / "results" / "revised" / "site_screening.json"
+NODES_JSON = ROOT / "results" / "revised" / "node_sensitivity.json"
 SITE_CHECKS = ROOT / "scripts" / "phase4a_site_checks.py"
 FIG_DIR = ROOT / "figures" / "revised"
-STEM = "saros_study_area"
+STEM = "fig1_site_map"
 
 CRS_GEO, CRS_MAP = "EPSG:4326", "EPSG:32635"
 CRS_LABEL = "WGS 84 / UTM zone 35N (EPSG:32635)"
+SOURCE_NOTE = (f"{CRS_LABEL}\nSources: MENR (2026a); EMODnet DTM\n"
+               "2024; Decision 2010/1089; ERA5 (C3S)")
 
 # ---- figure geometry (mm) -------------------------------------------------
 W_MM = fs.FULL_WIDTH_MM
 LEFT_MM, RIGHT_MM, TOP_MM = 15.0, 3.0, 3.0
 TICKS_MM = 7.5                         # longitude labels under the frame
-KEY_MM, BOTTOM_MM = 15.5, 2.0          # legend + colour bar band
+KEY_MM, BOTTOM_MM = 24.0, 2.0          # legend + colour bar band
 CBAR_W_MM, LEGEND_X_MM = 48.0, 54.0    # colour bar width; legend offset from the left margin
 INSET_KM = 0.15                        # map frame inset from the DTM footprint
 
@@ -110,11 +119,16 @@ CBAR_TICKS = (0, 20, 40, 60, 300, 600)
 CBAR_MINOR = (10, 30, 50, 100, 200, 400, 500)
 MIN_FEATURE_CELLS = 10                 # ≈0.1 km²; smaller islets/pockets are not drawn
 SCALE_KM = (0, 5, 10)
+NODE_KEYS = ("W", "C", "E")
+NODE_LABEL_AT = {"W": (5, -1.0, "left", "top"), "C": (0, -5.0, "center", "top"),   # offsets in points
+                 "E": (-5, -1.0, "right", "top")}
+CELL_HALF_DEG = 0.125                  # ERA5 0.25 deg grid: each node represents its cell
+DASH_CELL = (0, (5.0, 1.6, 1.0, 1.6))  # dash-dot: a grid outline, not a boundary of any kind
 
 # Contour-label anchors (lon, lat): label placement hints only, the label sits
 # on the isobath point nearest to the anchor.
-ISOBATH_LABEL_AT = {10: (26.005, 40.632), 50: (26.012, 40.55), 100: (26.48, 40.524),
-                    200: (26.13, 40.47), 400: (26.36, 40.493)}
+ISOBATH_LABEL_AT = {10: (26.01, 40.608), 50: (26.012, 40.55), 100: (26.48, 40.524),
+                    200: (26.145, 40.475), 400: (26.46, 40.463)}
 
 # ---- colours, all derived from the shared tokens ---------------------------
 def _mix(a, b, t):
@@ -160,6 +174,8 @@ class MapData:
     overlap: Polygon
     era5: Point
     era5_nearest: Point                # nearest point of the zone boundary
+    nodes: dict                        # key -> node record of node_sensitivity.json
+    node_xy: dict                      # key -> Point, EPSG:32635
     centroid_ll: tuple
     geodesic_area_km2: float
     geodesic_overlap_km2: float
@@ -217,6 +233,8 @@ def load_data() -> MapData:
     ock = Polygon([t.transform(*p) for p in ock_ll])
     overlap = zone.intersection(ock)
     era5 = Point(t.transform(*era5_ll))
+    nodes = json.loads(NODES_JSON.read_text(encoding="utf-8"))["nodes"]
+    node_xy = {k: Point(t.transform(nodes[k]["lon"], nodes[k]["lat"])) for k in NODE_KEYS}
     nearest = nearest_points(zone.exterior, era5)[0]
     c = zone.centroid
     centroid_ll = to_geo().transform(c.x, c.y)
@@ -243,7 +261,7 @@ def load_data() -> MapData:
     pad = INSET_KM * 1e3
     extent = (max(left[0]) + pad, min(right[0]) - pad, max(bottom[1]) + pad, min(top[1]) - pad)
 
-    d = MapData(zone_ll, ock_ll, era5_ll, zone, ock, overlap, era5, nearest, centroid_ll,
+    d = MapData(zone_ll, ock_ll, era5_ll, zone, ock, overlap, era5, nearest, nodes, node_xy, centroid_ll,
                 g_area, g_overlap, screening, lon, lat, np.asarray(x), np.asarray(y),
                 elevation, extent)
     problems = verify(d)
@@ -284,7 +302,30 @@ def verify(d: MapData) -> list[str]:
     x0, x1, y0, y1 = d.extent
     if not (x0 < d.era5.x < x1 and y0 < d.era5.y < y1) or not d.zone.within(_frame(d)):
         out.append("zone or ERA5 node outside the map frame")
+    if (d.nodes["C"]["lon"], d.nodes["C"]["lat"]) != tuple(d.era5_ll) or not d.nodes["C"]["is_primary_node"]:
+        out.append("primary node of node_sensitivity.json is not the screening node")
+    for k in NODE_KEYS:
+        p = d.node_xy[k]
+        if not (x0 < p.x < x1 and y0 < p.y < y1):
+            out.append(f"node {k} outside the map frame")
+        if d.zone.contains(p) or d.nodes[k]["inside_polygon"]:
+            out.append(f"node {k} falls inside the zone")
     return out
+
+
+def cell_outline(d: MapData, key: str, n: int = 60) -> np.ndarray:
+    """Outline of a node's 0.25 deg cell in map coordinates (edges densified, as they curve in UTM)."""
+    lon, lat, h = d.nodes[key]["lon"], d.nodes[key]["lat"], CELL_HALF_DEG
+    s = np.linspace(-h, h, n)
+    ring = np.r_[np.c_[lon + s, np.full(n, lat - h)], np.c_[np.full(n, lon + h), lat + s],
+                 np.c_[lon - s, np.full(n, lat + h)], np.c_[np.full(n, lon - h), lat - s]]
+    x, y = to_map().transform(ring[:, 0], ring[:, 1])
+    return np.c_[x, y]
+
+
+def cell_shares_pct(d: MapData) -> dict:
+    """Share of the zone area inside each node's cell (geometric descriptor, never a weight)."""
+    return {k: d.zone.intersection(Polygon(cell_outline(d, k))).area / d.zone.area * 100 for k in NODE_KEYS}
 
 
 def _zone_mask(d: MapData) -> np.ndarray:
@@ -467,7 +508,20 @@ def build_figure(d: MapData):
         ax.plot(zone_xy[:, 0], zone_xy[:, 1], color=ZONE, linewidth=LW_ZONE, solid_joinstyle="miter",
                 zorder=5, gid="zone_boundary")
 
-        # ERA5 node, its distance to the zone, and the zone centroid
+        # ERA5 0.25 deg cells of the three nodes (clipped by the frame) and the neighbouring nodes
+        for k in NODE_KEYS:
+            xy = cell_outline(d, k)
+            ax.plot(xy[:, 0], xy[:, 1], color=INK, linewidth=fs.LW_GUIDE, linestyle=DASH_CELL,
+                    dash_capstyle="butt", zorder=4.5, gid="era5_cell")
+        for k in NODE_KEYS:
+            if k == "C":
+                continue
+            p = d.node_xy[k]
+            ax.plot([p.x], [p.y], linestyle="none", marker="s", markersize=fs.MS_POINT - 0.4,
+                    markerfacecolor=SURFACE, markeredgecolor=INK, markeredgewidth=fs.LW_DATA,
+                    zorder=6, gid=f"era5_node_{k}")
+
+        # primary ERA5 node, its distance to the zone, and the zone centroid
         ax.plot([d.era5.x, d.era5_nearest.x], [d.era5.y, d.era5_nearest.y], color=INK,
                 linewidth=fs.LW_GUIDE + 0.1, linestyle=fs.DOT_GUIDE, dash_capstyle="round",
                 zorder=5, gid="era5_distance")
@@ -483,8 +537,13 @@ def build_figure(d: MapData):
         mid = ((d.era5.x + d.era5_nearest.x) / 2, (d.era5.y + d.era5_nearest.y) / 2)
         ax.annotate(f"{d.era5_distance_km:.1f} km", mid, xytext=(-3, -3), textcoords="offset points",
                     ha="right", va="top", fontsize=FS_NOTE, color=INK, bbox=PLATE, zorder=7)
-        ax.annotate("ERA5 node", (d.era5.x, d.era5.y), xytext=(5, -0.5), textcoords="offset points",
-                    ha="left", va="center", fontsize=FS_NOTE, color=INK, bbox=PLATE, zorder=7)
+        for k, (dx, dy, ha, va) in NODE_LABEL_AT.items():
+            p, node = d.node_xy[k], d.nodes[k]
+            name = "primary node" if node["is_primary_node"] else "neighbour"
+            ax.annotate(f"{node['lon']:.2f}° E, {name}\nland fraction {node['era5_land_sea_mask_fraction']:.2f}",
+                        (p.x, p.y), xytext=(dx, dy), textcoords="offset points", ha=ha, va=va,
+                        fontsize=FS_NOTE, color=INK, bbox=PLATE, zorder=7, linespacing=1.2,
+                        gid=f"node_label_{k}")
         ax.annotate("centroid", (c.x, c.y), xytext=(0, -4.5), textcoords="offset points",
                     ha="center", va="top", fontsize=FS_NOTE, color=MUTED, zorder=7,
                     gid="centroid_label")
@@ -494,7 +553,7 @@ def build_figure(d: MapData):
             ax.text(*t.transform(lon, lat), s, fontsize=FS_NOTE, zorder=7, **kw)
         lbl(26.225, 40.633, "Thrace", color=MUTED, ha="center", va="center", style="italic")
         lbl(26.265, 40.461, "Gulf of Saros", color=SURFACE, ha="center", va="center", style="italic")
-        lbl(26.343, 40.544, "Saros ÖÇK (approximate)\ncontinues beyond the map →",
+        lbl(26.383, 40.540, "Saros ÖÇK (approximate)\ncontinues beyond the map →",
             color=INK, ha="left", va="center", linespacing=1.3, bbox=PLATE)
 
         # scale bar (UTM metres; point scale factor here 0.9997) and true-north arrow, on land
@@ -511,7 +570,7 @@ def build_figure(d: MapData):
                     color=INK, zorder=8)
         ax.text(sb[-1] + 0.45e3, sy, "km", ha="left", va="center_baseline", fontsize=FS_NOTE,
                 color=INK, zorder=8)
-        nx, ny = t.transform(26.125, 40.627)
+        nx, ny = t.transform(26.165, 40.627)
         u = _true_north(nx, ny)
         L = 1.55e3
         ax.add_patch(FancyArrow(nx, ny, u[0] * L, u[1] * L, width=0.05e3, head_width=0.42e3,
@@ -557,6 +616,8 @@ def build_figure(d: MapData):
                     gid="cbar_knee")                                       # scale changes here
         fig.text(LEFT_MM, key_top - 3.4, "Water depth below LAT (m)", transform=fs.mm_transform(fig),
                  fontsize=FS_AXIS, color=INK, ha="left", va="baseline")
+        fig.text(LEFT_MM, key_top - 13.5, SOURCE_NOTE, transform=fs.mm_transform(fig),
+                 fontsize=FS_NOTE, color=MUTED, ha="left", va="top", linespacing=1.25, gid="source_note")
 
         # concise key; methods, sources and legal status are in the caption
         handles = [
@@ -566,6 +627,9 @@ def build_figure(d: MapData):
              Line2D([], [], linestyle="none", marker="o", markersize=1.4, color=INK, markeredgewidth=0)),
             Line2D([], [], linestyle="none", marker="s", markersize=fs.MS_POINT - 0.4, color=INK,
                    markeredgecolor=SURFACE, markeredgewidth=fs.MEW),
+            Line2D([], [], linestyle="none", marker="s", markersize=fs.MS_POINT - 0.4,
+                   markerfacecolor=SURFACE, markeredgecolor=INK, markeredgewidth=fs.LW_DATA),
+            Line2D([], [], color=INK, linewidth=fs.LW_GUIDE, linestyle=DASH_CELL),
             Line2D([], [], color=ISO_SCREEN, linewidth=fs.LW_MIN),
             OckKey(),
             HatchKey(),
@@ -575,7 +639,9 @@ def build_figure(d: MapData):
         labels = [
             "Candidate zone (13 May 2026)",
             "Zone centroid",
-            f"ERA5 node ({d.era5_ll[1]:.2f}° N, {d.era5_ll[0]:.2f}° E)",
+            "Primary ERA5 node (energy model)",
+            "Neighbouring ERA5 node",
+            "ERA5 0.25° cell of each node",
             "10 m, 50 m isobaths (screening)",
             "Saros ÖÇK boundary (approximate)",
             "Part of zone inside the ÖÇK",
@@ -590,7 +656,7 @@ def build_figure(d: MapData):
     return fig
 
 
-CROSSING_GIDS = ("zone_boundary", "ock_boundary", "era5_distance", "scale_bar")
+CROSSING_GIDS = ("zone_boundary", "ock_boundary", "era5_distance", "scale_bar", "era5_cell")
 
 
 def crossing_problems(fig, gids=CROSSING_GIDS) -> list[str]:
@@ -632,48 +698,6 @@ def layout_problems(fig) -> list[str]:
             + fs.print_problems(fig))
 
 
-def caption(d: MapData) -> str:
-    s = d.screening
-    ref = s["protected_area_overlap"]["saros_ock_2010"]
-    rng = s["bathymetry"]["depth_m"]
-    lon_c, lat_c = d.centroid_ll
-    return (
-        f"**Figure 2.** Saros offshore-wind candidate zone and the environmental and bathymetric "
-        f"context used for screening ({CRS_LABEL}). The black outline is the official candidate-zone "
-        f"polygon published by the Ministry of Energy and Natural Resources in the candidate-YEKA "
-        f"notice of 13 May 2026 (file 'SAROS DÜRES'). It is a candidate area, not an approved "
-        f"project; no turbine layout, cable route or installation footprint is implied. The zone "
-        f"covers {d.area_km2:.1f} km²; its geometric centroid (open circle) lies at {lat_c:.3f}° N, "
-        f"{lon_c:.3f}° E. The energy model uses the ERA5 reanalysis grid node at "
-        f"{d.era5_ll[1]:.2f}° N, {d.era5_ll[0]:.2f}° E (black square), which lies outside the zone, "
-        f"{d.era5_distance_km:.1f} km from its nearest boundary (dotted line). "
-        f"The dashed vermillion line is the boundary of the Saros Körfezi Special Environmental "
-        f"Protection Area (ÖÇK), reconstructed from the coordinates in the annex to Council of "
-        f"Ministers Decision 2010/1089 (Official Gazette 27793, 22 December 2010); the narrow tint "
-        f"marks its protected side. The annex does not state a geodetic datum; the coordinates were "
-        f"read as WGS 84, so the overlay is an approximate GIS reconstruction, not a legally certified "
-        f"boundary. The ÖÇK continues east and south beyond the map edge, which is not part of its "
-        f"boundary. The hatched eastern arm of the zone, about {ref['overlap_km2']:.1f} km² "
-        f"({ref['overlap_share_pct']:.1f}%) in the raster screening ({d.overlap_km2:.1f} km², "
-        f"{d.overlap_pct:.1f}%, by exact polygon intersection), lies inside the ÖÇK. ÖÇK status means "
-        f"that activities require permission from the environment ministry; it is not an automatic "
-        f"prohibition of construction. "
-        f"Shading shows water depth below lowest astronomical tide (depth = −elevation) from the "
-        f"EMODnet Digital Bathymetry DTM 2024 (1/16 arc-minute grid). The colour scale is piecewise "
-        f"linear: 0–{DEPTH_KNEE:g} m, the depth range of the zone, spans {KNEE_FRAC:.0%} of the colour "
-        f"ramp and {DEPTH_KNEE:g}–{DEPTH_MAX:g} m the remaining {1 - KNEE_FRAC:.0%} (break marked on "
-        f"the colour bar), so shelf depths are resolved without losing the deep basin. Depth inside "
-        f"the zone ranges from {rng['min']:.0f} to {rng['max']:.0f} m (median {rng['median']:.0f} m). "
-        f"The 10 m and 50 m isobaths mark the depth screening classes used in the site checks "
-        f"(shallower than 10 m; 50 m and deeper); they are screening thresholds, not legal or "
-        f"technical exclusion zones. Land is shown where the DTM elevation is 0 m or higher; islets "
-        f"and enclosed water bodies smaller than about 0.1 km² are omitted for legibility. The map "
-        f"extent is that of the bathymetry grid: the land in the south-eastern corner belongs to the "
-        f"southern shore of the gulf (Gelibolu Peninsula), most of which lies south of the grid. The "
-        f"arrow points to true north; the scale bar is exact to within 0.1% across the map.\n"
-    )
-
-
 def summary(d: MapData) -> dict:
     s = d.screening
     return {
@@ -690,6 +714,9 @@ def summary(d: MapData) -> dict:
         "era5_inside_zone": d.era5_inside,
         "era5_distance_km_utm": round(d.era5_distance_km, 3),
         "era5_distance_km_screening": s["era5_node_representativeness"]["distance_to_polygon_boundary_km"],
+        "zone_share_in_cell_pct": {k: round(v, 2) for k, v in cell_shares_pct(d).items()},
+        "zone_share_nearest_node_pct_results": {k: d.nodes[k]["polygon_share_nearest_to_node_pct"]
+                                                for k in NODE_KEYS},
     }
 
 
@@ -701,8 +728,6 @@ def main(out_dir: Path = FIG_DIR) -> dict[str, Path]:
         raise RuntimeError("figure layout check failed: " + "; ".join(problems))
     paths = fs.save_figure(fig, out_dir, STEM)
     plt.close(fig)
-    paths["caption"] = Path(out_dir) / f"{STEM}_caption.md"
-    paths["caption"].write_text(caption(d), encoding="utf-8")
     print(json.dumps(summary(d), indent=1, ensure_ascii=False))
     for p in paths.values():
         print("wrote", p.relative_to(ROOT) if p.is_relative_to(ROOT) else p)

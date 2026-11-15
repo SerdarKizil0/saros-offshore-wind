@@ -8,7 +8,7 @@
 | `archive/baseline_original_curve/` | Historical results as originally published (retired curve, Weibull Monte Carlo, S4) | Historical comparison only |
 
 Regenerate `revised/` with `python scripts/run_revised_pipeline.py` (no download; the
-input is committed and checksum-pinned). The figures in `figures/revised/` were generated
-from the 2014–2024 results now in `archive/baseline_2014_2024_cds/`; the figures in
-`figures/` and `figures_final/` show the pre-revision results. All must be regenerated
-from `revised/` before submission (Phase 5C).
+input is committed and checksum-pinned). Since Phase 5C-1 the publication figures in
+`figures/revised/` are generated from `revised/` by `scripts/12_build_figures.py`; the
+figures in `figures/` and `figures_final/` show the pre-revision results and are not for
+publication.

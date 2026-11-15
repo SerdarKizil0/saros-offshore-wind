@@ -2,8 +2,8 @@
 Publication figure style — single source of truth
 =================================================
 Typography, colour palette, line weights and export settings for every
-manuscript figure, extracted from the approved Figure 1
-(scripts/phase4c_fig_annual_energy_uncertainty.py).
+manuscript figure (scripts/fig1_site_map.py ... scripts/fig4_sensitivity_categories.py,
+built together by scripts/12_build_figures.py).
 
 Use it from a figure script:
 

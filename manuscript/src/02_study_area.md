@@ -7,7 +7,7 @@ bounded by the coast of Thrace to the north and by the Gelibolu (Gallipoli)
 Peninsula to the south, and it opens westward to the North Aegean. The
 candidate area examined here lies on the northern, Thracian shelf of the gulf
 and runs roughly parallel to the Thracian coast. The Gelibolu Peninsula forms
-the opposite, southern shore.
+the opposite, southern shore (Fig. 1).
 
 The area is defined by the polygon that the Ministry of Energy and Natural
 Resources (MENR) published with its notice of 13 May 2026 (file
@@ -66,7 +66,7 @@ Bölgesi*, ÖÇK) was declared by Council of Ministers Decision 2010/1089
 No. 2872. The annex to the decision lists 13 boundary points in geographic
 coordinates. It does not state a geodetic datum. For screening, the boundary
 was reconstructed by joining these points with straight segments and reading
-the coordinates as WGS 84.
+the coordinates as WGS 84 (Fig. 1).
 
 With this reconstruction, about
 {{site_screening:protected_area_overlap.saros_ock_2010.overlap_km2|.0f}} km²
@@ -109,7 +109,7 @@ south of its boundary. It is the nearest node for
 of the polygon area. The remainder is nearest to the neighbouring nodes at
 26.00° E ({{node_sensitivity:nodes.W.polygon_share_nearest_to_node_pct|.1f}} %)
 and 26.50° E ({{node_sensitivity:nodes.E.polygon_share_nearest_to_node_pct|.1f}} %).
-None of the three nodes lies inside the polygon.
+None of the three nodes lies inside the polygon (Fig. 1).
 
 A reanalysis value represents a grid cell, not a point. In the static ERA5
 land–sea mask the cell of the primary node has a land fraction of

@@ -46,7 +46,7 @@ and the standard error of the mean is
 study. It is conditional on the reanalysis at this node and says nothing
 about the accuracy of the reanalysis itself.
 
-Single years vary much more than the mean is uncertain. The coefficient of
+Single years vary much more than the mean is uncertain (Fig. 2a). The coefficient of
 variation of the annual net yield is
 {{interannual_and_sampling:observed_interannual_variability.annual_net_cf_cov_pct|.1f}} %.
 The lowest year is
@@ -90,7 +90,7 @@ comparison period, is the highest of all
 {{period_sensitivity:rolling_windows.within_primary_period.n_windows}}, and
 also the highest of the
 {{period_sensitivity:rolling_windows.all_windows.n_windows}} windows in
-1979–2024 (Supplementary Table S6). An estimate based only on the most recent
+1979–2024 (Fig. 2b; Supplementary Table S6). An estimate based only on the most recent
 11 years would therefore have been higher than the long-term estimate by
 about {{period_sensitivity:periods.2014-2024.energy_change_vs_reference_pct|.0f}} %.
 Two cautions apply. Overlapping windows share years and are not independent
@@ -101,7 +101,7 @@ evidence of a climatic trend.
 ## 4.4. Grid-node sensitivity
 
 The result also depends on which reanalysis cell is used (sensitivity
-experiment; Table 3). With the same period and method, the western neighbour
+experiment; Table 3; Fig. 3a). With the same period and method, the western neighbour
 at 26.00° E gives a net yield of
 {{node_sensitivity:nodes.W.net_gwh_per_mw|.3f}} GWh MW⁻¹ yr⁻¹
 ({{node_sensitivity:nodes.W.energy_rel_to_primary_node_pct|+.1f}} % relative
@@ -140,7 +140,7 @@ the result by several times the half-width of the sampling interval.
 ## 4.5. Disagreement between ERA5 and the Global Wind Atlas
 
 The two wind products disagree on the mean wind speed (inter-model
-comparison; Table 4). The GWA mean at 100 m over the candidate polygon is
+comparison; Table 4; Fig. 3b). The GWA mean at 100 m over the candidate polygon is
 {{wind_product_discrepancy:polygon_vs_primary_node.gwa4_polygon_mean_100m_ms|.2f}} m s⁻¹
 for its reference period 2008–2017. The ERA5 mean at the primary node is
 {{wind_product_discrepancy:polygon_vs_primary_node.era5_node_U100_ms.1994-2024|.2f}} m s⁻¹
@@ -190,7 +190,7 @@ high-loss case
 or layout information supports any of the three loss sets, and wake losses in
 particular depend on a layout that does not exist.
 
-Table 2 places the six categories side by side. They are different kinds of
+Table 2 places the six categories side by side (see also Fig. 4). They are different kinds of
 quantity: one sampling interval, one description of year-to-year spread,
 three sensitivity experiments or comparisons and one set of assumption
 scenarios. They are not combined into a single interval. Read together, they
@@ -202,7 +202,7 @@ half-width of that interval.
 ## 4.7. Bathymetry and protected-area screening
 
 The whole candidate polygon lies in water shallower than
-{{site_screening:bathymetry.depth_m.max|.0f}} m (Table 5). The median depth
+{{site_screening:bathymetry.depth_m.max|.0f}} m (Table 5; Fig. 1). The median depth
 is {{site_screening:bathymetry.depth_m.median|.0f}} m; about
 {{d:share_shallower_10m_pct|.0f}} % of the area is shallower than 10 m and
 about {{site_screening:bathymetry.share_deeper_than_pct.50|.0f}} % is deeper

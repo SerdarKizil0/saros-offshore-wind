@@ -12,6 +12,8 @@ data/_cds_test.nc
 manuscript/*.docx
 manuscript/*.pdf
 *.pdf
+# Exception: the vector publication figures are versioned (scripts/12_build_figures.py)
+!figures/revised/*.pdf
 
 # Python
 __pycache__/

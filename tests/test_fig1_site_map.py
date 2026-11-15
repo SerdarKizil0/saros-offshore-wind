@@ -1,5 +1,8 @@
 """
-Tests for Figure 2 (Saros study area and environmental constraints).
+Tests for Figure 1 (candidate area, ERA5 grid nodes, bathymetry and protected-area context).
+Adapted in Phase 5C-1 from the Phase 4C study-area tests: the map now also shows the two
+neighbouring ERA5 nodes and the 0.25 deg cells of all three nodes, and its caption is part
+of the manuscript (manuscript/src/09_figures.md).
 Run from the repository root:  python -m pytest -q tests/
 """
 from __future__ import annotations
@@ -23,14 +26,16 @@ from pyproj import Geod, Proj
 from shapely.geometry import LineString, Point
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "scripts" / "phase4c_fig_saros_study_area.py"
+SCRIPT = ROOT / "scripts" / "fig1_site_map.py"
+NODES = ROOT / "results" / "revised" / "node_sensitivity.json"
+CAPTIONS = ROOT / "manuscript" / "09_figures.md"
 SCREENING = ROOT / "results" / "revised" / "site_screening.json"
 W_PT = 180 / 25.4 * 72
 
 
 @pytest.fixture(scope="module")
 def m():
-    spec = importlib.util.spec_from_file_location("p4c_map", SCRIPT)
+    spec = importlib.util.spec_from_file_location("fig1_map", SCRIPT)
     mod = importlib.util.module_from_spec(spec)
     sys.modules[spec.name] = mod
     spec.loader.exec_module(mod)
@@ -164,7 +169,8 @@ def test_no_project_layout_is_drawn(fig):
     gids = {a.get_gid() for a in _ax(fig).get_children() if a.get_gid()}
     assert not {g for g in gids if re.search(r"turbine|layout|cable|wtg|footprint", g)}
     markers = [ln for ln in _ax(fig).lines if ln.get_linestyle() == "None"]
-    assert {ln.get_gid() for ln in markers} == {"era5_node", "zone_centroid", "zone_centroid_dot"}
+    assert {ln.get_gid() for ln in markers} == {"era5_node", "era5_node_W", "era5_node_E", "zone_centroid",
+                                                 "zone_centroid_dot"}
 
 
 # ---- bathymetry -----------------------------------------------------------------
@@ -309,17 +315,71 @@ def test_exact_180_mm_outputs(outputs):
     assert px_h / 600 * 25.4 == pytest.approx(h_mm, abs=0.05)
 
 
-def test_caption_states_sources_and_limits(m, data):
-    c = m.caption(data)
+def _caption() -> str:
+    text = CAPTIONS.read_text(encoding="utf-8")
+    return " ".join(text.split("**Figure 1.**")[1].split("**Figure 2.**")[0].split())
+
+
+def test_caption_states_sources_and_limits(data, screening):
+    c = _caption()
     for token in ("13 May 2026", "candidate area, not an approved project", "2010/1089",
-                  "approximate GIS reconstruction", "not a legally certified boundary",
-                  "not an automatic prohibition", "EMODnet", "depth = −elevation",
-                  "not legal or technical exclusion zones", f"{data.era5_distance_km:.1f} km",
-                  "outside the zone", "UTM zone 35N", "24.7 km²", "beyond the map edge",
-                  "piecewise linear", "Gelibolu Peninsula"):
+                  "approximate reconstruction, not an official verified boundary", "continues beyond the map",
+                  "EMODnet DTM 2024", "not technical or legal limits", f"{data.era5_distance_km:.1f} km",
+                  "outside the polygon", "UTM zone 35N", "EPSG:32635", "no turbine layout",
+                  "not a permitting judgement", "land fraction", "0.25° cell", "grid-node sensitivity experiment",
+                  "break at 60 m"):
         assert token in c, token
-    committed = ROOT / "figures" / "revised" / "saros_study_area_caption.md"
-    assert committed.read_text(encoding="utf-8") == c
+    ref = screening["protected_area_overlap"]["saros_ock_2010"]
+    assert f"about {ref['overlap_km2']:.0f} km²" in c and f"about {ref['overlap_share_pct']:.0f} %" in c
+    assert "Figure 1" in (ROOT / "manuscript" / "src" / "09_figures.md").read_text(encoding="utf-8")
+
+
+# ---- the three ERA5 nodes and their cells (Phase 5C-1) ------------------------------
+def test_three_nodes_are_drawn_at_their_result_coordinates(fig, m, data):
+    nodes = json.loads(NODES.read_text(encoding="utf-8"))["nodes"]
+    t = m.to_map()
+    for k, gid in (("W", "era5_node_W"), ("C", "era5_node"), ("E", "era5_node_E")):
+        (ln,) = _lines(fig, gid)
+        x, y = t.transform(nodes[k]["lon"], nodes[k]["lat"])
+        assert (ln.get_xdata()[0], ln.get_ydata()[0]) == pytest.approx((x, y))
+        assert not data.zone.contains(Point(x, y)) and not nodes[k]["inside_polygon"]
+    filled = _lines(fig, "era5_node")[0].get_markerfacecolor()
+    assert all(_lines(fig, g)[0].get_markerfacecolor() != filled for g in ("era5_node_W", "era5_node_E"))
+
+
+def test_cells_are_the_quarter_degree_cells_of_the_nodes(fig, m, data):
+    cells = _lines(fig, "era5_cell")
+    assert len(cells) == 3
+    nodes = json.loads(NODES.read_text(encoding="utf-8"))["nodes"]
+    g = m.to_geo()
+    for ln, k in zip(cells, ("W", "C", "E")):
+        lon, lat = g.transform(ln.get_xdata(), ln.get_ydata())
+        assert min(lon) == pytest.approx(nodes[k]["lon"] - 0.125, abs=1e-9)
+        assert max(lon) == pytest.approx(nodes[k]["lon"] + 0.125, abs=1e-9)
+        assert min(lat) == pytest.approx(nodes[k]["lat"] - 0.125, abs=1e-9)
+        assert max(lat) == pytest.approx(nodes[k]["lat"] + 0.125, abs=1e-9)
+    # the cells partition the zone as in the results (nearest-node shares)
+    shares = m.cell_shares_pct(data)
+    assert sum(shares.values()) == pytest.approx(100, abs=0.01)
+    for k in ("W", "C", "E"):
+        assert shares[k] == pytest.approx(nodes[k]["polygon_share_nearest_to_node_pct"], abs=0.3)
+
+
+def test_node_labels_show_the_era5_land_fractions(fig):
+    nodes = json.loads(NODES.read_text(encoding="utf-8"))["nodes"]
+    for k in ("W", "C", "E"):
+        (t,) = [t for t in _ax(fig).texts if t.get_gid() == f"node_label_{k}"]
+        assert f"land fraction {nodes[k]['era5_land_sea_mask_fraction']:.2f}" in t.get_text()
+        assert f"{nodes[k]['lon']:.2f}° E" in t.get_text()
+    assert "primary" in [t for t in _ax(fig).texts if t.get_gid() == "node_label_C"][0].get_text()
+
+
+def test_map_states_crs_and_sources(fig, m):
+    (note,) = [t for t in fig.texts if t.get_gid() == "source_note"]
+    text = " ".join(note.get_text().split())
+    for token in ("EPSG:32635", "MENR (2026a)", "EMODnet DTM 2024", "Decision 2010/1089", "ERA5"):
+        assert token in text, token
+    assert _lines(fig, "scale_bar") and [p for p in _ax(fig).patches if p.get_gid() == "north_arrow"]
 
 
 # ---- refinement: key, ÖÇK presentation, labels, depth scale ----------------------
@@ -363,5 +423,5 @@ def test_no_label_on_unmapped_land_and_quiet_centroid(fig):
 def test_legend_is_concise(fig):
     (leg,) = fig.legends
     labels = [t.get_text() for t in leg.get_texts()]
-    assert len(labels) == 7 and all(len(t) <= 36 for t in labels)
+    assert len(labels) == 9 and all(len(t) <= 36 for t in labels)
     assert not [t for t in labels if re.search(r"Decision|permit|exclu|approved project", t)]

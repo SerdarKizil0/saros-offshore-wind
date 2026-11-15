@@ -9,13 +9,13 @@ bounded by the coast of Thrace to the north and by the Gelibolu (Gallipoli)
 Peninsula to the south, and it opens westward to the North Aegean. The
 candidate area examined here lies on the northern, Thracian shelf of the gulf
 and runs roughly parallel to the Thracian coast. The Gelibolu Peninsula forms
-the opposite, southern shore.
+the opposite, southern shore (Fig. 1).
 
 The area is defined by the polygon that the Ministry of Energy and Natural
 Resources (MENR) published with its notice of 13 May 2026 (file "SAROS
 DÜRES.kml"; MENR, 2026a). The polygon has 27 vertices and an area of 172.6 km²
-(computed in WGS 84 / UTM zone 35N). Its centroid lies at 40.557° N, 26.198°
-E. It is elongated: 35.9 km along its principal axis, which bears 81°
+(computed in WGS 84 / UTM zone 35N). Its centroid lies at 40.557° N,
+26.198° E. It is elongated: 35.9 km along its principal axis, which bears 81°
 (east-north-east to west-south-west), and 11.3 km across it. This study takes
 the published polygon as a fixed geometric object. It implies no turbine
 layout, cable route or installation footprint.
@@ -60,7 +60,7 @@ Bölgesi*, ÖÇK) was declared by Council of Ministers Decision 2010/1089
 No. 2872. The annex to the decision lists 13 boundary points in geographic
 coordinates. It does not state a geodetic datum. For screening, the boundary
 was reconstructed by joining these points with straight segments and reading
-the coordinates as WGS 84.
+the coordinates as WGS 84 (Fig. 1).
 
 With this reconstruction, about 25 km² of the candidate polygon, or about 14 %
 of its area, lies inside the ÖÇK. The overlap is the eastern arm of the
@@ -96,7 +96,7 @@ The grid node nearest the polygon centroid is at 40.50° N, 26.25° E. This node
 lies outside the polygon, 3.7 km south of its boundary. It is the nearest node
 for 62.6 % of the polygon area. The remainder is nearest to the neighbouring
 nodes at 26.00° E (27.7 %) and 26.50° E (9.7 %). None of the three nodes lies
-inside the polygon.
+inside the polygon (Fig. 1).
 
 A reanalysis value represents a grid cell, not a point. In the static ERA5
 land–sea mask the cell of the primary node has a land fraction of 0.44, so the

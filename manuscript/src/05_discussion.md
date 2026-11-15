@@ -22,7 +22,7 @@ a plant would operate is an assumption that this study cannot test.
 
 ## 5.2. Why a recent reference period gives a higher estimate
 
-What is demonstrated is the pattern. The
+What is demonstrated is the pattern (Fig. 2b). The
 {{d:windows.n_recent_consecutive_above}} most recent 11-year windows, from
 {{d:windows.first_recent_above_label}} onwards, all lie above the 1994–2024
 mean, and all {{d:windows.n_below}} earlier windows lie below it. The
@@ -54,7 +54,7 @@ the same area. The second effect is larger: the differences of
 {{node_sensitivity:nodes.E.energy_rel_to_primary_node_pct|+.1f}} % are about
 {{node_sensitivity:nodes.W.abs_diff_over_reference_ci_half_width|.0f}} and
 {{node_sensitivity:nodes.E.abs_diff_over_reference_ci_half_width|.0f}} times
-the half-width of the sampling interval. They are also of a different
+the half-width of the sampling interval (Fig. 4). They are also of a different
 nature. Because they recur in every year with little scatter, more years
 would narrow the sampling interval further and leave the node differences
 unchanged.
@@ -81,7 +81,7 @@ The two products differ by about
 {{d:gwa_polygon_excess_matched_pct|.0f}} % in mean wind speed over the
 polygon when their periods are matched, and by
 {{d:gwa_node_excess_min_pct|.0f}} % to {{d:gwa_node_excess_max_pct|.0f}} %
-depending on the cell. This shows that the model-based
+depending on the cell (Fig. 3b). This shows that the model-based
 estimate of the resource level is not robust. It does not show which
 product is closer to the truth, for three reasons. The atlas is driven by
 ERA5 and is therefore not an independent source. Neither product has been
@@ -111,7 +111,7 @@ reanalysis represents a coastal area, so that adding them would count the
 same deficiency twice. Third, the alternatives examined are not exhaustive.
 Two neighbouring cells and one other product do not span the possible
 errors. A combined interval would therefore look more rigorous than the
-evidence allows. The categories are best read side by side, as a statement
+evidence allows. The categories are best read side by side (Fig. 4), as a statement
 of which choices matter and by how much.
 
 ## 5.6. Limits set by the data and the turbine model
