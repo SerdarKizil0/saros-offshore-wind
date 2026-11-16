@@ -110,7 +110,8 @@ def test_whole_manuscript_is_generated_and_up_to_date(builder):
 
 DECIMALS_OK = {"40.50", "26.25", "26.00", "26.50", "0.25", "9.5", "3.5", "1.225", "0.10", "0.90", "0.95", "1.05",
                "1.10", "0.75", "4.0",
-               "29.6"}                      # National Energy Plan 2022: wind capacity projected for 2035 (GW)
+               "29.6",
+               "367.62"}                    # Yildirim (2023), Table 3: area of its Saros study region (km²)                      # National Energy Plan 2022: wind capacity projected for 2035 (GW)
 INTEGERS_OK = {"1 000", "20 000", "100", "105", "164", "250", "200", "2872", "29852", "27793", "30791", "1133",
                "1089", "9500", "256",
                "32635"}                     # EPSG code of WGS 84 / UTM zone 35N (figure caption)
@@ -361,23 +362,31 @@ def test_abstract_scope_and_length():
 
 # ------------------------------------------------------------ 6. Yildirim (2023)
 def test_yildirim_is_discussed_within_the_verified_limits():
+    """Post-freeze literature correction (16 November 2026): the full text was obtained and read by the
+    author. The study is described, distinguished from this paper and not compared numerically."""
     hits = [(n, u) for n, u in PROSE_UNITS if "Yildirim" in u]
-    assert hits and {n for n, _ in hits} == {"01_introduction.md"}
+    assert hits and {n for n, _ in hits} == {"01_introduction.md", "05_discussion.md"}
     intro = flat("01_introduction.md")
-    for phrase in ("three candidate regions identified in the 2018 tender process",
-                   "two in the Aegean Sea and one in the Black Sea", "data from the Global Wind Atlas",
-                   "reported the best results for a Saros region",
-                   "The published abstract does not define the region that was examined",
-                   "the full text was not available to us",
-                   "could therefore not be established", "are not compared here"):
+    for phrase in ("techno-economic feasibility assessment of three candidate regions identified in the 2018 tender process",
+                   "two in the Aegean Sea and one in the Black Sea", "including a Saros region",
+                   "Wind data were taken from the Global Wind Atlas", "a turbine layout, the annual energy production",
+                   "capital and operating expenditure, the levelised cost of energy and the net present value",
+                   "The present study does not repeat such an assessment",
+                   "is given as 367.62 km² (its Table 3)",
+                   "whether the two areas overlap could not be established",
+                   "the yields and capacity factors of the two studies are not compared here"):
         assert phrase in intro, phrase
+    for bad in ("not available to us", "full text was not", "published abstract does not define", "the first"):
+        assert bad not in intro, bad
     block = intro.split("The Gulf of Saros itself has been examined before.")[1].split("These studies share")[0]
-    assert not re.findall(r"\d", re.sub(r"\b(19|20)\d\d\b", "", block)), "no numbers may be attributed to Yildirim"
-    for bad in (r"capacity factor", r"GWh", r"MW\b", r"km²", r"higher than|lower than"):
+    nums = re.findall(r"\d[\d.]*", re.sub(r"\b(19|20)\d\d\b|ERA5", "", block))
+    assert set(nums) <= {"367.62", "3", "31", "172.6"}, nums          # area from its Table 3, our polygon, record length
+    for bad in (r"capacity factor of", r"GWh", r"MW\b", r"higher than|lower than", r"\bdo not overlap\b"):
         assert not re.search(bad, block), bad
-    assert "It is not" not in block or True
+    disc = flat("05_discussion.md")
+    assert "such as the feasibility assessment of a Saros region by Yildirim (2023), inherit this unresolved difference" in disc
     row = next(r for r in csv.DictReader(REGISTER.open(encoding="utf-8")) if r["key"] == "yildirim2023")
-    assert row["status"] == "V-AB" and "FULL TEXT NOT ACCESSED" in row["note"]
+    assert row["status"] == "V-FT" and "367.62" in row["note"] and "FULL TEXT NOT ACCESSED" not in row["note"]
 
 
 # --------------------------------------------------------------- 7. references

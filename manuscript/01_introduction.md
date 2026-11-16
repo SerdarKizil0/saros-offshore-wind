@@ -38,13 +38,21 @@ turbines north-east of Gökçeada. At the basin scale, Görmüş et al. (2022)
 analysed the offshore wind power potential of the Mediterranean region.
 
 The Gulf of Saros itself has been examined before. Yildirim (2023) carried out
-a techno-economic analysis of three candidate regions identified in the 2018
-tender process, two in the Aegean Sea and one in the Black Sea, using data
-from the Global Wind Atlas, and reported the best results for a Saros region.
-The published abstract does not define the region that was examined, and the
-full text was not available to us. The spatial relationship between that
-region and the polygon published in 2026 could therefore not be established,
-and the results of the two studies are not compared here.
+a techno-economic feasibility assessment of three candidate regions identified
+in the 2018 tender process, two in the Aegean Sea and one in the Black Sea,
+including a Saros region. Wind data were taken from the Global Wind Atlas, and
+the assessment comprised a turbine layout, the annual energy production,
+capital and operating expenditure, the levelised cost of energy and the net
+present value; it reported the best results for the Saros region. The present
+study does not repeat such an assessment. It uses a 31-year ERA5 series and
+asks how sensitive a yield estimate is to the reference period, the grid node
+and the wind data product, questions that an assessment built on a single wind
+data source does not address. The Saros study area of Yildirim (2023) is given
+as 367.62 km² (its Table 3), larger than the 172.6 km² of the polygon
+published in 2026; whether the two areas overlap could not be established
+without the coordinates of the earlier area. Because the study areas, the
+turbines and the assumptions differ, the yields and capacity factors of the
+two studies are not compared here.
 
 These studies share one feature that matters for the present purpose: each
 rests on a single wind data source. In the absence of offshore measurements,

@@ -294,7 +294,7 @@ def test_tables_and_figures_follow_their_first_citation(master):
         if s in ("TableCaption", "ImageCaption"):
             label = re.match(r"(Table \d|Figure \d)\.", t).group(1)
             num = label.split()[1]
-            cite = rf"\bTables? {num}\b" if label.startswith("Table") else rf"\bFigs?\. {num}"
+            cite = rf"(?<!its )\bTables? {num}\b" if label.startswith("Table") else rf"\bFigs?\. {num}"
             assert re.search(cite, seen_text), f"{label} placed before it is cited"
             order.append(label)
         else:

@@ -106,9 +106,12 @@ One observation is suggestive. The disagreement is smallest at the node where
 the ERA5 land–sea mask indicates least land influence and largest at the
 primary node. This is what would be expected if the coarse reanalysis were
 affected by land near the coast. It is equally compatible with errors in the downscaling near
-the coast. The comparison is therefore reported as a discrepancy. The
-primary estimate is not scaled towards the atlas, because doing so would
-replace one unverified level by another.
+the coast. The comparison is therefore reported as a discrepancy. The primary estimate is not scaled towards the atlas, because doing so would
+replace one unverified level by another. Assessments that rest on the atlas
+alone, such as the feasibility assessment of a Saros region by Yildirim
+(2023), inherit this unresolved difference in level; the comparison made
+here does not show whether such estimates are too high or the reanalysis
+too low.
 
 ## 5.5. Why the six categories are not combined
 

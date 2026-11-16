@@ -107,11 +107,11 @@ def test_gwa_period_is_sourced_to_the_gwa4_documentation():
     assert "reference period of the wind atlas" not in " ".join(ALL.values())
 
 
-# ---------------------------------------------------------------- Yildirim limitation retained
-def test_yildirim_limitation_is_explicit():
+# ---------------------------------------------------------------- Yildirim (full text read after the freeze)
+def test_yildirim_is_distinguished_not_compared():
     i = ALL["01_introduction.md"]
-    assert "the full text was not available to us" in i
-    assert "the results of the two studies are not compared here" in i
+    assert "not available to us" not in " ".join(ALL.values())
+    assert "the yields and capacity factors of the two studies are not compared here" in i
     assert "According to Yildirim (2023), an earlier tender process was opened in 2018" in i
 
 

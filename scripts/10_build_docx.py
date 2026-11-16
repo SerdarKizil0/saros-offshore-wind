@@ -215,7 +215,7 @@ def prose(name: str) -> str:
     return nonbreaking(placeholders(equation_links(math_compatible(equations(generated(name))))))
 
 
-TABLE_CITE = re.compile(r"(?<!Supplementary )(?<!Supplementary\n)\bTables? (\d)\b")
+TABLE_CITE = re.compile(r"(?<!Supplementary )(?<!Supplementary\n)(?<!its )\bTables? (\d)\b")   # "its Table 3": another article
 FIG_CITE = re.compile(r"\bFigs?\. (\d)")
 
 

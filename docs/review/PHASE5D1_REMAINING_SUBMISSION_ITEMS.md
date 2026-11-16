@@ -1,6 +1,6 @@
 # Remaining submission items (after Phase 5D-1, manuscript frozen)
 
-*16 November 2026. This list replaces `PHASE5C2_SUBMISSION_CHECKLIST.md` as the working
+*16 November 2026 (B1 and B2 updated after the post-freeze literature correction). This list replaces `PHASE5C2_SUBMISSION_CHECKLIST.md` as the working
 list; the earlier file is kept as a record. The scientific manuscript is **frozen** (see
 `PHASE5D1_FINAL_REVISION_REPORT.md` §8). The items below are author actions, external
 sources or formatting choices. None requires a new analysis. "Text change" says whether
@@ -24,8 +24,8 @@ exception and must be limited to that item.*
 
 | # | Item | Status after 5D-1 | What closes it | Blocking |
 |---|---|---|---|---|
-| B1 | **Yildirim (2023) full text** (doi:10.1007/s10098-022-02392-0) | Not accessible by legitimate means in this environment. The 16 November 2026 attempt found no open-access copy (Unpaywall: closed), no abstract in the Semantic Scholar record (elided by the publisher), and that the publisher page requires authentication. The Introduction states that the full text was not available and does not compare the two studies | An author reads the article (institutional access or interlibrary loan) and either confirms the paragraph in §1 or adds a sentence on its study area. A numerical comparison should be added only if area and method allow | **Yes**, or disclose explicitly to editor and reviewers |
-| B2 | Spatial relation of the Yildirim Saros region to the 2026 polygon | Undetermined; stated in the text | B1 | With B1 |
+| B1 | Yildirim (2023) full text (doi:10.1007/s10098-022-02392-0) | **Resolved** (post-freeze literature correction, 16 November 2026): the full text was obtained and read by the author. §1 now describes the study as a GWA-based techno-economic feasibility assessment of three 2018 candidate regions including Saros (turbine layout, AEP, CAPEX, OPEX, LCOE, NPV) and distinguishes it from the present sensitivity analysis; §5.4 notes that atlas-based assessments inherit the unresolved ERA5–GWA difference. All statements that the full text was unavailable were removed. No yields or capacity factors are compared | — | No |
+| B2 | Spatial relation of the Yildirim Saros study area to the 2026 polygon | The article gives a Saros area of 367.62 km² (Table 3; 376.62 km² also appears in the article, an internal inconsistency not discussed in the manuscript). The manuscript states that overlap could not be established without the coordinates of the earlier area | Coordinates of the earlier area, if a future revision needs them | No |
 | B3 | YEKA DÜRES-2026 tender status | Draft as of 14 November 2026; the text dates the statement | Re-check MENR notices and the Official Gazette in the week of submission; update §1 and §2.2 only if the status changed | **Yes** (date-sensitive) |
 | B4 | Database literature sweep (Scopus or Web of Science, including Turkish journals and theses) | Not done; the manuscript makes no novelty claim and calls its contributions "limited" | An author runs the queries; any relevant hit is added to §1 | Recommended |
 | B5 | Studies cited for their topic only (Argin 2019; Emeksiz & Demirci 2019; Görmüş 2022; Demirci 2026; Satir 2018; the ERA5 evaluation papers) | Cited only for the scope stated in their titles or abstracts | An author reads them before submission | Recommended |
@@ -33,6 +33,7 @@ exception and must be limited to that item.*
 | B7 | Licence of the GWA extract stored in the repository | Not checked | Provider terms | Before the repository is made public |
 
 **Closed in Phase 5D-1 (no longer open):**
+- Yildirim (2023) full-text access: resolved by the author after the freeze (B1).
 - GWA 4.0 reference period: now cited to Hansen et al. (2025), DTU report E-0256, read in full.
 - ERA5 resolution: confirmed in the Hersbach et al. (2020) abstract and the ECMWF and CDS documentation.
 - Duzcan & Kara page range: Crossref.
