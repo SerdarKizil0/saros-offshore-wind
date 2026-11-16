@@ -24,11 +24,11 @@ Open items:
 - Author-dependent declarations are marked `[AUTHOR TO CONFIRM: …]` in
   `src/07_declarations.md`.
 - Unresolved source, reference and declaration items are listed in
-  `docs/review/PHASE5C2_SUBMISSION_CHECKLIST.md`.
+  `docs/review/PHASE5D1_REMAINING_SUBMISSION_ITEMS.md`.
 - The verification status of every reference is in
   `docs/review/phase5b2_reference_register.csv`.
 
-Master documents for review (Phase 5C-2):
+Master documents for review (Phase 5C-2; final scientific revision Phase 5D-1 — manuscript frozen, see `docs/review/PHASE5D1_FINAL_REVISION_REPORT.md`):
 
 ```bash
 python scripts/10_build_docx.py            # manuscript/output/*.docx and *.pdf
@@ -43,6 +43,6 @@ python scripts/10_build_docx.py --check    # compare with a fresh build
 The build needs pandoc and LibreOffice with its Math component
 (`apt-get install libreoffice-math`); without it the PDF shows no equations.
 Author-dependent placeholders are shaded yellow in the DOCX. Open items are in
-`docs/review/PHASE5C2_SUBMISSION_CHECKLIST.md`. Figure call-outs in the text use
+`docs/review/PHASE5D1_REMAINING_SUBMISSION_ITEMS.md`. Figure call-outs in the text use
 "Fig. N"; captions use "Figure N.". Main tables are numbered in the order of
 their first citation.

@@ -66,7 +66,7 @@
 | 2023 | 8760 | 7.23 | 33.05 | 28.02 | 2.456 |
 | 2024 | 8784 | 7.18 | 32.02 | 27.15 | 2.380 |
 
-## Table S4. Sampling interval of the 1994–2024 mean net yield (GWh MW⁻¹ yr⁻¹) and interannual statistics.
+## Table S4. Sampling confidence interval of the 1994–2024 mean net yield (GWh MW⁻¹ yr⁻¹) and interannual statistics.
 
 | Statistic | Value |
 |---|---|
@@ -89,46 +89,46 @@
 
 ## Table S6. All rolling 11-year windows at the primary node, 1979–2024.
 
-| Window | Net yield (GWh MW⁻¹ yr⁻¹) | Relative to the 1994–2024 mean (%) | Inside 1994–2024 | Rank from lowest, windows inside 1994–2024 | Rank from lowest, all windows |
-|---|---|---|---|---|---|
-| 1979–1989 | 2.342 | −0.50 | no | — | 25 |
-| 1980–1990 | 2.329 | −1.04 | no | — | 20 |
-| 1981–1991 | 2.338 | −0.68 | no | — | 23 |
-| 1982–1992 | 2.347 | −0.29 | no | — | 27 |
-| 1983–1993 | 2.343 | −0.46 | no | — | 26 |
-| 1984–1994 | 2.332 | −0.93 | no | — | 21 |
-| 1985–1995 | 2.360 | +0.27 | no | — | 31 |
-| 1986–1996 | 2.348 | −0.26 | no | — | 28 |
-| 1987–1997 | 2.325 | −1.21 | no | — | 19 |
-| 1988–1998 | 2.324 | −1.25 | no | — | 18 |
-| 1989–1999 | 2.314 | −1.69 | no | — | 13 |
-| 1990–2000 | 2.306 | −2.03 | no | — | 7 |
-| 1991–2001 | 2.339 | −0.65 | no | — | 24 |
-| 1992–2002 | 2.310 | −1.84 | no | — | 11 |
-| 1993–2003 | 2.317 | −1.56 | no | — | 14 |
-| 1994–2004 | 2.313 | −1.73 | yes | 10 | 12 |
-| 1995–2005 | 2.322 | −1.37 | yes | 13 | 17 |
-| 1996–2006 | 2.307 | −1.99 | yes | 8 | 9 |
-| 1997–2007 | 2.298 | −2.39 | yes | 5 | 5 |
-| 1998–2008 | 2.302 | −2.18 | yes | 6 | 6 |
-| 1999–2009 | 2.274 | −3.39 | yes | 1 | 1 |
-| 2000–2010 | 2.297 | −2.43 | yes | 4 | 4 |
-| 2001–2011 | 2.321 | −1.39 | yes | 12 | 16 |
-| 2002–2012 | 2.306 | −2.02 | yes | 7 | 8 |
-| 2003–2013 | 2.333 | −0.91 | yes | 14 | 22 |
-| 2004–2014 | 2.292 | −2.64 | yes | 3 | 3 |
-| 2005–2015 | 2.291 | −2.66 | yes | 2 | 2 |
-| 2006–2016 | 2.310 | −1.88 | yes | 9 | 10 |
-| 2007–2017 | 2.318 | −1.53 | yes | 11 | 15 |
-| 2008–2018 | 2.352 | −0.07 | yes | 15 | 29 |
-| 2009–2019 | 2.355 | +0.07 | yes | 16 | 30 |
-| 2010–2020 | 2.397 | +1.82 | yes | 17 | 32 |
-| 2011–2021 | 2.415 | +2.61 | yes | 19 | 34 |
-| 2012–2022 | 2.419 | +2.76 | yes | 20 | 35 |
-| 2013–2023 | 2.414 | +2.55 | yes | 18 | 33 |
-| 2014–2024 | 2.427 | +3.12 | yes | 21 | 36 |
+| Window | Net yield (GWh MW⁻¹ yr⁻¹) | Relative to the 1994–2024 mean (%) | Inside 1994–2024 | Rank from lowest, windows inside 1994–2024 | Rank from lowest, all windows | 90 % sampling half-width of the window mean (%) |
+|---|---|---|---|---|---|---|
+| 1979–1989 | 2.342 | −0.50 | no | — | 25 | 3.8 |
+| 1980–1990 | 2.329 | −1.04 | no | — | 20 | 3.7 |
+| 1981–1991 | 2.338 | −0.68 | no | — | 23 | 3.5 |
+| 1982–1992 | 2.347 | −0.29 | no | — | 27 | 3.4 |
+| 1983–1993 | 2.343 | −0.46 | no | — | 26 | 3.4 |
+| 1984–1994 | 2.332 | −0.93 | no | — | 21 | 3.5 |
+| 1985–1995 | 2.360 | +0.27 | no | — | 31 | 3.0 |
+| 1986–1996 | 2.348 | −0.26 | no | — | 28 | 3.0 |
+| 1987–1997 | 2.325 | −1.21 | no | — | 19 | 2.4 |
+| 1988–1998 | 2.324 | −1.25 | no | — | 18 | 2.4 |
+| 1989–1999 | 2.314 | −1.69 | no | — | 13 | 2.9 |
+| 1990–2000 | 2.306 | −2.03 | no | — | 7 | 3.1 |
+| 1991–2001 | 2.339 | −0.65 | no | — | 24 | 4.0 |
+| 1992–2002 | 2.310 | −1.84 | no | — | 11 | 4.9 |
+| 1993–2003 | 2.317 | −1.56 | no | — | 14 | 5.0 |
+| 1994–2004 | 2.313 | −1.73 | yes | 10 | 12 | 4.9 |
+| 1995–2005 | 2.322 | −1.37 | yes | 13 | 17 | 4.9 |
+| 1996–2006 | 2.307 | −1.99 | yes | 8 | 9 | 4.9 |
+| 1997–2007 | 2.298 | −2.39 | yes | 5 | 5 | 5.0 |
+| 1998–2008 | 2.302 | −2.18 | yes | 6 | 6 | 5.0 |
+| 1999–2009 | 2.274 | −3.39 | yes | 1 | 1 | 4.8 |
+| 2000–2010 | 2.297 | −2.43 | yes | 4 | 4 | 4.4 |
+| 2001–2011 | 2.321 | −1.39 | yes | 12 | 16 | 4.4 |
+| 2002–2012 | 2.306 | −2.02 | yes | 7 | 8 | 3.8 |
+| 2003–2013 | 2.333 | −0.91 | yes | 14 | 22 | 2.5 |
+| 2004–2014 | 2.292 | −2.64 | yes | 3 | 3 | 3.4 |
+| 2005–2015 | 2.291 | −2.66 | yes | 2 | 2 | 3.4 |
+| 2006–2016 | 2.310 | −1.88 | yes | 9 | 10 | 3.8 |
+| 2007–2017 | 2.318 | −1.53 | yes | 11 | 15 | 3.7 |
+| 2008–2018 | 2.352 | −0.07 | yes | 15 | 29 | 4.0 |
+| 2009–2019 | 2.355 | +0.07 | yes | 16 | 30 | 4.0 |
+| 2010–2020 | 2.397 | +1.82 | yes | 17 | 32 | 4.2 |
+| 2011–2021 | 2.415 | +2.61 | yes | 19 | 34 | 4.1 |
+| 2012–2022 | 2.419 | +2.76 | yes | 20 | 35 | 4.1 |
+| 2013–2023 | 2.414 | +2.55 | yes | 18 | 33 | 4.1 |
+| 2014–2024 | 2.427 | +3.12 | yes | 21 | 36 | 3.8 |
 
-*Overlapping windows share years and are not independent samples.*
+*Overlapping windows share years and are not independent samples. The last column is the sampling confidence interval of each window's own mean (t, 11 annual values); differences between windows of this size are compatible with sampling variability.*
 
 ## Table S7. Weibull description of the hourly 105 m wind speed (descriptive only; not the energy estimator).
 
@@ -171,7 +171,7 @@
 
 *Sensitivity experiments only. They are not corrections, forecasts or confidence intervals, and no scaled value is adopted.*
 
-## Table S11. Global Wind Atlas 4.0 (2008–2017) and ERA5 mean wind speed at 100 m around each node (m s⁻¹).
+## Table S11. Global Wind Atlas 4.0 (mesoscale period 2008–2017) and ERA5 mean wind speed at 100 m around each node (m s⁻¹).
 
 | Node | GWA node pixel | GWA 0.25° box, all pixels | GWA 0.25° box, sea pixels | ERA5 1994–2024 | ERA5 2008–2017 | Ratio box / ERA5 2008–2017 | Ratio sea pixels / ERA5 2008–2017 |
 |---|---|---|---|---|---|---|---|
@@ -183,7 +183,7 @@
 
 ## Table S12. Illustrative capacities (linear scaling of the per-MW results; no layout, one wake value for all densities).
 
-| Illustrative capacity | MW | Density (MW km⁻², full polygon) | Net energy (GWh yr⁻¹; sampling interval) | Combined-margin CO₂ accounting equivalent (kt yr⁻¹; sampling interval) | Life-cycle GHG (kt CO₂-eq yr⁻¹; literature range) | Share of the 5 GW national 2035 offshore projection (%) | Share of 2024 national gross consumption (%) |
+| Illustrative capacity | MW | Density (MW km⁻², full polygon) | Net energy (GWh yr⁻¹; sampling confidence interval) | Combined-margin CO₂ accounting equivalent (kt yr⁻¹; sampling confidence interval) | Life-cycle GHG (kt CO₂-eq yr⁻¹; literature range) | Share of the 5 GW national 2035 offshore projection (%) | Share of 2024 national gross consumption (%) |
 |---|---|---|---|---|---|---|---|
 | 26 × 9.5 MW | 247.0 | 1.4 | 581 (568–595) | 363 (355–371) | 7.0 (4.7–20.3) | 4.9 | 0.16 |
 | 53 × 9.5 MW | 503.5 | 2.9 | 1 185 (1 158–1 212) | 740 (723–757) | 14.2 (9.5–41.5) | 10.1 | 0.34 |

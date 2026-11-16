@@ -4654,7 +4654,7 @@ z
 " style="fill: #ffffff"/>
     </g>
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(60.943545 191.321922)">26.00° E, neighbour</text>
-    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(60.943545 200.400047)">land fraction 0.12</text>
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(60.943545 200.400047)">land–sea mask 0.12</text>
    </g>
    <g id="node_label_C">
     <g id="patch_9">
@@ -4666,7 +4666,7 @@ z
 " style="fill: #ffffff"/>
     </g>
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(230.36919 197.45736)">26.25° E, primary node</text>
-    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(240.213486 206.535485)">land fraction 0.44</text>
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(236.38208 206.535485)">land–sea mask 0.44</text>
    </g>
    <g id="node_label_E">
     <g id="patch_10">
@@ -4678,7 +4678,7 @@ z
 " style="fill: #ffffff"/>
     </g>
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(411.273977 194.9826)">26.50° E, neighbour</text>
-    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(419.481477 204.060725)">land fraction 0.46</text>
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(411.818665 204.060725)">land–sea mask 0.46</text>
    </g>
    <g id="centroid_label">
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #555b63" x="226.801021" y="131.321409" transform="rotate(-0 226.801021 131.321409)">centroid</text>
@@ -4979,7 +4979,7 @@ L 210.990551 306.707666
 " style="fill: none; stroke-dasharray: 2.5,0.8,0.5,0.8; stroke-dashoffset: 0; stroke: #1f2328; stroke-width: 0.5"/>
    </g>
    <g id="text_36">
-    <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f2328" x="215.890551" y="309.157666" transform="rotate(-0 215.890551 309.157666)">ERA5 0.25° cell of each node</text>
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f2328" x="215.890551" y="309.157666" transform="rotate(-0 215.890551 309.157666)">Area nearest to each ERA5 node</text>
    </g>
    <g id="line2d_38">
     <path d="M 351.807582 264.705479 

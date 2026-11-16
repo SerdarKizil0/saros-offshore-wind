@@ -71,6 +71,7 @@ PAGE_W, PAGE_H = 11906, 16838               # twips
 MARGIN_TB, MARGIN_LR = 1418, 1134
 TEXT_WIDTH_CM = 17.0
 FIGURE_WIDTH_CM = TEXT_WIDTH_CM
+N_REFERENCES = 39                            # entries of manuscript/src/08_references.md
 WIDE_TABLE_COLS = 8                          # tables with this many columns use the small table font and margins
 
 W = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
@@ -221,6 +222,9 @@ FIG_CITE = re.compile(r"\bFigs?\. (\d)")
 # Layout tuning only: place a float this many prose paragraphs after its first citation (same
 # section), where placing it immediately would leave a large gap before a tall figure.
 FLOAT_DEFER = {("figure", 1): 1}
+# Layout tuning only: place this figure before a table cited in the same paragraph, so that the
+# long table (which may break across pages) follows the figure instead of pushing it to a new page.
+FIGURE_FIRST = {("figure", 3)}
 
 
 def place_floats(text: str, tables: dict, figures: dict, placed: dict) -> str:
@@ -235,8 +239,10 @@ def place_floats(text: str, tables: dict, figures: dict, placed: dict) -> str:
             out += [md for wait, md in pending if wait < 0]
             pending = [item for item in pending if item[0] >= 0]
             flat = " ".join(block.split())
-            for kind, rx, store, render in (("table", TABLE_CITE, tables, table_markdown),
-                                            ("figure", FIG_CITE, figures, figure_markdown)):
+            order = (("table", TABLE_CITE, tables, table_markdown), ("figure", FIG_CITE, figures, figure_markdown))
+            if any(("figure", int(n)) in FIGURE_FIRST for n in FIG_CITE.findall(flat)):
+                order = order[::-1]           # layout tuning: a tall figure before a long, breakable table
+            for kind, rx, store, render in order:
                 for num in dict.fromkeys(int(n) for n in rx.findall(flat)):
                     if num in store and (kind, num) not in placed:
                         placed[(kind, num)] = True
@@ -265,8 +271,8 @@ def title_and_abstract() -> tuple[str, str, str]:
 def references() -> str:
     t = generated("08_references.md")
     entries = [nonbreaking(" ".join(e.split())) for e in t.split("\n- ")[1:]]
-    if len(entries) != 38:
-        raise ValueError(f"expected 38 references, found {len(entries)}")
+    if len(entries) != N_REFERENCES:
+        raise ValueError(f"expected {N_REFERENCES} references, found {len(entries)}")
     body = "\n\n".join(entries)
     return f'# References\n\n::: {{custom-style="Reference"}}\n{body}\n:::'
 
@@ -583,6 +589,12 @@ def postprocess(docx: Path, line_numbers: bool) -> dict:
         else:
             _data_table(tbl)
             n_tab += 1
+    # The reference list starts on a new page (common manuscript layout). This also avoids a
+    # LibreOffice layout quirk that left the heading alone at the foot of the preceding page.
+    for p in body.iter(q("w:p")):
+        st = p.find("w:pPr/w:pStyle", NS)
+        if st is not None and st.get(q("w:val")) == "Heading1" and "".join(t.text or "" for t in p.iter(q("w:t"))) == "References":
+            _ppr_of(p).insert(1, _el("<w:pageBreakBefore/>"))
     # figures at the full text width (pandoc caps image width to its own default page)
     emu = round(FIGURE_WIDTH_CM / 2.54 * 914400)
     for drawing in body.iter(q("w:drawing")):

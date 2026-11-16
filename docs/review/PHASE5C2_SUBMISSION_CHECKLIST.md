@@ -5,6 +5,9 @@ list; the earlier file is kept as a record. **Blocking** means the item must be 
 before submission. A "Peer review" entry says whether the item matters before the
 manuscript is sent to independent (pre-submission) reviewers.*
 
+> **Superseded** by `PHASE5D1_REMAINING_SUBMISSION_ITEMS.md` (Phase 5D-1, 16 November 2026).
+> This file is kept as a record.
+
 ## A. Sources and facts
 
 | # | Item | Status after 5C-2 | What closes it | Blocking | Peer review |

@@ -14,7 +14,7 @@ integrated into the map, so no separate depth figure is needed:
                    annex: read as WGS 84, so the overlay is approximate)
   ERA5 nodes       results/revised/site_screening.json (primary node and its
                    distance to the zone) and results/revised/node_sensitivity.json
-                   (the three nodes on 40.50 N with their ERA5 land fractions)
+                   (the three nodes on 40.50 N with their ERA5 land-sea-mask values)
 
 What is drawn
   * water depth = -elevation, on a piecewise-linear colour scale (0-60 m, the
@@ -31,7 +31,9 @@ What is drawn
   * the primary ERA5 grid node used by the energy model, its two neighbours
     used in the grid-node sensitivity experiment, the outlines of their
     0.25 deg cells (the area each node represents, which is also the area
-    nearest to it), each cell's ERA5 land fraction, and the zone centroid;
+    nearest to it; the 0.25 deg output grid is interpolated from a ~31 km model
+    grid, so these are not independent model cells), the land-sea-mask value at
+    each node, and the zone centroid;
   * the primary node's distance to the zone boundary.
 No turbine positions, layout, cable route or project footprint are drawn.
 
@@ -540,7 +542,7 @@ def build_figure(d: MapData):
         for k, (dx, dy, ha, va) in NODE_LABEL_AT.items():
             p, node = d.node_xy[k], d.nodes[k]
             name = "primary node" if node["is_primary_node"] else "neighbour"
-            ax.annotate(f"{node['lon']:.2f}° E, {name}\nland fraction {node['era5_land_sea_mask_fraction']:.2f}",
+            ax.annotate(f"{node['lon']:.2f}° E, {name}\nland–sea mask {node['era5_land_sea_mask_fraction']:.2f}",
                         (p.x, p.y), xytext=(dx, dy), textcoords="offset points", ha=ha, va=va,
                         fontsize=FS_NOTE, color=INK, bbox=PLATE, zorder=7, linespacing=1.2,
                         gid=f"node_label_{k}")
@@ -641,7 +643,7 @@ def build_figure(d: MapData):
             "Zone centroid",
             "Primary ERA5 node (energy model)",
             "Neighbouring ERA5 node",
-            "ERA5 0.25° cell of each node",
+            "Area nearest to each ERA5 node",
             "10 m, 50 m isobaths (screening)",
             "Saros ÖÇK boundary (approximate)",
             "Part of zone inside the ÖÇK",

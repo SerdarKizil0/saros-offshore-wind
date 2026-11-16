@@ -16,18 +16,18 @@
 | Gross / net energy per 9.5 MW turbine (GWh yr⁻¹) | 26.38 / 22.36 | Model result |
 | **Net specific yield (GWh MW⁻¹ yr⁻¹)** | **2.354** | Model result (power curve, assumed losses) |
 | Net full-load hours (h yr⁻¹) | 2 354 | Model result |
-| 90 % sampling interval of the mean net yield (GWh MW⁻¹ yr⁻¹) | 2.300–2.407 (±2.3 %) | Sampling statistic (t, 31 annual values) |
+| 90 % sampling confidence interval of the mean net yield (GWh MW⁻¹ yr⁻¹) | 2.300–2.407 (±2.3 %) | Sampling statistic (t, 31 annual values) |
 | Coefficient of variation of annual net yield (%) | 7.4 | Interannual variability of reanalysis years |
 | Lowest / highest annual net yield (GWh MW⁻¹ yr⁻¹) | 1.944 (2002) / 2.674 (2001) | Interannual variability of reanalysis years |
 
-*Reference turbine V164-9.5 MW with the third-party digitised OEDB V164/9500 power curve (not manufacturer-certified). Nominal losses: wake 8 %, availability 95 %, electrical 3 % (assumptions, not layout-validated). The sampling interval is conditional on the reanalysis at this node; it is not a P90 value and not a total uncertainty. No value is validated against offshore measurements.*
+*Reference turbine V164-9.5 MW with the third-party digitised OEDB V164/9500 power curve (not manufacturer-certified). Nominal losses: wake 8 %, availability 95 %, electrical 3 % (assumptions, not layout-validated). The sampling confidence interval is conditional on the reanalysis at this node; it is not a P90 value and not a total uncertainty. No value is validated against offshore measurements.*
 
 ## Table 2. Grid-node sensitivity experiment: the three ERA5 nodes on the 40.50° N row, 1994–2024, identical method.
 
 | Quantity | 40.50° N, 26.00° E | 40.50° N, 26.25° E (primary) | 40.50° N, 26.50° E |
 |---|---|---|---|
-| ERA5 land–sea mask (land fraction of the cell) | 0.12 | 0.44 | 0.46 |
-| Class from the land–sea mask | offshore | coastal / mixed land-sea | coastal / mixed land-sea |
+| ERA5 land–sea-mask value at the node (0.25° output grid) | 0.12 | 0.44 | 0.46 |
+| Class from the land–sea-mask value | offshore | coastal / mixed land-sea | coastal / mixed land-sea |
 | Inside the candidate polygon | no | no | no |
 | Distance to the polygon boundary (km) | 5.0 | 3.7 | 9.1 |
 | Share of the polygon nearest to this node (%) | 27.7 | 62.6 | 9.7 |
@@ -41,7 +41,7 @@
 
 *Reanalysis output at grid nodes, not measurements. The nodes are not averaged and the differences are not confidence bounds. The polygon shares are geometric descriptors and are not used as weights.*
 
-## Table 3. Mean wind speed at 100 m in ERA5 and in the Global Wind Atlas 4.0 (GWA; climatology for 2008–2017), with the reference period of each value.
+## Table 3. Mean wind speed at 100 m in ERA5 and in the Global Wind Atlas 4.0 (GWA; mesoscale simulation period 2008–2017; Hansen et al., 2025), with the reference period of each value.
 
 | Comparison | GWA 4.0, 2008–2017 (m s⁻¹) | ERA5 (m s⁻¹; period) | Ratio GWA / ERA5 |
 |---|---|---|---|
@@ -59,12 +59,12 @@
 |---|---|---|---|---|
 | 1 | Sampling uncertainty of the 1994–2024 mean | Probabilistic interval (the only one) | 2.300–2.407 GWh MW⁻¹ yr⁻¹ (90 %); ±2.3 % | Conditional on ERA5 at the primary node |
 | 2 | Interannual variability | Observed spread of single reanalysis years | CoV 7.4 %; 1.944 (2002) to 2.674 (2001) | Not an uncertainty of the mean |
-| 3 | Period-selection sensitivity | Sensitivity experiment | 2014–2024 comparison period: +3.1 %; rolling 11-year windows within 1994–2024: −3.4 % to +3.1 % | Same node and method; other reference periods |
-| 4 | Grid-node sensitivity | Sensitivity experiment | Western neighbour +6.7 %; eastern neighbour −8.5 % | Same period and method; neighbouring 0.25° cells; not averaged, not a bound |
-| 5 | Wind-product discrepancy (ERA5 vs GWA 4.0) | Inter-model disagreement | GWA/ERA5 mean-speed ratio 1.119 (ERA5 1994–2024) and 1.122 (ERA5 2008–2017, period-matched) | Neither product validated offshore here; not a correction |
-| 6 | Loss-assumption sensitivity | Labelled assumption scenarios | Low losses +6.5 %; high losses −8.3 % | No site or layout evidence |
+| 3 | Period-selection sensitivity | Sensitivity experiment | 2014–2024 comparison period: +3.1 %; rolling 11-year windows within 1994–2024: −3.4 % to +3.1 % | Same node and method; the 90 % sampling half-width of the mean of the 2014–2024 window is ±3.8 %, about the size of the difference |
+| 4 | Grid-node sensitivity | Sensitivity experiment | Western neighbour +6.7 %; eastern neighbour −8.5 % | Same period and method; neighbouring 0.25° output nodes; not averaged, not a bound |
+| 5 | Wind-product discrepancy (ERA5 vs GWA 4.0) | Inter-model disagreement | GWA/ERA5 mean-speed ratio 1.119 (ERA5 1994–2024) and 1.122 (ERA5 2008–2017, the GWA mesoscale period) | Neither product validated offshore here; not a correction |
+| 6 | Loss-assumption sensitivity | Alternative assumed loss factors (arithmetic) | Low losses +6.5 %; high losses −8.3 % | No site or layout evidence |
 
-*Only category 1 is a probabilistic interval. Categories 3 to 6 are sensitivity experiments, an inter-model comparison and assumption scenarios; they are not confidence intervals, and the six categories must not be added or merged into a single interval.*
+*Only category 1 is a probabilistic interval. Categories 3 to 6 are sensitivity experiments, an inter-model comparison and assumption scenarios; they are not confidence intervals, and the six categories must not be added or merged into a single interval. Category 3 partly overlaps category 1: a shorter record carries a larger sampling uncertainty.*
 
 ## Table 5. First-order screening of the candidate polygon.
 
@@ -92,4 +92,4 @@
 | Build margin (context) | 0.3567 | 840 | 838 |
 | Generation average, CO₂ (context) | 0.430 | 1 012 | 1 010 |
 
-*Net energy of the illustrative case: 2 348 GWh yr⁻¹ (2 295–2 401). Values in parentheses propagate only the sampling interval of the mean energy through a fixed 2023 factor. The conventions are alternative accounting conventions, not bounds, and none is a forecast of the generation that would physically be displaced. The illustrative case (105 × 9.5 MW) is conditional on a future allocation of the draft tender capacity to Saros, which has not been made. Life-cycle greenhouse-gas values are reported separately in the supplementary tables.*
+*Net energy of the illustrative case: 2 348 GWh yr⁻¹ (2 295–2 401). Values in parentheses propagate only the sampling confidence interval of the mean energy through a fixed 2023 factor. The conventions are alternative accounting conventions, not bounds, and none is a forecast of the generation that would physically be displaced. The illustrative case (105 × 9.5 MW) is conditional on a future allocation of the draft tender capacity to Saros, which has not been made. Life-cycle greenhouse-gas values are reported separately in the supplementary tables.*

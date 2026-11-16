@@ -236,7 +236,7 @@ def test_fig3_node_values_come_from_the_results_and_are_not_joined(built):
     assert {ln.get_gid() for ln in drawn_lines(a)} == {"cell_boundary"}           # nothing joins the nodes
     t = " ".join(texts(fig))
     for k in ("W", "C", "E"):
-        assert f"land fraction\n{nodes[k]['era5_land_sea_mask_fraction']:.2f}" in t
+        assert f"land–sea mask\n{nodes[k]['era5_land_sea_mask_fraction']:.2f}" in t
         assert f"{nodes[k]['net_gwh_per_mw']:.3f}" in t
     for k in ("W", "E"):
         assert f"{nodes[k]['energy_rel_to_primary_node_pct']:+.1f}".replace("-", "−") + " %" in t
@@ -367,7 +367,7 @@ def test_captions_state_period_units_and_limits():
     c = _captions()
     for n in (2, 3, 4):
         assert "1994–2024" in c[n], n
-    assert "2008–2017" in c[3] and "GWA reference period" in c[3]
+    assert "2008–2017" in c[3] and "mesoscale simulation period" in c[3] and "Hansen et al., 2025" in c[3]
     assert "GWh MW⁻¹ yr⁻¹" in c[2] and "GWh MW⁻¹ yr⁻¹" in c[3]
     assert "not independent samples" in c[2] and "not observed production" in c[2]
     assert "not averaged" in c[3] and "not limits on the resource" in c[3]

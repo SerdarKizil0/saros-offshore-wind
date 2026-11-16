@@ -10,32 +10,36 @@ losses, averaged over 1994–2024. Within that chain the result is well
 determined: it is reproducible from pinned inputs, it barely changes when
 the record is extended to 1979
 ({{period_sensitivity:periods.1979-2024.energy_change_vs_reference_pct|+.1f}} %),
-and the sampling interval of the mean is narrow
+and the sampling confidence interval of the mean is narrow
 (±{{interannual_and_sampling:sampling_ci_of_period_mean.primary_t_interval_90.half_width_rel_pct|.1f}} %).
 
 The result does not establish the wind resource of the candidate area.
 Nothing in this study tests whether the reanalysis is right at this
-location, and the sampling interval is silent on that question by
+location, and the sampling confidence interval is silent on that question by
 construction. Nor is the 1994–2024 mean a prediction. It describes 31 past
 reanalysis years. Whether those years represent the conditions under which
 a plant would operate is an assumption that this study cannot test.
 
-## 5.2. Why a recent reference period gives a higher estimate
+## 5.2. What the higher estimate of a recent reference period means
 
-What is demonstrated is the pattern (Fig. 2b). The
-{{d:windows.n_recent_consecutive_above}} most recent 11-year windows, from
-{{d:windows.first_recent_above_label}} onwards, all lie above the 1994–2024
-mean, and all {{d:windows.n_below}} earlier windows lie below it. The
+What is observed is a difference, not a demonstrated shift (Fig. 2b). The
 2014–2024 comparison period is the highest window even though it contains
 {{d:second_lowest_year}}, the second-lowest year of the record:
 {{d:years_above_mean.2015_2024}} of the {{d:years_above_mean.n_2015_2024}}
 years from 2015 to 2024 are above the long-term mean, against
 {{d:years_above_mean.1994_2013}} of the {{d:years_above_mean.n_1994_2013}}
 years from 1994 to 2013. An estimate built only on recent years therefore
-inherits a run of above-average years.
+inherits a run of above-average years. Because overlapping windows share
+most of their years, the sequence of window means changes slowly by
+construction, and the fact that the recent windows lie above the long-term
+mean adds little evidence beyond the annual values themselves. The
+difference of {{period_sensitivity:periods.2014-2024.energy_change_vs_reference_pct|.1f}} % between the most recent window and the 31-year mean
+is of the same size as the sampling uncertainty of an 11-year mean
+(±{{d:windows.last_t90_half_width_pct|.1f}} %).
 
-Why the recent years are higher is not demonstrated. Two explanations are
-possible, and they are not exclusive. The wind climate of the region may
+Whether the recent years reflect more than sampling variability is not
+demonstrated. If they do, two explanations are possible, and they are not
+exclusive. The wind climate of the region may
 vary on decadal time scales, so that the recent years are a windier phase of
 a real fluctuation. Alternatively, part of the difference may be an artefact
 of the reanalysis, because the observations it assimilates have changed over
@@ -44,36 +48,45 @@ conclusion does not depend on the explanation: a record of about a decade is
 too short to stand for the long-term mean at this node, and the choice of
 period should be stated and tested whenever such a record is used.
 
-## 5.3. Why the grid cell matters more than the sampling interval
+## 5.3. Why the grid node matters more than sampling uncertainty
 
-The sampling interval and the node experiment answer different questions.
+The sampling confidence interval and the node experiment answer different
+questions.
 The interval asks how well 31 years determine their own mean. The node
-experiment asks what happens if a neighbouring cell is taken to represent
+experiment asks what happens if a neighbouring output node is taken to
+represent
 the same area. The second effect is larger: the differences of
 {{node_sensitivity:nodes.W.energy_rel_to_primary_node_pct|+.1f}} % and
 {{node_sensitivity:nodes.E.energy_rel_to_primary_node_pct|+.1f}} % are about
 {{node_sensitivity:nodes.W.abs_diff_over_reference_ci_half_width|.0f}} and
 {{node_sensitivity:nodes.E.abs_diff_over_reference_ci_half_width|.0f}} times
-the half-width of the sampling interval (Fig. 4). They are also of a different
+the half-width of the sampling confidence interval (Fig. 4). They are also of
+a different
 nature. Because they recur in every year with little scatter, more years
-would narrow the sampling interval further and leave the node differences
+would narrow the sampling confidence interval further and leave the node
+differences
 unchanged.
 
-The reason lies in the geometry. The candidate polygon is about
-{{site_screening:polygon.width_across_axis_km|.0f}} km wide, less than the
-spacing of the reanalysis grid, and it lies between grid nodes, none of
-which falls inside it. Any node-based estimate is thus a statement about a
-cell that only partly covers the area. The cells differ in the model's own
-description of them: the primary cell has a land fraction of
-{{node_sensitivity:nodes.C.era5_land_sea_mask_fraction|.2f}} and the western
-cell {{node_sensitivity:nodes.W.era5_land_sea_mask_fraction|.2f}}. It is a
-plausible hypothesis that land influence lowers the wind speed of the mixed
-cells, and the lower shear exponent of the western cell is consistent with
-it. The hypothesis is not established here. The eastern cell has nearly the
-same land fraction as the primary cell and a clearly lower yield, so land
-fraction alone does not order the three cells. For the same reason the three
-values were not averaged: an average would have no physical meaning, and
-there is no observation against which a weighting could be judged.
+The reason lies in the geometry and in the resolution of the model. The
+candidate polygon is about
+{{site_screening:polygon.width_across_axis_km|.0f}} km wide, narrower than
+both the spacing of the output nodes and the model resolution of about
+31 km, and none of the nodes falls inside it. Any node-based estimate is
+thus a statement about the model's smoothed wind at a nearby point, not
+about the polygon. The nodes differ in the model's own description of them:
+the value of the land–sea mask is
+{{node_sensitivity:nodes.C.era5_land_sea_mask_fraction|.2f}} at the primary
+node and {{node_sensitivity:nodes.W.era5_land_sea_mask_fraction|.2f}} at the
+western node. It is a plausible hypothesis that land influence lowers the
+modelled wind speed at the primary and eastern nodes, and the lower shear
+exponent at the western node is consistent with it. A genuine east–west
+gradient, with stronger winds towards the open gulf, is an alternative or
+additional explanation. Neither is established here. The eastern node has
+nearly the same mask value as the primary node and a clearly lower yield,
+so land influence alone does not order the three nodes. For the same reason
+the three values were not averaged: an average would not be better supported
+than any single node, and there is no observation against which a weighting
+could be judged.
 
 ## 5.4. Why the comparison with the Global Wind Atlas cannot decide which product is right
 
@@ -81,7 +94,7 @@ The two products differ by about
 {{d:gwa_polygon_excess_matched_pct|.0f}} % in mean wind speed over the
 polygon when their periods are matched, and by
 {{d:gwa_node_excess_min_pct|.0f}} % to {{d:gwa_node_excess_max_pct|.0f}} %
-depending on the cell (Fig. 3b). This shows that the model-based
+depending on the node (Fig. 3b). This shows that the model-based
 estimate of the resource level is not robust. It does not show which
 product is closer to the truth, for three reasons. The atlas is driven by
 ERA5 and is therefore not an independent source. Neither product has been
@@ -89,10 +102,10 @@ compared with offshore measurements in this area. And the two products
 disagree not only on the level but also on the spatial pattern, so that the
 difference cannot be reduced to one constant factor.
 
-One observation is suggestive. The disagreement is smallest at the cell that
-ERA5 treats as predominantly marine and largest at the primary cell. This is
-what would be expected if the coarse reanalysis were affected by land in the
-mixed cells. It is equally compatible with errors in the downscaling near
+One observation is suggestive. The disagreement is smallest at the node where
+the ERA5 land–sea mask indicates least land influence and largest at the
+primary node. This is what would be expected if the coarse reanalysis were
+affected by land near the coast. It is equally compatible with errors in the downscaling near
 the coast. The comparison is therefore reported as a discrepancy. The
 primary estimate is not scaled towards the atlas, because doing so would
 replace one unverified level by another.
@@ -101,32 +114,34 @@ replace one unverified level by another.
 
 It would be convenient to merge the categories of Table 4 into one
 uncertainty band. There are three reasons not to. First, they are different
-kinds of quantity. Only the sampling interval has a probabilistic meaning.
+kinds of quantity. Only the sampling confidence interval has a probabilistic
+meaning.
 Interannual variability describes single years, not the mean. The period,
 node and product results are the outcomes of specific alternative choices,
 and the loss cases are assumptions. None of the last four has a probability
-attached to it, and assigning one would be arbitrary. Second, they are not
+attached to it, and assigning one would be arbitrary. The period result partly overlaps category 1, because a shorter record carries a
+larger sampling uncertainty. Second, they are not
 independent. The node and product comparisons both reflect how the
 reanalysis represents a coastal area, so that adding them would count the
 same deficiency twice. Third, the alternatives examined are not exhaustive.
-Two neighbouring cells and one other product do not span the possible
+Two neighbouring nodes and one other product do not span the possible
 errors. A combined interval would therefore look more rigorous than the
 evidence allows. The categories are best read side by side (Fig. 4), as a statement
 of which choices matter and by how much.
 
 ## 5.6. Limits set by the data and the turbine model
 
-Three limits apply to every number in this paper. One is the mixed
-coastal cell discussed above: the wind series represents a cell that is
-partly land and lies outside the polygon. Another is the absence of
-offshore measurements. Without them the direction of any error in the
-resource level is unknown, and the sensitivity experiments describe the
+Three limits apply to every number in this paper. One is the coastal node
+discussed above: the wind series is the model's smoothed value at a point
+outside the polygon whose representation is influenced by land. Another is
+the absence of offshore measurements. Without them the direction of any
+error in the resource level at this site is not established, and the sensitivity experiments describe the
 spread among model-based choices, not the error of any of them. The last
 is the turbine model. The power curve is a third-party digitisation that
 has not been certified by the manufacturer, its air-density basis is not
 documented, and it was applied to hourly values. The losses are assumed, and
-no wake model was run because no layout exists. The loss cases alone change
-the result by
+no wake model was run because no layout exists. The uncertainty of the digitised curve itself was not quantified. The loss
+cases alone change the result by
 {{loss_scenarios:scenarios.low_loss.rel_to_nominal_pct|+.1f}} % and
 {{loss_scenarios:scenarios.high_loss.rel_to_nominal_pct|+.1f}} %. A different
 turbine, with a different ratio of rotor area to rated power, would give a
@@ -166,11 +181,11 @@ a stated convention and not as a forecast of emissions.
 ## 5.9. Implications for measurement and for further assessment
 
 The main implication concerns measurement. In this case the sampling
-interval is the smallest of the reported categories, so further years of
-reanalysis data would add little. The choices that move the result,
-the grid cell and the wind product, both concern the level and the spatial
-pattern of the wind over a narrow coastal area, and these can only be
-settled by observation. A measurement campaign inside the candidate polygon
+confidence interval of the 31-year mean is smaller than the node, product and
+loss effects, so further years of reanalysis data would add little. The
+choices that move the result, the grid node and the wind product, both
+concern the level and the spatial pattern of the wind over a narrow coastal
+area, and these can only be settled by observations, in situ or, where their quality near the coast allows, satellite-derived. A measurement campaign inside the candidate polygon
 would address them directly. The draft specification itself lists
 meteorological and oceanographic measurements among the tasks of the
 developer (MENR, 2026b). The period-selection result adds a caution for such

@@ -17,10 +17,10 @@ are distinguished throughout:
 - **assumptions**: the reference turbine, its power curve, the losses and the
   emission-factor convention.
 
-Only one probabilistic interval is reported: the sampling interval of the
-long-term mean (Section 3.6). The sensitivity experiments are reported
+Only one probabilistic interval is reported: the sampling confidence interval
+of the long-term mean (Section 3.6). The sensitivity experiments are reported
 separately. They are not confidence intervals, and they are not combined with
-the sampling interval or with each other.
+the sampling confidence interval or with each other.
 
 All results are produced by a scripted pipeline from input files that are
 pinned by checksum. A clean checkout of the repository reproduces the result
@@ -29,30 +29,37 @@ generated from those result files.
 
 ## 3.2. Wind data
 
-The wind data are from the ERA5 reanalysis (Hersbach et al., 2020), which
-provides hourly fields on a 0.25° grid. The variables used are the wind speed
-at 10 m and at 100 m and the wind direction at 100 m, as instantaneous values
-at each hour (UTC). The series was obtained through the Open-Meteo
-historical-weather service (Zippenfenig, 2023), with the ERA5 model selected
-and the nearest grid cell requested. The service returned exactly the node at
-40.50° N, 26.25° E (Section 2.6).
+The wind data are from the ERA5 reanalysis, which has a horizontal resolution
+of about 31 km (Hersbach et al., 2020) and is distributed as hourly fields on
+a regular 0.25° latitude–longitude grid interpolated from the model grid. The
+variables used are the wind speed at 10 m and at 100 m and the wind direction
+at 100 m, as instantaneous values at each hour (UTC). The series was obtained
+through the Open-Meteo historical-weather service (Zippenfenig, 2024), with
+the ERA5 model selected and the nearest grid point requested. The service
+returned exactly the node at 40.50° N, 26.25° E (Section 2.6).
 
 The reference period is 1 January 1994 to 31 December 2024: 31 calendar years
 and 271 752 hourly values, without gaps (Supplementary Table S1). The series
 was retrieved on 14 November 2026 and is stored with its checksum. A long
 reference period was used because the result depends on the period chosen
-(Section 4.3).
+(Section 4.3). The period ends in 2024 so that it contains the complete
+2014–2024 comparison record with which this work began and which was checked
+against the Copernicus Climate Data Store (below); it starts in 1994 to give
+31 years. The longer record from 1979, used in Section 4.3, shows that the
+choice of start year matters little.
 
-Open-Meteo redistributes ERA5 on its native grid but stores it in compressed
-form, and it returns speeds to two decimals and directions to whole degrees.
-The series is therefore not bit-identical to a download from the Copernicus
-Climate Data Store (CDS). As an input check, it was compared with a series for
-the same node that had been downloaded from the CDS for 2014–2024 (96 432
-common hours). The mean difference in 100 m wind speed is −0.00009 m s⁻¹, the
-root-mean-square difference is 0.041 m s⁻¹ and the correlation is 0.99994.
-With the same shear exponent, the gross capacity factor of the two series
-differs by −0.004 % (Supplementary Table S2). This comparison checks the data
-source. It does not test the accuracy of ERA5 at the site.
+Open-Meteo redistributes ERA5 on the same 0.25° grid but stores it in
+compressed form, and it returns speeds to two decimals and directions to whole
+degrees. The series is therefore not bit-identical to a download from the
+Copernicus Climate Data Store (CDS). As an input check, it was compared with a
+series for the same node that had been downloaded from the CDS for 2014–2024
+(96 432 common hours). The mean difference in 100 m wind speed is −0.00009 m
+s⁻¹, the root-mean-square difference is 0.041 m s⁻¹ and the correlation is
+0.99994. With the same shear exponent, the gross capacity factor of the two
+series differs by −0.004 % (Supplementary Table S2). This comparison checks
+the data source. It covers the 2014–2024 common period only; the years
+1994–2013 were not compared with a CDS download. It does not test the accuracy
+of ERA5 at the site.
 
 ## 3.3. Wind speed at hub height
 
@@ -89,7 +96,11 @@ and the air density to which it refers is not documented (1.225 kg m⁻³ is
 assumed). The curve was interpolated linearly. Power was set to zero below the
 cut-in speed and at or above the cut-out speed. The curve was applied to the
 hourly reanalysis values without corrections for air density or for
-variability within the hour.
+variability within the hour. A rated power of 9.5 MW on a 164 m rotor
+corresponds to a specific rating of about 450 W m⁻², which is relatively high;
+a machine with a lower specific rating would reach a higher capacity factor
+from the same wind series. The uncertainty of the digitised curve and the
+effect of the choice of turbine were not quantified in this study.
 
 ## 3.5. Energy yield
 
@@ -104,9 +115,10 @@ availability $A$ and an electrical loss $L_e$:
 $$ \mathrm{CF}_n = \eta\,\mathrm{CF}_g , \qquad \eta = (1-L_w)\,A\,(1-L_e) . \qquad (4) $$
 
 The nominal values are $L_w$ = 8 %, $A$ = 95 % and $L_e$ = 3 %, which give
-$\eta$ = 0.848. These values are illustrative assumptions. They are not
-derived from a turbine layout or from site data, and no wake model was run.
-The net specific yield per unit of installed capacity is
+$\eta$ = 0.848. These values are illustrative assumptions chosen by the
+authors. They are not taken from a published loss study, they are not derived
+from a turbine layout or from site data, and no wake model was run. The net
+specific yield per unit of installed capacity is
 
 $$ Y = \mathrm{CF}_n \times H , \qquad (5) $$
 
@@ -114,22 +126,26 @@ where $H$ = 8 766 h is the length of an average year. $Y$ is expressed in GWh
 MW⁻¹ yr⁻¹. Results are reported per megawatt because no installed capacity has
 been assigned to the area (Section 2.2).
 
-## 3.6. Sampling interval of the mean and interannual variability
+## 3.6. Sampling confidence interval of the mean and interannual variability
 
 The long-term estimate is the mean over 31 calendar years. Its finite-sample
-uncertainty was described by a sampling interval: a two-sided 90 % confidence
-interval of the mean, computed from the $n$ = 31 annual yields $Y_i$ and their
-standard deviation $s_Y$:
+uncertainty was described by a sampling confidence interval: a two-sided 90 %
+confidence interval of the mean that reflects sampling uncertainty only,
+computed from the $n$ = 31 annual yields $Y_i$ and their standard deviation
+$s_Y$:
 
 $$ \bar{Y} \pm t_{0.95,\,n-1}\,\frac{s_Y}{\sqrt{n}} . \qquad (6) $$
 
-This sampling interval was checked with a bootstrap that resamples whole
-calendar years (20 000 resamples) and with a jackknife standard error
-(Supplementary Table S4). The interval has a narrow meaning. It describes how
-well 31 reanalysis years determine their own long-term mean, on the condition
-that ERA5 at this node is correct. It is not an exceedance value such as a P90
-yield, and it does not include any of the sensitivities described in Section
-3.7.
+This interval was checked with a bootstrap that resamples whole calendar years
+(20 000 resamples) and with a jackknife standard error (Supplementary Table
+S4). The interval has a narrow meaning. It describes how well 31 reanalysis
+years determine their own long-term mean, on the condition that ERA5 at this
+node is correct. It also assumes that the annual values are independent draws
+from a distribution that does not change over the period. If the wind climate
+or the reanalysis has changed over the decades, the interval describes the
+1994–2024 mean as a summary of those years, not the yield of a future period.
+It is not an exceedance value such as a P90 yield, and it does not include any
+of the sensitivities described in Section 3.7.
 
 Interannual variability is reported separately, as the coefficient of
 variation and the range of the annual yields. It describes how much single
@@ -148,34 +164,38 @@ $$ \Delta = \left(\frac{Y}{Y_{\mathrm{ref}}} - 1\right)\times 100\,\% . \qquad (
 at the primary node, using a longer series from the same source (1979–2024).
 Over 1994–2024 that series is identical to the primary series. The primary
 $\bar{\alpha}$ was kept, so that only the wind changes. The comparison periods
-are 1979–2024, 2014–2024, 2015–2024 and 2008–2017; the last is the reference
-period of the wind atlas used below. In addition, the yield was computed for
-every window of 11 consecutive years: 36 windows in 1979–2024, of which 21 lie
-inside 1994–2024. The window length of eleven years is that of the 2014–2024
-record with which this work began. Overlapping windows share years and are not
-independent samples.
+are 1979–2024, 2014–2024, 2015–2024 and 2008–2017; the last is the mesoscale
+simulation period of the wind atlas used below. In addition, the yield was
+computed for every window of 11 consecutive years: 36 windows in 1979–2024, of
+which 21 lie inside 1994–2024. The window length of eleven years is that of
+the 2014–2024 record with which this work began. For each window, the sampling
+confidence interval of its own mean was computed in the same way as for the
+primary period (Supplementary Table S6). Overlapping windows share years and
+are not independent samples.
 
 **Grid node.** The calculation was repeated for the two neighbouring ERA5
 nodes on the same latitude row, at 26.00° E and 26.50° E, for the same period
-and with the same method. Each node uses its own $\bar{\alpha}$. The land
-fraction of each cell was read from the static ERA5 land–sea mask. The nodes
-were not averaged or interpolated: the three cells differ in their land
-fraction, and there is no measurement that would justify a weighting.
+and with the same method. Each node uses its own $\bar{\alpha}$. The value of
+the static ERA5 land–sea mask at each node was read from the same 0.25° output
+grid. The nodes were not averaged or interpolated: their land influence in the
+model differs, and there is no measurement that would justify a weighting.
 
 **Wind data product.** The ERA5 mean wind speed at 100 m was compared with the
 Global Wind Atlas 4.0 (GWA; Davis et al., 2023). GWA is a downscaling product:
 a mesoscale model driven by ERA5, followed by microscale modelling, on a grid
-of about 250 m. The GWA climatology refers to 2008–2017. GWA values were
-averaged over the pixel centres inside the candidate polygon and, for each of
-the three nodes, over the sea pixels of a 0.25° box centred on the node. Each
-GWA value was compared with the ERA5 mean of two periods: the primary period
-and 2008–2017, so that the periods of the two products match. The comparison
-measures the disagreement between two models. GWA is not independent of ERA5
-and is not treated as a reference truth. To show what such a disagreement
-means for energy, every hourly speed of the primary series was multiplied by a
-factor (0.90, 0.95, 1.05, 1.10 and the GWA/ERA5 ratios) and the conversion was
-repeated. These scaled cases are illustrative. None is adopted, and the
-primary estimate is not rescaled.
+of about 250 m. According to its technical documentation, GWA 4.0 uses ERA5
+for the mesoscale simulation period 2008–2017 (Hansen et al., 2025). GWA
+values were averaged over the pixel centres inside the candidate polygon and,
+for each of the three nodes, over the sea pixels of a 0.25° box centred on the
+node. Each GWA value was compared with the ERA5 mean of two periods: the
+primary period and 2008–2017, so that the ERA5 period matches the mesoscale
+simulation period of the atlas. The comparison measures the disagreement
+between two models. GWA is not independent of ERA5 and is not treated as a
+reference truth. To show what such a disagreement means for energy, every
+hourly speed of the primary series was multiplied by a factor (0.90, 0.95,
+1.05, 1.10 and the GWA/ERA5 ratios) and the conversion was repeated. These
+scaled cases are illustrative. None is adopted, and the primary estimate is
+not rescaled.
 
 **Loss assumptions.** A low-loss case ($L_w$ = 5 %, $A$ = 97 %, $L_e$ = 2 %)
 and a high-loss case ($L_w$ = 12 %, $A$ = 92 %, $L_e$ = 4 %) were computed.
@@ -210,11 +230,12 @@ S13).
 $C$ is an accounting quantity under a stated convention. It uses a static 2023
 factor. It is not a forecast of the generation that the plant would physically
 displace, and the alternative conventions are not statistical bounds. Where an
-interval is attached to $C$, it carries only the sampling interval of the mean
-energy through the fixed factor. Life-cycle greenhouse-gas intensities from
-the literature (Schlömer et al., 2014; Bonou et al., 2016) are in a different
-unit (CO₂-equivalent) and have a different system boundary. They are reported
-separately in Supplementary Table S14 and are not subtracted from $C$.
+interval is attached to $C$, it carries only the sampling confidence interval
+of the mean energy through the fixed factor. Life-cycle greenhouse-gas
+intensities from the literature (Schlömer et al., 2014; Bonou et al., 2016)
+are in a different unit (CO₂-equivalent) and have a different system boundary.
+They are reported separately in Supplementary Table S14 and are not subtracted
+from $C$.
 
 For orientation, the per-megawatt results are also scaled linearly to one
 illustrative capacity of 105 turbines of 9.5 MW (997.5 MW; Supplementary Table

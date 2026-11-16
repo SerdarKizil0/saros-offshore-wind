@@ -70,7 +70,7 @@ TITLES = {   # title, what is plotted, kind of quantity
                                 "observed spread of single years"),
     "period_selection_sensitivity": ("Reference period", "21 rolling 11-year windows",
                                      "sensitivity experiment"),
-    "grid_node_sensitivity": ("Grid node", "the two neighbouring ERA5 cells",
+    "grid_node_sensitivity": ("Grid node", "the two neighbouring ERA5 nodes",
                               "sensitivity experiment"),
     "wind_product_discrepancy": ("Wind product", "ERA5 hours scaled to GWA 4.0",
                                  "illustrative case, not adopted"),

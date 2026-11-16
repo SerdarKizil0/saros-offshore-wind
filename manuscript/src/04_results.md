@@ -35,7 +35,7 @@ not validated against offshore measurements.
 
 ## 4.2. Sampling uncertainty and interannual variability
 
-The 90 % sampling interval of the mean net yield is
+The 90 % sampling confidence interval of the mean net yield is
 {{interannual_and_sampling:sampling_ci_of_period_mean.primary_t_interval_90.net_gwh_per_mw.0|.3f}}–{{interannual_and_sampling:sampling_ci_of_period_mean.primary_t_interval_90.net_gwh_per_mw.1|.3f}} GWh MW⁻¹ yr⁻¹,
 that is ±{{interannual_and_sampling:sampling_ci_of_period_mean.primary_t_interval_90.half_width_rel_pct|.1f}} %
 of the mean (Eq. 6). The bootstrap check gives
@@ -75,10 +75,10 @@ period the yield is higher than the primary estimate by
 {{period_sensitivity:periods.2014-2024.energy_change_vs_reference_pct|abs.1f}} %,
 and for the 2015–2024 comparison period by
 {{period_sensitivity:periods.2015-2024.energy_change_vs_reference_pct|abs.1f}} %.
-For 2008–2017, the reference period of the wind atlas, it is lower by
+For 2008–2017, the mesoscale simulation period of the wind atlas, it is lower by
 {{period_sensitivity:periods.2008-2017.energy_change_vs_reference_pct|abs.1f}} %.
 
-The rolling windows show that this is systematic. The
+The rolling windows put this difference in context. The
 {{period_sensitivity:rolling_windows.within_primary_period.n_windows}}
 windows of 11 years that lie inside 1994–2024 range from
 {{period_sensitivity:rolling_windows.within_primary_period.lowest_window_rel_to_primary_mean_pct|+.1f}} %
@@ -93,14 +93,18 @@ also the highest of the
 1979–2024 (Fig. 2b; Supplementary Table S6). An estimate based only on the most recent
 11 years would therefore have been higher than the long-term estimate by
 about {{period_sensitivity:periods.2014-2024.energy_change_vs_reference_pct|.0f}} %.
-Two cautions apply. Overlapping windows share years and are not independent
-samples. And differences between periods in a reanalysis may partly reflect
-changes in the observations that the reanalysis assimilates, so they are not
-evidence of a climatic trend.
+The sampling uncertainty of an 11-year mean is, however, of the same size:
+the 90 % sampling confidence interval of the mean of the 2014–2024 comparison period is ±{{d:windows.last_t90_half_width_pct|.1f}} %
+(Supplementary Table S6). The difference between the two reference periods
+is an observed property of this record. It is not, on its own, evidence of a
+lasting change in the wind resource. Two further cautions apply. Overlapping
+windows share years and are not independent samples. And differences between
+periods in a reanalysis may partly reflect changes in the observations that
+the reanalysis assimilates, so they are not evidence of a climatic trend.
 
 ## 4.4. Grid-node sensitivity
 
-The result also depends on which reanalysis cell is used (sensitivity
+The result also depends on which reanalysis output node is used (sensitivity
 experiment; Table 2; Fig. 3a). With the same period and method, the western neighbour
 at 26.00° E gives a net yield of
 {{node_sensitivity:nodes.W.net_gwh_per_mw|.3f}} GWh MW⁻¹ yr⁻¹
@@ -120,29 +124,34 @@ and the eastern node is lower by
 {{node_sensitivity:nodes.E.paired_annual_rel_diff_vs_primary_node_pct.max|abs.1f}} %
 to {{node_sensitivity:nodes.E.paired_annual_rel_diff_vs_primary_node_pct.min|abs.1f}} %,
 in every one of the {{d:n_years}} years. They are systematic differences
-between model cells, and a longer record does not reduce them.
+between the model's values at neighbouring output nodes, and a longer record
+does not reduce them.
 
-The three cells differ in how the model represents them. The western cell is
-predominantly marine in the ERA5 land–sea mask (land fraction
-{{node_sensitivity:nodes.W.era5_land_sea_mask_fraction|.2f}}), whereas the
-primary and eastern cells are mixed land–sea cells
-({{node_sensitivity:nodes.C.era5_land_sea_mask_fraction|.2f}} and
-{{node_sensitivity:nodes.E.era5_land_sea_mask_fraction|.2f}}). The western
-cell also has the lowest shear exponent
+The three nodes differ in how the model represents them. The value of the
+ERA5 land–sea mask is
+{{node_sensitivity:nodes.W.era5_land_sea_mask_fraction|.2f}} at the western
+node but {{node_sensitivity:nodes.C.era5_land_sea_mask_fraction|.2f}} and
+{{node_sensitivity:nodes.E.era5_land_sea_mask_fraction|.2f}} at the primary
+and eastern nodes, and the western node has the lowest shear exponent
 ({{node_sensitivity:nodes.W.alpha_node|.2f}}, against
 {{node_sensitivity:nodes.C.alpha_node|.2f}} and
-{{node_sensitivity:nodes.E.alpha_node|.2f}}). None of the nodes lies inside
+{{node_sensitivity:nodes.E.alpha_node|.2f}}). The western node also lies
+further into the open gulf, so part of the difference may be a genuine
+east–west gradient in the wind rather than an effect of the model's land
+representation. The data used here cannot separate the two. None of the nodes lies inside
 the polygon, and the values are reanalysis output, not measurements. The
 nodes are therefore not averaged, and the two differences are not a bound on
-the resource of the candidate area. They show that the choice of cell moves
-the result by several times the half-width of the sampling interval.
+the resource of the candidate area. They show that the choice of node moves
+the result by several times the half-width of the sampling confidence
+interval.
 
 ## 4.5. Disagreement between ERA5 and the Global Wind Atlas
 
 The two wind products disagree on the mean wind speed (inter-model
 comparison; Table 3; Fig. 3b). The GWA mean at 100 m over the candidate polygon is
 {{wind_product_discrepancy:polygon_vs_primary_node.gwa4_polygon_mean_100m_ms|.2f}} m s⁻¹
-for its reference period 2008–2017. The ERA5 mean at the primary node is
+for 2008–2017, the mesoscale simulation period of GWA 4.0 (Hansen et al.,
+2025). The ERA5 mean at the primary node is
 {{wind_product_discrepancy:polygon_vs_primary_node.era5_node_U100_ms.1994-2024|.2f}} m s⁻¹
 for 1994–2024 and
 {{wind_product_discrepancy:polygon_vs_primary_node.era5_node_U100_ms.2008-2017|.2f}} m s⁻¹
@@ -153,7 +162,7 @@ against the primary period and
 when the periods are matched. Matching the periods therefore does not reduce
 the disagreement.
 
-The size of the disagreement depends on the cell. Comparing the sea pixels
+The size of the disagreement depends on the node. Comparing the sea pixels
 of GWA around each node with ERA5 at that node, for matched periods, the
 ratio is
 {{wind_product_discrepancy:per_node_gwa_box_vs_era5.W.ratio_gwa_box_sea_pixels_to_era5_period_matched|.3f}}
@@ -161,7 +170,7 @@ at the western node,
 {{wind_product_discrepancy:per_node_gwa_box_vs_era5.C.ratio_gwa_box_sea_pixels_to_era5_period_matched|.3f}}
 at the primary node and
 {{wind_product_discrepancy:per_node_gwa_box_vs_era5.E.ratio_gwa_box_sea_pixels_to_era5_period_matched|.3f}}
-at the eastern node. The two products do not even rank the three cells in the
+at the eastern node. The two products do not even rank the three nodes in the
 same order: ERA5 has the highest mean at the western node, GWA at the primary
 node (Supplementary Table S11).
 
@@ -191,13 +200,13 @@ or layout information supports any of the three loss sets, and wake losses in
 particular depend on a layout that does not exist.
 
 Table 4 places the six categories side by side (see also Fig. 4). They are different kinds of
-quantity: one sampling interval, one description of year-to-year spread,
-three sensitivity experiments or comparisons and one set of assumption
-scenarios. They are not combined into a single interval. Read together, they
-show that the sampling interval is the smallest of them. A short recent
-reference period, a neighbouring grid cell, the other wind product and the
-alternative loss assumptions can each move the result by more than the
-half-width of that interval.
+quantity: one sampling confidence interval, one description of year-to-year
+spread, three sensitivity experiments or comparisons and one set of
+assumption scenarios. They are not combined into a single interval. Read
+together, they show that a neighbouring grid node, the other wind product
+and the alternative loss assumptions each move the result by several times the sampling half-width of the 31-year mean. A
+short recent reference period moves it by about as much as the sampling
+uncertainty of that shorter record.
 
 ## 4.7. Bathymetry and protected-area screening
 
@@ -227,7 +236,8 @@ they are not robust and are not used further.
 Under the official 2023 combined-margin convention, the net yield
 corresponds to an operational grid-CO₂ accounting equivalent of
 {{emissions:primary_avoided_operational_co2.t_co2_per_mw_yr|sp.0f}} tCO₂ MW⁻¹ yr⁻¹
-(Table 6). Carrying only the sampling interval of the mean energy through the
+(Table 6). Carrying only the sampling confidence interval of the mean energy
+through the
 fixed factor gives
 {{emissions:primary_avoided_operational_co2.ci90_t_co2_per_mw_yr.0|sp.0f}}–{{emissions:primary_avoided_operational_co2.ci90_t_co2_per_mw_yr.1|sp.0f}} tCO₂ MW⁻¹ yr⁻¹.
 The choice of convention matters far more than that interval: the same

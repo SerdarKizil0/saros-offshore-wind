@@ -242,7 +242,8 @@ def test_no_retired_value_is_presented_as_a_current_finding():
                 bad.append((n, pat, u[:160]))
     assert not bad, bad
     for n, u in ALL_UNITS:
-        assert not re.search(r"11-year mean|eleven-year mean", u, re.I), (n, u)
+        if re.search(r"11-year mean|eleven-year mean", u, re.I):     # only as the sampling uncertainty of a window
+            assert re.search(r"sampling|window", u, re.I), (n, u)
 
 
 # ------------------------------------------- 4. uncertainty / sensitivity terminology
@@ -285,7 +286,7 @@ def test_interval_vocabulary_belongs_to_the_sampling_interval_only():
     assert "This is the only probabilistic interval in the study" in res
     meth = " ".join(read("03_methodology.md").split())
     assert "Only one probabilistic interval is reported" in meth
-    assert "not combined with the sampling interval or with each other" in meth
+    assert "not combined with the sampling confidence interval or with each other" in meth
     for label in ("(sensitivity experiment;", "(inter-model comparison;", "(assumption scenarios)"):
         assert label in res, label
     assert "statistics of reanalysis output, not of measurements" in res
@@ -405,7 +406,7 @@ def test_table_values_equal_the_result_files(builder):
     n = J("node_sensitivity.json")["nodes"]
     row = next(r for r in main.split("\n") if r.startswith("| Net specific yield"))
     assert [c.strip() for c in row.split("|")[2:5]] == [f(n[k]["net_gwh_per_mw"], ".3f") for k in ("W", "C", "E")]
-    row = next(r for r in main.split("\n") if r.startswith("| ERA5 land–sea mask"))
+    row = next(r for r in main.split("\n") if r.startswith("| ERA5 land–sea-mask value"))
     assert [c.strip() for c in row.split("|")[2:5]] == [f(n[k]["era5_land_sea_mask_fraction"], ".2f")
                                                         for k in ("W", "C", "E")]
     em = J("emissions.json")

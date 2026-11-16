@@ -4,7 +4,7 @@ Figure 3: three ERA5 grid nodes and the ERA5-GWA wind-product discrepancy
 Two panels on one longitude axis (the three nodes lie on 40.50 N).
 
   (a) Long-term net energy yield (1994-2024) at the primary node and its two
-      neighbours, with each cell's ERA5 land fraction and the difference
+      neighbours, with each node's ERA5 land-sea-mask value and the difference
       from the primary node. The nodes are not averaged; nothing joins them,
       and their differences are not drawn as an interval.
   (b) Mean 100 m wind speed for the period of the Global Wind Atlas,
@@ -187,7 +187,7 @@ def build_figure(d: FigureData):
             ax_a.annotate(f"{d.net[k]:.3f}\n{change}", (d.lon[k], d.net[k]), xytext=(0, 7),
                           textcoords="offset points", ha="center", va="bottom", fontsize=FS_NOTE,
                           color=INK, linespacing=1.15)
-            ax_a.annotate(f"land fraction\n{d.land_fraction[k]:.2f}", (d.lon[k], YLIM_A[0]),
+            ax_a.annotate(f"land–sea mask\n{d.land_fraction[k]:.2f}", (d.lon[k], YLIM_A[0]),
                           xytext=(0, 4), textcoords="offset points", ha="center", va="bottom",
                           fontsize=FS_NOTE, color=MUTED, linespacing=1.15)
         ax_a.set_ylabel(f"Net yield ({UNIT_YIELD})")
@@ -226,10 +226,10 @@ def build_figure(d: FigureData):
         ]
         labels = [
             f"ERA5 at the node, {d.gwa_period}",
-            f"GWA 4.0, sea pixels of the node's 0.25° cell, {d.gwa_period}",
+            f"GWA 4.0, sea pixels, 0.25° box at node, {d.gwa_period}",
             f"GWA 4.0, mean over the candidate polygon, {d.gwa_period}",
             "Longitude range of the candidate polygon",
-            "Boundary between 0.25° ERA5 cells",
+            "Boundary between nearest-node areas",
         ]
         fig.legend(handles[:3], labels[:3], loc="upper left", frameon=False, fontsize=FS_NOTE,
                    bbox_to_anchor=((LEFT_MM + panel_w + GAP_MM) / W_MM, (BOTTOM_MM - 8.0) / H_MM),

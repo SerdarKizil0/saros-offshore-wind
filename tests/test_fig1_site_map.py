@@ -326,7 +326,7 @@ def test_caption_states_sources_and_limits(data, screening):
                   "approximate reconstruction, not an official verified boundary", "continues beyond the map",
                   "EMODnet DTM 2024", "not technical or legal limits", f"{data.era5_distance_km:.1f} km",
                   "outside the polygon", "UTM zone 35N", "EPSG:32635", "no turbine layout",
-                  "not a permitting judgement", "land fraction", "0.25° cell", "grid-node sensitivity experiment",
+                  "not a permitting judgement", "land–sea mask", "area nearest to each node", "grid-node sensitivity experiment",
                   "break at 60 m"):
         assert token in c, token
     ref = screening["protected_area_overlap"]["saros_ock_2010"]
@@ -369,7 +369,7 @@ def test_node_labels_show_the_era5_land_fractions(fig):
     nodes = json.loads(NODES.read_text(encoding="utf-8"))["nodes"]
     for k in ("W", "C", "E"):
         (t,) = [t for t in _ax(fig).texts if t.get_gid() == f"node_label_{k}"]
-        assert f"land fraction {nodes[k]['era5_land_sea_mask_fraction']:.2f}" in t.get_text()
+        assert f"land–sea mask {nodes[k]['era5_land_sea_mask_fraction']:.2f}" in t.get_text()
         assert f"{nodes[k]['lon']:.2f}° E" in t.get_text()
     assert "primary" in [t for t in _ax(fig).texts if t.get_gid() == "node_label_C"][0].get_text()
 

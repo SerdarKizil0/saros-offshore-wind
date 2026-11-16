@@ -365,7 +365,7 @@ def test_single_alphabetical_reference_list_matching_the_sources(master, supp):
     refs = master.styled("Reference")
     src = re.sub(r"\A<!--.*?-->", "", (MAN / "08_references.md").read_text(encoding="utf-8"), flags=re.S)
     entries = [norm(re.sub(r"\*", "", e)) for e in src.split("\n- ")[1:]]
-    assert refs == entries and len(refs) == 38
+    assert refs == entries and len(refs) == 39
     assert "Official and institutional documents" not in master.all_text()      # one list, no sub-lists
     assert "Working reference list" not in master.all_text()
     t5 = _load("t5b2_refs", "tests/test_manuscript_5b2.py")
@@ -422,11 +422,13 @@ def test_framing_and_qualifications_survive(master):
                    "not samples of one distribution", "not a forecast of the generation",
                    "sensitivity to reference period, grid node and wind data source"):
         assert phrase in t, phrase
-    for bad in (r"(grid[- ]node|neighbour\w*|GWA|wind product)[^.]{0,80}\b(confidence interval|probabilit\w+ "
-                r"(range|distribution))",):
-        for m in re.finditer(bad, t):
-            ctx = t[max(0, m.start() - 120):m.end() + 40]
-            assert re.search(r"\bnot\b|\bonly\b|\bno\b", ctx), ctx
+    bad = (r"(grid[- ]node|neighbour\w*|GWA|wind product)[^.]{0,80}\b(confidence interval|probabilit\w+ "
+           r"(range|distribution))")
+    for p in master.paragraphs():                          # per paragraph, so a heading is not joined to the next text
+        pt = norm(master.text(p))
+        for m in re.finditer(bad, pt):
+            ctx = pt[max(0, m.start() - 120):m.end() + 40]
+            assert re.search(r"\bnot\b|\bonly\b|\bno\b|\bnone\b|\bapart\b", ctx), ctx
 
 
 def test_author_placeholders_are_kept_and_highlighted(master, supp):

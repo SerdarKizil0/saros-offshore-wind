@@ -91,17 +91,23 @@ was not computed here, and seismic hazard was not assessed.
 
 ## 2.6. The candidate polygon and the reanalysis grid
 
-The wind data come from the ERA5 reanalysis on its 0.25° grid (Section 3.2).
-The grid node nearest the polygon centroid is at 40.50° N, 26.25° E. This node
-lies outside the polygon, 3.7 km south of its boundary. It is the nearest node
-for 62.6 % of the polygon area. The remainder is nearest to the neighbouring
-nodes at 26.00° E (27.7 %) and 26.50° E (9.7 %). None of the three nodes lies
-inside the polygon (Fig. 1).
+The wind data come from ERA5 output on its 0.25° latitude–longitude grid
+(Section 3.2). The grid node nearest the polygon centroid is at 40.50° N,
+26.25° E. This node lies outside the polygon, 3.7 km south of its boundary. It
+is the nearest node for 62.6 % of the polygon area. The remainder is nearest
+to the neighbouring nodes at 26.00° E (27.7 %) and 26.50° E (9.7 %). None of
+the three nodes lies inside the polygon (Fig. 1).
 
-A reanalysis value represents a grid cell, not a point. In the static ERA5
-land–sea mask the cell of the primary node has a land fraction of 0.44, so the
-model treats it as a mixed land–sea cell. The eastern neighbour is similar
-(0.46), and only the western neighbour is predominantly marine (0.12). All
-results in this paper are therefore node-level results. They do not resolve
-wind gradients inside the polygon, and the effect of the node choice is
-examined as a separate sensitivity experiment (Sections 3.7 and 4.4).
+A value at an output node is not a point measurement. The 0.25° output grid is
+interpolated from a model grid of about 31 km (Section 3.2), so neighbouring
+output nodes, which are 0.25° or about 21 km apart in longitude at this
+latitude, share information from the same model grid points. The static ERA5
+land–sea mask, interpolated in the same way, has a value of 0.44 at the
+primary node, 0.46 at the eastern neighbour and 0.12 at the western neighbour.
+These values indicate how strongly land influences the model's representation
+of each node. At the primary node the value is much larger than the share of
+land within 0.25° of the node, which is consistent with smoothing on the
+coarser model grid. All results in this paper are therefore node-level
+results. They do not resolve wind gradients inside the polygon, and the effect
+of the node choice is examined as a separate sensitivity experiment (Sections
+3.7 and 4.4).

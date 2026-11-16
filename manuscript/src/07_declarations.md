@@ -5,7 +5,7 @@
 All data used in this study are public. The wind data are from the ERA5
 reanalysis of the Copernicus Climate Change Service (Hersbach et al., 2020;
 dataset doi:10.24381/cds.adbb2d47), obtained through the Open-Meteo
-historical-weather service (Zippenfenig, 2023). The hourly input series for
+historical-weather service (Zippenfenig, 2024). The hourly input series for
 the three grid nodes, the earlier series downloaded from the Copernicus
 Climate Data Store that was used as an input check, and every result file
 are stored in the project repository together with their SHA-256 checksums

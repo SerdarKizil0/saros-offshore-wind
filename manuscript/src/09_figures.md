@@ -16,12 +16,15 @@ filled square is the primary node at 26.25° E, which lies
 {{site_screening:era5_node_representativeness.distance_to_polygon_boundary_km|.1f}} km
 outside the polygon (dotted line). The open squares are the neighbouring
 nodes at 26.00° E and 26.50° E used in the grid-node sensitivity experiment.
-Dash-dotted lines outline the 0.25° cell that each node represents;
-{{node_sensitivity:nodes.W.polygon_share_nearest_to_node_pct|.1f}} %,
+The 0.25° output nodes are interpolated from a model grid of about 31 km and
+are not independent cells. Dash-dotted lines outline the area nearest to
+each node; {{node_sensitivity:nodes.W.polygon_share_nearest_to_node_pct|.1f}} %,
 {{node_sensitivity:nodes.C.polygon_share_nearest_to_node_pct|.1f}} % and
 {{node_sensitivity:nodes.E.polygon_share_nearest_to_node_pct|.1f}} % of the
-polygon area fall in the western, primary and eastern cells. The labels give
-the land fraction of each cell in the static ERA5 land–sea mask. Shading
+polygon area are nearest to the western, primary and eastern node. The
+labels give the value of the static ERA5 land–sea mask at each node, an
+indicator of land influence in the model, not the land share of the area
+outlined. Shading
 shows water depth below lowest astronomical tide from the EMODnet DTM 2024
 (EMODnet Bathymetry Consortium, 2024). The colour scale is linear in two
 segments with a break at 60 m, so that the depths of the polygon
@@ -60,7 +63,9 @@ of the window. Filled points are the
 windows inside 1994–2024. Open points are windows that start before 1994;
 they come from the extended record of the same node, converted with the
 shear exponent of the primary series. The 2014–2024 window (vermillion) is
-the highest of all windows. Overlapping windows share years and are not
+the highest of all windows; its difference from the primary estimate is of
+the same size as the 90 % sampling half-width of an 11-year mean
+(±{{d:windows.last_t90_half_width_pct|.1f}} % for 2014–2024). Overlapping windows share years and are not
 independent samples, so the spread of the points does not describe the
 uncertainty of any estimate. Differences between windows may partly reflect
 changes in the observations that the reanalysis assimilates. All values are
@@ -72,12 +77,12 @@ reanalysis-based model estimates, not observed production.
 Global Wind Atlas (GWA 4.0) along 40.50° N. (a) Long-term net yield
 (1994–2024) at the primary node and its two neighbours, computed with the
 same method, period and losses. The labels give the yield in
-GWh MW⁻¹ yr⁻¹, the difference from the primary node and the land fraction of
-each cell in the ERA5 land–sea mask. The nodes are not averaged, and their
+GWh MW⁻¹ yr⁻¹, the difference from the primary node and the value of the
+ERA5 land–sea mask at each node. The nodes are not averaged, and their
 differences are not limits on the resource of the candidate area. (b) Mean
-wind speed at 100 m for the GWA reference period, 2008–2017: ERA5 at each
-node (squares), the GWA 4.0 mean over the sea pixels of the same 0.25° cell
-(diamonds) and the GWA 4.0 mean over the candidate polygon (dashed line,
+wind speed at 100 m for 2008–2017, the mesoscale simulation period of
+GWA 4.0 (Hansen et al., 2025): ERA5 at each node (squares), the GWA 4.0 mean
+over the sea pixels of a 0.25° box centred on the node (diamonds) and the GWA 4.0 mean over the candidate polygon (dashed line,
 drawn over the longitude range of the polygon). The labels give the ratio of
 GWA to ERA5 for the matched period; the polygon mean is compared with ERA5 at
 the primary node. GWA is a downscaling of ERA5, not an observation or ground
@@ -85,24 +90,26 @@ truth, and neither product has been compared with offshore measurements in
 this area. The ratios describe a disagreement between two models and are not
 used to correct the primary estimate. In both panels the shading marks the
 longitude range of the candidate polygon, and the dotted lines mark the
-boundaries between the three 0.25° cells.
+boundaries between the areas nearest to each node.
 
 ![Figure 4](../figures/revised/fig4_sensitivity_categories.png)
 
 **Figure 4.** The six reported categories on a common scale of change in net
 yield relative to the primary estimate (1994–2024, primary node, nominal
-losses; dashed line). Row 1 is the 90 % sampling interval of the 31-year
-mean, the only probabilistic interval of the study; it is conditional on
+losses; dashed line). Row 1 is the 90 % sampling confidence interval of the
+31-year mean, the only probabilistic interval of the study; it is conditional on
 ERA5 at the node. Row 2 shows the {{d:n_years}} single years 1994–2024, an
 observed year-to-year spread. Row 3 shows the
 {{period_sensitivity:rolling_windows.within_primary_period.n_windows}}
 rolling 11-year windows inside 1994–2024, with 2014–2024 in vermillion
-(sensitivity experiment). In rows 2 and 3, dots that would overlap are
+(sensitivity experiment); the 90 % sampling half-width of an 11-year mean is
+about ±{{d:windows.last_t90_half_width_pct|.1f}} %, so this row largely reflects the sampling uncertainty of a
+shorter record. In rows 2 and 3, dots that would overlap are
 stacked vertically; their vertical position within a row has no meaning.
 Row 4 shows the two neighbouring ERA5 nodes
 (sensitivity experiment). Row 5 is the illustrative case in which every
-primary hourly speed is multiplied by the period-matched GWA/ERA5 ratio for
-2008–2017; it shows the weight of the inter-model disagreement and is not
+primary hourly speed is multiplied by the GWA/ERA5 ratio for 2008–2017,
+the mesoscale simulation period of the atlas; it shows the weight of the inter-model disagreement and is not
 adopted. Row 6 shows the low- and high-loss scenarios, which are assumptions
 without site evidence. The categories are different kinds of quantity. They
 are placed side by side to compare magnitudes only. They are not samples of

@@ -488,7 +488,7 @@ z
    <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f2328" x="11.338583" y="151.1842" transform="rotate(-0 11.338583 151.1842)">4  Grid node</text>
   </g>
   <g id="text_29">
-   <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #555b63" x="23.244094" y="161.10546" transform="rotate(-0 23.244094 161.10546)">the two neighbouring ERA5 cells</text>
+   <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #555b63" x="23.244094" y="161.10546" transform="rotate(-0 23.244094 161.10546)">the two neighbouring ERA5 nodes</text>
   </g>
   <g id="kind_grid_node_sensitivity">
    <text style="font-style: italic; font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #555b63" x="23.244094" y="170.176326" transform="rotate(-0 23.244094 170.176326)">sensitivity experiment</text>

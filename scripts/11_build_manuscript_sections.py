@@ -84,7 +84,11 @@ def _window_facts(mean: float) -> dict:
             break
         n_recent += 1
     first_recent = int(p.start_year.iloc[len(p) - n_recent])
+    last = p.iloc[-1]
     return {"n": int(len(p)), "n_above": int(above.sum()), "n_below": int((~above).sum()),
+            "last_label": f"{int(last.start_year)}–{int(last.end_year)}",
+            "last_rel_pct": float(last.rel_to_primary_mean_pct),
+            "last_t90_half_width_pct": float(last.t90_half_width_rel_pct),
             "n_recent_consecutive_above": n_recent, "first_recent_above_start": first_recent,
             "first_recent_above_label": f"{first_recent}–{first_recent + 10}"}
 
@@ -146,6 +150,7 @@ def derived(R: dict) -> dict:
                                         R["wind_product_discrepancy"]["per_node_gwa_box_vs_era5"].values()) - 1) * 100,
         "gwa_polygon_excess_matched_pct": (R["wind_product_discrepancy"]["polygon_vs_primary_node"]["ratio_gwa_to_era5"]
                                            ["era5_2008-2017_period_matched"] - 1) * 100,
+        "specific_rating_w_m2": TURBINE.rated_power_mw * 1e6 / (3.141592653589793 * (TURBINE.rotor_diameter_m / 2) ** 2),
         "turbine": {"rated_mw": TURBINE.rated_power_mw, "rotor_m": TURBINE.rotor_diameter_m,
                     "hub_m": TURBINE.hub_height_m, "cut_in": TURBINE.cut_in_ms, "rated_ms": TURBINE.rated_ms,
                     "cut_out": TURBINE.cut_out_ms, "curve_id": POWER_CURVE_ID},
@@ -271,7 +276,7 @@ def main_tables(R: dict, D: dict) -> str:
         ["**Net specific yield (GWh MW⁻¹ yr⁻¹)**", f"**{f(ey['net']['gwh_per_mw'], '.3f')}**",
          "Model result (power curve, assumed losses)"],
         ["Net full-load hours (h yr⁻¹)", f(ey["net_full_load_hours"], "sp.0f"), "Model result"],
-        ["90 % sampling interval of the mean net yield (GWh MW⁻¹ yr⁻¹)",
+        ["90 % sampling confidence interval of the mean net yield (GWh MW⁻¹ yr⁻¹)",
          f"{rng(*t90['net_gwh_per_mw'], '.3f')} (±{f(t90['half_width_rel_pct'], '.1f')} %)",
          f"Sampling statistic (t, {ci['n_years']} annual values)"],
         ["Coefficient of variation of annual net yield (%)", f(var["annual_net_cf_cov_pct"], ".1f"),
@@ -289,7 +294,7 @@ def main_tables(R: dict, D: dict) -> str:
                    f"{f(ey['losses_nominal']['wake'], 'pct.0f')} %, availability "
                    f"{f(ey['losses_nominal']['availability'], 'pct.0f')} %, electrical "
                    f"{f(ey['losses_nominal']['electrical'], 'pct.0f')} % (assumptions, not layout-validated). "
-                   "The sampling interval is conditional on the reanalysis at this node; it is not a P90 "
+                   "The sampling confidence interval is conditional on the reanalysis at this node; it is not a P90 "
                    "value and not a total uncertainty. No value is validated against offshore "
                    "measurements.*\n")
 
@@ -312,16 +317,17 @@ def main_tables(R: dict, D: dict) -> str:
          f"2014–2024 comparison period: {f(p14['energy_change_vs_reference_pct'], '+.1f')} %; rolling 11-year "
          f"windows within 1994–2024: {f(rw['lowest_window_rel_to_primary_mean_pct'], '+.1f')} % to "
          f"{f(rw['highest_window_rel_to_primary_mean_pct'], '+.1f')} %",
-         "Same node and method; other reference periods"],
+         f"Same node and method; the 90 % sampling half-width of the mean of the 2014–2024 window is "
+         f"±{f(D['windows']['last_t90_half_width_pct'], '.1f')} %, about the size of the difference"],
         ["4", "Grid-node sensitivity", "Sensitivity experiment",
          f"Western neighbour {f(node['nodes']['W']['energy_rel_to_primary_node_pct'], '+.1f')} %; eastern "
          f"neighbour {f(node['nodes']['E']['energy_rel_to_primary_node_pct'], '+.1f')} %",
-         "Same period and method; neighbouring 0.25° cells; not averaged, not a bound"],
+         "Same period and method; neighbouring 0.25° output nodes; not averaged, not a bound"],
         ["5", "Wind-product discrepancy (ERA5 vs GWA 4.0)", "Inter-model disagreement",
          f"GWA/ERA5 mean-speed ratio {f(pvn['era5_1994-2024'], '.3f')} (ERA5 1994–2024) and "
-         f"{f(pvn['era5_2008-2017_period_matched'], '.3f')} (ERA5 2008–2017, period-matched)",
+         f"{f(pvn['era5_2008-2017_period_matched'], '.3f')} (ERA5 2008–2017, the GWA mesoscale period)",
          "Neither product validated offshore here; not a correction"],
-        ["6", "Loss-assumption sensitivity", "Labelled assumption scenarios",
+        ["6", "Loss-assumption sensitivity", "Alternative assumed loss factors (arithmetic)",
          f"Low losses {f(ls['low_loss']['rel_to_nominal_pct'], '+.1f')} %; high losses "
          f"{f(ls['high_loss']['rel_to_nominal_pct'], '+.1f')} %", "No site or layout evidence"],
     ]
@@ -333,7 +339,9 @@ def main_tables(R: dict, D: dict) -> str:
                           "Condition or meaning"], rows)
                  + "\n\n*Only category 1 is a probabilistic interval. Categories 3 to 6 are sensitivity "
                    "experiments, an inter-model comparison and assumption scenarios; they are not confidence "
-                   "intervals, and the six categories must not be added or merged into a single interval.*\n")
+                   "intervals, and the six categories must not be added or merged into a single interval. "
+                   "Category 3 partly overlaps category 1: a shorter record carries a larger sampling "
+                   "uncertainty.*\n")
 
     # ---- Table 3
     N = node["nodes"]
@@ -351,8 +359,8 @@ def main_tables(R: dict, D: dict) -> str:
         return f"{f(p['mean'], '+.1f')} (sd {f(p['sd'], '.1f')}; {f(p['min'], '+.1f')} to {f(p['max'], '+.1f')})"
 
     rows = [
-        row("ERA5 land–sea mask (land fraction of the cell)", lambda n: f(n["era5_land_sea_mask_fraction"], ".2f")),
-        row("Class from the land–sea mask", lambda n: n["classification_from_era5_land_sea_mask"].split(" (")[0]
+        row("ERA5 land–sea-mask value at the node (0.25° output grid)", lambda n: f(n["era5_land_sea_mask_fraction"], ".2f")),
+        row("Class from the land–sea-mask value", lambda n: n["classification_from_era5_land_sea_mask"].split(" (")[0]
             .replace(" in ERA5", "")),
         row("Inside the candidate polygon", lambda n: "yes" if n["inside_polygon"] else "no"),
         row("Distance to the polygon boundary (km)", lambda n: f(n["distance_to_polygon_boundary_km"], ".1f")),
@@ -392,7 +400,8 @@ def main_tables(R: dict, D: dict) -> str:
                      f"{f(P[k]['era5_U100_ms']['2008-2017'], '.2f')} (2008–2017)",
                      f(P[k]["ratio_gwa_box_sea_pixels_to_era5_period_matched"], ".3f")])
     parts.append("## Table 4. Mean wind speed at 100 m in ERA5 and in the Global Wind Atlas 4.0 (GWA; "
-                 "climatology for 2008–2017), with the reference period of each value.\n\n"
+                 "mesoscale simulation period 2008–2017; Hansen et al., 2025), with the reference period of "
+                 "each value.\n\n"
                  + table(["Comparison", "GWA 4.0, 2008–2017 (m s⁻¹)", "ERA5 (m s⁻¹; period)", "Ratio GWA / ERA5"],
                          rows)
                  + "\n\n*Disagreement between two models. GWA is itself driven by ERA5, neither product is "
@@ -454,7 +463,7 @@ def main_tables(R: dict, D: dict) -> str:
                           f"Illustrative {f(s3['installed_mw'], '.1f')} MW case, conditional (kt CO₂ yr⁻¹)"], rows)
                  + f"\n\n*Net energy of the illustrative case: {f(s3['net_energy_gwh_yr'], 'sp.0f')} GWh yr⁻¹ "
                    f"({rng(*s3['net_energy_gwh_yr_ci90_sampling'], 'sp.0f')}). Values in parentheses propagate "
-                   "only the sampling interval of the mean energy through a fixed 2023 factor. The conventions "
+                   "only the sampling confidence interval of the mean energy through a fixed 2023 factor. The conventions "
                    "are alternative accounting conventions, not bounds, and none is a forecast of the "
                    "generation that would physically be displaced. The illustrative case "
                    f"({s3['n_turbines']} × {f(TURBINE.rated_power_mw, '.1f')} MW) is conditional on a future "
@@ -550,7 +559,7 @@ def supplementary_tables(R: dict, D: dict) -> str:
         ["Annual mean-speed CoV (%)", f(wr["annual_mean_cov_pct"]["ddof1"], ".2f")],
         ["Lag-1 autocorrelation of annual capacity factors", f(var["lag1_autocorrelation"], "+.2f")],
     ]
-    parts.append("## Table S4. Sampling interval of the 1994–2024 mean net yield (GWh MW⁻¹ yr⁻¹) and "
+    parts.append("## Table S4. Sampling confidence interval of the 1994–2024 mean net yield (GWh MW⁻¹ yr⁻¹) and "
                  "interannual statistics.\n\n" + table(["Statistic", "Value"], rows) + "\n")
 
     # S5 periods
@@ -569,12 +578,16 @@ def supplementary_tables(R: dict, D: dict) -> str:
     rows = [[f"{int(r.start_year)}–{int(r.end_year)}", f(r.net_gwh_per_mw, ".3f"),
              f(r.rel_to_primary_mean_pct, "+.2f"), "yes" if r.within_primary_period else "no",
              "—" if pd.isna(r.rank_from_lowest_within_primary_period) else int(r.rank_from_lowest_within_primary_period),
-             int(r.rank_from_lowest_all_windows)] for r in roll.itertuples()]
+             int(r.rank_from_lowest_all_windows), f(r.t90_half_width_rel_pct, ".1f")]
+            for r in roll.itertuples()]
     parts.append("## Table S6. All rolling 11-year windows at the primary node, 1979–2024.\n\n"
                  + table(["Window", "Net yield (GWh MW⁻¹ yr⁻¹)", "Relative to the 1994–2024 mean (%)",
                           "Inside 1994–2024", "Rank from lowest, windows inside 1994–2024",
-                          "Rank from lowest, all windows"], rows)
-                 + "\n\n*Overlapping windows share years and are not independent samples.*\n")
+                          "Rank from lowest, all windows", "90 % sampling half-width of the window mean (%)"],
+                         rows)
+                 + "\n\n*Overlapping windows share years and are not independent samples. The last column is "
+                   "the sampling confidence interval of each window's own mean (t, 11 annual values); "
+                   "differences between windows of this size are compatible with sampling variability.*\n")
 
     # S7 Weibull
     w = R["weibull_crosscheck"]
@@ -631,7 +644,7 @@ def supplementary_tables(R: dict, D: dict) -> str:
              f(v["era5_U100_ms"]["1994-2024"], ".2f"), f(v["era5_U100_ms"]["2008-2017"], ".2f"),
              f(v["ratio_gwa_box_to_era5"]["era5_2008-2017_period_matched"], ".3f"),
              f(v["ratio_gwa_box_sea_pixels_to_era5_period_matched"], ".3f")] for v in P.values()]
-    parts.append("## Table S11. Global Wind Atlas 4.0 (2008–2017) and ERA5 mean wind speed at 100 m around "
+    parts.append("## Table S11. Global Wind Atlas 4.0 (mesoscale period 2008–2017) and ERA5 mean wind speed at 100 m around "
                  "each node (m s⁻¹).\n\n"
                  + table(["Node", "GWA node pixel", "GWA 0.25° box, all pixels", "GWA 0.25° box, sea pixels",
                           "ERA5 1994–2024", "ERA5 2008–2017", "Ratio box / ERA5 2008–2017",
@@ -652,8 +665,8 @@ def supplementary_tables(R: dict, D: dict) -> str:
     parts.append("## Table S12. Illustrative capacities (linear scaling of the per-MW results; no layout, "
                  "one wake value for all densities).\n\n"
                  + table(["Illustrative capacity", "MW", "Density (MW km⁻², full polygon)",
-                          "Net energy (GWh yr⁻¹; sampling interval)",
-                          "Combined-margin CO₂ accounting equivalent (kt yr⁻¹; sampling interval)",
+                          "Net energy (GWh yr⁻¹; sampling confidence interval)",
+                          "Combined-margin CO₂ accounting equivalent (kt yr⁻¹; sampling confidence interval)",
                           "Life-cycle GHG (kt CO₂-eq yr⁻¹; literature range)",
                           "Share of the 5 GW national 2035 offshore projection (%)",
                           f"Share of {cons['year']} national gross consumption (%)"], rows)

@@ -14,6 +14,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -149,8 +150,10 @@ def test_period_and_source_are_consistent_across_the_manuscript():
             continue
         if "2014–2024" in u:
             assert re.search(r"comparison|window|common|input check|historical", u, re.I), (n, u)
-    for bad in ("eleven years of hourly", "11-year mean", "2014–2024 mean", "ERA5 reanalysis (2014–2024)"):
+    for bad in ("eleven years of hourly", "2014–2024 mean", "ERA5 reanalysis (2014–2024)"):
         assert not offenders(re.escape(bad)), bad
+    for n, u in offenders(re.escape("11-year mean")):          # Phase 5D-1: only as sampling uncertainty of a window
+        assert re.search(r"sampling", u, re.I), (n, u)
 
 
 def test_headline_numbers_agree_in_every_section(builder):
@@ -158,15 +161,21 @@ def test_headline_numbers_agree_in_every_section(builder):
     ey, s = J("energy_yield.json"), J("interannual_and_sampling.json")
     node = J("node_sensitivity.json")["nodes"]
     lo, hi = s["sampling_ci_of_period_mean"]["primary_t_interval_90"]["net_gwh_per_mw"]
+    # Phase 5D-1: headline values are rounded in the Abstract and Conclusions ("about"), exact elsewhere
     y = f"{f(ey['net']['gwh_per_mw'], '.3f')} GWh MW⁻¹ yr⁻¹"
-    for n in ("00_abstract.md", "04_results.md", "05_discussion.md", "06_conclusion.md"):
+    for n in ("04_results.md", "05_discussion.md"):
         assert y in flat(n), n
+    y2 = f"about {f(ey['net']['gwh_per_mw'], '.2f')} GWh MW⁻¹ yr⁻¹"
+    for n in ("00_abstract.md", "06_conclusion.md"):
+        assert y2 in flat(n), n
     cf = f"{f(ey['net_cf'], 'pct.2f')} %"
-    for n in ("00_abstract.md", "04_results.md", "05_discussion.md"):
+    for n in ("04_results.md", "05_discussion.md"):
         assert cf in flat(n), n
+    assert f"about {f(ey['net_cf'], 'pct.0f')} %" in flat("00_abstract.md")
     ci = f"{f(lo, '.3f')}–{f(hi, '.3f')} GWh MW⁻¹ yr⁻¹"
-    for n in ("00_abstract.md", "04_results.md"):
-        assert ci in flat(n), n
+    assert ci in flat("04_results.md")
+    hw = s["sampling_ci_of_period_mean"]["primary_t_interval_90"]["half_width_rel_pct"]
+    assert f"±{f(hw, '.1f')} %" in flat("00_abstract.md")
     w, e = (f(node[k]["energy_rel_to_primary_node_pct"], "+.1f") + " %" for k in ("W", "E"))
     for n in ("00_abstract.md", "04_results.md", "05_discussion.md"):
         assert w in flat(n) and e in flat(n), n
@@ -288,20 +297,23 @@ def test_categories_are_kept_apart_everywhere():
     assert "They are not combined into a single interval" in flat("04_results.md")
     disc = flat("05_discussion.md")
     assert "## 5.5. Why the six categories are not combined" in read("05_discussion.md")
-    for phrase in ("Only the sampling interval has a probabilistic meaning", "they are not independent",
-                   "would count the same deficiency twice", "not exhaustive"):
+    for phrase in ("Only the sampling confidence interval has a probabilistic meaning", "they are not independent",
+                   "would count the same deficiency twice", "not exhaustive",
+                   "The period result partly overlaps category 1"):
         assert phrase in disc, phrase
     assert "instead of merging them into one interval" in flat("06_conclusion.md")
-    assert "sampling interval is the smallest of the reported categories" in disc
+    assert "sampling confidence interval of the 31-year mean is smaller than the node, product and loss effects" \
+        in disc
 
 
 def test_discussion_separates_findings_from_hypotheses():
     disc = flat("05_discussion.md")
     heads = re.findall(r"(?m)^## 5\.(\d)\.", read("05_discussion.md"))
     assert heads == [str(i) for i in range(1, 10)]
-    for phrase in ("What is demonstrated is the pattern", "Why the recent years are higher is not demonstrated",
+    for phrase in ("What is observed is a difference, not a demonstrated shift",
+                   "Whether the recent years reflect more than sampling variability is not demonstrated",
                    "This study has no means of separating the two", "It is a plausible hypothesis",
-                   "The hypothesis is not established here", "One observation is suggestive",
+                   "Neither is established here", "A genuine east–west gradient", "One observation is suggestive",
                    "It does not show which product is closer to the truth",
                    "Nor is the 1994–2024 mean a prediction", "is an assumption that this study cannot test",
                    "It does not show that the overlapping part is unavailable",
@@ -341,8 +353,8 @@ def test_abstract_scope_and_length():
     a = read("00_abstract.md").split("## Abstract", 1)[1].split("**Keywords:**")[0]
     words = len(a.split())
     assert 200 <= words <= 320, words
-    for phrase in ("candidate areas", "ERA5", "1994–2024", "hour by hour", "sampling interval", "11-year windows",
-                   "neighbouring ERA5 nodes", "Global Wind Atlas", "No result is validated", "should be reported"):
+    for phrase in ("candidate areas", "ERA5", "1994–2024", "hour by hour", "sampling confidence interval", "11-year",
+                   "neighbouring ERA5 output nodes", "Global Wind Atlas", "No result is validated", "should be reported"):
         assert phrase in " ".join(a.split()), phrase
     assert not re.search(r"MWe|tender|scenario", a)
 
@@ -488,26 +500,33 @@ def tables_in_5b1_order(text: str, remap: bool = True) -> str:
     return head + "".join(sorted(blocks, key=lambda b: int(b[9])))
 
 
-def test_sections_2_to_4_and_tables_are_scientifically_unchanged():
-    old = {n: _git_show(f"manuscript/src/{n}") for n in ("02_study_area.md", "03_methodology.md", "04_results.md")}
-    if any(v is None for v in old.values()):
+def _numbers(text: str) -> list[str]:
+    body = re.sub(r"(?m)^## Table [S\d]+\..*$", "", text)                 # table titles carry labels only
+    return sorted(t.strip() for t in re.findall(r"[−+-]?\d[\d  ]*(?:\.\d+)?", body))
+
+
+def test_table_numbers_are_unchanged_since_phase_5b1():
+    """Phase 5D-1 changed wording, labels and citations, never a tabulated value.
+    Main tables: the multiset of numbers equals that of Phase 5B-1 (the tables were renumbered
+    in Phase 5C-2 and labels reworded in 5D-1). Supplementary tables: equal apart from the added
+    column of window half-widths in Table S6, which comes from rolling_11yr_windows.csv."""
+    old_main = _git_show("manuscript/tables.md")
+    old_sup = _git_show("manuscript/supplementary_tables.md")
+    if old_main is None or old_sup is None:
         pytest.skip("git history not available")
-    assert strip_callouts((SRC / "02_study_area.md").read_text()) == old["02_study_area.md"]
-    assert strip_callouts((SRC / "04_results.md").read_text()) == old["04_results.md"]
-    assert CALLOUT.findall((SRC / "02_study_area.md").read_text())         # the call-outs are really there
-    assert CALLOUT.findall((SRC / "04_results.md").read_text())
-    # one citation was given its year; nothing else changed
-    assert strip_callouts((SRC / "03_methodology.md").read_text()) == old["03_methodology.md"].replace(
-        "(UNFCCC, Tool 07)", "(UNFCCC, 2018)")
-    assert len(SUPP_CALLOUT.findall((SRC / "03_methodology.md").read_text())) == 3
-    old_tables = _git_show("manuscript/tables.md")
-    assert tables_in_5b1_order(read("tables.md")).rstrip("\n") == tables_in_5b1_order(old_tables, remap=False).rstrip("\n")
-    assert [int(n) for n in re.findall(r"(?m)^## Table (\d)\.", read("tables.md"))] == [1, 2, 3, 4, 5, 6]
-    sup_old = _git_show("manuscript/supplementary_tables.md")
-    sup_old = sup_old.replace("minus exports).", "minus exports; TEDAŞ, 2025).")
-    for k in ("minimum", "median", "maximum"):
-        sup_old = sup_old.replace(f"| IPCC AR5 Annex III, {k} |", f"| IPCC AR5 Annex III (Schlömer et al., 2014), {k} |")
-    assert read("supplementary_tables.md") == sup_old
+    strip_num = lambda t: re.sub(r"\bTable [S]?\d+\b", "", t)            # noqa: E731
+    new_main = re.sub(r"Category 3 partly overlaps category 1.*?uncertainty\.", "", read("tables.md"))
+    new_main = re.sub(r"the 90 % sampling half-width of the mean of the 2014–2024 window is ±\d\.\d %", "", new_main)
+    new_main = new_main.replace("(0.25° output grid)", "").replace("Hansen et al., 2025", "")   # labels
+    assert _numbers(strip_num(new_main)) == _numbers(strip_num(old_main))
+    roll = pd.read_csv(REV / "rolling_11yr_windows.csv")
+    extra = [f"{v:.1f}" for v in roll["t90_half_width_rel_pct"]]
+    new_sup = read("supplementary_tables.md").replace(" (Schlömer et al., 2014)", "").replace("; TEDAŞ, 2025", "")  # 5B-2 citations
+    got = _numbers(strip_num(new_sup))
+    for e in extra + ["90", "11"]:
+        got.remove(e)
+    want = _numbers(strip_num(old_sup.replace("(2008–2017)", "(mesoscale period 2008–2017)")))
+    assert got == want
 
 
 def test_numerical_results_are_untouched():

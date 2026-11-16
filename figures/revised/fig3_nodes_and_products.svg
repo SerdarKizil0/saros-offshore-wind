@@ -221,7 +221,7 @@ z
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(59.34659 62.331183)">+6.7 %</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #555b63" transform="translate(50.16948 170.786656)">land fraction</text>
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #555b63" transform="translate(46.338074 170.786656)">land–sea mask</text>
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #555b63" transform="translate(64.490496 178.774859)">0.12</text>
    </g>
    <g id="node_C">
@@ -242,7 +242,7 @@ z
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(123.147757 93.588735)">primary node</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #555b63" transform="translate(124.578929 170.786656)">land fraction</text>
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #555b63" transform="translate(120.747523 170.786656)">land–sea mask</text>
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #555b63" transform="translate(138.899945 178.774859)">0.44</text>
    </g>
    <g id="node_E">
@@ -255,7 +255,7 @@ z
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #1f2328" transform="translate(208.165487 134.662255)">−8.5 %</text>
    </g>
    <g id="text_14">
-    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #555b63" transform="translate(198.988378 170.786656)">land fraction</text>
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #555b63" transform="translate(195.156972 170.786656)">land–sea mask</text>
     <text style="font-size: 7px; font-family: 'DejaVu Sans'; fill: #555b63" transform="translate(213.309393 178.774859)">0.46</text>
    </g>
   </g>
@@ -518,7 +518,7 @@ z
     </g>
    </g>
    <g id="text_31">
-    <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f2328" x="310.185827" y="222.048587" transform="rotate(-0 310.185827 222.048587)">GWA 4.0, sea pixels of the node's 0.25° cell, 2008–2017</text>
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f2328" x="310.185827" y="222.048587" transform="rotate(-0 310.185827 222.048587)">GWA 4.0, sea pixels, 0.25° box at node, 2008–2017</text>
    </g>
    <g id="line2d_27">
     <path d="M 293.385827 229.399134 
@@ -549,7 +549,7 @@ L 55.119685 219.598587
 " style="fill: none; stroke-dasharray: 0.5,1; stroke-dashoffset: 0; stroke: #555b63; stroke-width: 0.5"/>
    </g>
    <g id="text_34">
-    <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f2328" x="59.319685" y="222.048587" transform="rotate(-0 59.319685 222.048587)">Boundary between 0.25° ERA5 cells</text>
+    <text style="font-size: 7px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #1f2328" x="59.319685" y="222.048587" transform="rotate(-0 59.319685 222.048587)">Boundary between nearest-node areas</text>
    </g>
   </g>
  </g>

@@ -2,10 +2,10 @@
 
 # References
 
-- Aksoy, M.E., Meghraoui, M., Polonia, A., Çağatay, M., Yavuzoğlu, A., Önder,
-  Ş., Ülgen, U., Gasperini, L. (2022). Subaqueous fault scarps of the North
-  Anatolian Fault in the Gulf of Saros (NE Aegean); where is the western limit
-  of the 1912 Mürefte-Şarköy earthquake rupture? *Geophysical Journal
+- Aksoy, M.E., Meghraoui, M., Polonia, A., Çağatay, M.N., Yavuzoğlu, A.Z.,
+  Önder, Ş., Ülgen, U.B., Gasperini, L. (2022). Subaqueous fault scarps of the
+  North Anatolian Fault in the Gulf of Saros (NE Aegean); where is the western
+  limit of the 1912 Mürefte-Şarköy earthquake rupture? *Geophysical Journal
   International*, 229(1), 589–604. doi:10.1093/gji/ggab462
 - Argin, M., Yerci, V., Erdogan, N., Kucuksari, S., Cali, U. (2019). Exploring
   the offshore wind energy potential of Turkey based on multi-criteria site
@@ -17,18 +17,18 @@
 - Cali, U., Erdogan, N., Kucuksari, S., Argin, M. (2018). Techno-economic
   analysis of high potential offshore wind farm locations in Turkey. *Energy
   Strategy Reviews*, 22, 325–336. doi:10.1016/j.esr.2018.10.007
-- Davis, N., Badger, J., Hahmann, A., Hansen, B., Mortensen, N., Kelly, M., et
-  al. (2023). The Global Wind Atlas: a high-resolution dataset of
-  climatologies and associated web-based application. *Bulletin of the
+- Davis, N.N., Badger, J., Hahmann, A.N., Hansen, B.O., Mortensen, N.G.,
+  Kelly, M., et al. (2023). The Global Wind Atlas: a high-resolution dataset
+  of climatologies and associated web-based application. *Bulletin of the
   American Meteorological Society*, 104(8), E1507–E1525.
   doi:10.1175/BAMS-D-21-0075.1
 - Demirci, H.E., Tekince, Ö., Sezer, A., Bhattacharya, S. (2026). A
   comprehensive review of potential locations, foundation design, and seismic
   considerations for installation of offshore wind farms in Türkiye. *IET
   Renewable Power Generation*, 20(1), e70241. doi:10.1049/rpg2.70241
-- Dörenkämper, M., Olsen, B., Witha, B., Hahmann, A., Davis, N., Barcons, J.,
-  et al. (2020). The making of the New European Wind Atlas – Part 2:
-  production and evaluation. *Geoscientific Model Development*, 13(10),
+- Dörenkämper, M., Olsen, B.T., Witha, B., Hahmann, A.N., Davis, N.N.,
+  Barcons, J., et al. (2020). The making of the New European Wind Atlas – Part
+  2: production and evaluation. *Geoscientific Model Development*, 13(10),
   5079–5102. doi:10.5194/gmd-13-5079-2020
 - Duzcan, A., Kara, Y.A. (2023). Offshore wind energy potential analysis of
   Turkish Marmara and Aegean seas. *International Journal of Environmental
@@ -45,7 +45,7 @@
   doi:10.21278/brod75204
 - Gandoin, R., Garza, J. (2024). Underestimation of strong wind speeds
   offshore in ERA5: evidence, discussion and correction. *Wind Energy
-  Science*, 9, 1727–1745. doi:10.5194/wes-9-1727-2024
+  Science*, 9(8), 1727–1745. doi:10.5194/wes-9-1727-2024
 - Genç, M.S., Karipoğlu, F., Koca, K., Azgın, Ş.T. (2021). Suitable site
   selection for offshore wind farms in Turkey's seas: GIS-MCDM based approach.
   *Earth Science Informatics*, 14(3), 1213–1225.
@@ -57,14 +57,19 @@
 - Gualtieri, G. (2021). Reliability of ERA5 reanalysis data for wind resource
   assessment: a comparison against tall towers. *Energies*, 14(14), 4169.
   doi:10.3390/en14144169
+- Hansen, B.O., Floors, R., Badger, J. (2025). *Global Wind Atlas 4 –
+  Validation: Bangladesh, Ethiopia, Maldives, Pakistan, Papua New Guinea,
+  Vietnam and Zambia*. DTU Wind Energy E-0256. DTU Wind and Energy Systems,
+  Technical University of Denmark.
+  https://backend.orbit.dtu.dk/ws/portalfiles/portal/400877326/DTU_Wind_Energy_Report-E-0256.pdf
 - Hersbach, H., Bell, B., Berrisford, P., Hirahara, S., Horányi, A.,
   Muñoz-Sabater, J., et al. (2020). The ERA5 global reanalysis. *Quarterly
   Journal of the Royal Meteorological Society*, 146(730), 1999–2049.
   doi:10.1002/qj.3803
-- Kalverla, P., Holtslag, A., Ronda, R., Steeneveld, G. (2020). Quality of
-  wind characteristics in recent wind atlases over the North Sea. *Quarterly
-  Journal of the Royal Meteorological Society*, 146(728), 1498–1515.
-  doi:10.1002/qj.3748
+- Kalverla, P.C., Holtslag, A.A.M., Ronda, R.J., Steeneveld, G.-J. (2020).
+  Quality of wind characteristics in recent wind atlases over the North Sea.
+  *Quarterly Journal of the Royal Meteorological Society*, 146(728),
+  1498–1515. doi:10.1002/qj.3748
 - Koukouvelas, I.K., Aydin, A. (2002). Fault structure and related basins of
   the North Aegean Sea and its surroundings. *Tectonics*, 21(5).
   doi:10.1029/2001TC901037
@@ -96,10 +101,11 @@
 - Özbek, M., Tunç, K. (2021). Feasibility of offshore wind energy in Turkey; a
   case study for Gulf of Edremit at the Aegean Sea. *Gazi University Journal
   of Science*, 34(2), 423–437. doi:10.35378/gujs.734895
-- Ramon, J., Lledó, L., Torralba, V., Soret, A., Doblas-Reyes, F. (2019). What
-  global reanalysis best represents near-surface winds? *Quarterly Journal of
-  the Royal Meteorological Society*, 145(724), 3236–3251. doi:10.1002/qj.3616
-- Rubio, H., Hatfield, D., Hasager, C., Kühn, M., Gottschall, J. (2025).
+- Ramon, J., Lledó, L., Torralba, V., Soret, A., Doblas-Reyes, F.J. (2019).
+  What global reanalysis best represents near-surface winds? *Quarterly
+  Journal of the Royal Meteorological Society*, 145(724), 3236–3251.
+  doi:10.1002/qj.3616
+- Rubio, H., Hatfield, D., Hasager, C.B., Kühn, M., Gottschall, J. (2025).
   Ship-based lidar measurements for validating ASCAT-derived and ERA5 offshore
   wind profiles. *Atmospheric Measurement Techniques*, 18(19), 4949–4968.
   doi:10.5194/amt-18-4949-2025
@@ -131,5 +137,5 @@
 - Yildirim, A. (2023). The technical and economical feasibility study of
   offshore wind farms in Turkey. *Clean Technologies and Environmental
   Policy*, 25(1), 125–142. doi:10.1007/s10098-022-02392-0
-- Zippenfenig, P. (2023). Open-Meteo.com Weather API. Zenodo.
+- Zippenfenig, P. (2024). Open-Meteo.com Weather API (version 1.4.0). Zenodo.
   doi:10.5281/zenodo.7970649
