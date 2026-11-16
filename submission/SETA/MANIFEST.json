@@ -1,0 +1,74 @@
+{
+ "journal": "Sustainable Energy Technologies and Assessments (Elsevier, ISSN 2213-1388)",
+ "abstract_words": 248,
+ "highlights": [
+  "Long-term ERA5 yield estimate for the Gulf of Saros offshore wind candidate area",
+  "Neighbouring ERA5 nodes shift the yield by several times its sampling uncertainty",
+  "Global Wind Atlas and ERA5 disagree on the mean wind speed at the candidate area",
+  "A recent decade is too short to stand for the long-term mean at this node",
+  "Reference period, grid node and wind product should be reported and tested"
+ ],
+ "files": [
+  {
+   "role": "Manuscript (editable)",
+   "path": "manuscript/output/Saros_Offshore_Wind_Master.docx",
+   "bytes": 4049505,
+   "sha256": "0fa2056276a8082d5e446607ba3e0fb7f2154b9f9ae9ab08734e2cc243fc8dbd"
+  },
+  {
+   "role": "Manuscript (PDF for reference)",
+   "path": "manuscript/output/Saros_Offshore_Wind_Master.pdf",
+   "bytes": 3934686,
+   "sha256": "2a543b453b52d20d09ee1fa54481e1d22b5cdd316526d19449a045f2f8a3c2b7"
+  },
+  {
+   "role": "Supplementary material (editable)",
+   "path": "manuscript/output/Saros_Supplementary_Material.docx",
+   "bytes": 20129,
+   "sha256": "c0b7e841913307580a9fafe2e0450dad0d2f79480a5431b443be8046c30104e8"
+  },
+  {
+   "role": "Supplementary material (PDF)",
+   "path": "manuscript/output/Saros_Supplementary_Material.pdf",
+   "bytes": 88717,
+   "sha256": "6e58e674bca7ab498db2406c86f2102c76d3adf1443fe9cce8952057a7e478f1"
+  },
+  {
+   "role": "Figure 1",
+   "path": "figures/revised/fig1_site_map.pdf",
+   "bytes": 642694,
+   "sha256": "282232d9dd258b92dd380c32883e76a55be7362d71be2b327b318e9d425de413"
+  },
+  {
+   "role": "Figure 2",
+   "path": "figures/revised/fig2_temporal_sensitivity.pdf",
+   "bytes": 27972,
+   "sha256": "5e2c9f549fe66030d414db30f7c0fd41f1183d9b80731179907cccd4a7ea5675"
+  },
+  {
+   "role": "Figure 3",
+   "path": "figures/revised/fig3_nodes_and_products.pdf",
+   "bytes": 26545,
+   "sha256": "75e321960794e04640909002bc7c57ec6db4f83261f214d58cc398e59883271d"
+  },
+  {
+   "role": "Figure 4",
+   "path": "figures/revised/fig4_sensitivity_categories.pdf",
+   "bytes": 31163,
+   "sha256": "a76abe3942fec10ad1607498e0a89cdf3aa1d55a3ef5c9f0a92bd8b6c2982091"
+  },
+  {
+   "role": "Highlights",
+   "path": "submission/SETA/Highlights.docx",
+   "bytes": 10133,
+   "sha256": "7b57708a8c0c40645d6492df285e9af25135ed1504f3b866a73ed14de1749dcd"
+  },
+  {
+   "role": "Cover letter (draft; author placeholders)",
+   "path": "submission/SETA/Cover_letter_DRAFT.docx",
+   "bytes": 11077,
+   "sha256": "4f8e6ebc96c655067f087466dbe3562b3fbfba1869b05c1ddcaaa523a34bc030"
+  }
+ ],
+ "excluded_pattern": "Yield Figure|figures/F[^/]*$|figures_final/|manuscript/figure\\d|results/archive|2014_2024_cds|wind_resource_interactive"
+}

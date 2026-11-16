@@ -107,11 +107,12 @@ the ERA5 land–sea mask indicates least land influence and largest at the
 primary node. This is what would be expected if the coarse reanalysis were
 affected by land near the coast. It is equally compatible with errors in the downscaling near
 the coast. The comparison is therefore reported as a discrepancy. The primary estimate is not scaled towards the atlas, because doing so would
-replace one unverified level by another. Assessments that rest on the atlas
-alone, such as the feasibility assessment of a Saros region by Yildirim
-(2023), inherit this unresolved difference in level; the comparison made
-here does not show whether such estimates are too high or the reanalysis
-too low.
+replace one unverified level by another. Assessments that rest on a single wind product, including atlas-based
+assessments such as the feasibility assessment of a Saros region by
+Yildirim (2023), therefore remain subject to an unresolved wind-product
+uncertainty. The size of the difference found here applies to the 2026
+polygon and the nodes examined; it is not transferable to other study areas,
+heights or assumptions.
 
 ## 5.5. Why the six categories are not combined
 

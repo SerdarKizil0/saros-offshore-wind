@@ -1,6 +1,6 @@
 # Remaining submission items (after Phase 5D-1, manuscript frozen)
 
-*16 November 2026 (B1 and B2 updated after the post-freeze literature correction). This list replaces `PHASE5C2_SUBMISSION_CHECKLIST.md` as the working
+*16 November 2026 (B1 and B2 updated after the post-freeze literature correction; journal-specific items for Sustainable Energy Technologies and Assessments are in `submission/SETA/README.md`). This list replaces `PHASE5C2_SUBMISSION_CHECKLIST.md` as the working
 list; the earlier file is kept as a record. The scientific manuscript is **frozen** (see
 `PHASE5D1_FINAL_REVISION_REPORT.md` §8). The items below are author actions, external
 sources or formatting choices. None requires a new analysis. "Text change" says whether

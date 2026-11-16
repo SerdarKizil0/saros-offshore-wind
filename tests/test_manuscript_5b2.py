@@ -353,7 +353,7 @@ def test_co2_is_an_accounting_equivalent_everywhere():
 def test_abstract_scope_and_length():
     a = read("00_abstract.md").split("## Abstract", 1)[1].split("**Keywords:**")[0]
     words = len(a.split())
-    assert 200 <= words <= 320, words
+    assert 200 <= words <= 250, words                   # SETA guide for authors: abstract of at most 250 words
     for phrase in ("candidate areas", "ERA5", "1994–2024", "hour by hour", "sampling confidence interval", "11-year",
                    "neighbouring ERA5 output nodes", "Global Wind Atlas", "No result is validated", "should be reported"):
         assert phrase in " ".join(a.split()), phrase
@@ -384,7 +384,10 @@ def test_yildirim_is_discussed_within_the_verified_limits():
     for bad in (r"capacity factor of", r"GWh", r"MW\b", r"higher than|lower than", r"\bdo not overlap\b"):
         assert not re.search(bad, block), bad
     disc = flat("05_discussion.md")
-    assert "such as the feasibility assessment of a Saros region by Yildirim (2023), inherit this unresolved difference" in disc
+    assert ("atlas-based assessments such as the feasibility assessment of a Saros region by Yildirim (2023), "
+            "therefore remain subject to an unresolved wind-product uncertainty") in disc
+    assert "it is not transferable to other study areas, heights or assumptions" in disc
+    assert "inherit this unresolved difference" not in disc
     row = next(r for r in csv.DictReader(REGISTER.open(encoding="utf-8")) if r["key"] == "yildirim2023")
     assert row["status"] == "V-FT" and "367.62" in row["note"] and "FULL TEXT NOT ACCESSED" not in row["note"]
 
